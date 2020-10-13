@@ -1,8 +1,21 @@
 import React, { FunctionComponent } from 'react';
 import { createUseStyles } from 'react-jss';
 
+/**
+ * For now making sure that diabled state matches with the disabled styles is 
+ * left to the parent. It is probably best to change that in the future.
+ */
+
+
+export enum ButtonType {
+    NORMAL = 'NORMAL',
+    GREEN = 'GREEN',
+    RED = 'RED',
+    NAKED = 'NAKED',
+}
+
 type WMButtonProps = {
-    buttonType?: string,
+    buttonType?: ButtonType,
     text: string,
     onClick: () => void,
     disabled?: boolean,
@@ -53,7 +66,7 @@ const useStyles = createUseStyles({
 });
 
 export const WMButton: FunctionComponent<WMButtonProps> = ({
-    buttonType = 'normal', 
+    buttonType = ButtonType.NORMAL, 
     text,
     onClick,
     disabled = false
@@ -62,30 +75,24 @@ export const WMButton: FunctionComponent<WMButtonProps> = ({
     let buttonClass: string;
     
     switch (buttonType) {
-        case 'green':
+        case ButtonType.GREEN:
             buttonClass = classes.greenButton;
             break;
-        case 'red': 
+        case ButtonType.RED: 
             buttonClass = classes.redButton;
             break;
-        case 'normal': 
+        case ButtonType.NORMAL: 
             buttonClass = classes.normalButton;
             break;
-        case 'naked': 
+        case ButtonType.NAKED: 
             buttonClass = classes.nakedButton;
-            break;
-        case 'disabled':
-            buttonClass = classes.disabledButton;
-            break;
-        case 'naked-disabled':
-            buttonClass = classes.nakedDisabledButton;
             break;
         default:
             buttonClass = classes.normalButton;
     }
     if (disabled) {
         buttonClass = classes.disabledButton;
-        if (buttonType === 'naked') buttonClass = classes.nakedDisabledButton;
+        if (buttonType === ButtonType.NAKED) buttonClass = classes.nakedDisabledButton;
     }
 
     return (

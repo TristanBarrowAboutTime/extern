@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders learn react link 1`] = `
+<div>
+  <div
+    class="container-0-2-1"
+  >
+    <div
+      class="container-0-2-2"
+    >
+      <div
+        class="header-0-2-3"
+      >
+        <div
+          class="displayName-0-2-4"
+        >
+          Folders
+        </div>
+        <div>
+          <button
+            class="greenButton-0-2-7"
+          >
+            New Folder
+          </button>
+          <button
+            class="nakedButton-0-2-10"
+          >
+            Reorder
+          </button>
+        </div>
+      </div>
+      <div
+        class="searchBar-0-2-5"
+      >
+        Search
+      </div>
+      <div
+        class="body-0-2-6"
+      >
+        bob
+        mary
+        mark
+        fredrico sancheze the fifth
+      </div>
+    </div>
+    <div>
+      folders view
+    </div>
+  </div>
+</div>
+`;

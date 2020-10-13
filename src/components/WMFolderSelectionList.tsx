@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { createUseStyles } from 'react-jss'; 
 import { isTemplateExpression } from 'typescript';
-import WMButton from './atomic-components/WMButton';
+import WMButton, { ButtonType } from './atomic-components/WMButton';
 
 const strings = {
     displayName: 'Folders',
@@ -71,12 +71,12 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = () => {
                 <div className={classes.displayName}>{strings.displayName}</div>
                 <div>
                     <WMButton
-                        buttonType='green'
+                        buttonType={ButtonType.GREEN}
                         text={"New Folder"}
                         onClick={() => { console.log('clicked')}}
                     />
                     <WMButton
-                        buttonType='naked'
+                        buttonType={ButtonType.NAKED}
                         text={"Reorder"}
                         onClick={() => { console.log('clicked')}}
                     />

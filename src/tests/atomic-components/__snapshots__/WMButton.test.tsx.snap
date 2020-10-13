@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Displays Correctly Green buttons display disabled 1`] = `
+<div>
+  <button
+    class="disabledButton-0-2-5"
+    disabled=""
+  >
+    Button
+  </button>
+</div>
+`;
+
+exports[`Button Displays Correctly Green buttons match snapshots 1`] = `
+<div>
+  <button
+    class="greenButton-0-2-1"
+  >
+    Button
+  </button>
+</div>
+`;
+
+exports[`Button Displays Correctly Naked buttons display disabled 1`] = `
+<div>
+  <button
+    class="nakedDisabledButton-0-2-6"
+    disabled=""
+  >
+    Button
+  </button>
+</div>
+`;
+
+exports[`Button Displays Correctly Naked buttons match snapshots 1`] = `
+<div>
+  <button
+    class="nakedButton-0-2-4"
+  >
+    Button
+  </button>
+</div>
+`;
+
+exports[`Button Displays Correctly Normal buttons display disabled 1`] = `
+<div>
+  <button
+    class="disabledButton-0-2-5"
+    disabled=""
+  >
+    Button
+  </button>
+</div>
+`;
+
+exports[`Button Displays Correctly Normal buttons match snapshots 1`] = `
+<div>
+  <button
+    class="normalButton-0-2-3"
+  >
+    Button
+  </button>
+</div>
+`;
+
+exports[`Button Displays Correctly Red buttons display disabled 1`] = `
+<div>
+  <button
+    class="disabledButton-0-2-5"
+    disabled=""
+  >
+    Button
+  </button>
+</div>
+`;
+
+exports[`Button Displays Correctly Red buttons match snapshots 1`] = `
+<div>
+  <button
+    class="redButton-0-2-2"
+  >
+    Button
+  </button>
+</div>
+`;
+
+exports[`Button Displays Correctly that button displays with minimal props 1`] = `
+<div>
+  <button
+    class="normalButton-0-2-3"
+  >
+    Button
+  </button>
+</div>
+`;
