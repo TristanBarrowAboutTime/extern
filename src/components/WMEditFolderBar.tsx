@@ -8,14 +8,14 @@ type WMEditFolderBarProps = {
     onCancel: () => void,
 
 }
-
+// input should probably be broken out into its own component.
 const WMEditFolderBar = ({
     initial,
     onAccept,
     onCancel
 }: WMEditFolderBarProps) => {
     const classes = useStyles();
-    const { value, setValue, bind:bindTextInput } = useTextInput(initial);
+    const { value, bind:bindTextInput } = useTextInput(initial);
     return (
     <div className={classes.container}>
         <input className={classes.input} {...bindTextInput}></input>
@@ -31,7 +31,8 @@ const useStyles = createUseStyles({
         height: 20,
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexGrow: 1
     },
     input: {
         top: 0,
@@ -40,8 +41,8 @@ const useStyles = createUseStyles({
         },
         marginLeft:28,
         fontSize: 16,
-        width: 'calc(100% - 96px)',
         height: 19,
+        flexGrow: 1,
         boxSizing: 'boarder-box',
         border: {
             width: 1,

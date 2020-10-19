@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useRef, useEffect, MutableRefObject } from 'react';
+import React, { FunctionComponent, useState, useRef, MutableRefObject } from 'react';
 import { createUseStyles } from 'react-jss'; 
 import { useTextInput } from '../hooks/useTextInput';
 import WMButton, { ButtonType } from './atomic-components/WMButton';
@@ -22,6 +22,104 @@ type FolderSelectionListProps = {
     addNewFolder: (folderName: string) => void
 }
 
+const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
+    folders,
+    selectFolder,
+    isEditable,
+    selectedFolder,
+    setEditableTo,
+    renameFolder,
+    addNewFolder,
+}: FolderSelectionListProps) => {
+
+    const classes = useStyles();
+    const [reordering, setReorderingTo] = useState(false);
+    const [addingNewFolder, setAddingNewFolderTo] = useState(false);
+    const { value:searchValue, bind:bindSearchBar } = useTextInput('');
+    
+    const bottomRef = useRef() as MutableRefObject<HTMLDivElement>;
+    
+    const setToNormal = () => {
+        setReorderingTo(false);
+        setAddingNewFolderTo(false);
+        setEditableTo(true);
+    }
+    const setToReordering = () => {
+        setReorderingTo(true);
+        setAddingNewFolderTo(false);
+    }
+    const setToAddingNewFolder = () => {
+        setReorderingTo(false);
+        setAddingNewFolderTo(true);
+        setEditableTo(false);
+        bottomRef.current.scrollIntoView({behavior: 'smooth'})
+    }
+
+    return (
+        <div className={classes.container}>
+            <div className={classes.header}>
+                <div className={classes.displayName}>
+                    {strings.displayName}
+                </div>
+                <div>
+                    <WMButton
+                        buttonType={ButtonType.SMALL_GREEN}
+                        text={"New Folder"}
+                        disabled={reordering && addingNewFolder}
+                        onClick={setToAddingNewFolder}
+                    />
+                    <WMButton
+                        buttonType={ButtonType.NAKED}
+                        text={"Reorder"}
+                        disabled={reordering && addingNewFolder}
+                        onClick={setToReordering}
+                    />
+                </div>
+            </div>
+            <input 
+                className={classes.searchBar} 
+                placeholder={"Search"} 
+                {...bindSearchBar}
+            />
+            <div className={classes.body}>
+                <div className={classes.scrollBody}>
+                    {folders.map((folder) => {
+                        if (folder.name.toLowerCase().includes(searchValue.toLowerCase())) {
+                            return (
+                                <WMFolderListItem 
+                                    key={folder.name}
+                                    setSelectedFolder={selectFolder}
+                                    folder={folder}
+                                    isEditable={isEditable}
+                                    isSelected={selectedFolder.name === folder.name}
+                                    reordering={false}
+                                    setEditableTo={setEditableTo}
+                                    renameFolder={renameFolder}
+                                    onDelete={() => {}}
+                                />
+                            );
+                        }
+                        return null;
+                    })}
+                    {addingNewFolder && (
+                        <div className={classes.newFolderInput}>
+                            <WMEditFolderBar
+                                initial=''
+                                onAccept={(value) => {
+                                    addNewFolder(value);
+                                    setToNormal(); 
+                                }}
+                                onCancel={setToNormal}
+                            />
+                        </div>
+                    )}
+                    <div style={{height: '22px'}} ref={bottomRef} />
+                </div>
+            </div>
+        </div>
+    );
+}
+
 const useStyles = createUseStyles({
     container: {
         padding: {
@@ -30,6 +128,7 @@ const useStyles = createUseStyles({
             left: 0,
             right: 0
         },
+        maxWidth: 377,
         borderRadius: 4,
         margin: '40px',
         height: '75vh',
@@ -54,7 +153,6 @@ const useStyles = createUseStyles({
     displayName: {
         color: '#4D4D4D',
         'font-size': '24px'
-
     },
     searchBar: {
         margin: {
@@ -98,94 +196,10 @@ const useStyles = createUseStyles({
     },
     scrollBody: {
 
+    },
+    newFolderInput: {
+        marginRight: 32
     }
 });
-
-const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({ 
-    folders,
-    selectFolder,
-    isEditable,
-    selectedFolder,
-    setEditableTo,
-    renameFolder,
-    addNewFolder,
-}: FolderSelectionListProps) => {
-
-    const classes = useStyles();
-    const [reordering, setReorderingTo] = useState(false);
-    const [addingNewFolder, setAddingNewFolderTo] = useState(false);
-    const { value:searchValue, bind:bindSearchBar, setValue } = useTextInput('');
-    
-    const bottomRef = useRef() as MutableRefObject<HTMLDivElement>;
-    
-    const setToNormal = () => {
-        setReorderingTo(false);
-        setAddingNewFolderTo(false);
-        setEditableTo(true);
-    }
-    const setToReordering = () => {
-        setReorderingTo(true);
-        setAddingNewFolderTo(false);
-    }
-    const setToAddingNewFolder = () => {
-        setReorderingTo(false);
-        setAddingNewFolderTo(true);
-        setEditableTo(false);
-        bottomRef.current.scrollIntoView({behavior: 'smooth'})
-    }
-
-    return (
-        <div className={classes.container}>
-            <div className={classes.header}>
-                <div className={classes.displayName}>{strings.displayName}</div>
-                <div>
-                    <WMButton
-                        buttonType={ButtonType.SMALL_GREEN}
-                        text={"New Folder"}
-                        disabled={reordering && addingNewFolder}
-                        onClick={setToAddingNewFolder}
-                    />
-                    <WMButton
-                        buttonType={ButtonType.NAKED}
-                        text={"Reorder"}
-                        disabled={reordering && addingNewFolder}
-                        onClick={setToReordering}
-                    />
-                </div>
-            </div>
-            <input className={classes.searchBar} placeholder={"Search"} {...bindSearchBar}></input>
-            <div className={classes.body}>
-                <div className={classes.scrollBody}>
-                    {folders.map((folder) => {
-                        if (folder.name.toLowerCase().includes(searchValue.toLowerCase())) {
-                            return (
-                                <WMFolderListItem 
-                                    setSelectedFolder={selectFolder}
-                                    folder={folder}
-                                    isEditable={isEditable}
-                                    isSelected={selectedFolder.name === folder.name}
-                                    setEditableTo={setEditableTo}
-                                    renameFolder={renameFolder}
-                                />
-                            );
-                        }
-                        return null;
-                    })}
-                    {addingNewFolder && (
-                        <WMEditFolderBar 
-                            initial=''
-                            onAccept={(value) => {
-                                addNewFolder(value);
-                                setToNormal(); 
-                            }}
-                            onCancel={setToNormal}
-                        />
-                    )}
-                    <div style={{height: '20px'}} ref={bottomRef} />
-                </div>
-            </div>
-        </div>
-    );
-}
 
 export default FolderSelectionList;

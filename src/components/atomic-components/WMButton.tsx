@@ -17,6 +17,7 @@ export const WMButton: FunctionComponent<WMButtonProps> = ({
     buttonType = ButtonType.NORMAL, 
     text,
     onClick,
+    styles = {},
     disabled = false
 }: WMButtonProps) => {
     const classes = useStyles();
@@ -51,6 +52,7 @@ export const WMButton: FunctionComponent<WMButtonProps> = ({
     return (
         <button 
             className={buttonClass}
+            style={styles}
             onClick={onClick}
             disabled={disabled}
         >
@@ -62,10 +64,14 @@ export const WMButton: FunctionComponent<WMButtonProps> = ({
 type WMButtonProps = {
     buttonType?: ButtonType,
     text: string,
+    styles?: object,
     onClick: () => void,
     disabled?: boolean,
 }
 
+/**
+ * Mixins
+ */
 const cursorPtr = {
     '&:hover': {
         cursor: 'pointer'

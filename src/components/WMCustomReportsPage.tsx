@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
 import WMFolderSelectionList from './WMFolderSelectionList';
 import { createUseStyles } from 'react-jss';
-import { isTemplateSpan } from 'typescript';
-
-const useStyles = createUseStyles({
-    container: {
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        backgroundColor: '#E5E5E5'
-    }
-});
+import WMModal from './molecular-components/WMModal';
+import { ButtonType } from './atomic-components/WMButton';
 
 const tmpFolders = [
     {
@@ -26,8 +18,8 @@ const tmpFolders = [
         editable: false
     },
     {
-        name: 'Created by Me',
-        editable: false
+        name: 'Created by Me blah blah blah blah blah blah blah blah',
+        editable: true
     },
     {
         name: 'Shared',
@@ -97,22 +89,21 @@ const tmpFolders = [
         name: 'Productivity Reports4',
         editable: true
     },
-]
-
-
+];
 
 export const CustomReportsPage = () => {
     const classes = useStyles();
     const [folders, setFolders] = useState(tmpFolders);
     const [selectedFolder, selectFolder] = useState(tmpFolders[0]);
     const [isEditable, setEditableTo] = useState(true);
+    const [isShowingModal, setIsShowingModalTo] = useState(false);
     
     const nameIsUnique = (name: string) => {
         let isUnique: boolean = true; 
         folders.forEach((folder) => {
             if (folder.name === name) {
                 isUnique = false;
-            }   
+            } 
         });
         return isUnique;
     }
@@ -140,8 +131,26 @@ export const CustomReportsPage = () => {
         }
     }
 
+    const modalButtons = [
+        {
+            buttonType: ButtonType.RED, 
+            text:'Yes, Delete', 
+            onClick: () => {}
+        },
+        {
+            buttonType: ButtonType.NORMAL, 
+            text:'Cancel', 
+            onClick: () => {}
+        }
+    ];
+
     return (
         <div className={classes.container}>
+            {isShowingModal && <WMModal 
+                title={'Confirm Delete'} 
+                content={'Are you sure you want to delete this folder?'}
+                buttons={modalButtons}
+            />}
             <WMFolderSelectionList 
                 folders={folders}
                 selectedFolder={selectedFolder}
@@ -155,5 +164,14 @@ export const CustomReportsPage = () => {
         </div>
     );
 }
+
+const useStyles = createUseStyles({
+    container: {
+        display: 'flex',
+        flexDirection: 'row',
+        width: '100%',
+        backgroundColor: '#E5E5E5'
+    }
+});
 
 export default CustomReportsPage;
