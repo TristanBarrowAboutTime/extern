@@ -2,8 +2,12 @@ import React, { FunctionComponent, useState, useRef, MutableRefObject } from 're
 import { createUseStyles } from 'react-jss'; 
 import { useTextInput } from '../hooks/useTextInput';
 import WMButton, { ButtonType } from './atomic-components/WMButton';
+import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import WMEditFolderBar from './WMEditFolderBar';
-import WMFolderListItem, { FolderId } from './WMFolderListItem';
+import WMFolderListItem from './WMFolderListItem';
+import WMCircleIcon from './atomic-components/WMCircleIcon';
+import WMStyles from '../style/WMStyles';
+import { FolderId } from '../types/FolderId';
 
 const strings = {
     displayName: 'Folders',
@@ -18,9 +22,12 @@ type FolderSelectionListProps = {
     selectFolder: (folder: FolderId) => void
     isEditable: boolean
     setEditableTo: (isEditable: boolean) => void
-    renameFolder: (oldName: string, newName: string) => void
-    addNewFolder: (folderName: string) => void
+    renameFolder: (oldName: string, newName: string) => boolean
+    addNewFolder: (folderName: string) => boolean
+    onDelete: (id: number) => void
 }
+
+// const initialOrder = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
 
 const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
     folders,
@@ -30,24 +37,30 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
     setEditableTo,
     renameFolder,
     addNewFolder,
+    onDelete,
 }: FolderSelectionListProps) => {
 
     const classes = useStyles();
     const [reordering, setReorderingTo] = useState(false);
     const [addingNewFolder, setAddingNewFolderTo] = useState(false);
+    // const [folderOrder, setFolderOrder] = useState(initialOrder);
+    // const [tmpFolderOrder, setTmpFolderOrder] = useState([]);
     const { value:searchValue, bind:bindSearchBar } = useTextInput('');
     
     const bottomRef = useRef() as MutableRefObject<HTMLDivElement>;
-    
+
     const setToNormal = () => {
         setReorderingTo(false);
         setAddingNewFolderTo(false);
         setEditableTo(true);
     }
+
     const setToReordering = () => {
         setReorderingTo(true);
         setAddingNewFolderTo(false);
+        setEditableTo(false);
     }
+
     const setToAddingNewFolder = () => {
         setReorderingTo(false);
         setAddingNewFolderTo(true);
@@ -61,20 +74,36 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                 <div className={classes.displayName}>
                     {strings.displayName}
                 </div>
-                <div>
-                    <WMButton
-                        buttonType={ButtonType.SMALL_GREEN}
-                        text={"New Folder"}
-                        disabled={reordering && addingNewFolder}
-                        onClick={setToAddingNewFolder}
-                    />
-                    <WMButton
-                        buttonType={ButtonType.NAKED}
-                        text={"Reorder"}
-                        disabled={reordering && addingNewFolder}
-                        onClick={setToReordering}
-                    />
-                </div>
+                {reordering ? (
+                    <div className={classes.buttonGroup}>
+                        <WMCircleIcon 
+                            icon={faCheck} 
+                            size={10}
+                            bgColor={WMStyles.color.green}
+                            onPress={setToNormal}
+                        />
+                        <WMCircleIcon
+                            icon={faTimes}
+                            marginLeft={7}
+                            onPress={setToNormal}
+                        />
+                    </div>
+                ) : (
+                    <div className={classes.buttonGroup}>
+                        <WMButton
+                            buttonType={ButtonType.SMALL_GREEN}
+                            text={"New Folder"}
+                            disabled={addingNewFolder || !isEditable}
+                            onClick={setToAddingNewFolder}
+                        />
+                        <WMButton
+                            buttonType={ButtonType.NAKED}
+                            text={"Reorder"}
+                            disabled={addingNewFolder || !isEditable}
+                            onClick={setToReordering}
+                        />
+                    </div>   
+                )}
             </div>
             <input 
                 className={classes.searchBar} 
@@ -92,16 +121,19 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                                     folder={folder}
                                     isEditable={isEditable}
                                     isSelected={selectedFolder.name === folder.name}
-                                    reordering={false}
+                                    reordering={reordering}
                                     setEditableTo={setEditableTo}
                                     renameFolder={renameFolder}
-                                    onDelete={() => {}}
+                                    onDelete={onDelete}
+                                    initialHover={false}
                                 />
                             );
                         }
                         return null;
                     })}
                     {addingNewFolder && (
+                        <>
+                        <div></div>
                         <div className={classes.newFolderInput}>
                             <WMEditFolderBar
                                 initial=''
@@ -112,6 +144,7 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                                 onCancel={setToNormal}
                             />
                         </div>
+                        </>
                     )}
                     <div style={{height: '22px'}} ref={bottomRef} />
                 </div>
@@ -143,6 +176,13 @@ const useStyles = createUseStyles({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'stretch'
+    },
+    buttonGroup: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 33,
     },
     header: {
         display: 'flex',

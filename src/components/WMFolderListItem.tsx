@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import WMEditFolderBar from './WMEditFolderBar';
 import { Up, Down } from './atomic-components/WMCssTryangle';
-
-export type FolderId = { name: string, editable: boolean };
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import WMStyles from '../style/WMStyles';
+import { FolderId } from '../types/FolderId';
+import WMPopoutMenu, { usePopoutMenu } from './molecular-components/WMPopoutMenu';
 
 type WMFolderListItemProps = {
     folder: FolderId
     isSelected: boolean
     isEditable: boolean
     reordering: boolean
-    setSelectedFolder: (_:any) => any
+    setSelectedFolder: (_:any) => void
     setEditableTo: (isEditable: boolean) => void
-    renameFolder: (oldName: string, newName: string) => void
-    onDelete: (name: string) => void
+    renameFolder: (oldName: string, newName: string) => boolean
+    onDelete: (id: number) => void,
+    initialHover?: boolean
 }
 
 const WMFolderListItem = ({
@@ -25,43 +29,55 @@ const WMFolderListItem = ({
     setEditableTo,
     renameFolder,
     onDelete,
+    initialHover = false
 }: WMFolderListItemProps) => {
     const classes = useStyles();
     const [editing, setEditingTo] = useState(false);
-    const [isHovered, setHoveredTo] = useState(false);
+    const [isHovered, setHoveredTo] = useState(initialHover);
+    const [showError, setShowErrorTo] = useState(false);
+    const { menuEvent, open, close } = usePopoutMenu();
 
-    const edit = () => {
+    const startEdit = () => {
         setEditingTo(true);
         setEditableTo(false);
+        setShowErrorTo(false);
     }
     const cancelEditing = () => {
         setEditingTo(false);
         setEditableTo(true);
     }
+
     const acceptEditing = (value: string) => {
-        setEditingTo(false);
-        setEditableTo(true);
-        renameFolder(folder.name, value);
+        if (folder.name === value) {
+            cancelEditing();
+        } else if (renameFolder(folder.name, value)) {
+            setEditingTo(false)
+            setEditableTo(true);
+        } else {
+            setShowErrorTo(true);
+        }
     }
     const tradeUp = () => {
-        
+        console.log("Trade Up");
     }
     const tradeDown = () => {
-        
+        console.log("Trade Down");
     }
 
     if (editing) {
         return (
-            <div className={classes.editRow}>
-                <WMEditFolderBar 
-                    initial={folder.name}
-                    onAccept={acceptEditing}
-                    onCancel={cancelEditing}
-                />
-                <div 
-                    onClick={() => {}}
-                    style={{backgroundColor: 'red', width: 12, height: 12, marginLeft: 5, borderRadius: 100}}></div>
-            </div>
+            <>
+                {showError && <div className={classes.folderError}>
+                    That folder name already exists
+                </div>}
+                <div className={classes.editRow}>
+                    <WMEditFolderBar 
+                        initial={folder.name}
+                        onAccept={acceptEditing}
+                        onCancel={cancelEditing}
+                    />
+                </div>
+            </>
         );
     } else if (reordering) {
         return (
@@ -71,7 +87,7 @@ const WMFolderListItem = ({
                 onMouseEnter={() => setHoveredTo(true)}
                 onMouseLeave={() => setHoveredTo(false)}
             >
-                {folder.name}
+                <div className={classes.folderName}>{folder.name}</div>
                 <div>
                     <Up 
                         className={classes.arrowTop} 
@@ -86,6 +102,7 @@ const WMFolderListItem = ({
         );
     } else {
         return (
+            <>
             <div 
                 className={isSelected ? classes.selected : classes.unselected}
                 onClick={() => setSelectedFolder(folder)}
@@ -93,12 +110,41 @@ const WMFolderListItem = ({
                 onMouseLeave={() => setHoveredTo(false)}
             >
                 <div className={classes.folderName}>{folder.name}</div>
-                {(isHovered && isEditable && folder.editable) && 
-                    <span className={classes.edit} onClick={edit}>Edit</span>}
+                {(isHovered && isEditable && folder.editable) && (
+                    <div className={classes.edit} onClick={open}>
+                        <FontAwesomeIcon icon={faEllipsisH} />
+                    </div>
+                )}
+                <WMPopoutMenu 
+                    menuEvent={menuEvent}
+                    padding={10}
+                    tickPosition={10}
+                    vPosition={-20}
+                    hPosition={8}
+                    horizontalFix={372}
+                >
+                    <div 
+                        className={classes.popoutMenuItem}
+                        onClick={startEdit}
+                    >Edit</div>
+                    <div 
+                        className={classes.popoutMenuItem}
+                    >Share</div>
+                    <hr className={classes.horizontalRule}/>
+                    <div 
+                        className={classes.popoutMenuItemDelete}
+                        onClick={() => {
+                            onDelete(folder.id);
+                            close();
+                            setHoveredTo(false);
+                        }}
+                    >Delete</div>
+                </WMPopoutMenu>
+                
             </div>
+            </>
         );
     }
-    
 }
 
 const folderItemBase = {
@@ -107,13 +153,10 @@ const folderItemBase = {
     justifyContent: 'space-between',
     height: 21,
     width: 'calc(100% - 64px)',
-    paddingLeft: 32,
-    paddingRight: 32,
+    paddingLeft: WMStyles.size.large,
+    paddingRight: WMStyles.size.large,
     color: '#4D4D4D',
-    textOverflow: 'ellipsis',
     maxWidth: 300,
-    overflow: 'hidden',
-    userSelect: 'none',
     '&:hover': {
         cursor: 'pointer'
     }
@@ -128,7 +171,12 @@ const useStyles = createUseStyles({
         ...folderItemBase,
     },
     edit: {
-        borderRadius: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 100,
+        height: 21,
+        width: 21,
         '&:hover': {
             backgroundColor: 'gray'
         }
@@ -146,12 +194,43 @@ const useStyles = createUseStyles({
     arrowBottom: {
         marginTop: 5
     },
+    folderError: {
+        marginLeft: 32,
+        color: WMStyles.color.red,
+        fontSize: 12
+    },
+    deleteIcon: {
+        marginLeft: 5,
+        color: WMStyles.color.red,
+        '&:hover': {
+            cursor: 'pointer'
+        }
+    },
+    popoutMenu: {
+
+    },
+    popoutMenuItem: {
+        margin: {
+            left: 10, right: 30
+        }
+    },
+    popoutMenuItemDelete: {
+        color: WMStyles.color.red,
+        margin: {
+            left: 10, right: 30
+        }
+    },
+    horizontalRule: {
+        borderTop: '1px solid black',
+        borderBottom: 0,
+        borderLeft: 0
+    },
     editRow: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        marginRight: 32
+        marginRight: WMStyles.size.large
     }
 });
 

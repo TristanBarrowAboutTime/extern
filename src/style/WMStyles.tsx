@@ -4,11 +4,13 @@ export default {
         black: '#000000',
         red: '#9B3E38',
         green: '#85B554',
-        grey: {
-            light: '',
-            medium: '',
+        gray: {
+            x_light: '#E9E9E9',
+            light: '#E5E5E5',
+            medium: '#A7AFB2',
             dark: '',
-            veryDark: ''
+            x_dark: '#4D4D4D',
+            xx_dark: '#333333',
         }
     },
     size: {

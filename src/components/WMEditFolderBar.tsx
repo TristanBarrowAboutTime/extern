@@ -1,18 +1,20 @@
 import React from 'react';
-import { createUseStyles } from 'react-jss';
 import { useTextInput } from '../hooks/useTextInput';
+import { createUseStyles } from 'react-jss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
+import WMStyles from '../style/WMStyles';
 
 type WMEditFolderBarProps = {
-    initial: string,
-    onAccept: (value: string) => void,
-    onCancel: () => void,
-
+    initial: string
+    onAccept: (value: string) => void
+    onCancel: () => void
 }
 // input should probably be broken out into its own component.
 const WMEditFolderBar = ({
     initial,
     onAccept,
-    onCancel
+    onCancel,
 }: WMEditFolderBarProps) => {
     const classes = useStyles();
     const { value, bind:bindTextInput } = useTextInput(initial);
@@ -20,8 +22,13 @@ const WMEditFolderBar = ({
     <div className={classes.container}>
         <input className={classes.input} {...bindTextInput}></input>
         {/* replace div's below with icons */}
-        <div className={classes.acceptIcon} onClick={() => onAccept(value)} ></div>
-        <div className={classes.cancelIcon} onClick={onCancel} ></div>
+
+        <div className={classes.acceptIconContainer} onClick={() => onAccept(value)} >
+            <FontAwesomeIcon className={classes.acceptIcon} icon={faCheck} color={'white'}/>
+        </div>
+        <div className={classes.cancelIconContainer} onClick={onCancel} >
+            <FontAwesomeIcon className={classes.cancelIcon} icon={faTimes} color={'white'}/>
+        </div>
     </div>
     )
 }
@@ -54,19 +61,31 @@ const useStyles = createUseStyles({
         }
     },
     acceptIcon: {
+        fontSize: 9,
+    },
+    acceptIconContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center', 
         marginLeft: 5,
-        height: 12,
-        width: 12,
+        height: WMStyles.size.medium,
+        width: 16,
+        backgroundColor: WMStyles.color.green,
         borderRadius: 100,
-        backgroundColor: '#85B554'
     },
     cancelIcon: {
-        marginLeft: 5,
-        height: 12,
-        width: 12,
-        borderRadius: 100,
-        backgroundColor: '#333333',
+        fontSize: 10,
     },
+    cancelIconContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center', 
+        marginLeft: 5,
+        height: 16,
+        width: 16,
+        backgroundColor: WMStyles.color.gray.x_dark,
+        borderRadius: 100,
+    }
     
 });
 

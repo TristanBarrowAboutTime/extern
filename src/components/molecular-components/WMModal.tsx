@@ -1,6 +1,9 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import WMButton, { ButtonType } from '../atomic-components/WMButton';
+import WMStyles from '../../style/WMStyles';
 
 type WMModalProps = {
     title: string
@@ -8,14 +11,17 @@ type WMModalProps = {
     buttons: {
         text: string,
         buttonType: ButtonType, 
-        onClick:()=>void,
-    }[]
+        onClick:() => void,
+    }[],
+    closeModal: () => void
 }
 
 const WMModal = ({
     title,
     content,
     buttons,
+    closeModal,
+
 }: WMModalProps) => {
     const classes = useStyles();
     return (
@@ -24,7 +30,12 @@ const WMModal = ({
                 <div className={classes.header}>
                     <div />
                     <div className={classes.title}>{title}</div>
-                    <div className={classes.close}>X</div>
+                    <FontAwesomeIcon 
+                        className={classes.close}
+                        icon={faTimes} 
+                        color={WMStyles.color.white} 
+                        onClick={closeModal}
+                    />
                 </div>
                 <div className={classes.body}>
                     <div className={classes.message}>{content}</div>
@@ -32,6 +43,7 @@ const WMModal = ({
                         {buttons.map((button) => {
                             return (
                                 <WMButton 
+                                    key={button.text}
                                     buttonType={button.buttonType}
                                     onClick={button.onClick}
                                     text={button.text}
@@ -81,8 +93,12 @@ const useStyles = createUseStyles({
         color: 'white'
     },
     close: {
-        marginRight: 4,
-        color: 'white'
+        marginRight: 5,
+        marginTop: 3,
+        color: 'white',
+        '&:hover': {
+            cursor: 'pointer'
+        }
     },
     body: {
         flexGrow: 1,
