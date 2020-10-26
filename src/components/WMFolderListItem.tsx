@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { createUseStyles } from 'react-jss';
 import WMEditFolderBar from './WMEditFolderBar';
-import { Up, Down } from './atomic-components/WMCssTryangle';
+import { Up, Down } from './atomic-components/WMCssTriangle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import WMStyles from '../style/WMStyles';
 import { FolderId } from '../types/FolderId';
-import WMPopoutMenu, { usePopoutMenu } from './molecular-components/WMPopoutMenu';
+import WMPopoutMenu from './molecular-components/WMPopoutMenu';
+import WMLargeDropdown from './molecular-components/WMLargeDropdown';
+import { useWMFolderListItem } from '../hooks/component-hooks/useWMFolderListItem';
 
 type WMFolderListItemProps = {
     folder: FolderId
@@ -17,7 +19,6 @@ type WMFolderListItemProps = {
     setEditableTo: (isEditable: boolean) => void
     renameFolder: (oldName: string, newName: string) => boolean
     onDelete: (id: number) => void,
-    initialHover?: boolean
 }
 
 const WMFolderListItem = ({
@@ -29,41 +30,28 @@ const WMFolderListItem = ({
     setEditableTo,
     renameFolder,
     onDelete,
-    initialHover = false
 }: WMFolderListItemProps) => {
+    
+    const {
+        editing,
+        showError,
+        isHovered,
+        sharePopoutMenu,
+        editPopoutMenu,
+        startEdit,
+        acceptEditing,
+        cancelEditing,
+        setHoveredTo,
+        tradeUp,
+        tradeDown
+
+    } = useWMFolderListItem({
+        folder,
+        setEditableTo,
+        renameFolder,
+    });
+
     const classes = useStyles();
-    const [editing, setEditingTo] = useState(false);
-    const [isHovered, setHoveredTo] = useState(initialHover);
-    const [showError, setShowErrorTo] = useState(false);
-    const { menuEvent, open, close } = usePopoutMenu();
-
-    const startEdit = () => {
-        setEditingTo(true);
-        setEditableTo(false);
-        setShowErrorTo(false);
-    }
-    const cancelEditing = () => {
-        setEditingTo(false);
-        setEditableTo(true);
-    }
-
-    const acceptEditing = (value: string) => {
-        if (folder.name === value) {
-            cancelEditing();
-        } else if (renameFolder(folder.name, value)) {
-            setEditingTo(false)
-            setEditableTo(true);
-        } else {
-            setShowErrorTo(true);
-        }
-    }
-    const tradeUp = () => {
-        console.log("Trade Up");
-    }
-    const tradeDown = () => {
-        console.log("Trade Down");
-    }
-
     if (editing) {
         return (
             <>
@@ -103,45 +91,58 @@ const WMFolderListItem = ({
     } else {
         return (
             <>
-            <div 
-                className={isSelected ? classes.selected : classes.unselected}
-                onClick={() => setSelectedFolder(folder)}
-                onMouseEnter={() => setHoveredTo(true)}
-                onMouseLeave={() => setHoveredTo(false)}
-            >
-                <div className={classes.folderName}>{folder.name}</div>
-                {(isHovered && isEditable && folder.editable) && (
-                    <div className={classes.edit} onClick={open}>
-                        <FontAwesomeIcon icon={faEllipsisH} />
-                    </div>
-                )}
-                <WMPopoutMenu 
-                    menuEvent={menuEvent}
-                    padding={10}
-                    tickPosition={10}
-                    vPosition={-20}
-                    hPosition={8}
-                    horizontalFix={372}
+                <div 
+                    className={isSelected ? classes.selected : classes.unselected}
+                    onClick={() => setSelectedFolder(folder)}
+                    onMouseEnter={() => setHoveredTo(true)}
+                    onMouseLeave={() => setHoveredTo(false)}
                 >
-                    <div 
-                        className={classes.popoutMenuItem}
-                        onClick={startEdit}
-                    >Edit</div>
-                    <div 
-                        className={classes.popoutMenuItem}
-                    >Share</div>
-                    <hr className={classes.horizontalRule}/>
-                    <div 
-                        className={classes.popoutMenuItemDelete}
-                        onClick={() => {
-                            onDelete(folder.id);
-                            close();
-                            setHoveredTo(false);
-                        }}
-                    >Delete</div>
-                </WMPopoutMenu>
-                
-            </div>
+                    <div className={classes.folderName}>{folder.name}</div>
+                    {(isHovered && isEditable && folder.editable) && (
+                        <div className={classes.edit} onClick={editPopoutMenu.open}>
+                            <FontAwesomeIcon icon={faEllipsisH} />
+                        </div>
+                    )}
+                    {editPopoutMenu.isOpen && (
+                        <WMPopoutMenu 
+                            menuEvent={editPopoutMenu.menuEvent}
+                            horizontalFix={372}
+                        >
+                            <div 
+                                className={classes.popoutMenuItem}
+                                onClick={startEdit}
+                            >Edit</div>
+                            <div 
+                                onClick={sharePopoutMenu.open}
+                                className={classes.popoutMenuItem}
+                            >
+                                Share
+                            </div>
+                            <div>
+                                {sharePopoutMenu.isOpen && (
+                                    <WMPopoutMenu 
+                                        menuEvent={sharePopoutMenu.menuEvent}
+                                        horizontalFix={487}
+                                    >
+                                        <div>
+                                            {'temp'}
+                                        </div>
+                                    </WMPopoutMenu>
+                                )}
+                            </div>
+                            <hr className={classes.horizontalRule}/>
+                            <div 
+                                className={classes.popoutMenuItemDelete}
+                                onClick={() => {
+                                    onDelete(folder.id);
+                                    editPopoutMenu.close();
+                                    setHoveredTo(false);
+                                }}
+                            >Delete</div>
+                        </WMPopoutMenu>
+                    )}
+                    
+                </div>
             </>
         );
     }

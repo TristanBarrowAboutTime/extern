@@ -1,12 +1,13 @@
 import React from 'react';
+import { JssProvider, SheetsRegistry } from 'react-jss';
 import { render } from '@testing-library/react';
-import WMButton, { ButtonType } from '../../components/atomic-components/WMButton';
+import WMButton, { ButtonType } from '../../../components/atomic-components/WMButton';
 
 /*
  * for now snapshot testing should be sufficiant. 
  * it would be good to include click testing and className testing.
 */
-describe('Button Displays Correctly', () => {
+describe('WMButton', () => {
 
     /**
      * Base
@@ -18,7 +19,9 @@ describe('Button Displays Correctly', () => {
                 onClick={()=>{}}
             />
         );
+        const sheets = new SheetsRegistry();
         expect(container).toMatchSnapshot();
+        expect(container.className).toMatch(/normal-button/);
     });
 
     /**

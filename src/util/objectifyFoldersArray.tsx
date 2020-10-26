@@ -11,5 +11,5 @@ export const objectifyArray = (folders: FolderId[]): Object => {
             }
         }
     });
-    return obj
+    return obj;
 }

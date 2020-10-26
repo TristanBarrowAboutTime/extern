@@ -1,6 +1,6 @@
 import React from 'react';
 
-type WMCssTryangleProps = {
+type WMCssTriangleProps = {
     className?: string
     onClick?: () => void
     color?: string
@@ -12,7 +12,7 @@ export const Up = ({
     onClick,
     color = 'black',
     size = 5,
-}: WMCssTryangleProps) => {
+}: WMCssTriangleProps) => {
     return (
         <div className={className} onClick={onClick}>
             <div style={{
@@ -31,7 +31,7 @@ export const Down = ({
     onClick,
     color = 'black',
     size = 5,
-}: WMCssTryangleProps) => {
+}: WMCssTriangleProps) => {
     return (
         <div className={className} onClick={onClick}>
             <div style={{
@@ -50,7 +50,7 @@ export const Left = ({
     onClick,
     color = 'black',
     size = 5,
-}: WMCssTryangleProps) => {
+}: WMCssTriangleProps) => {
     return (
         <div className={className} onClick={onClick}>
             <div style={{
@@ -69,7 +69,7 @@ export const Right = ({
     onClick,
     color = 'black',
     size = 5,
-}: WMCssTryangleProps) => {
+}: WMCssTriangleProps) => {
     return (
         <div className={className} onClick={onClick}>
             <div style={{

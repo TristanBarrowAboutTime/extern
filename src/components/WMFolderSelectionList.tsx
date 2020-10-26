@@ -1,6 +1,5 @@
-import React, { FunctionComponent, useState, useRef, MutableRefObject } from 'react';
+import React, { FunctionComponent } from 'react';
 import { createUseStyles } from 'react-jss'; 
-import { useTextInput } from '../hooks/useTextInput';
 import WMButton, { ButtonType } from './atomic-components/WMButton';
 import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import WMEditFolderBar from './WMEditFolderBar';
@@ -8,6 +7,7 @@ import WMFolderListItem from './WMFolderListItem';
 import WMCircleIcon from './atomic-components/WMCircleIcon';
 import WMStyles from '../style/WMStyles';
 import { FolderId } from '../types/FolderId';
+import { useWMFolderSelectList } from '../hooks/component-hooks/useWMFolderSelectionList';
 
 const strings = {
     displayName: 'Folders',
@@ -40,41 +40,25 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
     onDelete,
 }: FolderSelectionListProps) => {
 
+    const {
+        ref,
+        isReordering,
+        isAddingNewFolder,
+        bindSearchBar,
+        searchValue,
+        setToAddingNewFolder,
+        setToNormal,
+        setToReordering,
+    } = useWMFolderSelectList(setEditableTo);
+
     const classes = useStyles();
-    const [reordering, setReorderingTo] = useState(false);
-    const [addingNewFolder, setAddingNewFolderTo] = useState(false);
-    // const [folderOrder, setFolderOrder] = useState(initialOrder);
-    // const [tmpFolderOrder, setTmpFolderOrder] = useState([]);
-    const { value:searchValue, bind:bindSearchBar } = useTextInput('');
-    
-    const bottomRef = useRef() as MutableRefObject<HTMLDivElement>;
-
-    const setToNormal = () => {
-        setReorderingTo(false);
-        setAddingNewFolderTo(false);
-        setEditableTo(true);
-    }
-
-    const setToReordering = () => {
-        setReorderingTo(true);
-        setAddingNewFolderTo(false);
-        setEditableTo(false);
-    }
-
-    const setToAddingNewFolder = () => {
-        setReorderingTo(false);
-        setAddingNewFolderTo(true);
-        setEditableTo(false);
-        bottomRef.current.scrollIntoView({behavior: 'smooth'})
-    }
-
     return (
         <div className={classes.container}>
             <div className={classes.header}>
                 <div className={classes.displayName}>
                     {strings.displayName}
                 </div>
-                {reordering ? (
+                {isReordering ? (
                     <div className={classes.buttonGroup}>
                         <WMCircleIcon 
                             icon={faCheck} 
@@ -93,13 +77,13 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                         <WMButton
                             buttonType={ButtonType.SMALL_GREEN}
                             text={"New Folder"}
-                            disabled={addingNewFolder || !isEditable}
+                            disabled={isAddingNewFolder || !isEditable}
                             onClick={setToAddingNewFolder}
                         />
                         <WMButton
                             buttonType={ButtonType.NAKED}
                             text={"Reorder"}
-                            disabled={addingNewFolder || !isEditable}
+                            disabled={isAddingNewFolder || !isEditable}
                             onClick={setToReordering}
                         />
                     </div>   
@@ -121,32 +105,35 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                                     folder={folder}
                                     isEditable={isEditable}
                                     isSelected={selectedFolder.name === folder.name}
-                                    reordering={reordering}
+                                    reordering={isReordering}
                                     setEditableTo={setEditableTo}
                                     renameFolder={renameFolder}
                                     onDelete={onDelete}
-                                    initialHover={false}
                                 />
                             );
                         }
                         return null;
                     })}
-                    {addingNewFolder && (
+                    {isAddingNewFolder && (
                         <>
-                        <div></div>
-                        <div className={classes.newFolderInput}>
-                            <WMEditFolderBar
-                                initial=''
-                                onAccept={(value) => {
-                                    addNewFolder(value);
-                                    setToNormal(); 
-                                }}
-                                onCancel={setToNormal}
-                            />
-                        </div>
+                            <div></div>
+                            <div className={classes.newFolderInput}>
+                                <WMEditFolderBar
+                                    initial=''
+                                    onAccept={(value) => {
+                                        addNewFolder(value);
+                                        setToNormal(); 
+                                    }}
+                                    onCancel={setToNormal}
+                                />
+                            </div>
                         </>
                     )}
-                    <div style={{height: '22px'}} ref={bottomRef} />
+
+                    {/* TODO: so messy... this needs to be fixed */}
+                    <hr style={{ marginLeft: 32, width: 100, borderLeft: 0, borderRight: 0, borderBottom: 0, borderTop: '1 solid gray'}} />
+                    <div style={{ color: WMStyles.color.gray.dark, marginLeft: 32}}>Recently Deleted</div>
+                    <div ref={ref} />
                 </div>
             </div>
         </div>
