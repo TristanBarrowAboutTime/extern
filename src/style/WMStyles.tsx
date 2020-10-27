@@ -11,7 +11,13 @@ export default {
             dark: '#777777',
             x_dark: '#4D4D4D',
             xx_dark: '#333333',
-        }
+        },
+        transparent: 'rgba(255,255,255,0)'
+    },
+    button: {
+        paddingNormal: '8px 10px 10px 10px',
+        paddingSmall: '6px 17px 4px 17px',
+        shadow: '0 2px 4px #cccccc',
     },
     size: {
         xx_small: 2,

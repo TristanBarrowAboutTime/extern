@@ -81,7 +81,7 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                             onClick={setToAddingNewFolder}
                         />
                         <WMButton
-                            buttonType={ButtonType.NAKED}
+                            buttonType={ButtonType.BARE}
                             text={"Reorder"}
                             disabled={isAddingNewFolder || !isEditable}
                             onClick={setToReordering}

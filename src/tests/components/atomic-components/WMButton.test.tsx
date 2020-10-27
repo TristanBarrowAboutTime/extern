@@ -1,128 +1,83 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import WMButton, { ButtonType } from '../../../components/atomic-components/WMButton';
+import WMStyle from '../../../style/WMStyles';
 import 'jest-styled-components';
-import WMStyles from '../../../style/WMStyles';
 
-/*
- * for now snapshot testing should be sufficiant. 
- * it would be good to include click testing and className testing.
-*/
+const colors = WMStyle.color;
+const testedStyles = {
+    bgColor: 'background-color',
+    color: 'color',
+    boxShadow: 'box-shadow'
+}
+
 describe('WMButton', () => {
-
-    /**
-     * Base
-     */
-    test('that button displays with minimal props', () => {
-        const tree = renderer.create(
-            <WMButton 
-                text='Button'
-                onClick={()=>{}}
-            />
-        );
-        expect(tree).toMatchSnapshot();
-        expect(tree).toHaveStyleRule('background-color', WMStyles.color.green);
-
+    it('is colored dark when type is not specified', () => {
+        const component = renderer.create(
+            <WMButton text={'Button'} onClick={() => {}}/>
+        ).toJSON();
+        expect(component).toMatchSnapshot();
+        expect(component).toHaveStyleRule(testedStyles.bgColor, WMStyle.color.gray.xx_dark);
+        expect(component).toHaveStyleRule(testedStyles.color, WMStyle.color.white);
+        expect(component).toHaveStyleRule(testedStyles.boxShadow, WMStyle.button.shadow);
+    });
+    it('is colored dark when type is normal', () => {
+        const component = renderer.create(
+            <WMButton buttonType={ButtonType.NORMAL} text={'Button'} onClick={() => {}}/>
+        ).toJSON()
+        expect(component).toMatchSnapshot();
+        expect(component).toHaveStyleRule(testedStyles.bgColor, WMStyle.color.gray.xx_dark);
+        expect(component).toHaveStyleRule(testedStyles.color, WMStyle.color.white);
+        expect(component).toHaveStyleRule(testedStyles.boxShadow, WMStyle.button.shadow);
+    });
+    it('is colored green when type is green', () => {
+        const component = renderer.create(
+            <WMButton buttonType={ButtonType.GREEN} text={'Button'} onClick={() => {}}/>
+        ).toJSON()
+        expect(component).toMatchSnapshot();
+        expect(component).toHaveStyleRule(testedStyles.bgColor, WMStyle.color.green);
+        expect(component).toHaveStyleRule(testedStyles.color, WMStyle.color.white);
+        expect(component).toHaveStyleRule(testedStyles.boxShadow, WMStyle.button.shadow);
+    });
+    it('is small and green when type is small-green', () => {
+        const component = renderer.create(
+            <WMButton buttonType={ButtonType.SMALL_GREEN} text={'Button'} onClick={() => {}}/>
+        ).toJSON()
+        expect(component).toMatchSnapshot();
+        expect(component).toHaveStyleRule(testedStyles.bgColor, WMStyle.color.green);
+        expect(component).toHaveStyleRule(testedStyles.color, WMStyle.color.white);
+        expect(component).toHaveStyleRule(testedStyles.boxShadow, WMStyle.button.shadow);
+    });
+    it('is colored red when type is red', () => {
+        const component = renderer.create(
+            <WMButton buttonType={ButtonType.RED} text={'Button'} onClick={() => {}}/>
+        ).toJSON()
+        expect(component).toMatchSnapshot();
+        expect(component).toHaveStyleRule(testedStyles.bgColor, WMStyle.color.red);
+        expect(component).toHaveStyleRule(testedStyles.color, WMStyle.color.white);
+        expect(component).toHaveStyleRule(testedStyles.boxShadow, WMStyle.button.shadow);
+    });
+    it('is red and small when type is small-red', () => {
+        const component = renderer.create(
+            <WMButton buttonType={ButtonType.RED} text={'Button'} onClick={() => {}}/>
+        ).toJSON()
+        expect(component).toMatchSnapshot();
+        expect(component).toHaveStyleRule(testedStyles.bgColor, WMStyle.color.red);
+        expect(component).toHaveStyleRule(testedStyles.color, WMStyle.color.white);
+        expect(component).toHaveStyleRule(testedStyles.bgColor, WMStyle.color.red);
+        expect(component).toHaveStyleRule(testedStyles.boxShadow, WMStyle.button.shadow);
     });
 
-    /**
-     * Normal
-     */
-    test('Normal buttons match snapshots', () => {
-        const tree = renderer.create(
-            <WMButton 
-                text='Button'
-                buttonType={ButtonType.NORMAL}
-                onClick={()=>{}}
-            />
-        );
-        expect(tree).toMatchSnapshot();
-    });
-    test('Normal buttons display disabled', () => {
-        const tree = renderer.create(
-            <WMButton 
-                text='Button'
-                buttonType={ButtonType.NORMAL}
-                disabled={true}
-                onClick={()=>{}}
-            />
-        );
-        expect(tree).toMatchSnapshot();
-    });
 
 
-    /**
-     * Green
-     */
-    test('Green buttons match snapshots', () => {
-        const tree = renderer.create(
-            <WMButton 
-                text='Button'
-                buttonType={ButtonType.GREEN}
-                onClick={()=>{}}
-            />
-        );
-        expect(tree).toMatchSnapshot();
-    });
-    test('Green buttons display disabled', () => {
-        const tree = renderer.create(
-            <WMButton 
-                text='Button'
-                buttonType={ButtonType.GREEN}
-                disabled={true}
-                onClick={()=>{}}
-            />
-        );
-        expect(tree).toMatchSnapshot();
-    });
-
-    /**
-     * Red
-     */
-    test('Red buttons match snapshots', () => {
-        const tree = renderer.create(
-            <WMButton 
-                text='Button'
-                buttonType={ButtonType.RED}
-                onClick={()=>{}}
-            />
-        );
-        expect(tree).toMatchSnapshot();
-    });
-    test('Red buttons display disabled', () => {
-        const tree = renderer.create(
-            <WMButton
-                text='Button'
-                buttonType={ButtonType.RED}
-                disabled={true}
-                onClick={()=>{}}
-            />
-        );
-        expect(tree).toMatchSnapshot();
+    it('is colored transparent when type is bare', () => {
+        const component = renderer.create(
+            <WMButton buttonType={ButtonType.BARE} text={'Button'} onClick={() => {}}/>
+        ).toJSON()
+        expect(component).toMatchSnapshot();
+        expect(component).toHaveStyleRule(testedStyles.bgColor, WMStyle.color.transparent);
+        expect(component).toHaveStyleRule(testedStyles.color, WMStyle.color.gray.xx_dark);
+        expect(component).toHaveStyleRule(testedStyles.boxShadow, '0');
     });
     
-    /**
-     * Naked
-     */
-    test('Naked buttons match snapshots', () => {
-        const tree = renderer.create(
-            <WMButton 
-                text='Button'
-                buttonType={ButtonType.NAKED}
-                onClick={()=>{}}
-            />
-        );
-        expect(tree).toMatchSnapshot();
-    });
-    test('Naked buttons display disabled', () => {
-        const tree = renderer.create(
-            <WMButton 
-                text='Button'
-                buttonType={ButtonType.NAKED}
-                disabled={true}
-                onClick={()=>{}}
-            />
-        );
-        expect(tree).toMatchSnapshot();
-    });
 });

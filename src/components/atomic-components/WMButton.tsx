@@ -7,12 +7,14 @@ import WMStyles from '../../style/WMStyles';
  * This will probably need to be turned into react-native at some point.
  */
 export enum ButtonType {
-    NORMAL = 'NORMAL',
+    SMALL_NORMAL = 'SMALL_NORMAL',
     SMALL_GREEN = 'SMALL_GREEN',
+    SMALL_BARE = 'SMALL_BARE',
+    SMALL_RED = 'SMALL_RED',
+    NORMAL = 'NORMAL',
     GREEN = 'GREEN',
+    BARE = 'BARE',
     RED = 'RED',
-    NAKED = 'NAKED',
-    BARE = 'BARE'
 }
 
 type StyledButtonProps = {
@@ -24,53 +26,83 @@ const getBgColor = (props: StyledButtonProps): string => {
     if (props.disabled) {
         switch(props.buttonType) {
             case ButtonType.NORMAL: 
-            case ButtonType.SMALL_GREEN:
+            case ButtonType.SMALL_NORMAL:
             case ButtonType.GREEN:  
+            case ButtonType.SMALL_GREEN:
             case ButtonType.RED:
+            case ButtonType.SMALL_RED:
                 return WMStyles.color.gray.medium;
             case ButtonType.BARE:
-            case ButtonType.NAKED:
-                return 'rgba(0,0,0,0)';
+            case ButtonType.SMALL_BARE:
+                return WMStyles.color.transparent;
+            default:
+                return WMStyles.color.gray.medium;
         }
     } else {
         switch(props.buttonType) {
             case ButtonType.NORMAL: 
+            case ButtonType.SMALL_NORMAL:
                 return WMStyles.color.gray.xx_dark;
-            case ButtonType.SMALL_GREEN:
             case ButtonType.GREEN:  
+            case ButtonType.SMALL_GREEN:
                 return WMStyles.color.green;
             case ButtonType.RED:
+            case ButtonType.SMALL_RED:
                 return WMStyles.color.red;
             case ButtonType.BARE:
-            case ButtonType.NAKED:
-                return 'rgba(0,0,0,0)';
+            case ButtonType.SMALL_BARE:
+                return WMStyles.color.transparent;
             default: 
                 return WMStyles.color.gray.xx_dark;
         }
     }
 }
 
+const getPadding = (type: ButtonType) => {
+    switch(type) {
+        case ButtonType.SMALL_NORMAL: 
+        case ButtonType.SMALL_GREEN:
+        case ButtonType.SMALL_RED:
+        case ButtonType.SMALL_BARE:
+            return WMStyles.button.paddingSmall;
+        case ButtonType.NORMAL: 
+        case ButtonType.GREEN:  
+        case ButtonType.RED:
+        case ButtonType.BARE:
+            return WMStyles.button.paddingNormal;
+        default:
+            return '10px'; 
+    } 
+    
+}
+
 const getTextColor = (props: StyledButtonProps): string => {
     if (props.disabled) {
         switch(props.buttonType) {
             case ButtonType.NORMAL:
-            case ButtonType.SMALL_GREEN:
+            case ButtonType.SMALL_NORMAL:
             case ButtonType.GREEN:
+            case ButtonType.SMALL_GREEN:
             case ButtonType.RED:
+            case ButtonType.SMALL_RED:
                 return WMStyles.color.white;
             case ButtonType.BARE:
-            case ButtonType.NAKED:
+            case ButtonType.SMALL_BARE:
                 return WMStyles.color.gray.dark;
+            default: 
+                return WMStyles.color.white;
         }
     } else {
         switch(props.buttonType) {
             case ButtonType.NORMAL: 
+            case ButtonType.SMALL_NORMAL:
+            case ButtonType.GREEN: 
             case ButtonType.SMALL_GREEN:
-            case ButtonType.GREEN:  
             case ButtonType.RED:
+            case ButtonType.SMALL_RED:
                 return WMStyles.color.white;
             case ButtonType.BARE:
-            case ButtonType.NAKED:
+            case ButtonType.SMALL_BARE:
                 return WMStyles.color.gray.xx_dark;
             default: 
                 return WMStyles.color.gray.xx_dark;
@@ -79,10 +111,8 @@ const getTextColor = (props: StyledButtonProps): string => {
 }
 
 const getShadow = (props: StyledButtonProps): string => {
-    if (props.disabled) return '0';
-    if (props.buttonType === ButtonType.NAKED || 
-        props.buttonType === ButtonType.BARE) return "0";
-    else return `0 2px 4px #cccccc`;
+    if (props.disabled || props.buttonType === ButtonType.BARE) return "0";
+    else return WMStyles.button.shadow;
 
 }
 
@@ -92,11 +122,19 @@ const Button = styled.button`
     background-color: ${(props: StyledButtonProps) => getBgColor(props)};
     color: ${(props: StyledButtonProps) => getTextColor(props)};
     box-shadow: ${(props: StyledButtonProps) => getShadow(props)};
-    padding: 10px;
+    padding: ${(props: StyledButtonProps) => getPadding(props.buttonType)};
     :hover {
         cursor: ${(props: StyledButtonProps) => props.disabled ? 'default' : 'pointer'}
     }
 `;
+
+type WMButtonProps = {
+    buttonType?: ButtonType,
+    text: string,
+    styles?: object,
+    onClick: () => void,
+    disabled?: boolean,
+}
 
 export const WMButton: FunctionComponent<WMButtonProps> = ({
     buttonType = ButtonType.NORMAL, 
@@ -118,12 +156,5 @@ export const WMButton: FunctionComponent<WMButtonProps> = ({
     );
 }
 
-type WMButtonProps = {
-    buttonType?: ButtonType,
-    text: string,
-    styles?: object,
-    onClick: () => void,
-    disabled?: boolean,
-}
 
 export default WMButton;
