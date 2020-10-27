@@ -1,7 +1,8 @@
 import React from 'react';
-import { JssProvider, SheetsRegistry } from 'react-jss';
-import { render } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 import WMButton, { ButtonType } from '../../../components/atomic-components/WMButton';
+import 'jest-styled-components';
+import WMStyles from '../../../style/WMStyles';
 
 /*
  * for now snapshot testing should be sufficiant. 
@@ -13,32 +14,32 @@ describe('WMButton', () => {
      * Base
      */
     test('that button displays with minimal props', () => {
-        const {container} = render(
+        const tree = renderer.create(
             <WMButton 
                 text='Button'
                 onClick={()=>{}}
             />
         );
-        const sheets = new SheetsRegistry();
-        expect(container).toMatchSnapshot();
-        expect(container.className).toMatch(/normal-button/);
+        expect(tree).toMatchSnapshot();
+        expect(tree).toHaveStyleRule('background-color', WMStyles.color.green);
+
     });
 
     /**
      * Normal
      */
     test('Normal buttons match snapshots', () => {
-        const {container} = render(
+        const tree = renderer.create(
             <WMButton 
                 text='Button'
                 buttonType={ButtonType.NORMAL}
                 onClick={()=>{}}
             />
         );
-        expect(container).toMatchSnapshot();
+        expect(tree).toMatchSnapshot();
     });
     test('Normal buttons display disabled', () => {
-        const {container} = render(
+        const tree = renderer.create(
             <WMButton 
                 text='Button'
                 buttonType={ButtonType.NORMAL}
@@ -46,7 +47,7 @@ describe('WMButton', () => {
                 onClick={()=>{}}
             />
         );
-        expect(container).toMatchSnapshot();
+        expect(tree).toMatchSnapshot();
     });
 
 
@@ -54,17 +55,17 @@ describe('WMButton', () => {
      * Green
      */
     test('Green buttons match snapshots', () => {
-        const {container} = render(
+        const tree = renderer.create(
             <WMButton 
                 text='Button'
                 buttonType={ButtonType.GREEN}
                 onClick={()=>{}}
             />
         );
-        expect(container).toMatchSnapshot();
+        expect(tree).toMatchSnapshot();
     });
     test('Green buttons display disabled', () => {
-        const {container} = render(
+        const tree = renderer.create(
             <WMButton 
                 text='Button'
                 buttonType={ButtonType.GREEN}
@@ -72,24 +73,24 @@ describe('WMButton', () => {
                 onClick={()=>{}}
             />
         );
-        expect(container).toMatchSnapshot();
+        expect(tree).toMatchSnapshot();
     });
 
     /**
      * Red
      */
     test('Red buttons match snapshots', () => {
-        const {container} = render(
+        const tree = renderer.create(
             <WMButton 
                 text='Button'
                 buttonType={ButtonType.RED}
                 onClick={()=>{}}
             />
         );
-        expect(container).toMatchSnapshot();
+        expect(tree).toMatchSnapshot();
     });
     test('Red buttons display disabled', () => {
-        const {container} = render(
+        const tree = renderer.create(
             <WMButton
                 text='Button'
                 buttonType={ButtonType.RED}
@@ -97,24 +98,24 @@ describe('WMButton', () => {
                 onClick={()=>{}}
             />
         );
-        expect(container).toMatchSnapshot();
+        expect(tree).toMatchSnapshot();
     });
     
     /**
      * Naked
      */
     test('Naked buttons match snapshots', () => {
-        const {container} = render(
+        const tree = renderer.create(
             <WMButton 
                 text='Button'
                 buttonType={ButtonType.NAKED}
                 onClick={()=>{}}
             />
         );
-        expect(container).toMatchSnapshot();
+        expect(tree).toMatchSnapshot();
     });
     test('Naked buttons display disabled', () => {
-        const {container} = render(
+        const tree = renderer.create(
             <WMButton 
                 text='Button'
                 buttonType={ButtonType.NAKED}
@@ -122,6 +123,6 @@ describe('WMButton', () => {
                 onClick={()=>{}}
             />
         );
-        expect(container).toMatchSnapshot();
+        expect(tree).toMatchSnapshot();
     });
 });

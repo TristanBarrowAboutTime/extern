@@ -1,189 +1,217 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button Displays Correctly Green buttons display disabled 1`] = `
-<div>
-  <button
-    class="disabledButton-0-2-7"
-    disabled=""
-  >
-    Button
-  </button>
-</div>
-`;
-
-exports[`Button Displays Correctly Green buttons match snapshots 1`] = `
-<div>
-  <button
-    class="greenButton-0-2-2"
-  >
-    Button
-  </button>
-</div>
-`;
-
-exports[`Button Displays Correctly Naked buttons display disabled 1`] = `
-<div>
-  <button
-    class="nakedDisabledButton-0-2-8"
-    disabled=""
-  >
-    Button
-  </button>
-</div>
-`;
-
-exports[`Button Displays Correctly Naked buttons match snapshots 1`] = `
-<div>
-  <button
-    class="nakedButton-0-2-5"
-  >
-    Button
-  </button>
-</div>
-`;
-
-exports[`Button Displays Correctly Normal buttons display disabled 1`] = `
-<div>
-  <button
-    class="disabledButton-0-2-7"
-    disabled=""
-  >
-    Button
-  </button>
-</div>
-`;
-
-exports[`Button Displays Correctly Normal buttons match snapshots 1`] = `
-<div>
-  <button
-    class="normalButton-0-2-4"
-  >
-    Button
-  </button>
-</div>
-`;
-
-exports[`Button Displays Correctly Red buttons display disabled 1`] = `
-<div>
-  <button
-    class="disabledButton-0-2-7"
-    disabled=""
-  >
-    Button
-  </button>
-</div>
-`;
-
-exports[`Button Displays Correctly Red buttons match snapshots 1`] = `
-<div>
-  <button
-    class="redButton-0-2-3"
-  >
-    Button
-  </button>
-</div>
-`;
-
-exports[`Button Displays Correctly that button displays with minimal props 1`] = `
-<div>
-  <button
-    class="normalButton-0-2-4"
-  >
-    Button
-  </button>
-</div>
-`;
-
 exports[`WMButton Green buttons display disabled 1`] = `
-<div>
-  <button
-    class="disabledButton-0-2-7"
-    disabled=""
-  >
-    Button
-  </button>
-</div>
+.c0 {
+  border: 0;
+  border-radius: 4px;
+  background-color: #A7AFB2;
+  color: #FFFFFF;
+  box-shadow: 0;
+  padding: 10px;
+}
+
+.c0:hover {
+  cursor: default;
+}
+
+<button
+  className="c0"
+  disabled={true}
+  onClick={[Function]}
+  style={Object {}}
+>
+  Button
+</button>
 `;
 
 exports[`WMButton Green buttons match snapshots 1`] = `
-<div>
-  <button
-    class="greenButton-0-2-2"
-  >
-    Button
-  </button>
-</div>
+.c0 {
+  border: 0;
+  border-radius: 4px;
+  background-color: #85B554;
+  color: #FFFFFF;
+  box-shadow: 0 2px 4px #cccccc;
+  padding: 10px;
+}
+
+.c0:hover {
+  cursor: pointer;
+}
+
+<button
+  className="c0"
+  disabled={false}
+  onClick={[Function]}
+  style={Object {}}
+>
+  Button
+</button>
 `;
 
 exports[`WMButton Naked buttons display disabled 1`] = `
-<div>
-  <button
-    class="nakedDisabledButton-0-2-8"
-    disabled=""
-  >
-    Button
-  </button>
-</div>
+.c0 {
+  border: 0;
+  border-radius: 4px;
+  background-color: rgba(0,0,0,0);
+  color: #777777;
+  box-shadow: 0;
+  padding: 10px;
+}
+
+.c0:hover {
+  cursor: default;
+}
+
+<button
+  className="c0"
+  disabled={true}
+  onClick={[Function]}
+  style={Object {}}
+>
+  Button
+</button>
 `;
 
 exports[`WMButton Naked buttons match snapshots 1`] = `
-<div>
-  <button
-    class="nakedButton-0-2-5"
-  >
-    Button
-  </button>
-</div>
+.c0 {
+  border: 0;
+  border-radius: 4px;
+  background-color: rgba(0,0,0,0);
+  color: #333333;
+  box-shadow: 0;
+  padding: 10px;
+}
+
+.c0:hover {
+  cursor: pointer;
+}
+
+<button
+  className="c0"
+  disabled={false}
+  onClick={[Function]}
+  style={Object {}}
+>
+  Button
+</button>
 `;
 
 exports[`WMButton Normal buttons display disabled 1`] = `
-<div>
-  <button
-    class="disabledButton-0-2-7"
-    disabled=""
-  >
-    Button
-  </button>
-</div>
+.c0 {
+  border: 0;
+  border-radius: 4px;
+  background-color: #A7AFB2;
+  color: #FFFFFF;
+  box-shadow: 0;
+  padding: 10px;
+}
+
+.c0:hover {
+  cursor: default;
+}
+
+<button
+  className="c0"
+  disabled={true}
+  onClick={[Function]}
+  style={Object {}}
+>
+  Button
+</button>
 `;
 
 exports[`WMButton Normal buttons match snapshots 1`] = `
-<div>
-  <button
-    class="normalButton-0-2-4"
-  >
-    Button
-  </button>
-</div>
+.c0 {
+  border: 0;
+  border-radius: 4px;
+  background-color: #333333;
+  color: #FFFFFF;
+  box-shadow: 0 2px 4px #cccccc;
+  padding: 10px;
+}
+
+.c0:hover {
+  cursor: pointer;
+}
+
+<button
+  className="c0"
+  disabled={false}
+  onClick={[Function]}
+  style={Object {}}
+>
+  Button
+</button>
 `;
 
 exports[`WMButton Red buttons display disabled 1`] = `
-<div>
-  <button
-    class="disabledButton-0-2-7"
-    disabled=""
-  >
-    Button
-  </button>
-</div>
+.c0 {
+  border: 0;
+  border-radius: 4px;
+  background-color: #A7AFB2;
+  color: #FFFFFF;
+  box-shadow: 0;
+  padding: 10px;
+}
+
+.c0:hover {
+  cursor: default;
+}
+
+<button
+  className="c0"
+  disabled={true}
+  onClick={[Function]}
+  style={Object {}}
+>
+  Button
+</button>
 `;
 
 exports[`WMButton Red buttons match snapshots 1`] = `
-<div>
-  <button
-    class="redButton-0-2-3"
-  >
-    Button
-  </button>
-</div>
+.c0 {
+  border: 0;
+  border-radius: 4px;
+  background-color: #9B3E38;
+  color: #FFFFFF;
+  box-shadow: 0 2px 4px #cccccc;
+  padding: 10px;
+}
+
+.c0:hover {
+  cursor: pointer;
+}
+
+<button
+  className="c0"
+  disabled={false}
+  onClick={[Function]}
+  style={Object {}}
+>
+  Button
+</button>
 `;
 
 exports[`WMButton that button displays with minimal props 1`] = `
-<div>
-  <button
-    class="normalButton-0-2-4"
-  >
-    Button
-  </button>
-</div>
+.c0 {
+  border: 0;
+  border-radius: 4px;
+  background-color: #333333;
+  color: #FFFFFF;
+  box-shadow: 0 2px 4px #cccccc;
+  padding: 10px;
+}
+
+.c0:hover {
+  cursor: pointer;
+}
+
+<button
+  className="c0"
+  disabled={false}
+  onClick={[Function]}
+  style={Object {}}
+>
+  Button
+</button>
 `;

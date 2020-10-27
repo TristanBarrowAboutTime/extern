@@ -8,7 +8,7 @@ export default {
             x_light: '#E9E9E9',
             light: '#E5E5E5',
             medium: '#A7AFB2',
-            dark: '',
+            dark: '#777777',
             x_dark: '#4D4D4D',
             xx_dark: '#333333',
         }
