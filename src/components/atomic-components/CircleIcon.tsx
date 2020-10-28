@@ -2,9 +2,9 @@ import React from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import WMStyles from '../../style/WMStyles'
+import Styles from '../../style/WMStyles'
 
-type WMCircleIconProps = {
+type CircleIconProps = {
     icon: IconProp 
     color?: string
     bgColor?: string
@@ -15,16 +15,16 @@ type WMCircleIconProps = {
     onPress?: () => void
 }
 
-const WMCircleIcon = ({
+const CircleIcon = ({
     icon,
-    color = WMStyles.color.white,
-    bgColor = WMStyles.color.gray.x_dark,
+    color = Styles.color.white,
+    bgColor = Styles.color.gray.x_dark,
     size = 11,
     circleSize = 16,
     marginLeft = 0,
     marginRight = 0,
     onPress
-}: WMCircleIconProps) => {
+}: CircleIconProps) => {
     const styles = StyleSheet.create({
         iconContainer: {
             flex: 1,
@@ -55,4 +55,4 @@ const WMCircleIcon = ({
 
 
 
-export default WMCircleIcon;
+export default CircleIcon;

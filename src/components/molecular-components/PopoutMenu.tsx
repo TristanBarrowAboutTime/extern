@@ -1,18 +1,18 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import { Left } from '../atomic-components/WMCssTriangle';
-import WMStyle from '../../style/WMStyles';
+import { Left } from '../atomic-components/CssTriangle';
+import Style from '../../style/WMStyles';
 import { PopoutMenuEvent } from '../../types/PopoutMenuEvent';
-import { useWMPopoutMenu } from '../../hooks/component-hooks/useWMPopoutMenu';
+import { usePopoutMenu } from '../../hooks/component-hooks/usePopoutMenu';
 
 /**
  * Description:
- * WMPopoutMenu is a configurable popout that will open on a custom event and 
+ * PopoutMenu is a configurable popout that will open on a custom event and 
  * will close once the user clicks anywhere outside of the popout. 
  * 
  * Usage:
- * Import Both the component "WMPopoutMenu" and its hook "usePopoutMenu" from 
- * '~/hooks/component-hooks/useWMPopoutMenu'. 
+ * Import Both the component "PopoutMenu" and its hook "usePopoutMenu" from 
+ * '~/hooks/component-hooks/usePopoutMenu'. 
  * 
  * Call the hook and destructure the result using object notation:
  * 
@@ -30,34 +30,34 @@ import { useWMPopoutMenu } from '../../hooks/component-hooks/useWMPopoutMenu';
  * If you need to "close" the menu in a way other than the default behavior, 
  * call "close".
  * 
- * If you have nested WMPopoutMenu's you will need multiple calls to "usePopoutMenu".
+ * If you have nested PopoutMenu's you will need multiple calls to "usePopoutMenu".
  */
 
-type WMPopoutMenuProps = {
-    children: React.ReactChild | React.ReactChild[] // normal props.children
+type PopoutMenuProps = {
+    children: React.ReactChild | React.ReactChild[]  // normal props.children
     menuEvent: PopoutMenuEvent
     padding?: number                                 // padding that goes around the 
     tickPosition?: number                            // how far down the tick is from the top
-    borderColor?: string                            // border color
-    bgColor?: string                                // background color 
+    borderColor?: string                             // border color
+    bgColor?: string                                 // background color 
     horizontalFix?: number | null
     verticalFix?: number | null
     vPosition?: number
     hPosition?: number
 }
 
-const WMPopoutMenu = ({
+const PopoutMenu = ({
     children,
     menuEvent,
     padding = 10,
     tickPosition = 10,
-    borderColor = WMStyle.color.gray.medium,
-    bgColor = WMStyle.color.white,
+    borderColor = Style.color.gray.medium,
+    bgColor = Style.color.white,
     vPosition = -20,
     hPosition = 10,
     horizontalFix = null,
     verticalFix = null
-}: WMPopoutMenuProps) => {
+}: PopoutMenuProps) => {
     
     const {
         ref,
@@ -65,7 +65,7 @@ const WMPopoutMenu = ({
         backgroundArrowStyle,
         foregroundArrowStyle
 
-    } = useWMPopoutMenu({
+    } = usePopoutMenu({
         menuEvent, 
         padding, 
         tickPosition, 
@@ -103,4 +103,4 @@ const useStyles = createUseStyles({
     }
 });
 
-export default WMPopoutMenu;
+export default PopoutMenu;

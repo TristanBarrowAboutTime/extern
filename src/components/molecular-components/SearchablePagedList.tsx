@@ -1,24 +1,24 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import WMStyles from '../../style/WMStyles';
-import WMSearchBar from '../atomic-components/WMSearchBar';
+import Styles from '../../style/WMStyles';
+import SearchBar from '../atomic-components/SearchBar';
 import {useTextInput} from '../../hooks/useTextInput';
 
-type WMSearchablePagedListProps = {
+type SearchablePagedListProps = {
     list: { code: string, fullName: string }[]
     selectInput: (input: {code: string, fullName: string}) => void
 }
 
-const WMSearchablePagedList = ({
+const SearchablePagedList = ({
     list,
     // selectInput
-}: WMSearchablePagedListProps) => {
+}: SearchablePagedListProps) => {
     const classes = useStyles();
     // const [displayedItems, setDisplayedItems] = useState();
     const { bind } = useTextInput('');
     return (
         <div className={classes.container}>
-            <WMSearchBar {...bind} />
+            <SearchBar {...bind} />
             <div>
                 {list.map((listItem) => {
                     return (
@@ -34,13 +34,13 @@ const WMSearchablePagedList = ({
 
 const useStyles = createUseStyles({
     container: {
-        padding: WMStyles.size.medium,
+        padding: Styles.size.medium,
         border: {
             style: 'solid',
-            color: WMStyles.color.green,
+            color: Styles.color.green,
             width: 1
         }
     }
 });
 
-export default WMSearchablePagedList;
+export default SearchablePagedList;

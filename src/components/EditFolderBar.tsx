@@ -3,19 +3,19 @@ import { useTextInput } from '../hooks/useTextInput';
 import { createUseStyles } from 'react-jss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
-import WMStyles from '../style/WMStyles';
+import Styles from '../style/WMStyles';
 
-type WMEditFolderBarProps = {
+type EditFolderBarProps = {
     initial: string
     onAccept: (value: string) => void
     onCancel: () => void
 }
 // input should probably be broken out into its own component.
-const WMEditFolderBar = ({
+const EditFolderBar = ({
     initial,
     onAccept,
     onCancel,
-}: WMEditFolderBarProps) => {
+}: EditFolderBarProps) => {
     const classes = useStyles();
     const { value, bind:bindTextInput } = useTextInput(initial);
     return (
@@ -68,9 +68,9 @@ const useStyles = createUseStyles({
         justifyContent: 'center',
         alignItems: 'center', 
         marginLeft: 5,
-        height: WMStyles.size.medium,
+        height: Styles.size.medium,
         width: 16,
-        backgroundColor: WMStyles.color.green,
+        backgroundColor: Styles.color.green,
         borderRadius: 100,
     },
     cancelIcon: {
@@ -83,10 +83,10 @@ const useStyles = createUseStyles({
         marginLeft: 5,
         height: 16,
         width: 16,
-        backgroundColor: WMStyles.color.gray.x_dark,
+        backgroundColor: Styles.color.gray.x_dark,
         borderRadius: 100,
     }
     
 });
 
-export default WMEditFolderBar;
+export default EditFolderBar;

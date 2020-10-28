@@ -1,16 +1,16 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import WMEditFolderBar from './WMEditFolderBar';
-import { Up, Down } from './atomic-components/WMCssTriangle';
+import EditFolderBar from './EditFolderBar';
+import { Up, Down } from './atomic-components/CssTriangle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import WMStyles from '../style/WMStyles';
+import Styles from '../style/WMStyles';
 import { FolderId } from '../types/FolderId';
-import WMPopoutMenu from './molecular-components/WMPopoutMenu';
-import WMLargeDropdown from './molecular-components/WMLargeDropdown';
-import { useWMFolderListItem } from '../hooks/component-hooks/useWMFolderListItem';
+import PopoutMenu from './molecular-components/PopoutMenu';
+import LargeDropdown from './molecular-components/LargeDropdown';
+import { useFolderListItem } from '../hooks/component-hooks/useFolderListItem';
 
-type WMFolderListItemProps = {
+type FolderListItemProps = {
     folder: FolderId
     isSelected: boolean
     isEditable: boolean
@@ -21,7 +21,7 @@ type WMFolderListItemProps = {
     onDelete: (id: number) => void,
 }
 
-const WMFolderListItem = ({
+const FolderListItem = ({
     folder,
     isSelected,
     isEditable,
@@ -30,7 +30,7 @@ const WMFolderListItem = ({
     setEditableTo,
     renameFolder,
     onDelete,
-}: WMFolderListItemProps) => {
+}: FolderListItemProps) => {
     
     const {
         editing,
@@ -45,7 +45,7 @@ const WMFolderListItem = ({
         tradeUp,
         tradeDown
 
-    } = useWMFolderListItem({
+    } = useFolderListItem({
         folder,
         setEditableTo,
         renameFolder,
@@ -59,7 +59,7 @@ const WMFolderListItem = ({
                     That folder name already exists
                 </div>}
                 <div className={classes.editRow}>
-                    <WMEditFolderBar 
+                    <EditFolderBar 
                         initial={folder.name}
                         onAccept={acceptEditing}
                         onCancel={cancelEditing}
@@ -104,7 +104,7 @@ const WMFolderListItem = ({
                         </div>
                     )}
                     {editPopoutMenu.isOpen && (
-                        <WMPopoutMenu 
+                        <PopoutMenu 
                             menuEvent={editPopoutMenu.menuEvent}
                             horizontalFix={372}
                         >
@@ -120,14 +120,14 @@ const WMFolderListItem = ({
                             </div>
                             <div>
                                 {sharePopoutMenu.isOpen && (
-                                    <WMPopoutMenu 
+                                    <PopoutMenu 
                                         menuEvent={sharePopoutMenu.menuEvent}
                                         horizontalFix={487}
                                     >
                                         <div>
                                             {'temp'}
                                         </div>
-                                    </WMPopoutMenu>
+                                    </PopoutMenu>
                                 )}
                             </div>
                             <hr className={classes.horizontalRule}/>
@@ -139,7 +139,7 @@ const WMFolderListItem = ({
                                     setHoveredTo(false);
                                 }}
                             >Delete</div>
-                        </WMPopoutMenu>
+                        </PopoutMenu>
                     )}
                     
                 </div>
@@ -154,8 +154,8 @@ const folderItemBase = {
     justifyContent: 'space-between',
     height: 21,
     width: 'calc(100% - 64px)',
-    paddingLeft: WMStyles.size.large,
-    paddingRight: WMStyles.size.large,
+    paddingLeft: Styles.size.large,
+    paddingRight: Styles.size.large,
     color: '#4D4D4D',
     maxWidth: 300,
     '&:hover': {
@@ -197,12 +197,12 @@ const useStyles = createUseStyles({
     },
     folderError: {
         marginLeft: 32,
-        color: WMStyles.color.red,
+        color: Styles.color.red,
         fontSize: 12
     },
     deleteIcon: {
         marginLeft: 5,
-        color: WMStyles.color.red,
+        color: Styles.color.red,
         '&:hover': {
             cursor: 'pointer'
         }
@@ -216,7 +216,7 @@ const useStyles = createUseStyles({
         }
     },
     popoutMenuItemDelete: {
-        color: WMStyles.color.red,
+        color: Styles.color.red,
         margin: {
             left: 10, right: 30
         }
@@ -231,8 +231,8 @@ const useStyles = createUseStyles({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        marginRight: WMStyles.size.large
+        marginRight: Styles.size.large
     }
 });
 
-export default WMFolderListItem;
+export default FolderListItem;

@@ -33,7 +33,4 @@ export default {
         circle: 100,
     },
     lineHeight: 20,
-    
-
-    
 }

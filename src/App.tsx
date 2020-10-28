@@ -1,9 +1,9 @@
 import React from 'react';
-import WMCustomReportsPage from './components/WMCustomReportsPage';
+import CustomReportsPage from './components/CustomReportsPage';
 
 function App() {
   return (
-    <WMCustomReportsPage />
+    <CustomReportsPage />
   );
 }
 

@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import WMStyles from '../../style/WMStyles';
-
+import Styles from '../../style/WMStyles';
 
 /**
  * This will probably need to be turned into react-native at some point.
@@ -31,29 +30,29 @@ const getBgColor = (props: StyledButtonProps): string => {
             case ButtonType.SMALL_GREEN:
             case ButtonType.RED:
             case ButtonType.SMALL_RED:
-                return WMStyles.color.gray.medium;
+                return Styles.color.gray.medium;
             case ButtonType.BARE:
             case ButtonType.SMALL_BARE:
-                return WMStyles.color.transparent;
+                return Styles.color.transparent;
             default:
-                return WMStyles.color.gray.medium;
+                return Styles.color.gray.medium;
         }
     } else {
         switch(props.buttonType) {
             case ButtonType.NORMAL: 
             case ButtonType.SMALL_NORMAL:
-                return WMStyles.color.gray.xx_dark;
+                return Styles.color.gray.xx_dark;
             case ButtonType.GREEN:  
             case ButtonType.SMALL_GREEN:
-                return WMStyles.color.green;
+                return Styles.color.green;
             case ButtonType.RED:
             case ButtonType.SMALL_RED:
-                return WMStyles.color.red;
+                return Styles.color.red;
             case ButtonType.BARE:
             case ButtonType.SMALL_BARE:
-                return WMStyles.color.transparent;
+                return Styles.color.transparent;
             default: 
-                return WMStyles.color.gray.xx_dark;
+                return Styles.color.gray.xx_dark;
         }
     }
 }
@@ -64,12 +63,12 @@ const getPadding = (type: ButtonType) => {
         case ButtonType.SMALL_GREEN:
         case ButtonType.SMALL_RED:
         case ButtonType.SMALL_BARE:
-            return WMStyles.button.paddingSmall;
+            return Styles.button.paddingSmall;
         case ButtonType.NORMAL: 
         case ButtonType.GREEN:  
         case ButtonType.RED:
         case ButtonType.BARE:
-            return WMStyles.button.paddingNormal;
+            return Styles.button.paddingNormal;
         default:
             return '10px'; 
     } 
@@ -85,12 +84,12 @@ const getTextColor = (props: StyledButtonProps): string => {
             case ButtonType.SMALL_GREEN:
             case ButtonType.RED:
             case ButtonType.SMALL_RED:
-                return WMStyles.color.white;
+                return Styles.color.white;
             case ButtonType.BARE:
             case ButtonType.SMALL_BARE:
-                return WMStyles.color.gray.dark;
+                return Styles.color.gray.dark;
             default: 
-                return WMStyles.color.white;
+                return Styles.color.white;
         }
     } else {
         switch(props.buttonType) {
@@ -100,25 +99,31 @@ const getTextColor = (props: StyledButtonProps): string => {
             case ButtonType.SMALL_GREEN:
             case ButtonType.RED:
             case ButtonType.SMALL_RED:
-                return WMStyles.color.white;
+                return Styles.color.white;
             case ButtonType.BARE:
             case ButtonType.SMALL_BARE:
-                return WMStyles.color.gray.xx_dark;
+                return Styles.color.gray.xx_dark;
             default: 
-                return WMStyles.color.gray.xx_dark;
+                return Styles.color.gray.xx_dark;
         }
     }
 }
 
 const getShadow = (props: StyledButtonProps): string => {
-    if (props.disabled || props.buttonType === ButtonType.BARE) return "0";
-    else return WMStyles.button.shadow;
+    if (props.buttonType === ButtonType.BARE || 
+        props.buttonType === ButtonType.SMALL_BARE || 
+        props.disabled) 
+    { 
+        return '0'; 
+    }
+    else return Styles.button.shadow;
 
 }
 
-const Button = styled.button`
+const Container = styled.button`
     border: 0;
     border-radius: 4px;
+    margin: 10px;
     background-color: ${(props: StyledButtonProps) => getBgColor(props)};
     color: ${(props: StyledButtonProps) => getTextColor(props)};
     box-shadow: ${(props: StyledButtonProps) => getShadow(props)};
@@ -128,7 +133,7 @@ const Button = styled.button`
     }
 `;
 
-type WMButtonProps = {
+type ButtonProps = {
     buttonType?: ButtonType,
     text: string,
     styles?: object,
@@ -136,25 +141,25 @@ type WMButtonProps = {
     disabled?: boolean,
 }
 
-export const WMButton: FunctionComponent<WMButtonProps> = ({
+export const Button: FunctionComponent<ButtonProps> = ({
     buttonType = ButtonType.NORMAL, 
     text,
     onClick,
     styles = {},
     disabled = false
-}: WMButtonProps) => {
+}: ButtonProps) => {
 
     return (
-        <Button 
+        <Container 
             style={styles}
             onClick={onClick}
             disabled={disabled}
             buttonType={buttonType}
         >
             {text}
-        </Button>
+        </Container>
     );
 }
 
 
-export default WMButton;
+export default Button;

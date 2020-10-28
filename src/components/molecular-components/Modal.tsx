@@ -2,10 +2,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import WMButton, { ButtonType } from '../atomic-components/WMButton';
-import WMStyles from '../../style/WMStyles';
+import Button, { ButtonType } from '../atomic-components/Button';
+import Styles from '../../style/WMStyles';
 
-type WMModalProps = {
+type ModalProps = {
     title: string
     content: string
     buttons: {
@@ -16,13 +16,13 @@ type WMModalProps = {
     closeModal: () => void
 }
 
-const WMModal = ({
+const Modal = ({
     title,
     content,
     buttons,
     closeModal,
 
-}: WMModalProps) => {
+}: ModalProps) => {
     const classes = useStyles();
     return (
         <div className={classes.blackout}>
@@ -33,7 +33,7 @@ const WMModal = ({
                     <FontAwesomeIcon 
                         className={classes.close}
                         icon={faTimes} 
-                        color={WMStyles.color.white} 
+                        color={Styles.color.white} 
                         onClick={closeModal}
                     />
                 </div>
@@ -42,7 +42,7 @@ const WMModal = ({
                     <div className={classes.buttonSet}>
                         {buttons.map((button) => {
                             return (
-                                <WMButton 
+                                <Button 
                                     key={button.text}
                                     buttonType={button.buttonType}
                                     onClick={button.onClick}
@@ -116,4 +116,4 @@ const useStyles = createUseStyles({
     }
 });
 
-export default WMModal;
+export default Modal;

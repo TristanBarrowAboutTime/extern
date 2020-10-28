@@ -3,17 +3,17 @@ import { createUseStyles } from 'react-jss';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-type WMSearchBarProps = {
+type SearchBarProps = {
     value: string,
     onChange: (event: {target: {value: string}}) => void,
     includeChevron?: boolean
 }
 
-const WMSearchBar = ({
+const SearchBar = ({
     value,
     onChange,
     includeChevron = false
-}: WMSearchBarProps) => {
+}: SearchBarProps) => {
     const classes = useStyles();
     return (
         <div className={classes.container}>
@@ -93,4 +93,4 @@ const useStyles = createUseStyles({
     }
 });
 
-export default WMSearchBar;
+export default SearchBar;

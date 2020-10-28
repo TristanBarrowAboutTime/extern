@@ -1,24 +1,24 @@
 import { useState } from 'react';
-import { usePopoutMenu } from '../../hooks/component-hooks/useWMPopoutMenu';
+import { useWithPopoutMenu } from './usePopoutMenu';
 import { FolderId } from '../../types/FolderId';
 
-type UseWMFolderListItemArgs = {
+type UseFolderListItemArgs = {
     folder: FolderId, 
     setEditableTo: (isEditable: boolean) => void,
     renameFolder: (folderName: string, newFolderName: string) => boolean
 }
 
 
-export const useWMFolderListItem = ({
+export const useFolderListItem = ({
     folder,
     setEditableTo,
     renameFolder
-}: UseWMFolderListItemArgs) => {
+}: UseFolderListItemArgs) => {
     const [editing, setEditingTo] = useState(false);
     const [isHovered, setHoveredTo] = useState(false);
     const [showError, setShowErrorTo] = useState(false);
-    const editPopoutMenu = usePopoutMenu();
-    const sharePopoutMenu = usePopoutMenu(); 
+    const editPopoutMenu = useWithPopoutMenu();
+    const sharePopoutMenu = useWithPopoutMenu(); 
 
     const startEdit = () => {
         setEditingTo(true);

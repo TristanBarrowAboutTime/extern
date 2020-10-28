@@ -1,7 +1,7 @@
 import { useState, useRef, MutableRefObject, useCallback } from 'react';
 import { useTextInput } from '../useTextInput';
 
-export const useWMFolderSelectList = (setEditableTo: (isEditable: boolean) => void) => {
+export const useFolderSelectList = (setEditableTo: (isEditable: boolean) => void) => {
     const [isReordering, setReorderingTo] = useState(false);
     const [isAddingNewFolder, setAddingNewFolderTo] = useState(false);
     const { value, bind } = useTextInput('');

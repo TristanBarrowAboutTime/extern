@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import WMFolderSelectionList from './WMFolderSelectionList';
+import FolderSelectionList from './FolderSelectionList';
 import { createUseStyles } from 'react-jss';
-import WMModal from './molecular-components/WMModal';
-import { ButtonType } from './atomic-components/WMButton';
+import Modal from './molecular-components/Modal';
+import { ButtonType } from './atomic-components/Button';
 import { FolderId } from '../types/FolderId';
 
 let IDCounter = 22;
@@ -201,13 +201,13 @@ export const CustomReportsPage = () => {
 
     return (
         <div className={classes.container}>
-            {isShowingModal && <WMModal 
+            {isShowingModal && <Modal 
                 title={'Confirm Delete'} 
                 content={'Are you sure you want to delete this folder?'}
                 buttons={modalButtons}
                 closeModal={() => setIsShowingModalTo(false)}
             />}
-            <WMFolderSelectionList 
+            <FolderSelectionList 
                 folders={folders}
                 selectedFolder={selectedFolder}
                 selectFolder={(folder) => {selectFolder(folder)}}

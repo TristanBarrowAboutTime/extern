@@ -3,15 +3,12 @@ import { PopoutMenuEvent } from '../../types/PopoutMenuEvent';
 
 
 // for use when importing the component
-export const usePopoutMenu = () => {
+export const useWithPopoutMenu = () => {
 
     const [isOpen, setIsOpenTo] = useState(false);
     const [h, setHorizontal] = useState(0);
     const [v, setVertical] = useState(0);
     const close = useCallback(() => setIsOpenTo(false), []);
-    // const menuEvent = useMemo(() => {
-    //     return {h, v, isOpen, close} as PopoutMenuEvent;
-    // }, [h,v, close]);
 
     return {
         isOpen,
@@ -25,7 +22,7 @@ export const usePopoutMenu = () => {
     };
 }
 
-type UseWMPopoutMenuArgs = {
+type UsePopoutMenuArgs = {
     menuEvent: PopoutMenuEvent
     padding: number
     tickPosition: number
@@ -37,7 +34,7 @@ type UseWMPopoutMenuArgs = {
 }
 
 // for use inside the component its self 
-export const useWMPopoutMenu = ({
+export const usePopoutMenu = ({
     menuEvent,
     padding,
     tickPosition,
@@ -46,7 +43,7 @@ export const useWMPopoutMenu = ({
     hPosition,
     vPosition,
     borderColor
-}: UseWMPopoutMenuArgs) => {
+}: UsePopoutMenuArgs) => {
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
 
     useEffect(() => {

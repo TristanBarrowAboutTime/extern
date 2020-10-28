@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { createUseStyles } from 'react-jss'; 
-import WMButton, { ButtonType } from './atomic-components/WMButton';
+import Button, { ButtonType } from './atomic-components/Button';
 import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
-import WMEditFolderBar from './WMEditFolderBar';
-import WMFolderListItem from './WMFolderListItem';
-import WMCircleIcon from './atomic-components/WMCircleIcon';
-import WMStyles from '../style/WMStyles';
+import EditFolderBar from './EditFolderBar';
+import FolderListItem from './FolderListItem';
+import CircleIcon from './atomic-components/CircleIcon';
+import Styles from '../style/WMStyles';
 import { FolderId } from '../types/FolderId';
-import { useWMFolderSelectList } from '../hooks/component-hooks/useWMFolderSelectionList';
+import { useFolderSelectList } from '../hooks/component-hooks/useFolderSelectionList';
 
 const strings = {
     displayName: 'Folders',
@@ -49,7 +49,7 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
         setToAddingNewFolder,
         setToNormal,
         setToReordering,
-    } = useWMFolderSelectList(setEditableTo);
+    } = useFolderSelectList(setEditableTo);
 
     const classes = useStyles();
     return (
@@ -60,13 +60,13 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                 </div>
                 {isReordering ? (
                     <div className={classes.buttonGroup}>
-                        <WMCircleIcon 
+                        <CircleIcon 
                             icon={faCheck} 
                             size={10}
-                            bgColor={WMStyles.color.green}
+                            bgColor={Styles.color.green}
                             onPress={setToNormal}
                         />
-                        <WMCircleIcon
+                        <CircleIcon
                             icon={faTimes}
                             marginLeft={7}
                             onPress={setToNormal}
@@ -74,13 +74,13 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                     </div>
                 ) : (
                     <div className={classes.buttonGroup}>
-                        <WMButton
+                        <Button
                             buttonType={ButtonType.SMALL_GREEN}
                             text={"New Folder"}
                             disabled={isAddingNewFolder || !isEditable}
                             onClick={setToAddingNewFolder}
                         />
-                        <WMButton
+                        <Button
                             buttonType={ButtonType.BARE}
                             text={"Reorder"}
                             disabled={isAddingNewFolder || !isEditable}
@@ -99,7 +99,7 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                     {folders.map((folder) => {
                         if (folder.name.toLowerCase().includes(searchValue.toLowerCase())) {
                             return (
-                                <WMFolderListItem 
+                                <FolderListItem 
                                     key={folder.name}
                                     setSelectedFolder={selectFolder}
                                     folder={folder}
@@ -118,7 +118,7 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                         <>
                             <div></div>
                             <div className={classes.newFolderInput}>
-                                <WMEditFolderBar
+                                <EditFolderBar
                                     initial=''
                                     onAccept={(value) => {
                                         addNewFolder(value);
@@ -132,7 +132,7 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
 
                     {/* TODO: so messy... this needs to be fixed */}
                     <hr style={{ marginLeft: 32, width: 100, borderLeft: 0, borderRight: 0, borderBottom: 0, borderTop: '1 solid gray'}} />
-                    <div style={{ color: WMStyles.color.gray.dark, marginLeft: 32}}>Recently Deleted</div>
+                    <div style={{ color: Styles.color.gray.dark, marginLeft: 32}}>Recently Deleted</div>
                     <div ref={ref} />
                 </div>
             </div>

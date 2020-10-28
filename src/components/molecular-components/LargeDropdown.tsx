@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { useToggler } from '../../hooks/useToggler';
-import WMStyles from '../../style/WMStyles';
-import WMSearchablePagedList from './WMSearchablePagedList';
+import Styles from '../../style/WMStyles';
+import SearchablePagedList from './SearchablePagedList';
 
 const createList = () => {
     const list = [];
@@ -20,9 +20,9 @@ const createList = () => {
 
 const tmpList = createList();
 
-type WMLargeDropdownProps = {}
+type LargeDropdownProps = {}
 
-const WMLargeDropdown = (props: WMLargeDropdownProps) => {
+const LargeDropdown = (props: LargeDropdownProps) => {
     const { toggleState, toggle } = useToggler(false);
     const [currentInput, setCurrentInputTo] = useState(null as {code: string, fullName: string} | null); 
     
@@ -41,7 +41,7 @@ const WMLargeDropdown = (props: WMLargeDropdownProps) => {
                 </div>
             )}
             {toggleState && <div className={classes.dropdown}>
-                <WMSearchablePagedList 
+                <SearchablePagedList 
                     list={tmpList.list}
                     selectInput={setCurrentInputTo}
                 />
@@ -68,8 +68,8 @@ const useStyles = createUseStyles({
     },
     dropdown: {
         position: 'absolute',
-        backgroundColor: WMStyles.color.white
+        backgroundColor: Styles.color.white
     }
 });
 
-export default WMLargeDropdown;
+export default LargeDropdown;
