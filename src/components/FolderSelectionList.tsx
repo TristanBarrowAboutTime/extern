@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { createUseStyles } from 'react-jss'; 
 import Button, { ButtonType } from './atomic-components/Button';
-import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import EditFolderBar from './EditFolderBar';
 import FolderListItem from './FolderListItem';
-import CircleIcon from './atomic-components/CircleIcon';
 import Styles from '../style/WMStyles';
 import { FolderId } from '../types/FolderId';
 import { useFolderSelectList } from '../hooks/component-hooks/useFolderSelectionList';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const strings = {
     displayName: 'Folders',
@@ -60,16 +60,16 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                 </div>
                 {isReordering ? (
                     <div className={classes.buttonGroup}>
-                        <CircleIcon 
-                            icon={faCheck} 
-                            size={10}
-                            bgColor={Styles.color.green}
-                            onPress={setToNormal}
+                        <FontAwesomeIcon 
+                            icon={faCheckCircle} 
+                            color={Styles.color.green}
+                            onClick={setToNormal}
                         />
-                        <CircleIcon
-                            icon={faTimes}
-                            marginLeft={7}
-                            onPress={setToNormal}
+                        <FontAwesomeIcon
+                            icon={faTimesCircle}
+                            color={Styles.color.gray.xx_dark}
+                            onClick={setToNormal}
+                            style={{marginLeft: 4}}
                         />
                     </div>
                 ) : (

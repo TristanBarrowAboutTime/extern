@@ -1,4 +1,42 @@
 import React from 'react';
+import styled from 'styled-components';
+
+type StyleProps = {
+    size: number,
+    color: string,
+}
+
+const UpArrow = styled.div`
+    width: 0;
+    height: 0;
+    border-left: ${(props: StyleProps) => `${props.size}px solid transparent`};
+    border-right: ${(props: StyleProps) => `${props.size}px solid transparent`};
+    border-bottom: ${(props: StyleProps) => `${props.size}px solid ${props.color}`};
+`;
+
+const DownArrow = styled.div`
+    width: 0;
+    height: 0;
+    border-left: ${(props: StyleProps) => `${props.size}px solid transparent`};
+    border-right: ${(props: StyleProps) => `${props.size}px solid transparent`};
+    border-top: ${(props: StyleProps) => `${props.size}px solid ${props.color}`};
+`;
+
+const LeftArrow = styled.div`
+    width: 0;
+    height: 0;
+    border-top: ${(props: StyleProps) => `${props.size}px solid transparent`};
+    border-bottom: ${(props: StyleProps) => `${props.size}px solid transparent`};
+    border-right: ${(props: StyleProps) => `${props.size}px solid ${props.color}`};
+`;
+
+const RightArrow = styled.div`
+    width: 0;
+    height: 0;
+    border-top: ${(props: StyleProps) => `${props.size}px solid transparent`};
+    border-bottom: ${(props: StyleProps) => `${props.size}px solid transparent`};
+    border-left: ${(props: StyleProps) => `${props.size}px solid ${props.color}`};
+`;
 
 type CssTriangleProps = {
     className?: string
@@ -15,13 +53,7 @@ export const Up = ({
 }: CssTriangleProps) => {
     return (
         <div className={className} onClick={onClick}>
-            <div style={{
-                width: 0,
-                height: 0,
-                borderLeft: `${size}px solid transparent`,
-                borderRight: `${size}px solid transparent`,
-                borderBottom: `${size}px solid ${color}`,
-            }}/>
+            <UpArrow size={size} color={color} />
         </div>
     );
 }
@@ -34,13 +66,7 @@ export const Down = ({
 }: CssTriangleProps) => {
     return (
         <div className={className} onClick={onClick}>
-            <div style={{
-                width: 0,
-                height: 0,
-                borderLeft: `${size}px solid transparent`,
-                borderRight: `${size}px solid transparent`,
-                borderTop: `${size}px solid ${color}`,
-            }}/>
+            <DownArrow size={size} color={color} />
         </div>
     );
 }
@@ -53,13 +79,7 @@ export const Left = ({
 }: CssTriangleProps) => {
     return (
         <div className={className} onClick={onClick}>
-            <div style={{
-                width: 0,
-                height: 0,
-                borderTop: `${size}px solid transparent`,
-                borderBottom: `${size}px solid transparent`,
-                borderRight: `${size}px solid ${color}`,
-            }}/>
+            <LeftArrow size={size} color={color} />
         </div>
     );
 }
@@ -72,13 +92,7 @@ export const Right = ({
 }: CssTriangleProps) => {
     return (
         <div className={className} onClick={onClick}>
-            <div style={{
-                width: 0,
-                height: 0,
-                borderTop: `${size}px solid transparent`,
-                borderBottom: `${size}px solid transparent`,
-                borderLeft: `${size}px solid ${color}`,
-            }}/>
+            <RightArrow size={size} color={color} />
         </div>
     );
 }

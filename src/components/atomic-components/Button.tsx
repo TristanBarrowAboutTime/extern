@@ -123,13 +123,15 @@ const getShadow = (props: StyledButtonProps): string => {
 const Container = styled.button`
     border: 0;
     border-radius: 4px;
-    margin: 10px;
     background-color: ${(props: StyledButtonProps) => getBgColor(props)};
     color: ${(props: StyledButtonProps) => getTextColor(props)};
     box-shadow: ${(props: StyledButtonProps) => getShadow(props)};
     padding: ${(props: StyledButtonProps) => getPadding(props.buttonType)};
     :hover {
         cursor: ${(props: StyledButtonProps) => props.disabled ? 'default' : 'pointer'}
+    }
+    :focus {
+        border: 0;
     }
 `;
 
