@@ -3,8 +3,6 @@ import renderer from 'react-test-renderer';
 import Button, { ButtonType } from '../../../components/atomic-components/Button';
 import Style from '../../../style/WMStyles';
 import 'jest-styled-components';
-import styled from 'styled-components';
-import { render } from '@testing-library/react';
 import { unmountComponentAtNode } from 'react-dom';
 
 const style = {
@@ -43,7 +41,6 @@ const styleNames = {
 
 
 let container: Element | DocumentFragment | null  = null;
-
 beforeEach(() => {
     container = document.createElement("div");
     document.body.appendChild(container);
@@ -57,12 +54,6 @@ afterEach(() => {
     container = null;
 
 });
-
-
-
-
-
-
 
 describe('Button', () => {
     it('gets Clicked when enabled', () => {

@@ -1,0 +1,321 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CssTriangle Down to match snapshot with color modified 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #abcdef;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#abcdef"
+    size={5}
+  />
+</div>
+`;
+
+exports[`CssTriangle Down to match snapshot with no parameters 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #000000;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#000000"
+    size={5}
+  />
+</div>
+`;
+
+exports[`CssTriangle Down to match snapshot with size and color modified 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #abcdef;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#abcdef"
+    size={10}
+  />
+</div>
+`;
+
+exports[`CssTriangle Down to match snapshot with size modified 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #000000;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#000000"
+    size={10}
+  />
+</div>
+`;
+
+exports[`CssTriangle Left to match snapshot with color modified 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #abcdef;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#abcdef"
+    size={5}
+  />
+</div>
+`;
+
+exports[`CssTriangle Left to match snapshot with no parameters 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #000000;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#000000"
+    size={5}
+  />
+</div>
+`;
+
+exports[`CssTriangle Left to match snapshot with size and color modified 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #abcdef;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#abcdef"
+    size={10}
+  />
+</div>
+`;
+
+exports[`CssTriangle Left to match snapshot with size modified 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #000000;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#000000"
+    size={10}
+  />
+</div>
+`;
+
+exports[`CssTriangle Right to match snapshot with color modified 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #abcdef;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#abcdef"
+    size={5}
+  />
+</div>
+`;
+
+exports[`CssTriangle Right to match snapshot with no parameters 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #000000;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#000000"
+    size={5}
+  />
+</div>
+`;
+
+exports[`CssTriangle Right to match snapshot with size and color modified 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #abcdef;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#abcdef"
+    size={10}
+  />
+</div>
+`;
+
+exports[`CssTriangle Right to match snapshot with size modified 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #000000;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#000000"
+    size={10}
+  />
+</div>
+`;
+
+exports[`CssTriangle Up to match snapshot with color modified 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #abcdef;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#abcdef"
+    size={5}
+  />
+</div>
+`;
+
+exports[`CssTriangle Up to match snapshot with no parameters 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #000000;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#000000"
+    size={5}
+  />
+</div>
+`;
+
+exports[`CssTriangle Up to match snapshot with size and color modified 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #abcdef;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#abcdef"
+    size={10}
+  />
+</div>
+`;
+
+exports[`CssTriangle Up to match snapshot with size modified 1`] = `
+.c0 {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #000000;
+}
+
+<div
+  className=""
+>
+  <div
+    className="c0"
+    color="#000000"
+    size={10}
+  />
+</div>
+`;

@@ -6,6 +6,9 @@ type StyleProps = {
     color: string,
 }
 
+const defaultColor = '#000000';
+const defaultSize = 5;
+
 const UpArrow = styled.div`
     width: 0;
     height: 0;
@@ -48,8 +51,8 @@ type CssTriangleProps = {
 export const Up = ({
     className = '',
     onClick,
-    color = 'black',
-    size = 5,
+    color = defaultColor,
+    size = defaultSize,
 }: CssTriangleProps) => {
     return (
         <div className={className} onClick={onClick}>
@@ -61,8 +64,8 @@ export const Up = ({
 export const Down = ({
     className = '',
     onClick,
-    color = 'black',
-    size = 5,
+    color = defaultColor,
+    size = defaultSize,
 }: CssTriangleProps) => {
     return (
         <div className={className} onClick={onClick}>
@@ -74,8 +77,8 @@ export const Down = ({
 export const Left = ({
     className = '',
     onClick,
-    color = 'black',
-    size = 5,
+    color = defaultColor,
+    size = defaultSize,
 }: CssTriangleProps) => {
     return (
         <div className={className} onClick={onClick}>
@@ -87,8 +90,8 @@ export const Left = ({
 export const Right = ({
     className = '',
     onClick,
-    color = 'black',
-    size = 5,
+    color = defaultColor,
+    size = defaultSize,
 }: CssTriangleProps) => {
     return (
         <div className={className} onClick={onClick}>

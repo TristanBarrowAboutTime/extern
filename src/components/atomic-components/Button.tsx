@@ -120,6 +120,7 @@ const getShadow = (props: StyledButtonProps): string => {
 
 }
 
+// eventually this implementation should be changed to something more sustainable
 const Container = styled.button`
     border: 0;
     border-radius: 4px;

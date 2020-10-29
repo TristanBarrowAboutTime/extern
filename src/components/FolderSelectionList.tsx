@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react';
+import React, { useState, useRef, useCallback, FunctionComponent, MutableRefObject } from 'react';
+import { useTextInput } from '../hooks/useTextInput';
 import { createUseStyles } from 'react-jss'; 
 import Button, { ButtonType } from './atomic-components/Button';
 import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -6,7 +7,6 @@ import EditFolderBar from './EditFolderBar';
 import FolderListItem from './FolderListItem';
 import Styles from '../style/WMStyles';
 import { FolderId } from '../types/FolderId';
-import { useFolderSelectList } from '../hooks/component-hooks/useFolderSelectionList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const strings = {
@@ -228,5 +228,45 @@ const useStyles = createUseStyles({
         marginRight: 32
     }
 });
+
+const useFolderSelectList = (setEditableTo: (isEditable: boolean) => void) => {
+    const [isReordering, setReorderingTo] = useState(false);
+    const [isAddingNewFolder, setAddingNewFolderTo] = useState(false);
+    const { value, bind } = useTextInput('');
+    
+    const ref = useRef() as MutableRefObject<HTMLDivElement>;
+
+    const setToNormal = useCallback(() => {
+        setReorderingTo(false);
+        setAddingNewFolderTo(false);
+        setEditableTo(true);
+    }, [setEditableTo]);
+
+    const setToReordering = useCallback(() => {
+        setReorderingTo(true);
+        setAddingNewFolderTo(false);
+        setEditableTo(false);
+    }, [setEditableTo]);
+
+    const setToAddingNewFolder = () => {
+        setReorderingTo(false);
+        setAddingNewFolderTo(true);
+        setEditableTo(false);
+        ref.current.scrollIntoView(); // { behavior: 'smooth'} fails to scroll. Workaround needed.
+    };
+
+    return {
+        ref,
+        isReordering,
+        isAddingNewFolder,
+        bindSearchBar: bind,
+        searchValue: value,
+        setToAddingNewFolder,
+        setToNormal,
+        setToReordering,
+    }
+}
+
+
 
 export default FolderSelectionList;
