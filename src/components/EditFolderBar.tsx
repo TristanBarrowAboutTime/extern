@@ -3,7 +3,7 @@ import { useTextInput } from '../hooks/useTextInput';
 import { createUseStyles } from 'react-jss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
-import Styles from '../style/WMStyles';
+import Styles from '../style/Styles';
 
 type EditFolderBarProps = {
     initial: string

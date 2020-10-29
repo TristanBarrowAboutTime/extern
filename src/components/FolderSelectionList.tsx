@@ -5,7 +5,7 @@ import Button, { ButtonType } from './atomic-components/Button';
 import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import EditFolderBar from './EditFolderBar';
 import FolderListItem from './FolderListItem';
-import Styles from '../style/WMStyles';
+import Styles from '../style/Styles';
 import { FolderId } from '../types/FolderId';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

@@ -3,7 +3,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import Button, { ButtonType } from '../atomic-components/Button';
-import Styles from '../../style/WMStyles';
+import Styles from '../../style/Styles';
 
 type ModalProps = {
     title: string

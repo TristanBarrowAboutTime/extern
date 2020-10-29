@@ -1,13 +1,46 @@
 import React from 'react'; 
 import { createUseStyles } from 'react-jss';
+import styled from 'styled-components';
+import Styles from '../../style/Styles';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 type SearchBarProps = {
     value: string,
     onChange: (event: {target: {value: string}}) => void,
     includeChevron?: boolean
 }
+
+const Container = styled.div``;
+const Input = styled.input`
+    width: 300;
+    border-radius: 4;
+    box-shadow: ${Styles.searchBar.shadow};
+    border: 0;
+    padding: '6px 1px 4px 16px';
+    background-color: ${Styles.color.gray.xx_light};
+    font-size: 20;
+
+    ::placeholder {
+        color: ${Styles.color.gray.x_dark};
+
+    }
+
+    :focus {
+        outline: none;
+        padding: 5px 0px 3px 15px;
+        border: 1px solid ${Styles.color.gray.medium};
+    }
+
+`;
+
+const Icon = styled.div`
+
+
+`;
+
+
 
 const SearchBar = ({
     value,
@@ -16,81 +49,25 @@ const SearchBar = ({
 }: SearchBarProps) => {
     const classes = useStyles();
     return (
-        <div className={classes.container}>
-            <input
+        <Container>
+            <Input
                 className={classes.input} 
                 placeholder='Search'
                 type='text' 
                 value={value} 
                 onChange={onChange} 
-            ></input>
+            ></Input>
             {/* this needs some logic to fip upsidedown and such */}
             {includeChevron && (
-                <FontAwesomeIcon
-                    className={classes.icon} 
-                    icon={faChevronDown} 
-                />
+                <Icon>
+                    <FontAwesomeIcon
+                        className={classes.icon} 
+                        icon={faChevronDown} 
+                    />
+                </Icon>
             )}
-        </div>
+        </Container>
     )
 }
-
-const useStyles = createUseStyles({
-    container: {
-    },
-    input: {
-        width: 300,
-        borderRadius: 4,
-        boxShadow: {
-            x: 0, y: 1, blur: 4, color: '#cccccc'
-        },
-        border: 0,
-        padding: {
-            left: 16, right: 1, top: 6, bottom: 4
-        },
-        backgroundColor: '#FAFAFA',
-        '&::placeholder': {
-            color: '#4D4D4D',
-            opacity: 1,
-        },
-        'font-size': 20,
-        '&:focus': {
-            outline: 'none',
-            padding: {
-                left: 15, right: 0, top: 5, bottom: 3
-            },
-            border: {
-                width: 1,
-                color: '#E5E5E5',
-                style: 'solid'
-            }
-        }
-    },
-    icon: {
-        position: 'absolute',
-        right: 30,
-        top: 26
-    },
-    searchBar: {
-        margin: {
-            top: 16,
-            bottom: 16,
-            left: 32,
-            right: 32,
-        },
-        padding: {
-            left: 16, right: 1, top: 6, bottom: 4
-        },
-        border: 0,
-        boxShadow: {
-            x: 0, y: 1, blur: 4, color: '#cccccc'
-        },
-        width: 300, 
-        '&::placeholder': {
-            color: '#4D4D4D',
-            opacity: 1,
-        },
-    }
-});
 
 export default SearchBar;

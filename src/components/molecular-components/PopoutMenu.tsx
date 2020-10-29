@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo, MutableRefObject } from 'react';
 import { createUseStyles } from 'react-jss';
 import { Left } from '../atomic-components/CssTriangle';
-import Style from '../../style/WMStyles';
+import Style from '../../style/Styles';
 import { PopoutMenuEvent } from '../../types/PopoutMenuEvent';
 
 /**

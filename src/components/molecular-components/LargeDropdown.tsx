@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { useToggler } from '../../hooks/useToggler';
-import Styles from '../../style/WMStyles';
+import Styles from '../../style/Styles';
 import SearchablePagedList from './SearchablePagedList';
 
 const createList = () => {

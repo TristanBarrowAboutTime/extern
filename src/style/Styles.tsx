@@ -5,6 +5,7 @@ export default {
         red: '#9B3E38',
         green: '#85B554',
         gray: {
+            xx_light: '#FAFAFA',
             x_light: '#E9E9E9',
             light: '#E5E5E5',
             medium: '#A7AFB2',
@@ -18,6 +19,9 @@ export default {
         paddingNormal: '8px 10px 10px 10px',
         paddingSmall: '6px 17px 4px 17px',
         shadow: '0 2px 4px #cccccc',
+    },
+    searchBar: {
+        shadow: '0 1px 4px #cccccc'
     },
     size: {
         xx_small: 2,

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Button, { ButtonType } from '../../../components/atomic-components/Button';
-import Style from '../../../style/WMStyles';
+import Style from '../../../style/Styles';
 import 'jest-styled-components';
 import { unmountComponentAtNode } from 'react-dom';
 

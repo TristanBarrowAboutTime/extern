@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import Styles from '../../style/WMStyles';
+import Styles from '../../style/Styles';
 
 /**
  * This will probably need to be turned into react-native at some point.

@@ -4,7 +4,7 @@ import EditFolderBar from './EditFolderBar';
 import { Up, Down } from './atomic-components/CssTriangle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import Styles from '../style/WMStyles';
+import Styles from '../style/Styles';
 import { FolderId } from '../types/FolderId';
 import PopoutMenu, { useWithPopoutMenu } from './molecular-components/PopoutMenu';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import Styles from '../../style/WMStyles';
+import Styles from '../../style/Styles';
 import SearchBar from '../atomic-components/SearchBar';
 import {useTextInput} from '../../hooks/useTextInput';
 
