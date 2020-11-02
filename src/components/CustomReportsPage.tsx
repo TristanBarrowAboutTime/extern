@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import FolderSelectionList from './FolderSelectionList';
+import FolderSelectionList from './folder-selection-list/FolderSelectionList';
 import { createUseStyles } from 'react-jss';
 import Modal from './molecular-components/Modal';
 import { ButtonType } from './atomic-components/Button';
-import { FolderId } from '../types/FolderId';
-
+import styled from 'styled-components';
+import { Folders } from '../types/Folders';
+import { objectifyArray } from '../util/objectifyFoldersArray';
 let IDCounter = 22;
 
-const tmpFolders: FolderId[] = [
+const tmpFolders: {
+    id: number,
+    name: string, 
+    editable: boolean
+}[] = [
     {
         id: 1,
         name: 'All Reports',
@@ -114,37 +119,83 @@ const tmpFolders: FolderId[] = [
         editable: true
     },
 ];
+const order = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
+const response = {
+    folders: tmpFolders,
+    order: order.map((id) => `id-${id}`)
+}
 
+const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #E5E5E5;
+`;
 
 export const CustomReportsPage = () => {
-    const classes = useStyles();
-    const [folders, setFolders] = useState(tmpFolders);
-    const [selectedFolder, selectFolder] = useState(tmpFolders[0]);
+    const [folders, setFolders] = useState(objectifyArray(response.folders));
+    const [folderOrder, setFolderOrderTo] = useState(response.order);
+    const [tempOrder, setTempOrderTo] = useState(response.order);
+    const [isReordering, setReorderingTo] = useState(false);
+    const [selectedFolder, selectFolder] = useState(folderOrder[0]);
     const [isEditable, setEditableTo] = useState(true);
     const [isShowingModal, setIsShowingModalTo] = useState(false);
-    const [folderToDelete, setFolderToDelete] = useState<number|null>(null);
-    
+    const [folderToDelete, setFolderToDeleteTo] = useState<string|null>(null);
+    const [newIdCounter, setNewIdCounterTo] = useState(0);
+
+    const swapDown = (id: string) => {
+        const index = tempOrder.indexOf(id);
+        console.log(tempOrder)
+        if (index !== tempOrder.length - 1) {
+        if (!folders[tempOrder[index+1]].editable) return;
+            setTempOrderTo([
+                ...tempOrder.slice(0,index),
+                tempOrder[index+1],
+                tempOrder[index],
+                ...tempOrder.slice(index+2)
+            ])
+        }
+    }
+
+    const swapUp = (id: string) => {
+        const index = tempOrder.indexOf(id);
+        if (!folders[tempOrder[index-1]].editable) return;
+        if (index !== 0) {
+            setTempOrderTo([
+                ...tempOrder.slice(0,index-1),
+                tempOrder[index],
+                tempOrder[index-1],
+                ...tempOrder.slice(index+1)
+            ]);
+        }
+    }
+
+    const acceptReordering = () => {
+        console.log(tempOrder)
+        console.log(folderOrder)
+        setFolderOrderTo(tempOrder);
+    }
+
+    const cancelReordering = () => {
+        setTempOrderTo(folderOrder);
+    }
+
     const nameIsUnique = (name: string) => {
         let isUnique: boolean = true;
-        folders.forEach((folder) => {
-            if (folder.name === name) {
+        Object.keys(folders).forEach((id) => {
+            if (folders[id].name === name) {
                 isUnique = false;
-            } 
+            }
         });
+
         return isUnique;
     }
 
     // This will need to be modified to work with the back end.
-    const renameFolder = (oldName: string, newName: string): boolean => {
-        newName = newName.trim();
-        if (nameIsUnique(newName)) {
-            let tmp = tmpFolders;
-            tmp.forEach((folder, index) => {
-                if (folder.name === oldName) {
-                    tmp[index] = { id: folder.id, name: newName, editable: folder.editable};
-                    setFolders(tmp);
-                }
-            });
+    const renameFolder = (id: string, name: string): boolean => {
+        name = name.trim();
+        if (nameIsUnique(name)) {
+            setFolders({...folders, [id]: {name: name, editable: true}})
             return true;
         } else {
             return false;
@@ -153,31 +204,42 @@ export const CustomReportsPage = () => {
 
     const addNewFolder = (folderName: string): boolean => {
         if (nameIsUnique(folderName)) {
-            setFolders([...folders, { id: IDCounter, name: folderName, editable: true }])
-            IDCounter++;
+            setFolders({...folders, 
+                [`newFolder-${newIdCounter}`]: {
+                    name: folderName, 
+                    editable: true 
+                }
+            });
+            setNewIdCounterTo(newIdCounter+1);
             return true;
         } else {
             return false;
         }
     }
 
-    const onDeleteFolder = (id: number) => {
+    const onDeleteFolder = (id: string) => {
         setIsShowingModalTo(true);
-        setFolderToDelete(id);
-
+        setFolderToDeleteTo(id);
     }
 
-    const deleteFolder = (id: number) => {
+    const deleteFolder = () => {
+        console.log(folderToDelete);
         let i: number = -1;
-        folders.forEach((folder, index) => {
-            if (folder.id === id) {
-                i = index;
+        folderOrder.forEach((id, index) => {
+            if (id === folderToDelete) {
+                i = index;   
             }
         });
-        setFolders(folders.slice(0,i).concat(folders.slice(i+1)));
-        console.log('onDelete', id);
-        setFolderToDelete(null);
+        if (i === -1) {
+            throw Error('Folder id does not exist in folder order');
+        }
+
+        setFolderOrderTo(folderOrder.slice(0,i).concat(folderOrder.slice(i+1)));
+        setFolderToDeleteTo(null);
     }
+
+
+
 
     const modalButtons = [
         {
@@ -186,7 +248,7 @@ export const CustomReportsPage = () => {
             onClick: () => {
                 setIsShowingModalTo(false);
                 if (folderToDelete !== null) {
-                    deleteFolder(folderToDelete);
+                    deleteFolder();
                 }
             }
         },
@@ -198,9 +260,9 @@ export const CustomReportsPage = () => {
             }
         }
     ];
-
+    
     return (
-        <div className={classes.container}>
+        <Container>
             {isShowingModal && <Modal 
                 title={'Confirm Delete'} 
                 content={'Are you sure you want to delete this folder?'}
@@ -209,8 +271,15 @@ export const CustomReportsPage = () => {
             />}
             <FolderSelectionList 
                 folders={folders}
+                order={isReordering ? tempOrder : folderOrder}
                 selectedFolder={selectedFolder}
-                selectFolder={(folder) => {selectFolder(folder)}}
+                selectFolder={(folder) => selectFolder(folder)}
+                isReordering={isReordering}
+                setReorderingTo={setReorderingTo}
+                swapUp={swapUp}
+                swapDown={swapDown}
+                acceptReordering={acceptReordering}
+                cancelReordering={cancelReordering}
                 isEditable={isEditable}
                 renameFolder={renameFolder}
                 addNewFolder={addNewFolder}
@@ -218,17 +287,8 @@ export const CustomReportsPage = () => {
                 onDelete={onDeleteFolder}
             />
             <div>{"folders view"}</div>
-        </div>
+        </Container>
     );
 }
-
-const useStyles = createUseStyles({
-    container: {
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        backgroundColor: '#E5E5E5'
-    }
-});
 
 export default CustomReportsPage;

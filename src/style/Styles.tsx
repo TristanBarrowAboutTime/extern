@@ -16,7 +16,7 @@ export default {
         transparent: 'rgba(255,255,255,0)'
     },
     button: {
-        paddingNormal: '8px 10px 10px 10px',
+        paddingNormal: '10px 12px 8px 12px',
         paddingSmall: '6px 17px 4px 17px',
         shadow: '0 2px 4px #cccccc',
     },

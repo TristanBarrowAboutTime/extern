@@ -99,3 +99,21 @@ export const Right = ({
         </div>
     );
 }
+
+export const VSpacer = ({size}: {size: number}) => {
+    return (
+        <div style={{
+            width: 1,
+            height: size
+        }}/>
+    );
+}
+
+export const HSpacer = ({size}: {size: number}) => {
+    return (
+        <div style={{
+            width: size,
+            height: 1
+        }}/>
+    );
+}

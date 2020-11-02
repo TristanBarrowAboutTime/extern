@@ -1,12 +1,13 @@
 import React, { useState, useRef, useCallback, FunctionComponent, MutableRefObject } from 'react';
-import { useTextInput } from '../hooks/useTextInput';
+import { useTextInput } from '../../hooks/useTextInput';
 import { createUseStyles } from 'react-jss'; 
-import Button, { ButtonType } from './atomic-components/Button';
+import Button, { ButtonType } from '../atomic-components/Button';
 import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import EditFolderBar from './EditFolderBar';
+import EditFolderRow from './EditFolderRow';
 import FolderListItem from './FolderListItem';
-import Styles from '../style/Styles';
-import { FolderId } from '../types/FolderId';
+import Styles from '../../style/Styles';
+import styled from 'styled-components';
+import { Folders } from '../../types/Folders';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const strings = {
@@ -17,63 +18,133 @@ const strings = {
 }
 
 type FolderSelectionListProps = {
-    folders: FolderId[]
-    selectedFolder: FolderId
-    selectFolder: (folder: FolderId) => void
+    folders: Folders
+    order: string[]
+    selectedFolder: string
+    selectFolder: (folder: string) => void
+    swapUp: (id: string) => void
+    swapDown: (id: string) => void
     isEditable: boolean
+    isReordering: boolean
+    acceptReordering: () => void
+    cancelReordering: () => void
     setEditableTo: (isEditable: boolean) => void
-    renameFolder: (oldName: string, newName: string) => boolean
+    renameFolder: (id: string, newName: string) => boolean
+    setReorderingTo: (isReordering: boolean) => void
     addNewFolder: (folderName: string) => boolean
-    onDelete: (id: number) => void
+    onDelete: (id: string) => void
 }
 
-// const initialOrder = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
+const Container = styled.div`
+        padding: 32px 0 16px 0;
+        max-width: 377px;
+        border-radius: 4px;
+        margin: 40px;
+        height: 75vh;
+        background-color: #FFFFFF;
+        box-shadow: 0 2px 3px 1px rgba(0,0,0,.17);
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+`;
+
+const Header = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 32px; 
+    padding-right: 32px;
+`;
+
+const Body = styled.div`
+    margin-right: 2;
+    overflow-y: scroll;
+    height: 10;
+    flex-grow: 1;
+`;
+
+const ScrollBody = styled.div``;
+
+const DisplayName = styled.div`
+    color: #4D4D4D;
+    font-size: 24px;
+`;
+
+const Hr = styled.hr`
+    margin-left: 32px; 
+    width: 100px; 
+    border-left: 0;
+    border-right: 0; 
+    border-bottom: 0; 
+    border-top: 1px solid gray;
+`;
+
+const ButtonGroup = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 33px;
+
+`;
 
 const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
     folders,
+    order,
     selectFolder,
     isEditable,
     selectedFolder,
+    isReordering,
+    swapUp,
+    swapDown,
+    acceptReordering,
+    cancelReordering,
     setEditableTo,
+    setReorderingTo,
     renameFolder,
     addNewFolder,
     onDelete,
 }: FolderSelectionListProps) => {
-
     const {
         ref,
-        isReordering,
         isAddingNewFolder,
         bindSearchBar,
         searchValue,
         setToAddingNewFolder,
         setToNormal,
+        acceptOrder,
+        rejectOrder,
         setToReordering,
-    } = useFolderSelectList(setEditableTo);
+    } = useFolderSelectList({
+        setEditableTo,
+        setReorderingTo,
+        acceptReordering,
+        cancelReordering,
+    });
 
     const classes = useStyles();
     return (
-        <div className={classes.container}>
-            <div className={classes.header}>
-                <div className={classes.displayName}>
+        <Container>
+            <Header>
+                <DisplayName>
                     {strings.displayName}
-                </div>
+                </DisplayName>
                 {isReordering ? (
-                    <div className={classes.buttonGroup}>
+                    <ButtonGroup>
                         <FontAwesomeIcon 
                             icon={faCheckCircle} 
                             color={Styles.color.green}
-                            onClick={setToNormal}
+                            onClick={acceptOrder} 
                         />
                         <FontAwesomeIcon
                             icon={faTimesCircle}
                             color={Styles.color.gray.xx_dark}
-                            onClick={setToNormal}
+                            onClick={rejectOrder}
                             style={{marginLeft: 4}}
                         />
-                    </div>
+                    </ButtonGroup>
                 ) : (
-                    <div className={classes.buttonGroup}>
+                    <ButtonGroup>
                         <Button
                             buttonType={ButtonType.SMALL_GREEN}
                             text={"New Folder"}
@@ -86,101 +157,60 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                             disabled={isAddingNewFolder || !isEditable}
                             onClick={setToReordering}
                         />
-                    </div>   
+                    </ButtonGroup>   
                 )}
-            </div>
+            </Header>
             <input 
                 className={classes.searchBar} 
                 placeholder={"Search"} 
                 {...bindSearchBar}
             />
-            <div className={classes.body}>
-                <div className={classes.scrollBody}>
-                    {folders.map((folder) => {
-                        if (folder.name.toLowerCase().includes(searchValue.toLowerCase())) {
+            <Body>
+                <ScrollBody>
+                    {order.map((id) => {
+                        if (folders[id].name.toLowerCase().includes(searchValue.toLowerCase())) {
                             return (
                                 <FolderListItem 
-                                    key={folder.name}
-                                    setSelectedFolder={selectFolder}
-                                    folder={folder}
-                                    isEditable={isEditable}
-                                    isSelected={selectedFolder.name === folder.name}
+                                    key={folders[id].name}
+                                    setSelectedFolder={() => selectFolder(id)}
+                                    folder={folders[id]}
+                                    isEditable={isEditable && folders[id].editable}
+                                    tradeUp={() => swapUp(id)}
+                                    tradeDown={() => swapDown(id)}
+                                    isSelected={selectedFolder === id}
                                     reordering={isReordering}
                                     setEditableTo={setEditableTo}
                                     renameFolder={renameFolder}
-                                    onDelete={onDelete}
+                                    onDelete={() => onDelete(id)}
                                 />
                             );
                         }
                         return null;
                     })}
                     {isAddingNewFolder && (
-                        <>
-                            <div></div>
-                            <div className={classes.newFolderInput}>
-                                <EditFolderBar
-                                    initial=''
-                                    onAccept={(value) => {
-                                        addNewFolder(value);
-                                        setToNormal(); 
-                                    }}
-                                    onCancel={setToNormal}
-                                />
-                            </div>
-                        </>
+                        <EditFolderRow
+                            initial=''
+                            showError={false}
+                            errorText={'That folder name already exists'}
+                            onAccept={(value) => {
+                                addNewFolder(value);
+                                setToNormal(); 
+                            }}
+                            onCancel={setToNormal}
+                        />
                     )}
 
                     {/* TODO: so messy... this needs to be fixed */}
-                    <hr style={{ marginLeft: 32, width: 100, borderLeft: 0, borderRight: 0, borderBottom: 0, borderTop: '1 solid gray'}} />
+                    <Hr />
                     <div style={{ color: Styles.color.gray.dark, marginLeft: 32}}>Recently Deleted</div>
                     <div ref={ref} />
-                </div>
-            </div>
-        </div>
+                </ScrollBody>
+            </Body>
+        </Container>
     );
 }
 
 const useStyles = createUseStyles({
-    container: {
-        padding: {
-            top: 32,
-            bottom: 16,
-            left: 0,
-            right: 0
-        },
-        maxWidth: 377,
-        borderRadius: 4,
-        margin: '40px',
-        height: '75vh',
-        backgroundColor: '#FFFFFF',
-        boxShadow: {
-            x: 0,
-            y: 2,
-            blur: 3,
-            spread: 1,
-            color: 'rgba(0,0,0,0.17)',
-        },
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'stretch'
-    },
-    buttonGroup: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 33,
-    },
-    header: {
-        display: 'flex',
-        padding: {left: 32, right: 32},
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    displayName: {
-        color: '#4D4D4D',
-        'font-size': '24px'
-    },
     searchBar: {
         margin: {
             top: 16,
@@ -214,23 +244,20 @@ const useStyles = createUseStyles({
                 style: 'solid'
             }
         }
-    },
-    body: {
-        marginRight: 2,
-        'overflow-y': 'scroll',
-        height: 10,
-        flexGrow: 1
-    },
-    scrollBody: {
-
-    },
-    newFolderInput: {
-        marginRight: 32
     }
 });
 
-const useFolderSelectList = (setEditableTo: (isEditable: boolean) => void) => {
-    const [isReordering, setReorderingTo] = useState(false);
+const useFolderSelectList = ({
+    setEditableTo, 
+    setReorderingTo,
+    acceptReordering,
+    cancelReordering,
+}:{
+    setEditableTo: (isEditable: boolean) => void
+    setReorderingTo: (isReordering: boolean) => void
+    acceptReordering: () => void
+    cancelReordering: () => void
+}) => {
     const [isAddingNewFolder, setAddingNewFolderTo] = useState(false);
     const { value, bind } = useTextInput('');
     
@@ -241,6 +268,16 @@ const useFolderSelectList = (setEditableTo: (isEditable: boolean) => void) => {
         setAddingNewFolderTo(false);
         setEditableTo(true);
     }, [setEditableTo]);
+
+    const acceptOrder = useCallback(() => {
+        acceptReordering();
+        setToNormal();
+    }, []);
+
+    const rejectOrder = useCallback(() => {
+        cancelReordering();
+        setToNormal();
+    }, []);
 
     const setToReordering = useCallback(() => {
         setReorderingTo(true);
@@ -257,13 +294,14 @@ const useFolderSelectList = (setEditableTo: (isEditable: boolean) => void) => {
 
     return {
         ref,
-        isReordering,
         isAddingNewFolder,
         bindSearchBar: bind,
         searchValue: value,
         setToAddingNewFolder,
         setToNormal,
         setToReordering,
+        acceptOrder,
+        rejectOrder 
     }
 }
 

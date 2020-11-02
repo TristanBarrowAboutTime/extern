@@ -48,7 +48,7 @@ type PopoutMenuProps = {
 const PopoutMenu = ({
     children,
     menuEvent,
-    padding = 10,
+    padding = 16,
     tickPosition = 10,
     borderColor = Style.color.gray.medium,
     bgColor = Style.color.white,

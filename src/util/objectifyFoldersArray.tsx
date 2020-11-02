@@ -1,15 +1,15 @@
-import { FolderId } from "../types/FolderId";
+import { Folders } from "../types/Folders";
 
-export const objectifyArray = (folders: FolderId[]): Object => {
-    let obj = {};
-    folders.forEach((folder) => {
-        obj = {
-            ...obj,
+export const objectifyArray = (array: {id: number, name: string, editable: boolean}[] ): Folders  => {
+    let table:{ [index:string] : {name: string, editable: boolean}} = {};
+    array.forEach((folder) => {
+        table = {
+            ...table,
             [`id-${folder.id}`]: {
                 name: folder.name,
                 editable: folder.editable
             }
         }
     });
-    return obj;
+    return table;
 }

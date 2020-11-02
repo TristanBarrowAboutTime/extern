@@ -400,7 +400,7 @@ module.exports = function(webpackEnv) {
               loader: require.resolve('babel-loader'),
               options: {
                 babelrc: false,
-                configFile: false,
+                configFile: path.resolve('config', 'babel.config.json'),
                 compact: false,
                 presets: [
                   [

@@ -4,7 +4,12 @@
             "plugins": [
                 [
                     "babel-plugin-styled-components",
-                    { "ssr": false, "displayName": false, "namespace": "sc"}
+                    {   
+                        "ssr": false, 
+                        "displayName": true, 
+                        "fileName": true,
+                        "namespace": "sc"
+                    }
                 ]
             ]
         }

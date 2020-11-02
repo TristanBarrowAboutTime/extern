@@ -1,10 +1,8 @@
 import React from 'react'; 
-import { createUseStyles } from 'react-jss';
 import styled from 'styled-components';
 import Styles from '../../style/Styles';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 
 type SearchBarProps = {
     value: string,
@@ -32,26 +30,21 @@ const Input = styled.input`
         padding: 5px 0px 3px 15px;
         border: 1px solid ${Styles.color.gray.medium};
     }
-
 `;
 
 const Icon = styled.div`
 
-
 `;
 
-
-
+// This whole component is still in Todo's
 const SearchBar = ({
     value,
     onChange,
     includeChevron = false
 }: SearchBarProps) => {
-    const classes = useStyles();
     return (
         <Container>
             <Input
-                className={classes.input} 
                 placeholder='Search'
                 type='text' 
                 value={value} 
@@ -61,7 +54,6 @@ const SearchBar = ({
             {includeChevron && (
                 <Icon>
                     <FontAwesomeIcon
-                        className={classes.icon} 
                         icon={faChevronDown} 
                     />
                 </Icon>
