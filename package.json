@@ -61,7 +61,6 @@
     "react-app-polyfill": "^1.0.6",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
-    "react-jss": "^10.4.0",
     "react-native": "^0.63.3",
     "react-native-svg": "^12.1.0",
     "react-native-web": "^0.14.1",
