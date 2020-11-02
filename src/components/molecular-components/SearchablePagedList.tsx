@@ -1,23 +1,27 @@
 import React from 'react';
-import { createUseStyles } from 'react-jss';
 import Styles from '../../style/Styles';
 import SearchBar from '../atomic-components/SearchBar';
 import {useTextInput} from '../../hooks/useTextInput';
+import styled from 'styled-components';
 
 type SearchablePagedListProps = {
     list: { code: string, fullName: string }[]
     selectInput: (input: {code: string, fullName: string}) => void
 }
 
+const Container = styled.div`
+    padding: ${Styles.size.medium};
+    border: 1px solid ${Styles.color.green};
+`;
+
 const SearchablePagedList = ({
     list,
     // selectInput
 }: SearchablePagedListProps) => {
-    const classes = useStyles();
     // const [displayedItems, setDisplayedItems] = useState();
     const { bind } = useTextInput('');
     return (
-        <div className={classes.container}>
+        <Container>
             <SearchBar {...bind} />
             <div>
                 {list.map((listItem) => {
@@ -28,19 +32,8 @@ const SearchablePagedList = ({
                     );
                 })}
             </div>
-        </div>
+        </Container>
     );
 }
-
-const useStyles = createUseStyles({
-    container: {
-        padding: Styles.size.medium,
-        border: {
-            style: 'solid',
-            color: Styles.color.green,
-            width: 1
-        }
-    }
-});
 
 export default SearchablePagedList;

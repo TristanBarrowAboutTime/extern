@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo, MutableRefObject } from 'react';
-import { createUseStyles } from 'react-jss';
 import { Left } from '../atomic-components/CssTriangle';
 import Style from '../../style/Styles';
 import { PopoutMenuEvent } from '../../types/PopoutMenuEvent';
+import styled from 'styled-components';
 
 /**
  * Description:
@@ -45,6 +45,17 @@ type PopoutMenuProps = {
     hPosition?: number
 }
 
+const Container = styled.div`
+        position: fixed;
+        display: block;
+        padding: 0;
+        border-radius: 4px;
+        background-color: white;
+`;
+const Arrow = styled.div`
+    position: absolute;
+`;
+
 const PopoutMenu = ({
     children,
     menuEvent,
@@ -75,32 +86,18 @@ const PopoutMenu = ({
         borderColor
     });
 
-    const classes = useStyles();
     return (
-        <div ref={ref} className={classes.menuContainer} style={menuContainerStyle}>
-            <div className={classes.arrow} style={backgroundArrowStyle}>
+        <Container ref={ref} style={menuContainerStyle}>
+            <Arrow style={backgroundArrowStyle}>
                 <Left color={borderColor} />
-            </div>
-            <div className={classes.arrow} style={foregroundArrowStyle}>
+            </Arrow>
+            <Arrow style={foregroundArrowStyle}>
                 <Left color={bgColor} />
-            </div>
+            </Arrow>
             {children}
-        </div>
+        </Container>
     );
 }
-
-const useStyles = createUseStyles({
-    menuContainer: {
-        position: 'fixed',
-        display: 'block',
-        padding: 0,
-        borderRadius: 4,
-        backgroundColor: 'white',
-    },
-    arrow: {
-        position: 'absolute',
-    }
-});
 
 // for use when importing the component
 export const useWithPopoutMenu = () => {

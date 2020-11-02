@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useTextInput } from '../../hooks/useTextInput';
-import { createUseStyles } from 'react-jss';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import Styles from '../../style/Styles';
 
 type EditFolderRowProps = {
@@ -32,6 +31,25 @@ const InputContainer = styled.div`
     flex-grow: 1;
 `;
 
+const Input = styled.input`
+        top: 0;
+        padding: 0 0 0 4px;
+        margin-left: 28px;
+        font-size: 16px;
+        height: 19px;
+        flex-grow: 1;
+        box-sizing: boarder-box;
+        border: 1px solid #85B554;
+        :focus {
+            outline: 'none';
+        }
+
+`;
+
+const Spacer = styled.div`
+    width: 4px;
+    height: 1px;
+`;
 
 // input should probably be broken out into its own component.
 const EditFolderRow = ({
@@ -41,7 +59,6 @@ const EditFolderRow = ({
     onAccept,
     onCancel,
 }: EditFolderRowProps) => {
-    const classes = useStyles();
     const { value, bind:bindTextInput } = useTextInput(initial);
 
     useEffect(() => {
@@ -60,66 +77,24 @@ const EditFolderRow = ({
         <Container>
             {showError && <div>{errorText}</div>}
             <InputContainer>
-                <input className={classes.input} {...bindTextInput}></input>
-
-                <div className={classes.acceptIconContainer} onClick={() => onAccept(value)} >
-                    <FontAwesomeIcon className={classes.acceptIcon} icon={faCheck} color={'white'}/>
-                </div>
-                <div className={classes.cancelIconContainer} onClick={onCancel} >
-                    <FontAwesomeIcon className={classes.cancelIcon} icon={faTimes} color={'white'}/>
-                </div>
+                <Input {...bindTextInput}></Input>
+                <Spacer />
+                <FontAwesomeIcon 
+                    onClick={() => onAccept(value)} 
+                    size={'1x'} 
+                    icon={faCheckCircle} 
+                    color={Styles.color.green}
+                />
+                <Spacer />
+                <FontAwesomeIcon 
+                    onClick={onCancel} 
+                    size={'1x'} 
+                    icon={faTimesCircle} 
+                    color={Styles.color.gray.x_dark}
+                />
             </InputContainer>
         </Container>
     );
 }
-
-const useStyles = createUseStyles({
-    input: {
-        top: 0,
-        padding: {
-            left: 4, top: 0, right: 0, bottom: 0
-        },
-        marginLeft:28,
-        fontSize: 16,
-        height: 19,
-        flexGrow: 1,
-        boxSizing: 'boarder-box',
-        border: {
-            width: 1,
-            color: '#85B554',
-            style: 'solid'
-        },
-        '&:focus': {
-            outline: 'none'
-        }
-    },
-    acceptIcon: {
-        fontSize: 9,
-    },
-    acceptIconContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center', 
-        marginLeft: 5,
-        height: Styles.size.medium,
-        width: 16,
-        backgroundColor: Styles.color.green,
-        borderRadius: 100,
-    },
-    cancelIcon: {
-        fontSize: 10,
-    },
-    cancelIconContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center', 
-        marginLeft: 5,
-        height: 16,
-        width: 16,
-        backgroundColor: Styles.color.gray.x_dark,
-        borderRadius: 100,
-    }
-    
-});
 
 export default EditFolderRow;

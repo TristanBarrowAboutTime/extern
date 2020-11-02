@@ -1,6 +1,5 @@
 import React, { useState, useRef, useCallback, FunctionComponent, MutableRefObject } from 'react';
 import { useTextInput } from '../../hooks/useTextInput';
-import { createUseStyles } from 'react-jss'; 
 import Button, { ButtonType } from '../atomic-components/Button';
 import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import EditFolderRow from './EditFolderRow';
@@ -63,6 +62,7 @@ const Body = styled.div`
     flex-grow: 1;
 `;
 
+
 const ScrollBody = styled.div``;
 
 const DisplayName = styled.div`
@@ -86,6 +86,26 @@ const ButtonGroup = styled.div`
     align-items: center;
     height: 33px;
 
+`;
+
+const TmpSearchBar = styled.input`
+    margin: 16px 32px 16px 32px;
+    padding: 6px 1px 4px 16px;
+    border-radius: 4px;
+    background-color: #FAFAFA;
+    border: 0;
+    box-shadow: 0 1px 4px #cccccc;
+    width: 300px;
+    font-size: 20px;
+    ::placeholder {
+        color: #4D4D4D;
+        opacity: 1
+    }
+    :focus {
+        outline: none;
+        padding: 5px 0 3px 15px;
+        border: 1px solid #E5E5E5;
+    }
 `;
 
 const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
@@ -122,7 +142,6 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
         cancelReordering,
     });
 
-    const classes = useStyles();
     return (
         <Container>
             <Header>
@@ -160,8 +179,7 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                     </ButtonGroup>   
                 )}
             </Header>
-            <input 
-                className={classes.searchBar} 
+            <TmpSearchBar
                 placeholder={"Search"} 
                 {...bindSearchBar}
             />
@@ -201,7 +219,7 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                     )}
 
                     {/* TODO: so messy... this needs to be fixed */}
-                    <Hr />
+                    <Hr /> 
                     <div style={{ color: Styles.color.gray.dark, marginLeft: 32}}>Recently Deleted</div>
                     <div ref={ref} />
                 </ScrollBody>
@@ -209,43 +227,6 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
         </Container>
     );
 }
-
-const useStyles = createUseStyles({
-    searchBar: {
-        margin: {
-            top: 16,
-            bottom: 16,
-            left: 32,
-            right: 32,
-        },
-        padding: {
-            left: 16, right: 1, top: 6, bottom: 4
-        },
-        borderRadius: 4,
-        backgroundColor: '#FAFAFA',
-        border: 0,
-        boxShadow: {
-            x: 0, y: 1, blur: 4, color: '#cccccc'
-        },
-        width: 300, 
-        'font-size': 20,
-        '&::placeholder': {
-            color: '#4D4D4D',
-            opacity: 1,
-        },
-        '&:focus': {
-            outline: 'none',
-            padding: {
-                left: 15, right: 0, top: 5, bottom: 3
-            },
-            border: {
-                width: 1,
-                color: '#E5E5E5',
-                style: 'solid'
-            }
-        }
-    }
-});
 
 const useFolderSelectList = ({
     setEditableTo, 

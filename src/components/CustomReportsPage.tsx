@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import FolderSelectionList from './folder-selection-list/FolderSelectionList';
-import { createUseStyles } from 'react-jss';
 import Modal from './molecular-components/Modal';
 import { ButtonType } from './atomic-components/Button';
 import styled from 'styled-components';
