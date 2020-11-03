@@ -144,7 +144,6 @@ export const CustomReportsPage = () => {
 
     const swapDown = (id: string) => {
         const index = tempOrder.indexOf(id);
-        console.log(tempOrder)
         if (index !== tempOrder.length - 1) {
         if (!folders[tempOrder[index+1]].editable) return;
             setTempOrderTo([
@@ -170,8 +169,6 @@ export const CustomReportsPage = () => {
     }
 
     const acceptReordering = () => {
-        console.log(tempOrder)
-        console.log(folderOrder)
         setFolderOrderTo(tempOrder);
     }
 
@@ -186,19 +183,15 @@ export const CustomReportsPage = () => {
                 isUnique = false;
             }
         });
-
+    
         return isUnique;
     }
 
     // This will need to be modified to work with the back end.
     const renameFolder = (id: string, name: string): boolean => {
         name = name.trim();
-        if (nameIsUnique(name)) {
-            setFolders({...folders, [id]: {name: name, editable: true}})
-            return true;
-        } else {
-            return false;
-        }
+        setFolders({...folders, [id]: {name: name, editable: true}})
+        return true;
     }
 
     const addNewFolder = (folderName: string): boolean => {
@@ -222,7 +215,6 @@ export const CustomReportsPage = () => {
     }
 
     const deleteFolder = () => {
-        console.log(folderToDelete);
         let i: number = -1;
         folderOrder.forEach((id, index) => {
             if (id === folderToDelete) {
@@ -277,6 +269,7 @@ export const CustomReportsPage = () => {
                 setReorderingTo={setReorderingTo}
                 swapUp={swapUp}
                 swapDown={swapDown}
+                nameIsUniq={nameIsUnique}
                 acceptReordering={acceptReordering}
                 cancelReordering={cancelReordering}
                 isEditable={isEditable}

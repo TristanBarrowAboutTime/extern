@@ -8,11 +8,12 @@ type FolderListItemProps = {
     isSelected: boolean
     isEditable: boolean
     reordering: boolean
+    nameIsUniq: (name: string) => boolean
     tradeUp: () => void
     tradeDown: () => void
     setSelectedFolder: (_:any) => void
     setEditableTo: (isEditable: boolean) => void
-    renameFolder: (oldName: string, newName: string) => boolean
+    renameFolder: (name: string) => boolean
     onDelete: () => void,
 }
 
@@ -22,6 +23,7 @@ const FolderListItem = ({
     isSelected,
     isEditable,
     reordering,
+    nameIsUniq,
     tradeUp,
     tradeDown,
     setSelectedFolder,
@@ -29,7 +31,7 @@ const FolderListItem = ({
     renameFolder,
     onDelete,
 }: FolderListItemProps) => {
-    
+
     const {
         editing,
         showError,
@@ -40,8 +42,10 @@ const FolderListItem = ({
     } = useFolderListItem({
         folder,
         setEditableTo,
+        nameIsUniq,
         renameFolder,
     });
+    
     if (editing) {
         return (
             <EditFolderRow
@@ -78,13 +82,16 @@ const FolderListItem = ({
 type UseFolderListItemArgs = {
     folder: {name: string, editable: boolean}, 
     setEditableTo: (isEditable: boolean) => void,
-    renameFolder: (folderName: string, newFolderName: string) => boolean
+    renameFolder: (name: string) => void
+    nameIsUniq: (name: string) => boolean
 }
+
 
 export const useFolderListItem = ({
     folder,
     setEditableTo,
-    renameFolder
+    renameFolder,
+    nameIsUniq,
 }: UseFolderListItemArgs) => {
     const [editing, setEditingTo] = useState(false);
     const [showError, setShowErrorTo] = useState(false);
@@ -100,12 +107,14 @@ export const useFolderListItem = ({
         setEditableTo(true);
     }
 
-    const acceptEditing = (newFolderName: string) => {
+    const acceptEditing = (newFolderName: string): void => {
         if (folder.name === newFolderName) {
             cancelEditing();
-        } else if (renameFolder(folder.name, newFolderName)) {
-            setEditingTo(false)
+        } else if (nameIsUniq(newFolderName)) {
+            console.warn("When changing this to work with the backend, remove the React State update warning by updating everything at once.");
+            setEditingTo(false);
             setEditableTo(true);
+            renameFolder(newFolderName);
         } else {
             setShowErrorTo(true);
         }

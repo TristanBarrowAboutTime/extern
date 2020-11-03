@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import Styles from '../../style/Styles';
+import { on } from 'cluster';
 
 type EditFolderRowProps = {
     initial: string
@@ -15,8 +16,8 @@ type EditFolderRowProps = {
 
 const Container = styled.div`
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: flex-start;
     padding-right: 16px;
     margin-right: ${Styles.size.large};
@@ -29,6 +30,11 @@ const InputContainer = styled.div`
     flex-direction: row;
     align-items: center;
     flex-grow: 1;
+`;
+const ErrorText = styled.div`
+    padding-left: 38px;
+    color: ${Styles.color.red};
+    font-size: 14px;
 `;
 
 const Input = styled.input`
@@ -59,35 +65,28 @@ const EditFolderRow = ({
     onAccept,
     onCancel,
 }: EditFolderRowProps) => {
-    const { value, bind:bindTextInput } = useTextInput(initial);
 
-    useEffect(() => {
-        const listener = (e: KeyboardEvent) => {
-            if (e.keyCode === 13) {
-                console.log(value)
-                onAccept(value);
-            }
-        }
-        document.addEventListener('keydown', listener);
-        return () => document.removeEventListener('keydown', listener);
-    }, [value]);
-
+    const binding = useEditFolderRow({
+        onAccept,
+        onCancel,
+        initial,
+    });
 
     return (
         <Container>
-            {showError && <div>{errorText}</div>}
+            {showError && <ErrorText>{errorText}</ErrorText>}
             <InputContainer>
-                <Input {...bindTextInput}></Input>
+                <Input {...binding.bindInput}></Input>
                 <Spacer />
                 <FontAwesomeIcon 
-                    onClick={() => onAccept(value)} 
+                    onClick={binding.accept} 
                     size={'1x'} 
                     icon={faCheckCircle} 
                     color={Styles.color.green}
                 />
                 <Spacer />
                 <FontAwesomeIcon 
-                    onClick={onCancel} 
+                    onClick={binding.cancel} 
                     size={'1x'} 
                     icon={faTimesCircle} 
                     color={Styles.color.gray.x_dark}
@@ -96,5 +95,42 @@ const EditFolderRow = ({
         </Container>
     );
 }
+
+type EditFolderRowArgs = {
+    onAccept: (title: string) => void
+    onCancel: () => void
+    initial: string
+}
+
+const useEditFolderRow = ({
+    onAccept,
+    onCancel,
+    initial,
+}: EditFolderRowArgs) => {
+
+    const { value, bind } = useTextInput(initial);
+    const accept = () => {
+        onAccept(value)
+    }
+    useEffect(() => {
+        const listener = (e: KeyboardEvent) => {
+            if (e.keyCode === 13) {
+                onAccept(value);
+            }
+        }
+        document.addEventListener('keydown', listener);
+        return () => {
+            document.removeEventListener('keydown', listener);
+        }
+    }, [value]);
+
+    return {
+        accept,
+        cancel: onCancel,
+        bindInput: bind, 
+    }
+
+}
+
 
 export default EditFolderRow;

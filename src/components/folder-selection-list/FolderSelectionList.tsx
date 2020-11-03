@@ -23,6 +23,7 @@ type FolderSelectionListProps = {
     selectFolder: (folder: string) => void
     swapUp: (id: string) => void
     swapDown: (id: string) => void
+    nameIsUniq: (name: string) => boolean
     isEditable: boolean
     isReordering: boolean
     acceptReordering: () => void
@@ -111,10 +112,11 @@ const TmpSearchBar = styled.input`
 const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
     folders,
     order,
-    selectFolder,
     isEditable,
     selectedFolder,
     isReordering,
+    nameIsUniq,
+    selectFolder,
     swapUp,
     swapDown,
     acceptReordering,
@@ -125,6 +127,8 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
     addNewFolder,
     onDelete,
 }: FolderSelectionListProps) => {
+    
+    
     const {
         ref,
         isAddingNewFolder,
@@ -195,10 +199,11 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                                     isEditable={isEditable && folders[id].editable}
                                     tradeUp={() => swapUp(id)}
                                     tradeDown={() => swapDown(id)}
+                                    nameIsUniq={nameIsUniq}
                                     isSelected={selectedFolder === id}
                                     reordering={isReordering}
                                     setEditableTo={setEditableTo}
-                                    renameFolder={renameFolder}
+                                    renameFolder={(name: string) => renameFolder(id, name)}
                                     onDelete={() => onDelete(id)}
                                 />
                             );

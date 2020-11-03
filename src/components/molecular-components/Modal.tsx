@@ -27,52 +27,52 @@ const Blackout = styled.div`
 `;
 
 const Container = styled.div`
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 550px;
-        margin-top: 75px;
-        height: 200px;
-        background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 550px;
+    margin-top: 75px;
+    height: 200px;
+    background-color: white;
 `;
 
 const Header = styled.div`
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-stretch;
-        background-color: gray;
-        border-top: 2px solid;
-        height: 22px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-stretch;
+    background-color: gray;
+    border-top: 2px solid;
+    height: 22px;
 `;
 
 const Title = styled.div`
-        color: white;
+    color: white;
 `;
 
 const Close = styled.div`
-        margin-right: 5px;
-        margin-top: 3;
-        color: white;
-        :hover {
-            cursor: 'pointer';
-        }
+    margin-right: 5px;
+    margin-top: 3;
+    color: white;
+    :hover {
+        cursor: 'pointer';
+    }
 `;
 
 const Body = styled.div`
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 const Message = styled.div`
-        margin-top: 24px;
+    margin-top: 24px;
 `;
 
 const ButtonSet = styled.div`
-        margin-bottom: 16px;
+    margin-bottom: 16px;
 `;
 
 const Modal = ({

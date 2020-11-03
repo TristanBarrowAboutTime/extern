@@ -4,8 +4,6 @@ import { useToggler } from '../../hooks/useToggler';
 import Styles from '../../style/Styles';
 import SearchablePagedList from './SearchablePagedList';
 
-
-
 // TODO: all of this. 
 const createList = () => {
     const list = [];
@@ -23,18 +21,18 @@ const createList = () => {
 
 const tmpList = createList();
 
-const Container = styled.div`
-`;
+const Container = styled.div``;
+
 const Input = styled.div`
     padding: 3px 10px 3px 10px;
     width: 300px;
     border: 1px solid black;
 `;
+
 const Dropdown = styled.div`
     position: absolute;
     background-color: ${Styles.color.white};
 `;
-
 
 type LargeDropdownProps = {}
 
