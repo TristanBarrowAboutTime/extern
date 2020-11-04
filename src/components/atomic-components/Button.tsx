@@ -1,135 +1,31 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import Styles from '../../style/Styles';
+import { ButtonType } from '../../types/ButtonType';
+import { useButton } from '../../hooks/component-hooks/atomic-components/useButton';
 
 /**
  * This will probably need to be turned into react-native at some point.
  */
-export enum ButtonType {
-    SMALL_NORMAL = 'SMALL_NORMAL',
-    SMALL_GREEN = 'SMALL_GREEN',
-    SMALL_BARE = 'SMALL_BARE',
-    SMALL_RED = 'SMALL_RED',
-    NORMAL = 'NORMAL',
-    GREEN = 'GREEN',
-    BARE = 'BARE',
-    RED = 'RED',
-}
 
 type StyledButtonProps = {
-    buttonType: ButtonType
-    disabled: boolean
-}
-
-const getBgColor = (props: StyledButtonProps): string => {
-    if (props.disabled) {
-        switch(props.buttonType) {
-            case ButtonType.NORMAL: 
-            case ButtonType.SMALL_NORMAL:
-            case ButtonType.GREEN:  
-            case ButtonType.SMALL_GREEN:
-            case ButtonType.RED:
-            case ButtonType.SMALL_RED:
-                return Styles.color.gray.medium;
-            case ButtonType.BARE:
-            case ButtonType.SMALL_BARE:
-                return Styles.color.transparent;
-            default:
-                return Styles.color.gray.medium;
-        }
-    } else {
-        switch(props.buttonType) {
-            case ButtonType.NORMAL: 
-            case ButtonType.SMALL_NORMAL:
-                return Styles.color.gray.xx_dark;
-            case ButtonType.GREEN:  
-            case ButtonType.SMALL_GREEN:
-                return Styles.color.green;
-            case ButtonType.RED:
-            case ButtonType.SMALL_RED:
-                return Styles.color.red;
-            case ButtonType.BARE:
-            case ButtonType.SMALL_BARE:
-                return Styles.color.transparent;
-            default: 
-                return Styles.color.gray.xx_dark;
-        }
-    }
-}
-
-const getPadding = (type: ButtonType) => {
-    switch(type) {
-        case ButtonType.SMALL_NORMAL: 
-        case ButtonType.SMALL_GREEN:
-        case ButtonType.SMALL_RED:
-        case ButtonType.SMALL_BARE:
-            return Styles.button.paddingSmall;
-        case ButtonType.NORMAL: 
-        case ButtonType.GREEN:  
-        case ButtonType.RED:
-        case ButtonType.BARE:
-            return Styles.button.paddingNormal;
-        default:
-            return '10px'; 
-    } 
-    
-}
-
-const getTextColor = (props: StyledButtonProps): string => {
-    if (props.disabled) {
-        switch(props.buttonType) {
-            case ButtonType.NORMAL:
-            case ButtonType.SMALL_NORMAL:
-            case ButtonType.GREEN:
-            case ButtonType.SMALL_GREEN:
-            case ButtonType.RED:
-            case ButtonType.SMALL_RED:
-                return Styles.color.white;
-            case ButtonType.BARE:
-            case ButtonType.SMALL_BARE:
-                return Styles.color.gray.dark;
-            default: 
-                return Styles.color.white;
-        }
-    } else {
-        switch(props.buttonType) {
-            case ButtonType.NORMAL: 
-            case ButtonType.SMALL_NORMAL:
-            case ButtonType.GREEN: 
-            case ButtonType.SMALL_GREEN:
-            case ButtonType.RED:
-            case ButtonType.SMALL_RED:
-                return Styles.color.white;
-            case ButtonType.BARE:
-            case ButtonType.SMALL_BARE:
-                return Styles.color.gray.xx_dark;
-            default: 
-                return Styles.color.gray.xx_dark;
-        }
-    }
-}
-
-const getShadow = (props: StyledButtonProps): string => {
-    if (props.buttonType === ButtonType.BARE || 
-        props.buttonType === ButtonType.SMALL_BARE || 
-        props.disabled) 
-    { 
-        return '0'; 
-    }
-    else return Styles.button.shadow;
-
+    backgroundColor: string
+    shadow: string
+    padding: string
+    cursor: string
+    color: string
 }
 
 // eventually this implementation should be changed to something more sustainable
-const Container = styled.button`
+const StyledButton = styled.button`
     border: 0;
     border-radius: 4px;
-    background-color: ${(props: StyledButtonProps) => getBgColor(props)};
-    color: ${(props: StyledButtonProps) => getTextColor(props)};
-    box-shadow: ${(props: StyledButtonProps) => getShadow(props)};
-    padding: ${(props: StyledButtonProps) => getPadding(props.buttonType)};
+    background-color: ${(props: StyledButtonProps) => props.backgroundColor};
+    color: ${(props: StyledButtonProps) => props.color};
+    box-shadow: ${(props: StyledButtonProps) => props.shadow};
+    padding: ${(props: StyledButtonProps) => props.padding};
     :hover {
-        cursor: ${(props: StyledButtonProps) => props.disabled ? 'default' : 'pointer'}
+        cursor: ${(props: StyledButtonProps) => props.cursor}
     }
     :focus {
         border: 0;
@@ -151,16 +47,21 @@ export const Button: FunctionComponent<ButtonProps> = ({
     styles = {},
     disabled = false
 }: ButtonProps) => {
+    const binding = useButton({buttonType, disabled});
 
     return (
-        <Container 
+        <StyledButton
             style={styles}
             onClick={onClick}
             disabled={disabled}
-            buttonType={buttonType}
+            backgroundColor={binding.backgroundColor}
+            padding={binding.padding}
+            color={binding.color}
+            shadow={binding.shadow}
+            cursor={binding.cursor}
         >
             {text}
-        </Container>
+        </StyledButton>
     );
 }
 

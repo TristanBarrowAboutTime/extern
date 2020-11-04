@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import PopoutMenu, { useWithPopoutMenu } from '../molecular-components/PopoutMenu';
+import PopoutMenu from '../molecular-components/PopoutMenu';
 import styled from 'styled-components';
 import FolderSelectionPopout from './FolderSelectionPopout';
+import { useNormalFolderRow } from '../../hooks/component-hooks/folder-selection-list/useNormalFolderRow';
 import Styles from '../../style/Styles';
 
 type NormalFolderRowProps = {
@@ -25,13 +26,11 @@ const Container = styled.div`
     justify-content: space-between;
     padding-left: 32px;
     padding-right: 32px;
-    background-color: ${(props:ContainerProps) => {
-        return (
-            props.isSelected ? 
-            Styles.color.gray.x_light : 
-            Styles.color.white
-        );
-    }};
+    background-color: ${(props:ContainerProps) => (
+        props.isSelected ? 
+        Styles.color.gray.x_light : 
+        Styles.color.white
+    )};
     :hover {
         cursor: pointer;
     }
@@ -47,42 +46,33 @@ const FolderName = styled.div`
 
 const EditIcon = styled.div``;
 
-const NormalFolderRow = ({
-    isSelected,
-    isEditable,
-    selectedFolder,
-    onEdit,
-    onDelete,
-    folderName,
-}: NormalFolderRowProps) => {
-    const [hovered, setHoveredTo] = useState(false);
-    const popout = useWithPopoutMenu();
+const NormalFolderRow = (props: NormalFolderRowProps) => {
+    const binding = useNormalFolderRow({
+        isEditable: props.isEditable,
+        onDelete: props.onDelete
+    });
     
     return (
         <Container
-            isSelected={isSelected}
-            onClick={selectedFolder}
-            onMouseEnter={() => setHoveredTo(true)}
-            onMouseLeave={() => setHoveredTo(false)}
+            isSelected={props.isSelected}
+            onClick={props.selectedFolder}
+            onMouseEnter={binding.onMouseEnter}
+            onMouseLeave={binding.onMouseLeave}
         >
-            <FolderName>{folderName}</FolderName>
-            {(isEditable && hovered) && (
-                <EditIcon onClick={popout.open}>
+            <FolderName>{props.folderName}</FolderName>
+            {binding.showEditIcon && (
+                <EditIcon onClick={binding.openPopout}>
                     <FontAwesomeIcon icon={faEllipsisH} />
                 </EditIcon>
             )}
-            {popout.isOpen && (
+            {binding.popoutIsOpen && (
                 <PopoutMenu 
-                    menuEvent={popout.menuEvent}
+                    menuEvent={binding.popoutMenuEvent}
                     horizontalFix={372}
                 >
                     <FolderSelectionPopout 
-                        onEdit={onEdit}
-                        onDelete={() => {
-                            onDelete();
-                            popout.close();
-                            setHoveredTo(false);
-                        }}
+                        onEdit={props.onEdit}
+                        onDelete={binding.onDeleteOverride}
                     />
                 </PopoutMenu>
             )}

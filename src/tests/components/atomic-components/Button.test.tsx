@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Button, { ButtonType } from '../../../components/atomic-components/Button';
+import Button from '../../../components/atomic-components/Button';
+import { ButtonType } from '../../../types/ButtonType';
 import Style from '../../../style/Styles';
 import 'jest-styled-components';
 import { unmountComponentAtNode } from 'react-dom';
@@ -63,18 +64,6 @@ describe('Button', () => {
         );
         component.root.findAllByType('button')[0].props.onClick();
         expect(mockFn).toHaveBeenCalled();
-    });
-
-    it('doesn\'t get clicked when disabled', () => {
-        const mockFn = jest.fn();
-        const component = renderer.create(
-            <Button 
-                text={'disabled'}
-                disabled
-                onClick={mockFn} 
-            />
-        );
-        expect(component.root.findAllByType('button')[0]).toBeDisabled();
     });
     
     // done simplest possible

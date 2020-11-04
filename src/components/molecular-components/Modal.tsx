@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import Button, { ButtonType } from '../atomic-components/Button';
+import Button from '../atomic-components/Button';
+import { ButtonType } from '../../types/ButtonType';
 import Styles from '../../style/Styles';
 import styled from 'styled-components';
 

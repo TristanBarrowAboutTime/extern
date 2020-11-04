@@ -1,13 +1,13 @@
-import React, { useState, useRef, useCallback, FunctionComponent, MutableRefObject } from 'react';
-import { useTextInput } from '../../hooks/useTextInput';
-import Button, { ButtonType } from '../atomic-components/Button';
+import React, { FunctionComponent } from 'react';
+import Button from '../atomic-components/Button';
+import { ButtonType } from '../../types/ButtonType';
 import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import EditFolderRow from './EditFolderRow';
 import FolderListItem from './FolderListItem';
 import Styles from '../../style/Styles';
 import styled from 'styled-components';
-import { Folders } from '../../types/Folders';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useFolderSelectionList, FolderSelectionListProps } from '../../hooks/component-hooks/useFolderSelectionList';
 
 const strings = {
     displayName: 'Folders',
@@ -16,24 +16,7 @@ const strings = {
     search: 'Search'
 }
 
-type FolderSelectionListProps = {
-    folders: Folders
-    order: string[]
-    selectedFolder: string
-    selectFolder: (folder: string) => void
-    swapUp: (id: string) => void
-    swapDown: (id: string) => void
-    nameIsUniq: (name: string) => boolean
-    isEditable: boolean
-    isReordering: boolean
-    acceptReordering: () => void
-    cancelReordering: () => void
-    setEditableTo: (isEditable: boolean) => void
-    renameFolder: (id: string, newName: string) => boolean
-    setReorderingTo: (isReordering: boolean) => void
-    addNewFolder: (folderName: string) => boolean
-    onDelete: (id: string) => void
-}
+
 
 const Container = styled.div`
         padding: 32px 0 16px 0;
@@ -109,41 +92,12 @@ const TmpSearchBar = styled.input`
     }
 `;
 
-const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
-    folders,
-    order,
-    isEditable,
-    selectedFolder,
-    isReordering,
-    nameIsUniq,
-    selectFolder,
-    swapUp,
-    swapDown,
-    acceptReordering,
-    cancelReordering,
-    setEditableTo,
-    setReorderingTo,
-    renameFolder,
-    addNewFolder,
-    onDelete,
-}: FolderSelectionListProps) => {
-    
-    
-    const {
-        ref,
-        isAddingNewFolder,
-        bindSearchBar,
-        searchValue,
-        setToAddingNewFolder,
-        setToNormal,
-        acceptOrder,
-        rejectOrder,
-        setToReordering,
-    } = useFolderSelectList({
-        setEditableTo,
-        setReorderingTo,
-        acceptReordering,
-        cancelReordering,
+const FolderSelectionList = (props: FolderSelectionListProps) => {
+    const binding = useFolderSelectionList({
+        setEditableTo: props.setEditableTo,
+        setReorderingTo: props.setReorderingTo,
+        acceptReordering: props.acceptReordering,
+        cancelReordering: props.cancelReordering,
     });
 
     return (
@@ -152,17 +106,17 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                 <DisplayName>
                     {strings.displayName}
                 </DisplayName>
-                {isReordering ? (
+                {props.isReordering ? (
                     <ButtonGroup>
                         <FontAwesomeIcon 
                             icon={faCheckCircle} 
                             color={Styles.color.green}
-                            onClick={acceptOrder} 
+                            onClick={binding.acceptOrder} 
                         />
                         <FontAwesomeIcon
                             icon={faTimesCircle}
                             color={Styles.color.gray.xx_dark}
-                            onClick={rejectOrder}
+                            onClick={binding.rejectOrder}
                             style={{marginLeft: 4}}
                         />
                     </ButtonGroup>
@@ -171,126 +125,67 @@ const FolderSelectionList: FunctionComponent<FolderSelectionListProps> = ({
                         <Button
                             buttonType={ButtonType.SMALL_GREEN}
                             text={"New Folder"}
-                            disabled={isAddingNewFolder || !isEditable}
-                            onClick={setToAddingNewFolder}
+                            disabled={binding.isAddingNewFolder || !props.isEditable}
+                            onClick={binding.setToAddingNewFolder}
                         />
                         <Button
                             buttonType={ButtonType.BARE}
                             text={"Reorder"}
-                            disabled={isAddingNewFolder || !isEditable}
-                            onClick={setToReordering}
+                            disabled={binding.isAddingNewFolder || !props.isEditable}
+                            onClick={binding.setToReordering}
                         />
                     </ButtonGroup>   
                 )}
             </Header>
             <TmpSearchBar
                 placeholder={"Search"} 
-                {...bindSearchBar}
+                {...binding.bindSearchBar}
             />
             <Body>
                 <ScrollBody>
-                    {order.map((id) => {
-                        if (folders[id].name.toLowerCase().includes(searchValue.toLowerCase())) {
+                    {props.order.map((id) => {
+                        if (props.folders[id].name.toLowerCase().includes(binding.searchValue.toLowerCase())) {
                             return (
                                 <FolderListItem 
-                                    key={folders[id].name}
-                                    setSelectedFolder={() => selectFolder(id)}
-                                    folder={folders[id]}
-                                    isEditable={isEditable && folders[id].editable}
-                                    tradeUp={() => swapUp(id)}
-                                    tradeDown={() => swapDown(id)}
-                                    nameIsUniq={nameIsUniq}
-                                    isSelected={selectedFolder === id}
-                                    reordering={isReordering}
-                                    setEditableTo={setEditableTo}
-                                    renameFolder={(name: string) => renameFolder(id, name)}
-                                    onDelete={() => onDelete(id)}
+                                    key={props.folders[id].name}
+                                    setSelectedFolder={() => props.selectFolder(id)}
+                                    folder={props.folders[id]}
+                                    isEditable={props.isEditable && props.folders[id].editable}
+                                    tradeUp={() => props.swapUp(id)}
+                                    tradeDown={() => props.swapDown(id)}
+                                    nameIsUniq={props.nameIsUniq}
+                                    isSelected={props.selectedFolder === id}
+                                    reordering={props.isReordering}
+                                    setEditableTo={props.setEditableTo}
+                                    renameFolder={(name: string) => props.renameFolder(id, name)}
+                                    onDelete={() => props.onDelete(id)}
                                 />
                             );
                         }
                         return null;
                     })}
-                    {isAddingNewFolder && (
+                    {binding.isAddingNewFolder && (
                         <EditFolderRow
                             initial=''
                             showError={false}
                             errorText={'That folder name already exists'}
                             onAccept={(value) => {
-                                addNewFolder(value);
-                                setToNormal(); 
+                                props.addNewFolder(value);
+                                binding.setToNormal(); 
                             }}
-                            onCancel={setToNormal}
+                            onCancel={binding.setToNormal}
                         />
                     )}
 
                     {/* TODO: so messy... this needs to be fixed */}
                     <Hr /> 
                     <div style={{ color: Styles.color.gray.dark, marginLeft: 32}}>Recently Deleted</div>
-                    <div ref={ref} />
+                    <div ref={binding.ref} />
                 </ScrollBody>
             </Body>
         </Container>
     );
 }
-
-const useFolderSelectList = ({
-    setEditableTo, 
-    setReorderingTo,
-    acceptReordering,
-    cancelReordering,
-}:{
-    setEditableTo: (isEditable: boolean) => void
-    setReorderingTo: (isReordering: boolean) => void
-    acceptReordering: () => void
-    cancelReordering: () => void
-}) => {
-    const [isAddingNewFolder, setAddingNewFolderTo] = useState(false);
-    const { value, bind } = useTextInput('');
-    
-    const ref = useRef() as MutableRefObject<HTMLDivElement>;
-
-    const setToNormal = useCallback(() => {
-        setReorderingTo(false);
-        setAddingNewFolderTo(false);
-        setEditableTo(true);
-    }, [setEditableTo]);
-
-    const acceptOrder = useCallback(() => {
-        acceptReordering();
-        setToNormal();
-    }, []);
-
-    const rejectOrder = useCallback(() => {
-        cancelReordering();
-        setToNormal();
-    }, []);
-
-    const setToReordering = useCallback(() => {
-        setReorderingTo(true);
-        setAddingNewFolderTo(false);
-        setEditableTo(false);
-    }, [setEditableTo]);
-
-    const setToAddingNewFolder = () => {
-        setReorderingTo(false);
-        setAddingNewFolderTo(true);
-        setEditableTo(false);
-        ref.current.scrollIntoView(); // { behavior: 'smooth'} fails to scroll. Workaround needed.
-    };
-
-    return {
-        ref,
-        isAddingNewFolder,
-        bindSearchBar: bind,
-        searchValue: value,
-        setToAddingNewFolder,
-        setToNormal,
-        setToReordering,
-        acceptOrder,
-        rejectOrder 
-    }
-}
-
 
 
 export default FolderSelectionList;
