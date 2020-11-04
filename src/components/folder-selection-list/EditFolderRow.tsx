@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import { useTextInput } from '../../hooks/useTextInput';
+import React from 'react';
+import { useEditFolderRow } from '../../hooks/component-hooks/folder-selection-list/useEditFolderRow';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import Styles from '../../style/Styles';
-import { on } from 'cluster';
 
 type EditFolderRowProps = {
     initial: string
@@ -25,12 +24,13 @@ const Container = styled.div`
 `; 
 
 const InputContainer = styled.div`
-    height: 20;
+    height: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-grow: 1;
 `;
+
 const ErrorText = styled.div`
     padding-left: 38px;
     color: ${Styles.color.red};
@@ -96,41 +96,6 @@ const EditFolderRow = ({
     );
 }
 
-type EditFolderRowArgs = {
-    onAccept: (title: string) => void
-    onCancel: () => void
-    initial: string
-}
-
-const useEditFolderRow = ({
-    onAccept,
-    onCancel,
-    initial,
-}: EditFolderRowArgs) => {
-
-    const { value, bind } = useTextInput(initial);
-    const accept = () => {
-        onAccept(value)
-    }
-    useEffect(() => {
-        const listener = (e: KeyboardEvent) => {
-            if (e.keyCode === 13) {
-                onAccept(value);
-            }
-        }
-        document.addEventListener('keydown', listener);
-        return () => {
-            document.removeEventListener('keydown', listener);
-        }
-    }, [value]);
-
-    return {
-        accept,
-        cancel: onCancel,
-        bindInput: bind, 
-    }
-
-}
 
 
 export default EditFolderRow;

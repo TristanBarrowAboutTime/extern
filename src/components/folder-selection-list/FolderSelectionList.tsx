@@ -16,8 +16,6 @@ const strings = {
     search: 'Search'
 }
 
-
-
 const Container = styled.div`
         padding: 32px 0 16px 0;
         max-width: 377px;
