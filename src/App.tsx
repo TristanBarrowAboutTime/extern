@@ -1,9 +1,13 @@
 import React from 'react';
-import CustomReportsPage from './components/CustomReportsPage';
+import { ThemeProvider } from 'styled-components';
+import CustomReportsPage from './CustomReportsPage/components/CustomReportsPage';
+import theme from './theme';
 
 function App() {
   return (
-    <CustomReportsPage />
+    <ThemeProvider theme={theme}>
+        <CustomReportsPage />
+    </ThemeProvider>
   );
 }
 
