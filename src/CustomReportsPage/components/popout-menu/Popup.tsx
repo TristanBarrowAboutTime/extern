@@ -1,6 +1,7 @@
 import React, { ReactChild, ReactChildren } from 'react';
 import styled from 'styled-components';
 import { useClickClosableRef } from '../../hooks/useClickCloseableRef';
+import Styles from '../../style/Styles';
 
 
 const DropdownRelative = styled.div`
@@ -12,7 +13,7 @@ const DropdownAbsolute = styled.div`
     position: absolute;
     padding: 10px;
     background-color: white;
-    border: 1px solid black; 
+    border: 1px solid ${Styles.color.green}; 
     border-radius: 4px;
 `;
 

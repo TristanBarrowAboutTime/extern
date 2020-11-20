@@ -85,7 +85,7 @@ const DeleteGrid = (props: NormalGridProps) => {
 
     return (
         <>
-            <GeneralGrid grid={setupGrid(props.gridData)} />
+            {/* <GeneralGrid grid={setupGrid(props.gridData)} /> */}
             {popoutMenu.isOpen && 
                 <PopoutMenu menuEvent={popoutMenu.menuEvent}>
                     {props.popoutMenu}

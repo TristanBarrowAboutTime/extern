@@ -64,7 +64,7 @@ const ScheduledGrid = (props: NormalGridProps) => {
         return [
             <CheckboxCell><CheckBox isChecked={slaves.checkmarkSlaves[index].valueOf()} onClick={() => slaves.toggleSlave(index)} /></CheckboxCell>,
             <HoverableEditCell canHover={false} onClickEdit={popoutMenu.open}>{row.reportName}</HoverableEditCell>,
-            <DescriptionCell value={row.description} />,
+            // <DescriptionCell value={row.description} />,
             <NormalCell>{row.frequencyType}</NormalCell>,
             <NormalCell>{row.nextRunDate}</NormalCell>,
             <NormalCell>{row.lastRunDate}</NormalCell>,
@@ -90,7 +90,7 @@ const ScheduledGrid = (props: NormalGridProps) => {
 
     return (
         <>
-            <GeneralGrid grid={setupGrid(props.gridData)} />
+            {/* <GeneralGrid grid={setupGrid(props.gridData)} /> */}
             {popoutMenu.isOpen && 
                 <PopoutMenu menuEvent={popoutMenu.menuEvent}>
                     {props.popoutMenu}
