@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useButton } from './useButton';
 import { ButtonType } from '../../../types/ButtonType';
+import { useClickClosableRef } from '../../useClickCloseableRef';
 
 type UseChevronButtonArgs = {
     buttonType: ButtonType
@@ -13,7 +14,7 @@ export const useChevronButton = ({
 }: UseChevronButtonArgs) => {
     const buttonBinding = useButton({buttonType, disabled, onClick: () => {}});
     const [isOpen, setIsOpenTo] = useState(false);
-    
+
     const click = () => {
         setIsOpenTo(!isOpen);
     }
@@ -21,6 +22,7 @@ export const useChevronButton = ({
     return {
         ...buttonBinding,
         click,
-        isOpen
+        isOpen,
+        close: () => setIsOpenTo(false)
     }
 }

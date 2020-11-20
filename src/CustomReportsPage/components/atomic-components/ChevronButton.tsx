@@ -4,6 +4,7 @@ import { ButtonType } from '../../types/ButtonType';
 import { useChevronButton } from '../../hooks/component-hooks/atomic-components/useChevronButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import Popup from '../popout-menu/Popup';
 
 type StyledButtonProps = {
     backgroundColor: string
@@ -39,19 +40,6 @@ const IconContainer = styled.div`
 
 const ButtonText = styled.span`
     padding-right: 6px;
-`;
-
-const DropdownRelative = styled.div`
-    position: relative;
-    z-index: 10;
-`;
-
-const DropdownAbsolute = styled.div`
-    position: absolute;
-    padding: 10px;
-    background-color: white;
-    border: 1px solid black; 
-    border-radius: 4px;
 `;
 
 type ChevronButtonProps = {
@@ -92,11 +80,9 @@ const ChevronButton = ({
                 </IconContainer>
             </StyledButton>
             {binding.isOpen && (
-                <DropdownRelative>
-                    <DropdownAbsolute>
-                        {children}
-                    </DropdownAbsolute>
-                </DropdownRelative>
+                <Popup close={binding.close}>
+                    {children}
+                </Popup>
             )}
         </div>
     );

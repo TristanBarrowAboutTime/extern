@@ -1,12 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { useGeneralGrid } from '../../hooks/component-hooks/grid/useGeneralGrid';
+import { GridCell } from './cells/InsertCells';
 
 const border = '2px solid #DBDBDB'; 
-
-const arr = [
-    ['box','Name','Description','Date'],
-    ['c1r2','c2r2','c3r2','c4r2']
-];
 
 const GridWrapper = styled.div`
     display: inline-block;
@@ -18,7 +15,6 @@ const Grid = styled.div`
     justify-content: flex-start;
     border: ${border};
     border-right: 0;
-
 `;
 
 const Column = styled.div`
@@ -37,9 +33,8 @@ const Cell = styled.div`
     padding: 2px;
 `;
 
-
 type GeneralGridProps = {
-    grid: React.ReactNode[][]
+    grid: GridCell[][]
 }
 
 const bgStyle = (index: number) => {
@@ -51,9 +46,7 @@ const bgStyle = (index: number) => {
 }
 
 const GeneralGrid = (props: GeneralGridProps) => {
-    const binding = useGeneralGrid({
-        grid: props.grid
-    });
+    const binding = useGeneralGrid(props.grid);
 
     return (
         <GridWrapper>
@@ -75,42 +68,5 @@ const GeneralGrid = (props: GeneralGridProps) => {
         </GridWrapper>
     );
 }
-
-type UseGeneralGridArgs = {
-    grid: React.ReactNode[][]
-
-}
-
-const useGeneralGrid = (args: UseGeneralGridArgs) => {
-    const flipArray = (array: React.ReactNode[][]) => {
-        const columnHeight: number = array.length;
-        let rowWidth: number = 0;
-        if (columnHeight > 0) {
-            rowWidth = array[0].length;
-        } else {
-            return [[]];
-        }
-    
-        let newArray: any[] = [];
-    
-        for (let i = 0; i < rowWidth; i++) {
-            newArray.push([]);
-        }
-    
-        for (let i = 0; i < rowWidth; i++) {
-            for (let j = 0; j < columnHeight; j++) {
-                newArray[i].push(array[j][i]);
-            }
-        }
-    
-        return newArray;
-    };
-
-
-    return {
-        columnGrid: flipArray(args.grid)
-    }
-}
-
 
 export default GeneralGrid;

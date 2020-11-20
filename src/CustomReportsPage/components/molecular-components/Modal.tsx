@@ -20,6 +20,8 @@ type ModalProps = {
 const Blackout = styled.div`
     position: fixed;
     display: flex;
+    top: 0;
+    left: 0;
     justify-content: center;
     align-items: flex-start;
     width: 100vw;
@@ -58,7 +60,7 @@ const Close = styled.div`
     margin-top: 3;
     color: white;
     :hover {
-        cursor: 'pointer';
+        cursor: pointer;
     }
 `;
 
@@ -85,7 +87,6 @@ const Modal = ({
     content,
     buttons,
     closeModal,
-
 }: ModalProps) => {
     return (
         <Blackout>

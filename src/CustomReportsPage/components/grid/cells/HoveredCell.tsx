@@ -5,9 +5,10 @@ import styled from 'styled-components';
 import { useHoverable } from '../../../hooks/useHoverable';
 
 const Container = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
 
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {NormalMenuItem, WarningMenuItem, HR, DisabledMenuItem} from '../popout-menu/PopoutMenu';
+import {NormalMenuItem, WarningMenuItem, HR, DisabledMenuItem} from '../popout-menu/ArrowPopout';
 
 type NormalFolderViewPopoutProps = {
     run: () => void

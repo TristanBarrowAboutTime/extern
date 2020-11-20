@@ -4,7 +4,7 @@ import Styles from '../../style/Styles';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-type SearchBarProps = {
+export type SearchBarProps = {
     value: string,
     onChange: (event: {target: {value: string}}) => void,
     includeChevron?: boolean
@@ -12,13 +12,15 @@ type SearchBarProps = {
 
 const Container = styled.div``;
 
+// this will keep the input from clashing with the styles in the element style defenitions
 const SearchBarStyle = styled.input`
-    padding: 8px 1px 8px 16px !important; // it would be nice to have this different.
+    padding: 8px 1px 8px 16px !important;  
     border-radius: 4px;
     background-color: #FAFAFA;
     border: 0 !important;
     box-shadow: 0 1px 4px #cccccc;
     width: 316px;
+    border: 1px solid black;
     font-size: 16px;
     ::placeholder {
         color: #4D4D4D;
@@ -31,11 +33,6 @@ const SearchBarStyle = styled.input`
     }
 `;
 
-const Icon = styled.div`
-
-`;
-
-// This whole component is still in Todo's
 const SearchBar = ({
     value,
     onChange,
@@ -48,14 +45,6 @@ const SearchBar = ({
                 value={value} 
                 onChange={onChange} 
             />
-            {/* this needs some logic to fip upsidedown and such */}
-            {/* {includeChevron && (
-                <Icon>
-                    <FontAwesomeIcon
-                        icon={faChevronDown} 
-                    />
-                </Icon>
-            )} */}
         </Container>
     )
 }

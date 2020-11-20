@@ -13,11 +13,11 @@ const Container = styled.div`
 
 const CustomReportsPage = () => {
     const binding = useCustomReportsPage();
-    console.log(binding.selectionBinding)
+    console.log(binding.selectionBinding);
     return (
         <Container>
             {binding.isShowingModal && <Modal 
-                title={'Confirm Delete'} 
+                title={'Confirm Delete'}
                 content={'Are you sure you want to delete this folder?'}
                 buttons={binding.modalButtons}
                 closeModal={binding.closeModal}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import PopoutMenu from '../popout-menu/PopoutMenu';
+import PopoutMenu from '../popout-menu/ArrowPopout';
 import styled from 'styled-components';
 import FolderSelectionPopout from './FolderSelectionPopout';
 import { useNormalFolderRow } from '../../hooks/component-hooks/folder-selection-list/useNormalFolderRow';

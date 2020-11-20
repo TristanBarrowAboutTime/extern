@@ -1,24 +1,23 @@
 import * as React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import SearchBar from '../atomic-components/SearchBar';
 import { useWithSearchBar } from '../../hooks/component-hooks/atomic-components/useSearchBar';
-import NormalGrid from '../grid/NormalGrid';
-import Button from '../atomic-components/Button';
-import ChevronButton from '../atomic-components/ChevronButton';
+import Modal from '../molecular-components/Modal';
 import { ButtonType } from '../../types/ButtonType';
-import { HSpacer } from '../atomic-components/CssTriangle';
 import NormalFolderViewPopout from './NormalFolderViewPopout';
+import DeleteGrid from '../grid/DeleteGrid';
+import ScheduledReportsButtonRow from './button-groups/ScheduledReportsButtonRow';
+import NormalButtonRow from './button-groups/NormalButtonRow';
+import DeletedFoldersButtonRow from './button-groups/DeletedFolderButtonRow';
+import ScheduledGrid from '../grid/ScheduledGrid';
+import NormalGrid from '../grid/NormalGrid';
 
-
-const rd = (name: string, description: string, lastRunDate: string) => {
-    return {reportName: name, description, lastRunDate }
+const rd = (name: string, description: string, frequencyType: string, nextRunDate: string, lastRunDate: string) => {
+    return {reportName: name, description, frequencyType, nextRunDate, lastRunDate }
 }
 
 let gridData: any = [];
-
-for (let i = 0; i < 10; i++) {
-    gridData.push(rd('Week Productivity Report', 'This is a thing. That can do other things. Yup! This is a thing. That can do other things. Yup! This is a thing. That can do other things. Yup!', '10/10/10 8:22pm'));
-}
+gridData.push(rd('Dummy Report Name', 'This is a dummy description. it needs to be kind of long but not too long.','Dummy Frequency Type', '10/10/10 10:10pm', '10/10/10 10:10pm'));
 
 const Container = styled.div`
     width: 100%;
@@ -33,18 +32,6 @@ const Header = styled.div`
     margin-bottom: 8px;
 `;
 
-const TitleRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-`;
-
-const ButtonRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-`;
-
 const FolderName = styled.div`
     font-size: 36px;
     font-weight: 900;
@@ -53,6 +40,7 @@ const FolderName = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 400px;
+    margin-bottom: 8px;
 `;
 
 type FolderViewProps = {
@@ -60,34 +48,31 @@ type FolderViewProps = {
 }
 
 const FolderView = (props: FolderViewProps) => {
+    const [showModal, setShowModalTo] = useState(false);
     const searchBar = useWithSearchBar();
-    const isEmpty = true;
 
     return (
         <Container>
             <Header>
-                <TitleRow>
-                    <FolderName>{props.folderName}</FolderName>
-                    <SearchBar {...searchBar.searchBinding} />
-                </TitleRow>
-                <ButtonRow>
-                    <Button
-                        buttonType={ButtonType.RED}
-                        text='Delete'
-                        onClick={() => alert('not doing anything yet')}
-                    />
-                    <HSpacer size={8} />
-                    <ChevronButton
-                        buttonType={ButtonType.NORMAL}
-                        text='Move to Folder'
-                    >bob</ChevronButton>
-                    <ChevronButton 
-                        buttonType={ButtonType.BARE}
-                        text='Sharing'
-                    >bob</ChevronButton>
-                </ButtonRow>
+                <FolderName>{props.folderName}</FolderName>
+                <NormalButtonRow 
+                    onDelete={() => setShowModalTo(true)}
+                    moveFolderContent={<div>Move Folder</div>}
+                    sharingContent={<div>sharing</div>}
+                    searchBinding={searchBar.searchBinding}
+                />
+                {/* <DeletedFoldersButtonRow 
+                    onDelete={() => {}}
+                    onRestore={() => {}}
+                    searchBinding={searchBar.searchBinding}
+                /> */}
+                {/* <ScheduledReportsButtonRow 
+                    newSchedule={() => {}}
+                    searchBinding={searchBar.searchBinding}
+                /> */}
             </Header>
-            <NormalGrid 
+            {/* <NormalGrid
+                gridData={gridData}
                 popoutMenu={(
                     <NormalFolderViewPopout 
                         run={() => {}}
@@ -97,10 +82,38 @@ const FolderView = (props: FolderViewProps) => {
                         deleteReport={() => {}}
                     />
                 )}
-                gridData={gridData}
-             />
+                searchValue={searchBar.value}
+            /> */}
+            {showModal && <Modal 
+                title={'Confirm Delete'}
+                content={'Are you sure you want to delete this report?'}
+                closeModal={() => setShowModalTo(false)}
+                buttons={[
+                    {
+                        text: 'Delete',
+                        buttonType: ButtonType.RED,
+                        onClick: () => setShowModalTo(false)
+                    },
+                    {
+                        text: 'Cancel',
+                        buttonType: ButtonType.NORMAL,
+                        onClick: () => setShowModalTo(false)
+                    }
+                ]}
+            />}
         </Container>
     );
 }
+/**
+ *  title: string
+    content: string
+    buttons: {
+        text: string,
+        buttonType: ButtonType, 
+        onClick:() => void,
+    }[],
+    closeModal: () => void
+ */
+
 
 export default FolderView;

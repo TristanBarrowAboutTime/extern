@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PopoutMenu, {NormalMenuItem, WarningMenuItem, HR} from '../popout-menu/PopoutMenu';
+import PopoutMenu, {NormalMenuItem, WarningMenuItem, HR} from '../popout-menu/ArrowPopout';
 import { useWithPopoutMenu } from '../../hooks/component-hooks/molecular-components/usePopoutMenu';
 import Styles from '../../style/Styles';
 import styled from 'styled-components';

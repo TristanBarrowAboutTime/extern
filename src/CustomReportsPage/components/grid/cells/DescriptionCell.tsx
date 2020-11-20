@@ -2,9 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 
-type DescriptionCellProps = {
-    value: string
-}
+
 
 const border = '1px solid #aaa'; 
 
@@ -21,7 +19,6 @@ const NormalState = styled.div`
     padding: 0 8px;
     overflow: hidden;
     text-overflow: ellipsis;
-
 `;
 
 const DisplayState = styled.div`
@@ -42,13 +39,16 @@ const EditState = styled.input`
     
 `;
 
+type DescriptionCellProps = {
+    children: React.ReactChild | React.ReactChildren | React.ReactNode;
+}
+
 const DescriptionCell = (props: DescriptionCellProps) => {
     return (
         <Container>
-            <NormalState>{props.value}</NormalState>
+            <NormalState>{props.children}</NormalState>
        </Container>
-    );    
-
+    );
 
 }
 

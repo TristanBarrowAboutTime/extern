@@ -1,22 +1,26 @@
 import { useState, useCallback } from 'react';
 
-export const useMasterCheckmark = (init: boolean, setSlaveState: (state: boolean) => void ) => {
-    const [masterCheckmarkState, setMasterCheckmarkStateTo] = useState(init);
+type Slaves = {
+    setAllSlaves: (master: boolean) => void
+}
 
-    const toggleMasterCheckmark = () => {
-        setMasterCheckmarkStateTo(!masterCheckmarkState);
-        setSlaveState(!masterCheckmarkState);
+export const useMasterCheckmark = (slaves: Slaves, init: boolean = false) => {
+    const [state, setStateTo] = useState(init);
+
+    const toggle = () => {
+        setStateTo(!state);
+        slaves.setAllSlaves(!state);
     }
 
     return {
-        masterCheckmarkState,
-        toggleMasterCheckmark
+        state,
+        toggle
     }
 }
 
-export const useMultipleCheckmarkSlaves = (numberOfSlaves: number, initialSlaveState: boolean) => {
+export const useMultipleCheckmarkSlaves = (numberOfSlaves: number, init: boolean = false) => {
     const [checkmarkSlaves, setSlaveArrayTo] = useState(
-        Array<Boolean>(numberOfSlaves).fill(initialSlaveState)
+        Array<Boolean>(numberOfSlaves).fill(init)
     );
     
     const setAllSlaves = useCallback((masterState: boolean) => {

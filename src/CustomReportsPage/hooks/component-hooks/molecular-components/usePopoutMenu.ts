@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef,MutableRefObject } from 'react';
 import { PopoutMenuEvent } from '../../../types/PopoutMenuEvent';
+import { useClickClosableRef } from '../../useClickCloseableRef';
 
 // for use when importing the component
 export const useWithPopoutMenu = () => {
@@ -43,19 +44,9 @@ export const usePopoutMenu = ({
     vPosition,
     borderColor
 }: UsePopoutMenuArgs) => {
-    const ref = useRef() as MutableRefObject<HTMLDivElement>;
-
-    useEffect(() => {
-        const handleClick = (e: MouseEvent) => {
-            if (ref.current.contains(e.target as Node)) return;
-            menuEvent.close();
-        }
-        document.addEventListener('click', handleClick);
-        return () => {
-            document.removeEventListener('click', handleClick);
-            menuEvent.close();
-        }
-    }, [menuEvent.close, ref]);
+    const ref = useClickClosableRef(() => {
+        menuEvent.close();
+    });
     
     
     const menuContainerStyle = useMemo(() => {
