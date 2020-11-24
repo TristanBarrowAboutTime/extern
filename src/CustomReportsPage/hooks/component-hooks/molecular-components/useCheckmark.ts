@@ -32,10 +32,14 @@ export const useMultipleCheckmarkSlaves = (numberOfSlaves: number, init: boolean
         arr[slaveIndex] = !checkmarkSlaves[slaveIndex]
         setSlaveArrayTo(arr);
     }, [checkmarkSlaves]);
-
+    
     return {
         checkmarkSlaves,
         setAllSlaves,
-        toggleSlave
+        toggleSlave,
+        slave: (id: number) => {
+            // console.log('slave', id);
+            return checkmarkSlaves[id].valueOf()
+        }
     }
 }

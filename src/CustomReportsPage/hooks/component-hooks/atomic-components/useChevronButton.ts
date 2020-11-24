@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { useState, useCallback, useRef, MutableRefObject} from 'react';
 import { useButton } from './useButton';
 import { ButtonType } from '../../../types/ButtonType';
-import { useClickClosableRef } from '../../useClickCloseableRef';
 
 type UseChevronButtonArgs = {
     buttonType: ButtonType
@@ -14,15 +13,23 @@ export const useChevronButton = ({
 }: UseChevronButtonArgs) => {
     const buttonBinding = useButton({buttonType, disabled, onClick: () => {}});
     const [isOpen, setIsOpenTo] = useState(false);
+    const btnRef = useRef() as MutableRefObject<HTMLDivElement>;
 
-    const click = () => {
+    // console.log('body', isOpen);
+
+    const click = useCallback(() => {
         setIsOpenTo(!isOpen);
+    }, [isOpen]);
+
+    const close = (e: MouseEvent | undefined) => {
+        if (e !== undefined) e.stopPropagation();
+        setIsOpenTo(false);
     }
 
     return {
         ...buttonBinding,
         click,
         isOpen,
-        close: () => setIsOpenTo(false)
+        close,
     }
 }

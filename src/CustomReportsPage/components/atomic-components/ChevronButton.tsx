@@ -5,6 +5,7 @@ import { useChevronButton } from '../../hooks/component-hooks/atomic-components/
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import Popup from '../popout-menu/Popup';
+import { useClickClosableRef } from '../../hooks/useClickCloseableRef';
 
 type StyledButtonProps = {
     backgroundColor: string
@@ -19,6 +20,7 @@ const StyledButton = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    white-space: nowrap;
     border: 0;
     border-radius: 4px;
     background-color: ${(props: StyledButtonProps) => props.backgroundColor};

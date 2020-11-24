@@ -56,7 +56,7 @@ const FolderView = (props: FolderViewProps) => {
             <Header>
                 <FolderName>{props.folderName}</FolderName>
                 <NormalButtonRow 
-                    onDelete={() => setShowModalTo(true)}
+                    onDelete={() => setShowModalTo(false)}
                     moveFolderContent={<div>Move Folder</div>}
                     sharingContent={<div>sharing</div>}
                     searchBinding={searchBar.searchBinding}

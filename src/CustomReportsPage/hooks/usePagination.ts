@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 
 type UsePaginationArgs = {
     numberOfItems: number
@@ -21,48 +21,48 @@ export const usePagination = (args: UsePaginationArgs) => {
 
     const itemIndexes = useMemo(() => {
 
-        if (page >= numberOfPages) throw new Error("Page is greater than the number of pages.");
+        if (page > args.pageSize) throw new Error("Page is greater than the number of pages.");
         if (page < 0) throw new Error('Page is negative');
 
-        let lastItem = page * numberOfPages + (args.pageSize - 1);
+        let lastItem = page * args.pageSize + (args.pageSize - 1);
         if (page >= numberOfPages - 1) lastItem = args.numberOfItems - 1;
 
         let items = [];
-        for (let firstItem = page * numberOfPages; firstItem <= lastItem; firstItem++) {
+        for (let firstItem = page * args.pageSize; firstItem <= lastItem; firstItem++) {
             items.push(firstItem);
         }
 
         return items;
     }, [page, args.numberOfItems]);
 
-    const next = () => {
+    const next = useCallback(() => {
         if (page < numberOfPages-1) {
             setPageTo(page + 1);
         }
-    }
+    },[page,numberOfPages]);
 
-    const prev = () => {
+    const prev = useCallback(() => {
         if (page > 0) {
             setPageTo(page - 1);
         }
-    }
+    }, [page]);
 
-    const start = () => {
+    const first = useCallback(() => {
         setPageTo(0); 
-    }
+    }, []);
 
-    const end = () => {
+    const last = useCallback(() => {
         setPageTo(numberOfPages - 1)
-    }
+    }, [numberOfPages]);
 
-    const gotoPage = (num: number) => {
+    const gotoPage = useCallback((num: number) => {
         if (num > numberOfPages - 1) {
             console.warn('You attempted to go past the last page. Re-routing to the last page.');
-            end();
+            last();
         } else {
-            setPageTo(num - 1);
+            setPageTo(num);
         }
-    }
+    }, [numberOfPages]);
 
     return {
         page,
@@ -70,8 +70,8 @@ export const usePagination = (args: UsePaginationArgs) => {
         itemIndexes,
         next,
         prev,
-        start,
-        end,
+        first,
+        last,
         gotoPage
     }
 }

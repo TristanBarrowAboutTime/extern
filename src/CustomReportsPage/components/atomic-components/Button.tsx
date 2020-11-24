@@ -15,6 +15,7 @@ type StyledButtonProps = {
 const StyledButton = styled.div`
     border: 0;
     border-radius: 4px;
+    white-space: nowrap;
     background-color: ${(props: StyledButtonProps) => props.backgroundColor};
     color: ${(props: StyledButtonProps) => props.color};
     box-shadow: ${(props: StyledButtonProps) => props.shadow};
