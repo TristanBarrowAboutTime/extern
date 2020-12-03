@@ -33,7 +33,6 @@ export type FolderSelectionListProps = {
     deleteFolder: () => void
 }
 
-
 export const useWithFolderSelectionList = (args: UseWithFolderSelectionListArgs): FolderSelectionListProps => {
     const [folders, setFolders] = useState(objectifyArray(args.folders));
     const [folderOrder, setFolderOrderTo] = useState(args.order);
@@ -44,7 +43,7 @@ export const useWithFolderSelectionList = (args: UseWithFolderSelectionListArgs)
     const [folderToDelete, setFolderToDeleteTo] = useState<string|null>(null);
     const [newIdCounter, setNewIdCounterTo] = useState(0);
 
-    const swapDown = (id: string) => {
+    const swapDown = useCallback((id: string) => {
         const index = tempOrder.indexOf(id);
         if (index !== tempOrder.length - 1) {
         if (!folders[tempOrder[index+1]].editable) return;
@@ -55,9 +54,9 @@ export const useWithFolderSelectionList = (args: UseWithFolderSelectionListArgs)
                 ...tempOrder.slice(index+2)
             ])
         }
-    }
+    }, [folders, folderOrder, tempOrder]);
 
-    const swapUp = (id: string) => {
+    const swapUp = useCallback((id: string) => {
         const index = tempOrder.indexOf(id);
         if (!folders[tempOrder[index-1]].editable) return;
         if (index !== 0) {
@@ -68,17 +67,17 @@ export const useWithFolderSelectionList = (args: UseWithFolderSelectionListArgs)
                 ...tempOrder.slice(index+1)
             ]);
         }
-    }
+    }, [folders, tempOrder]);
 
-    const acceptReordering = () => {
+    const acceptReordering = useCallback(() => {
         setFolderOrderTo(tempOrder);
-    }
+    }, [tempOrder]);
 
-    const cancelReordering = () => {
+    const cancelReordering = useCallback(() => {
         setTempOrderTo(folderOrder);
-    }
+    }, [folderOrder]);
 
-    const nameIsUnique = (name: string) => {
+    const nameIsUnique = useCallback((name: string) => {
         let isUnique: boolean = true;
         Object.keys(folders).forEach((id) => {
             if (folders[id].name === name) {
@@ -87,16 +86,16 @@ export const useWithFolderSelectionList = (args: UseWithFolderSelectionListArgs)
         });
     
         return isUnique;
-    }
+    }, [folders]);
 
     // This will need to be modified to work with the back end.
-    const renameFolder = (id: string, name: string): boolean => {
+    const renameFolder = useCallback((id: string, name: string): boolean => {
         name = name.trim();
         setFolders({...folders, [id]: {name: name, editable: true}})
         return true;
-    }
+    }, [folders]);
 
-    const addNewFolder = (folderName: string): boolean => {
+    const addNewFolder = useCallback((folderName: string): boolean => {
         if (nameIsUnique(folderName)) {
             setFolders({...folders, 
                 [`newFolder-${newIdCounter}`]: {
@@ -109,13 +108,13 @@ export const useWithFolderSelectionList = (args: UseWithFolderSelectionListArgs)
         } else {
             return false;
         }
-    }
+    }, [folders, newIdCounter]);
 
-    const onDelete = (id: string) => {
+    const onDelete = useCallback((id: string) => {
         setFolderToDeleteTo(id);
-    }
+    }, []);
 
-    const deleteFolder = () => {
+    const deleteFolder = useCallback(() => {
         if (folderToDelete !== null) {
             
             let i: number = -1;
@@ -131,23 +130,23 @@ export const useWithFolderSelectionList = (args: UseWithFolderSelectionListArgs)
             setFolderToDeleteTo(null);
         
         }
-    }
+    }, [folderOrder, folderToDelete]);
 
     return {
-        deleteFolder,
         folders,
         order: isReordering ? tempOrder : folderOrder,
         selectedFolder,
         folderName: folders[selectedFolder].name,
-        selectFolder,
         isReordering,
+        isEditable,
+        deleteFolder,
+        selectFolder,
         setReorderingTo,
         swapUp,
         swapDown,
         nameIsUniq: nameIsUnique,
         acceptReordering,
         cancelReordering,
-        isEditable,
         renameFolder,
         addNewFolder,
         setEditableTo,
@@ -197,12 +196,12 @@ export const useFolderSelectionList = ({
         setEditableTo(false);
     }, [setEditableTo]);
 
-    const setToAddingNewFolder = () => {
+    const setToAddingNewFolder = useCallback(() => {
         setReorderingTo(false);
         setAddingNewFolderTo(true);
         setEditableTo(false);
         ref.current.scrollIntoView(); // { behavior: 'smooth'} fails to scroll. Workaround needed.
-    };
+    }, [ref]);;
 
     return {
         ref,

@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
+import { useCallback } from 'react';
 import { useTextInput } from '../../useTextInput';
-
 
 type EditFolderRowArgs = {
     onAccept: (title: string) => void
@@ -14,27 +13,16 @@ export const useEditFolderRow = ({
     initial,
 }: EditFolderRowArgs) => {
 
-    const { value, bind } = useTextInput(initial);
-    const accept = () => {
+    const { value, bind:bindInput } = useTextInput(initial);
+    
+    const accept = useCallback(() => {
         onAccept(value)
-    }
-
-    // useEffect(() => {
-    //     const listener = (e: KeyboardEvent) => {
-    //         if (e.code === 'Enter') {
-    //             onAccept(value);
-    //         }
-    //     }
-    //     document.addEventListener('keydown', listener);
-    //     return () => {
-    //         document.removeEventListener('keydown', listener);
-    //     }
-    // }, [value]);
+    }, [value]); 
 
     return {
         accept,
         cancel: onCancel,
-        bindInput: bind, 
+        bindInput 
     }
 
 }

@@ -4,20 +4,22 @@ import { useClickClosableRef } from '../../useClickCloseableRef';
 
 // for use when importing the component
 export const useWithPopoutMenu = () => {
-
     const [isOpen, setIsOpenTo] = useState(false);
     const [h, setHorizontal] = useState(0);
     const [v, setVertical] = useState(0);
+
     const close = useCallback(() => setIsOpenTo(false), []);
+
+    const open = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        setIsOpenTo(true);
+        setHorizontal(e.clientX);
+        setVertical(e.clientY);
+    }, []);
 
     return {
         isOpen,
         menuEvent: {h, v, isOpen, close} as PopoutMenuEvent,
-        open: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            setIsOpenTo(true);
-            setHorizontal(e.clientX);
-            setVertical(e.clientY);
-        },
+        open, 
         close
     };
 }

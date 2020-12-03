@@ -10,7 +10,6 @@ type StyleProps = {
 
 const Container = styled.div`
     position: relative;
-    opacity: .99;
     left: 6px;
     background-color: ${Styles.color.white};
     padding: 8px;
@@ -41,21 +40,39 @@ type TopArrowWrapperProps = {
 }
 
 const TopArrowWrapper = (props: TopArrowWrapperProps) => {
-    let pos = '';
-    if (props.position > 0) pos = `left: ${props.position}px;`;
-    else if (props.position < 0) pos = `right: ${-1 * props.position}px;`; 
-    else pos = `display: none;`;
+    const binding = useTopArrowWrapper({
+        position: props.position
+    });
+
     return (
         <Container color={props.color}>
-            <BorderArrow pos={pos}>
+            <BorderArrow pos={binding.pos}>
                 <Up color={props.color} size={8}/>
             </BorderArrow>
-            <BgArrow pos={pos}>
+            <BgArrow pos={binding.pos}>
                 <Up color={Styles.color.white} size={8} />
             </BgArrow>
             {props.children} 
         </Container>
     );
 }
+
+type UseTopArrowWrapperArgs = {
+    position: number
+}
+
+const useTopArrowWrapper = (args: UseTopArrowWrapperArgs) => {
+    let pos = '';
+
+    if (args.position > 0) 
+        pos = `left: ${args.position}px;`;
+    else if (args.position < 0) 
+        pos = `right: ${-1 * args.position}px;`; 
+    else 
+        pos = `display: none;`;
+
+    return {pos};
+}
+
 
 export default TopArrowWrapper;

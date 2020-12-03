@@ -1,9 +1,7 @@
-import {useState,} from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useWithFolderSelectionList } from './folder-selection-list/useFolderSelectionList';
 import { ButtonType } from '../../types/ButtonType';
-import {folders, order } from '../../../mockData'; 
-
-type UseCustomReportsPageArgs = {}
+import { folders, order } from '../../../mockData'; 
 
 export const useCustomReportsPage = () => {
     const [isShowingModal, setIsShowingModalTo] = useState(false);
@@ -12,7 +10,7 @@ export const useCustomReportsPage = () => {
         order
     });
 
-    const modalButtons = [
+    const modalButtons = useMemo(() => [
         {
             buttonType: ButtonType.RED, 
             text:'Yes, Delete', 
@@ -28,7 +26,12 @@ export const useCustomReportsPage = () => {
                 setIsShowingModalTo(false);
             }
         }
-    ];
+    ], [selectionBinding]);
+
+    const onDelete = useCallback((id:string) => {
+        selectionBinding.onDelete(id);
+        setIsShowingModalTo(true);
+    }, [selectionBinding]);
 
     return {
         modalButtons,
@@ -37,10 +40,7 @@ export const useCustomReportsPage = () => {
         folderName: selectionBinding.folderName,
         selectionBinding: {
             ...selectionBinding,
-            onDelete: (id:string) => {
-                selectionBinding.onDelete(id);
-                setIsShowingModalTo(true);
-            }
+            onDelete
         }
     }
 }

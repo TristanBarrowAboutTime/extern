@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { ButtonType } from '../../../types/ButtonType';
 import Styles from '../../../style/Styles';
 
@@ -9,7 +9,7 @@ type UseButtonArgs = {
 }
 
 export const useButton = (args: UseButtonArgs) => {
-    const getBgColor = (props: UseButtonArgs): string => {
+    const getBgColor = useCallback((props: UseButtonArgs): string => {
         if (props.disabled) {
             switch(props.buttonType) {
                 case ButtonType.NORMAL: 
@@ -43,9 +43,9 @@ export const useButton = (args: UseButtonArgs) => {
                     return Styles.color.gray.xx_dark;
             }
         }
-    }
+    }, [args.buttonType]);
     
-    const getPadding = (args: UseButtonArgs) => {
+    const getPadding = useCallback((args: UseButtonArgs) => {
         switch(args.buttonType) {
             case ButtonType.SMALL_NORMAL: 
             case ButtonType.SMALL_GREEN:
@@ -59,11 +59,10 @@ export const useButton = (args: UseButtonArgs) => {
                 return Styles.button.paddingNormal;
             default:
                 return '10px'; 
-        } 
-        
-    }
+        }
+    }, [args.buttonType]);
     
-    const getTextColor = (args: UseButtonArgs): string => {
+    const getTextColor = useCallback((args: UseButtonArgs): string => {
         if (args.disabled) {
             switch(args.buttonType) {
                 case ButtonType.NORMAL:
@@ -95,9 +94,9 @@ export const useButton = (args: UseButtonArgs) => {
                     return Styles.color.white;
             }
         }
-    }
+    }, [args.buttonType, args.disabled]);
     
-    const getShadow = (props: UseButtonArgs): string => {
+    const getShadow = useCallback((props: UseButtonArgs): string => {
         if (props.buttonType === ButtonType.BARE || 
             props.buttonType === ButtonType.SMALL_BARE || 
             props.disabled) 
@@ -105,7 +104,7 @@ export const useButton = (args: UseButtonArgs) => {
             return '0'; 
         }
         else return Styles.button.shadow;
-    }
+    }, [args.buttonType, args.disabled]);
 
     const backgroundColor = useMemo(() => getBgColor(args), [args]);
     const padding = useMemo(() => getPadding(args), [args]);
@@ -113,11 +112,11 @@ export const useButton = (args: UseButtonArgs) => {
     const shadow = useMemo(() => getShadow(args), [args]);
     const cursor = useMemo(() => args.disabled ? 'default' : 'pointer', [args]);
 
-    const click = () => {
+    const click = useCallback(() => {
         if (!args.disabled) {
             args.onClick();
         }
-    }
+    }, [args.disabled]);
 
     return {
         click,

@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const CustomReportsPage = () => {
     const binding = useCustomReportsPage();
-    console.log(binding.selectionBinding.folders);
+    
     return (
         <Container>
             {binding.isShowingModal && <Modal 

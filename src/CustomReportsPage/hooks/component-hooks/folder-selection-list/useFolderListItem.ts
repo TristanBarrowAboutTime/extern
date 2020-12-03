@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 type UseFolderListItemArgs = {
     folderName: string, 
@@ -17,18 +17,18 @@ export const useFolderListItem = ({
     const [editing, setEditingTo] = useState(false);
     const [showError, setShowErrorTo] = useState(false);
 
-    const startEditing = () => {
+    const startEditing = useCallback(() => {
         setEditingTo(true);
         setEditableTo(false);
         setShowErrorTo(false);
-    }
+    }, []);
     
-    const cancelEditing = () => {
+    const cancelEditing = useCallback(() => {
         setEditingTo(false);
         setEditableTo(true);
-    }
+    }, []);
 
-    const acceptEditing = (newFolderName: string): void => {
+    const acceptEditing = useCallback((newFolderName: string): void => {
         if (folderName === newFolderName) {
             cancelEditing();
         } else if (nameIsUniq(newFolderName)) {
@@ -38,7 +38,7 @@ export const useFolderListItem = ({
         } else {
             setShowErrorTo(true);
         }
-    }
+    }, [folderName]);
 
     return {
         editing,

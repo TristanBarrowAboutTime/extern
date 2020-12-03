@@ -19,10 +19,10 @@ export const useChevronButton = ({
         setIsOpenTo(!isOpen);
     }, [isOpen]);
 
-    const close = (e: MouseEvent | undefined) => {
+    const close = useCallback((e: MouseEvent | undefined) => {
         if (e !== undefined) e.stopPropagation();
         setIsOpenTo(false);
-    }
+    }, []);
 
     return {
         ...buttonBinding,

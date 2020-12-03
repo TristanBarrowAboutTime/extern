@@ -7,10 +7,10 @@ type Slaves = {
 export const useMasterCheckmark = (slaves: Slaves, init: boolean = false) => {
     const [state, setStateTo] = useState(init);
 
-    const toggle = () => {
+    const toggle = useCallback(() => {
         setStateTo(!state);
         slaves.setAllSlaves(!state);
-    }
+    }, [state]);
 
     return {
         state,
