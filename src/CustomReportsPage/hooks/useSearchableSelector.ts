@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { usePagination } from '../hooks/usePagination';
 import { useWithSearchBar } from '../hooks/component-hooks/atomic-components/useSearchBar';
 
@@ -16,13 +16,12 @@ export const useWithSearchableSelector = <T>(args: UseSearchableSelectorArgs<T>)
         let tempItems: T[] = [];
 
         args.items.forEach((item) => {
-            if (args.searchFor(searchBar.value, item)) {
-                tempItems.push(item);;
-            }
+            if (args.searchFor(searchBar.value, item)) 
+                tempItems.push(item);
         });
 
         return tempItems;
-    }, [searchBar.value, pageSize]);
+    }, [args, searchBar.value]);
 
     const pages = usePagination({
         numberOfItems: newItems.length,

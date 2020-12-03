@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo, useRef,MutableRefObject } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { PopoutMenuEvent } from '../../../types/PopoutMenuEvent';
 import { useClickClosableRef } from '../../useClickCloseableRef';
 

@@ -62,7 +62,7 @@ export const usePagination = (args: UsePaginationArgs) => {
         } else {
             setPageTo(num);
         }
-    }, [numberOfPages]);
+    }, [numberOfPages, last, setPageTo]);
 
     return {
         page,

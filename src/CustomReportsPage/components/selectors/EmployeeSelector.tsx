@@ -1,14 +1,11 @@
 import * as React from 'react';
-import { useState } from 'react';
-import SearchBar from '../atomic-components/SearchBar';
 import Checkbox from '../molecular-components/CheckBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faChevronDown, faChevronUp, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import Styles from '../../style/Styles';
 import styled from 'styled-components';
 import { HSpacer } from '../atomic-components/CssTriangle';
 import CheckBox from '../molecular-components/CheckBox';
-import PagingBar from '../molecular-components/PagingBar';
 import { useWithSearchableSelector } from '../../hooks/useSearchableSelector';
 import SearchableSelector, { RenderRowArgs } from './SearchableSelector';
 import TopArrowWrapper from '../wrappers/TopArrowWrapper';
@@ -18,10 +15,6 @@ export type Employee = { id: number, code: string, fullName: string };
 
 const Container = styled.div`
     padding: 4px;
-`;
-
-const Title = styled.div`
-    padding: 8px 0;
 `;
 
 const EmployeeRow = styled.div`
@@ -39,13 +32,6 @@ const EmployeeCode = styled.div`
 
 const EmployeeFullName = styled.div`
 
-`;
-
-const Filter = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding-top: 16px;
 `;
 
 const HeaderCode = styled.div`

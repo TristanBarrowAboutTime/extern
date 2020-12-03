@@ -54,7 +54,7 @@ export const useWithFolderSelectionList = (args: UseWithFolderSelectionListArgs)
                 ...tempOrder.slice(index+2)
             ])
         }
-    }, [folders, folderOrder, tempOrder]);
+    }, [folders, tempOrder, setTempOrderTo]);
 
     const swapUp = useCallback((id: string) => {
         const index = tempOrder.indexOf(id);
@@ -67,15 +67,15 @@ export const useWithFolderSelectionList = (args: UseWithFolderSelectionListArgs)
                 ...tempOrder.slice(index+1)
             ]);
         }
-    }, [folders, tempOrder]);
+    }, [folders, tempOrder, setTempOrderTo]);
 
     const acceptReordering = useCallback(() => {
         setFolderOrderTo(tempOrder);
-    }, [tempOrder]);
+    }, [tempOrder, setFolderOrderTo]);
 
     const cancelReordering = useCallback(() => {
         setTempOrderTo(folderOrder);
-    }, [folderOrder]);
+    }, [folderOrder, setTempOrderTo]);
 
     const nameIsUnique = useCallback((name: string) => {
         let isUnique: boolean = true;
@@ -108,7 +108,7 @@ export const useWithFolderSelectionList = (args: UseWithFolderSelectionListArgs)
         } else {
             return false;
         }
-    }, [folders, newIdCounter]);
+    }, [folders, newIdCounter, nameIsUnique]);
 
     const onDelete = useCallback((id: string) => {
         setFolderToDeleteTo(id);
@@ -178,30 +178,30 @@ export const useFolderSelectionList = ({
         setReorderingTo(false);
         setAddingNewFolderTo(false);
         setEditableTo(true);
-    }, [setEditableTo]);
+    }, [setReorderingTo, setAddingNewFolderTo, setEditableTo]);
 
     const acceptOrder = useCallback(() => {
         acceptReordering();
         setToNormal();
-    }, []);
+    }, [acceptReordering, setToNormal]);
 
     const rejectOrder = useCallback(() => {
         cancelReordering();
         setToNormal();
-    }, []);
+    }, [cancelReordering, setToNormal]);
 
     const setToReordering = useCallback(() => {
         setReorderingTo(true);
         setAddingNewFolderTo(false);
         setEditableTo(false);
-    }, [setEditableTo]);
+    }, [setReorderingTo, setAddingNewFolderTo, setEditableTo]);
 
     const setToAddingNewFolder = useCallback(() => {
         setReorderingTo(false);
         setAddingNewFolderTo(true);
         setEditableTo(false);
         ref.current.scrollIntoView(); // { behavior: 'smooth'} fails to scroll. Workaround needed.
-    }, [ref]);;
+    }, [ref, setReorderingTo, setAddingNewFolderTo, setEditableTo]);;
 
     return {
         ref,

@@ -73,20 +73,20 @@ export class GridCell {
         return this.searchableValue.toLowerCase().includes(searchValue.toLowerCase());
     }
 
-    get() {
+    get(key: number) {
         switch(this.type) {
             case CellType.HEADER_CELL:
-                return <HeaderCell>{this.content}</HeaderCell>;
+                return <HeaderCell key={key}>{this.content}</HeaderCell>;
             case CellType.NORMAL_CELL:
-                return <NormalCell>{this.content}</NormalCell>;
+                return <NormalCell key={key}>{this.content}</NormalCell>;
             case CellType.HOVERED_CELL:
-                return <HoverableCell {...this.binding}>{this.content}</HoverableCell>;
+                return <HoverableCell key={key} {...this.binding}>{this.content}</HoverableCell>;
             case CellType.MASTER_CHECKBOX_CELL: 
-                return <MasterCheckboxCell><CheckBox {...this.binding} /></MasterCheckboxCell>;
+                return <MasterCheckboxCell key={key}><CheckBox {...this.binding} /></MasterCheckboxCell>;
             case CellType.SLAVE_CHECKBOX_CELL:
-                return <SlaveCheckboxCell><CheckBox {...this.binding} /></SlaveCheckboxCell>;
+                return <SlaveCheckboxCell key={key}><CheckBox {...this.binding} /></SlaveCheckboxCell>;
             case CellType.DESCRIPTION_CELL: 
-                return <DescriptionCell><DescriptionText>{this.content}</DescriptionText></DescriptionCell>
+                return <DescriptionCell key={key}><DescriptionText>{this.content}</DescriptionText></DescriptionCell>
         }
     }
 }

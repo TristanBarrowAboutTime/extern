@@ -1,7 +1,7 @@
 import { useEffect, useRef, MutableRefObject } from 'react';
 
-// if you are having issues with the ref closing randomly see this React issue:
-// https://github.com/facebook/react/issues/20325
+// you may need to call e.stopPropagation() when you open the ref to get the 
+// behavior you want.
 
 export const useClickClosableRef = (action: (e?: MouseEvent) => void) => {
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
@@ -18,7 +18,7 @@ export const useClickClosableRef = (action: (e?: MouseEvent) => void) => {
             document.removeEventListener('click', handleClick, { capture: true });
             action();
         }
-    }, [ref]);
+    }, [ref, action]);
 
     return ref
 }

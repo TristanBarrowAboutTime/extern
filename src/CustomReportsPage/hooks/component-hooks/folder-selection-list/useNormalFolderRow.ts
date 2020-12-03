@@ -14,7 +14,7 @@ export const useNormalFolderRow = (args: UseNormalFolderRowArgs) => {
         args.onDelete();
         popout.close();
         setHoveredTo(false);
-    },[]);
+    },[args, popout]);
 
     return {
         showEditIcon: args.isEditable && hovered,

@@ -18,16 +18,12 @@ const Grid = styled.table`
 const TableRow = styled.tr`
     border-collapse: collapse;
     
-    :nth-child(odd) {
+    :nth-child(even) {
         background-color: ${Styles.grid.dark};
     }
-    :nth-child(even) {
+    :nth-child(odd) {
         background-color: ${Styles.grid.light};
     }
-    :nth-child(1) {
-        background-color: ${Styles.grid.light};
-    }
-
 `;
 
 type GeneralGridProps = {
@@ -36,32 +32,49 @@ type GeneralGridProps = {
 }
 
 const GeneralGrid = (props: GeneralGridProps) => {
-
-    const shouldNotRenderRow = (gridRow: GridCell[], index: number): boolean => {
-        if (index === 0) return false; 
-        let shouldRender = true;
-        gridRow.forEach(cell => {
-            if (cell.contains(props.filterValue)) shouldRender = false;
-        });
-        return shouldRender;
-    }
+    const binding = useGeneralGrid({filterValue: props.filterValue});
 
     return (
         <GridWrapper>
             <Grid>
-                {props.grid.map((row, index) => {
-                    if (shouldNotRenderRow(row, index)) return null;
-                    return (
-                        <TableRow>
-                            {row.map(cell => {
-                                return cell.get();
+                <thead>
+                    <TableRow>
+                        {props.grid[0].map((cell, key) => {
+                            return cell.get(key);
+                        })}
+                    </TableRow>
+                </thead>
+                <tbody>
+                    {props.grid.map((row, index) => {
+                        if (binding.shouldNotRenderRow(row, index)) return null;
+                        return <TableRow key={index}>
+                            {row.map((cell, key) => {
+                                return cell.get(key);
                             })}
                         </TableRow>
-                    );
-                })}
+                    })}
+                </tbody>
             </Grid>
         </GridWrapper>
     );
+}
+
+type UseGeneralGridArgs = {
+    filterValue: string
+}
+
+const useGeneralGrid = (args: UseGeneralGridArgs) => {
+
+    const shouldNotRenderRow = React.useCallback((gridRow: GridCell[], index: number): boolean => {
+        if (index === 0) return true; 
+        let shouldRender = true;
+        gridRow.forEach(cell => {
+            if (cell.contains(args.filterValue)) shouldRender = false;
+        });
+        return shouldRender;
+    }, [args.filterValue]);
+
+    return {shouldNotRenderRow};
 }
 
 export default GeneralGrid;

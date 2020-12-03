@@ -10,7 +10,7 @@ export const useMasterCheckmark = (slaves: Slaves, init: boolean = false) => {
     const toggle = useCallback(() => {
         setStateTo(!state);
         slaves.setAllSlaves(!state);
-    }, [state]);
+    }, [state, slaves,]);
 
     return {
         state,
@@ -22,16 +22,16 @@ export const useMultipleCheckmarkSlaves = (numberOfSlaves: number, init: boolean
     const [checkmarkSlaves, setSlaveArrayTo] = useState(
         Array<Boolean>(numberOfSlaves).fill(init)
     );
-    
+
     const setAllSlaves = useCallback((masterState: boolean) => {
         setSlaveArrayTo(Array<boolean>(checkmarkSlaves.length).fill(masterState));
-    }, []);
+    }, [checkmarkSlaves.length, setSlaveArrayTo]);
 
     const toggleSlave = useCallback((slaveIndex: number) => {
         let arr = [...checkmarkSlaves];
         arr[slaveIndex] = !checkmarkSlaves[slaveIndex]
         setSlaveArrayTo(arr);
-    }, [checkmarkSlaves]);
+    }, [checkmarkSlaves, setSlaveArrayTo]);
     
     return {
         checkmarkSlaves,

@@ -3,7 +3,6 @@ import Button from "../../atomic-components/Button";
 import { HSpacer } from '../../atomic-components/CssTriangle';
 import { ButtonType } from '../../../types/ButtonType'
 import styled from 'styled-components';
-import Modal from '../../molecular-components/Modal';
 import SearchBar, { SearchBarProps } from '../../atomic-components/SearchBar';
 
 const ButtonRow = styled.div`

@@ -49,7 +49,7 @@ type CheckboxProps = {
 const CheckBox = (props: CheckboxProps) => {
     return (
         <CheckboxContainer>
-            <HiddenCheck checked={props.isChecked} onClick={props.onClick}/>
+            <HiddenCheck checked={props.isChecked} onClick={props.onClick} readOnly />
             <Box onClick={() => props.onClick()}>
                 {props.isChecked && <FontAwesomeIcon icon={faCheck} color={'black'} size={'xs'} />}
             </Box>

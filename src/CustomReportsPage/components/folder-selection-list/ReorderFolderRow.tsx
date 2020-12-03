@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Up, Down, VSpacer } from '../atomic-components/CssTriangle';
 import styled from 'styled-components';
-import Styles from '../../style/Styles';
 
 type ReorderFolderRowProps = {
     folderName: string

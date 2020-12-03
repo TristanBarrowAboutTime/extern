@@ -17,7 +17,7 @@ export const useEditFolderRow = ({
     
     const accept = useCallback(() => {
         onAccept(value)
-    }, [value]); 
+    }, [value, onAccept]); 
 
     return {
         accept,

@@ -5,7 +5,6 @@ import { useChevronButton } from '../../hooks/component-hooks/atomic-components/
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import Popup from '../popout-menu/Popup';
-import { useClickClosableRef } from '../../hooks/useClickCloseableRef';
 
 type StyledButtonProps = {
     backgroundColor: string

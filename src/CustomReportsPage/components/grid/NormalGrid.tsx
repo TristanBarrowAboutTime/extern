@@ -51,9 +51,9 @@ const useNormalGrid = (args: UseNormalGridArgs) => {
     const slaves = useMultipleCheckmarkSlaves(gridData.length);
     const master = useMasterCheckmark(slaves);
 
-    const searchable = (initial: string) => {
+    const searchable = useCallback((initial: string) => {
         return initial + initial.split(' ').join('');
-    }
+    }, []);
 
     const makeRow = useCallback((row: string[], index: number) => {
         const slaveCheck = {isChecked: slaves.slave(index), onClick: () => slaves.toggleSlave(index)};
@@ -69,7 +69,7 @@ const useNormalGrid = (args: UseNormalGridArgs) => {
             new GridCell(CellType.DESCRIPTION_CELL, row[1], searchable(row[1])),
             new GridCell(CellType.NORMAL_CELL, row[2], searchable(row[2])),
         ];
-    }, [gridData, slaves]);
+    }, [slaves, args, searchable]);
 
     const header = useMemo(() => {
 
@@ -82,17 +82,18 @@ const useNormalGrid = (args: UseNormalGridArgs) => {
                 new GridCell(CellType.HEADER_CELL, 'Last Run Date', ''),
             ]
         ];
-    }, [master.state, slaves]);
+    }, [master.state, master.toggle]);
 
-    const makeGrid = () => {
-        let grid = header;
-        gridData.forEach((row, index) => {
-            grid.push(makeRow(row, index));
-        });
-        return grid;
-    };
-
-    let grid = useMemo(() => makeGrid(), [master.state, slaves]);
+    let grid = useMemo(() => {
+        const makeGrid = () => {
+            let grid = header;
+            gridData.forEach((row, index) => {
+                grid.push(makeRow(row, index));
+            });
+            return grid;
+        };
+        return makeGrid();
+    }, [makeRow, header]);
 
     return {grid};
 }

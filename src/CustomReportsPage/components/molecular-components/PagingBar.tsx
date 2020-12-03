@@ -1,4 +1,4 @@
-import { faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faCog, faShower } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react'; 
 import { useCallback, useMemo } from 'react'; 
@@ -177,7 +177,7 @@ const usePagingBar = (args: UsePagingBarArgs) => {
             pageNumber >= args.currentPage - args.pagesShowing && 
             pageNumber <= args.currentPage + args.pagesShowing
         );
-    }, [args.currentPage]);
+    }, [args.currentPage, args.pagesShowing]);
 
     const showFirst = useMemo(() => {
         return args.showGoToEnd && args.currentPage > 0;
@@ -189,11 +189,11 @@ const usePagingBar = (args: UsePagingBarArgs) => {
     
     const showPrevEllipsis = useMemo(() => {
         return !shouldShowNumber(0);
-    }, [args.currentPage, args.numOfPages]);
+    }, [shouldShowNumber]);
 
     const showNextEllipsis = useMemo(() => {
         return !shouldShowNumber(args.numOfPages - 1);
-    }, [args.currentPage, args.numOfPages]);
+    }, [args.numOfPages, shouldShowNumber]);
 
     const showNext = useMemo(() => {
         return args.currentPage < args.numOfPages - 1;

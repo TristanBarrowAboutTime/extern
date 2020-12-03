@@ -1,14 +1,9 @@
 import * as React from 'react';
-import SearchBar, { SearchBarProps } from '../atomic-components/SearchBar';
-import Checkbox from '../molecular-components/CheckBox';
+import SearchBar from '../atomic-components/SearchBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import Styles from '../../style/Styles';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { HSpacer } from '../atomic-components/CssTriangle';
-import CheckBox from '../molecular-components/CheckBox';
 import PagingBar, { PagingBarProps } from '../molecular-components/PagingBar';
-import { useWithSearchableSelector } from '../../hooks/useSearchableSelector';
 import { SearchBinding } from '../../types/SearchBinding';
 import { useToggler } from '../../hooks/useToggler';
 

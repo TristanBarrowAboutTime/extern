@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, MutableRefObject} from 'react';
+import { useState, useCallback } from 'react';
 import { useButton } from './useButton';
 import { ButtonType } from '../../../types/ButtonType';
 

@@ -21,12 +21,12 @@ export const useFolderListItem = ({
         setEditingTo(true);
         setEditableTo(false);
         setShowErrorTo(false);
-    }, []);
+    }, [setEditingTo, setEditableTo, setShowErrorTo]);
     
     const cancelEditing = useCallback(() => {
         setEditingTo(false);
         setEditableTo(true);
-    }, []);
+    }, [setEditingTo, setEditableTo]);
 
     const acceptEditing = useCallback((newFolderName: string): void => {
         if (folderName === newFolderName) {
@@ -38,7 +38,15 @@ export const useFolderListItem = ({
         } else {
             setShowErrorTo(true);
         }
-    }, [folderName]);
+    }, [
+        folderName, 
+        cancelEditing,
+        nameIsUniq,
+        setEditingTo, 
+        setEditableTo, 
+        renameFolder, 
+        setShowErrorTo
+    ]);
 
     return {
         editing,
