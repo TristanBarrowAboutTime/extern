@@ -1,11 +1,15 @@
-import { faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faShower } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faCog, faShower } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react'; 
 import { useCallback, useMemo } from 'react'; 
 import styled from 'styled-components';
+import { useToggler } from '../../hooks/useToggler';
 import Styles from '../../style/Styles';
 
+const pageSizes: number[] = [5, 10, 25, 50, 100];
+
 const Container = styled.div`
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -25,13 +29,41 @@ const Txt = styled.span`
     }
 `;
 
-type PagingBarProps = {
+const DropdownContainer = styled.div`
+
+`;
+
+const Dropdown = styled.div`
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px solid black;
+    width: 100px;
+    padding: 4px;
+    border-radius: 4px;
+`;
+
+const DropdownItem = styled.div`
+    background-color: white;
+    padding: 2px;
+    transition: .2s;
+    border-radius: 2px;
+    :hover {
+        cursor: pointer;
+        background-color: ${Styles.color.gray.light};
+        transition: .2s;
+    }
+`;
+
+export type PagingBarProps = {
     currentPage: number
     numOfPages: number
     showGoToEnd: boolean
     pagesShowing: number // 0: all, n: n to the left and n to the right
-    first?: () => void
-    last?: () => void
+    setPageSizeTo: (size: number) => void 
+    first: () => void
+    last: () => void
     next: () => void
     prev: () => void
     goTo: (page: number) => void
@@ -91,6 +123,33 @@ const PagingBar = (props: PagingBarProps) => {
                     />
                 </IconContainer>
             )}
+            <IconContainer>
+                <FontAwesomeIcon 
+                    icon={faCog} 
+                    color={Styles.color.green} 
+                    onClick={binding.settingsToggler.toggle}
+                />
+            </IconContainer>
+            {binding.settingsToggler.toggleState && (
+                <DropdownContainer>
+                    <Dropdown>
+                        {pageSizes.map(num => {
+                            return (
+                                <DropdownItem 
+                                    key={num}
+                                    onClick={() => {
+                                        props.first();
+                                        props.setPageSizeTo(num);
+                                        binding.settingsToggler.toggle();
+                                    }}
+                                >
+                                    {num}
+                                </DropdownItem>
+                            );
+                        })}
+                    </Dropdown>
+                </DropdownContainer>
+            )}
         </Container>
     )
 }
@@ -106,7 +165,8 @@ type UsePagingBarArgs = {
 }
 
 const usePagingBar = (args: UsePagingBarArgs) => {
-    
+    const settingsToggler = useToggler(false);    
+
     const pages = useMemo(() => {
         return Array(args.numOfPages).fill(null).map((_, i) => i)
     }, [args.numOfPages]);
@@ -151,7 +211,8 @@ const usePagingBar = (args: UsePagingBarArgs) => {
         showNextEllipsis,
         showNext,
         showLast,
-        shouldShowNumber
+        settingsToggler,
+        shouldShowNumber,
     }
 }
 

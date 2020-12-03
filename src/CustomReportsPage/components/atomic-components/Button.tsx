@@ -3,6 +3,7 @@ import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { ButtonType } from '../../types/ButtonType';
 import { useButton } from '../../hooks/component-hooks/atomic-components/useButton';
+import { Thm } from '../../../theme';
 
 type StyledButtonProps = {
     backgroundColor: string
@@ -10,6 +11,7 @@ type StyledButtonProps = {
     padding: string
     cursor: string
     color: string
+    theme: Thm
 }
 
 const StyledButton = styled.div`

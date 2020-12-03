@@ -23,6 +23,11 @@ export default {
     searchBar: {
         shadow: '0 1px 4px #cccccc'
     },
+    grid: {
+        border: '2px solid #A7AFB2',
+        light: '#FAFAFA',
+        dark: '#E5E5E5',
+    },
     size: {
         xx_small: 2,
         x_small: 4,

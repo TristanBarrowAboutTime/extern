@@ -1,4 +1,9 @@
-export default {
+export enum Themes {
+  default,
+  dark
+}
+
+const global = {
     color: {
         white: '#FFFFFF',
         black: '#000000',
@@ -15,8 +20,54 @@ export default {
         },
         transparent: 'rgba(255,255,255,0)'
     },
-    borderRadius: '4px',
-    circleRadius: '50%',
-    buttonShadow: '0 2px 4px #cccccc',
-    searchShadow: '0 1px 4px #cccccc'
+    button: {
+        paddingNormal: '7px 12px 8px 12px',
+        paddingSmall: '3px 17px 4px 17px',
+        shadow: '0 2px 4px #cccccc',
+    },
+    searchBar: {
+        shadow: '0 1px 4px #cccccc'
+    },
+    grid: {
+        border: '2px solid #A7AFB2',
+        light: '#FAFAFA',
+        dark: '#E5E5E5',
+    },
+    size: {
+        xx_small: 2,
+        x_small: 4,
+        small: 8,
+        medium: 16,
+        large: 32,
+        x_large: 48,
+        xx_large: 64,
+    },
+    borderRadius: {
+        standard: 4,
+        circle: 100,
+    },
+    lineHeight: 20,
+}
+
+export type Thm = {
+    theme: {
+        button: {
+            color: {
+                primary: string
+                positive: string
+                negative: string
+                disabled: string
+            },
+            size: {
+                spacing: string
+                
+            }
+        }
+    }
+}
+
+export const themes = {
+    [Themes.default]: {
+        
+    }
 }

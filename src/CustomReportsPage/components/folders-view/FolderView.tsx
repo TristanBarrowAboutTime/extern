@@ -4,20 +4,18 @@ import styled from 'styled-components';
 import { useWithSearchBar } from '../../hooks/component-hooks/atomic-components/useSearchBar';
 import Modal from '../molecular-components/Modal';
 import { ButtonType } from '../../types/ButtonType';
-import NormalFolderViewPopout from './NormalFolderViewPopout';
-import DeleteGrid from '../grid/DeleteGrid';
-import ScheduledReportsButtonRow from './button-groups/ScheduledReportsButtonRow';
+import { useWithPopoutMenu } from '../../hooks/component-hooks/molecular-components/usePopoutMenu';
 import NormalButtonRow from './button-groups/NormalButtonRow';
-import DeletedFoldersButtonRow from './button-groups/DeletedFolderButtonRow';
-import ScheduledGrid from '../grid/ScheduledGrid';
 import NormalGrid from '../grid/NormalGrid';
+import { Folders } from '../../types/Folders';
+import NormalFolderViewPopout from './NormalFolderViewPopout';
 
 const rd = (name: string, description: string, frequencyType: string, nextRunDate: string, lastRunDate: string) => {
     return {reportName: name, description, frequencyType, nextRunDate, lastRunDate }
 }
 
 let gridData: any = [];
-gridData.push(rd('Dummy Report Name', 'This is a dummy description. it needs to be kind of long but not too long.','Dummy Frequency Type', '10/10/10 10:10pm', '10/10/10 10:10pm'));
+gridData.push(rd('Dummy Report Name', 'This is a dummy description.it needs to be kind of long but not too long.it needs to be kind of long but not too long. it needs to be kind of long but not too long.','Dummy Frequency Type', '10/10/10 10:10pm', '10/10/10 10:10pm'));
 
 const Container = styled.div`
     width: 100%;
@@ -45,75 +43,81 @@ const FolderName = styled.div`
 
 type FolderViewProps = {
     folderName: string
+    folders: Folders
 }
 
 const FolderView = (props: FolderViewProps) => {
-    const [showModal, setShowModalTo] = useState(false);
-    const searchBar = useWithSearchBar();
-
+    const binding = useFolderView();
+    
     return (
         <Container>
             <Header>
                 <FolderName>{props.folderName}</FolderName>
                 <NormalButtonRow 
-                    onDelete={() => setShowModalTo(false)}
+                    onDelete={binding.closeModal}
                     moveFolderContent={<div>Move Folder</div>}
                     sharingContent={<div>sharing</div>}
-                    searchBinding={searchBar.searchBinding}
+                    searchBinding={binding.searchBinding}
+                    folders={props.folders}
                 />
-                {/* <DeletedFoldersButtonRow 
-                    onDelete={() => {}}
-                    onRestore={() => {}}
-                    searchBinding={searchBar.searchBinding}
-                /> */}
-                {/* <ScheduledReportsButtonRow 
-                    newSchedule={() => {}}
-                    searchBinding={searchBar.searchBinding}
-                /> */}
             </Header>
-            {/* <NormalGrid
-                gridData={gridData}
-                popoutMenu={(
+            <NormalGrid 
+                filterValue={binding.searchValue} 
+                popoutMenu={binding.popoutMenu} 
+                popoutContent={
                     <NormalFolderViewPopout 
+                        selectedRow={binding.selectedRow}
                         run={() => {}}
                         edit={() => {}}
                         share={() => {}}
                         duplicate={() => {}}
                         deleteReport={() => {}}
                     />
-                )}
-                searchValue={searchBar.value}
-            /> */}
-            {showModal && <Modal 
+                }
+                selectRow={(rowIndex: number) => binding.selectRow(rowIndex)}
+            />
+            {binding.showModal && <Modal 
                 title={'Confirm Delete'}
                 content={'Are you sure you want to delete this report?'}
-                closeModal={() => setShowModalTo(false)}
+                closeModal={binding.closeModal}
                 buttons={[
                     {
                         text: 'Delete',
                         buttonType: ButtonType.RED,
-                        onClick: () => setShowModalTo(false)
+                        onClick: binding.closeModal
                     },
                     {
                         text: 'Cancel',
                         buttonType: ButtonType.NORMAL,
-                        onClick: () => setShowModalTo(false)
+                        onClick: binding.closeModal
                     }
                 ]}
             />}
         </Container>
     );
 }
-/**
- *  title: string
-    content: string
-    buttons: {
-        text: string,
-        buttonType: ButtonType, 
-        onClick:() => void,
-    }[],
-    closeModal: () => void
- */
+
+type UseFolderViewArgs = {
+
+}
+
+const useFolderView = () => {
+    const [showModal, setShowModalTo] = useState(false);
+    const searchBar = useWithSearchBar();
+    const popoutMenu = useWithPopoutMenu();
+    const [selectedRow, setSelectedRowTo] = useState(0);
+
+    return {
+        showModal,
+        openModal: () => setShowModalTo(true),
+        closeModal: () => setShowModalTo(false),
+        selectRow: setSelectedRowTo,
+        selectedRow,
+        popoutMenu,
+        searchBinding: searchBar.searchBinding,
+        searchValue: searchBar.value
+    }
+}
 
 
 export default FolderView;

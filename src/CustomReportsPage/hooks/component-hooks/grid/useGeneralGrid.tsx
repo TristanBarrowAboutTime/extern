@@ -1,7 +1,8 @@
 import * as React from 'react';
-import InsertCell, { GridCell } from '../../../components/grid/cells/InsertCells';
+import { GridCell } from '../../../components/grid/cells/GridCell';
 
 export const insertCells = () => {
+    
 }
 
 export const flipArray = (array: GridCell[][]) => {

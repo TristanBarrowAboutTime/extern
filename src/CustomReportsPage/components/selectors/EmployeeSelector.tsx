@@ -1,18 +1,20 @@
 import * as React from 'react';
-import { useMemo } from 'react';
+import { useState } from 'react';
 import SearchBar from '../atomic-components/SearchBar';
-import { useWithSearchBar } from '../../hooks/component-hooks/atomic-components/useSearchBar';
-import { usePagination } from '../../hooks/usePagination';
 import Checkbox from '../molecular-components/CheckBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faChevronDown, faChevronUp, faStar } from '@fortawesome/free-solid-svg-icons';
 import Styles from '../../style/Styles';
 import styled from 'styled-components';
 import { HSpacer } from '../atomic-components/CssTriangle';
 import CheckBox from '../molecular-components/CheckBox';
 import PagingBar from '../molecular-components/PagingBar';
+import { useWithSearchableSelector } from '../../hooks/useSearchableSelector';
+import SearchableSelector, { RenderRowArgs } from './SearchableSelector';
+import TopArrowWrapper from '../wrappers/TopArrowWrapper';
+import MultipleSelectors from '../selectors/MultipleSelectors';
 
-type Employee = { id: number, code: string, fullName: string };
+export type Employee = { id: number, code: string, fullName: string };
 
 const Container = styled.div`
     padding: 4px;
@@ -39,7 +41,7 @@ const EmployeeFullName = styled.div`
 
 `;
 
-const Header = styled.div`
+const Filter = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -59,8 +61,13 @@ const HeaderFullName = styled.div`
 
 `;
 
+const FilterContainer = styled.div`
+    position: absolute;
+    top: 90px;
+    right: 12px;
+`;
 type EmployeeSelectorProps = {
-    employees: {id: number, code: string, fullName: string}[]
+    employees: Employee[]
     size: number
     slaves: any
     master: any
@@ -75,102 +82,77 @@ const EmployeeSelector = (props: EmployeeSelectorProps) => {
 
     return (
         <Container>
-            <Title>Employee</Title>
-            <SearchBar 
-                {...binding.searchBinding}
+            <SearchableSelector
+                title={'Employees'}
+                searchBinding={binding.searchBinding}
+                pageIndexes={binding.pageIndexes}
+                slaves={props.slaves}
+                items={binding.items}
+                filters={
+                    <FilterContainer>
+                        <TopArrowWrapper color={'#A7AFB2'} position={-22}>
+                            <MultipleSelectors />
+                        </TopArrowWrapper>
+                    </FilterContainer>
+                }
+                header={
+                    <>
+                        <Checkbox 
+                            isChecked={props.master.state}
+                            onClick={props.master.toggle}
+                        />
+                        <HSpacer size={8} />
+                        <FontAwesomeIcon icon={faCheck} color={Styles.color.green} />
+                        <HeaderCode>Code</HeaderCode>
+                        <HeaderFullName>Full Name</HeaderFullName> 
+                    </>
+                } 
+                renderRow={(args: RenderRowArgs<Employee>) => (
+                    <EmployeeRow key={args.index}>
+                        <CheckBox 
+                            isChecked={args.slaves!.slave(args.items[args.index].id)}
+                            onClick={() => args.slaves!.toggleSlave(args.items[args.index].id)}
+                        />
+                        <EmployeeCode>{args.items[args.index].code}</EmployeeCode>
+                        <EmployeeFullName>
+                            {args.items[args.index].fullName}
+                        </EmployeeFullName>
+                    </EmployeeRow>
+                )} 
+                pagerBinding={{
+                    ...binding.pagerBinding,
+                    showGoToEnd: true,
+                    pagesShowing: 6
+                }}
             />
-            <Header>
-                <Checkbox 
-                    isChecked={props.master.state}
-                    onClick={props.master.toggle}
-                />
-                <HSpacer size={8}/>
-                <FontAwesomeIcon icon={faCheck} color={Styles.color.green} />
-                <HeaderCode>Code</HeaderCode>
-                <HeaderFullName>Full Name</HeaderFullName>
-            </Header>
-            <div>
-                {binding.pageIndexes.map((index) => {
-                    return (
-                        <EmployeeRow key={index}>
-                            <CheckBox 
-                                isChecked={props.slaves.slave(binding.employees[index].id)}
-                                onClick={() => props.slaves.toggleSlave(binding.employees[index].id)}
-                            />
-                            <EmployeeCode>{binding.employees[index].code}</EmployeeCode>
-                            <EmployeeFullName>
-                                {binding.employees[index].fullName}
-                            </EmployeeFullName>
-                        </EmployeeRow>
-                    )
-                })}
-            </div>
-            <PagingBar
-                currentPage={binding.page}
-                prev={binding.pages.prev}
-                next={binding.pages.next}
-                first={binding.pages.first}
-                last={binding.pages.last}
-                numOfPages={binding.pages.numberOfPages}
-                pagesShowing={2}
-                goTo={binding.pages.gotoPage}
-                showGoToEnd={false}
-            /> 
         </Container>
     );
 }
 
 type UseEmployeeSelectorArgs = {
-    employees: {id: number, code: string, fullName: string}[]
+    employees: Employee[]
     numberOfItems: number
     pageSize: number
 }
 
-// a higher component needs to own master and slave state so progress is not 
-// lost if the selector is closed
 const useEmployeeSelector = (args: UseEmployeeSelectorArgs) => {
-    const searchBar = useWithSearchBar();
+
+    const searchFor = (searchValue: string, item: Employee): boolean => {
+        return (
+            item.code.toLowerCase().includes(searchValue.toLowerCase()) || 
+            item.fullName.toLowerCase().includes(searchValue.toLowerCase())
+        );
+    }
     
-    const newEmployees: Employee[] = useMemo(() => {
-        let tmpNewEmployees: Employee[] = [];
-
-        args.employees.forEach((employee) => {
-            if (employee.code.toLowerCase().includes(searchBar.value.toLowerCase()) || 
-                employee.fullName.toLowerCase().includes(searchBar.value.toLowerCase())
-            ) {
-                tmpNewEmployees.push(employee);;
-            }
-        });
-        return tmpNewEmployees;
-    }, [searchBar.value]);
-
-    const pages = usePagination({
-        numberOfItems: newEmployees.length,
-        pageSize: args.pageSize
+    const searchableSelector = useWithSearchableSelector<Employee>({
+        items: args.employees,
+        initPageSize: args.pageSize,
+        searchFor,
     });
 
-    const searchBinding = {
-        ...searchBar.searchBinding,
-        onChange: (e: {target: {value: string}}) => {
-            searchBar.searchBinding.onChange(e);
-            pages.first();
-        }
-    }
-
     return {
-        employees: newEmployees,
-        searchBinding,
-        searchValue: searchBar.value,
-        pages,
-        numOfPages: pages.numberOfPages,
-        page: pages.page,
-        pageIndexes: pages.itemIndexes,
-        first: pages.first,
-        last: pages.last,
-        prev: pages.prev,
-        next: pages.next,
-        goTo: pages.gotoPage,
-    }
+        ...searchableSelector, 
+    };
 }
 
 export default EmployeeSelector;

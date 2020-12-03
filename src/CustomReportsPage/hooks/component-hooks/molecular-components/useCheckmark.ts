@@ -38,7 +38,6 @@ export const useMultipleCheckmarkSlaves = (numberOfSlaves: number, init: boolean
         setAllSlaves,
         toggleSlave,
         slave: (id: number) => {
-            // console.log('slave', id);
             return checkmarkSlaves[id].valueOf()
         }
     }

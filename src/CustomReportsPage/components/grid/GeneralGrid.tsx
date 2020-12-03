@@ -1,67 +1,62 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { useGeneralGrid } from '../../hooks/component-hooks/grid/useGeneralGrid';
-import { GridCell } from './cells/InsertCells';
-
-const border = '2px solid #DBDBDB'; 
+import Styles from '../../style/Styles';
+import { GridCell } from './cells/GridCell';
 
 const GridWrapper = styled.div`
     display: inline-block;
 `;
 
-const Grid = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    border: ${border};
+const Grid = styled.table`
+    width: 100%;
+    border-collapse: collapse;
+    border: ${Styles.grid.border};
     border-right: 0;
+    padding: 0;
 `;
 
-const Column = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    border-right: ${border};
-`;
+const TableRow = styled.tr`
+    border-collapse: collapse;
+    
+    :nth-child(odd) {
+        background-color: ${Styles.grid.dark};
+    }
+    :nth-child(even) {
+        background-color: ${Styles.grid.light};
+    }
+    :nth-child(1) {
+        background-color: ${Styles.grid.light};
+    }
 
-const Cell = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    height: 34px;
-    padding: 2px;
 `;
 
 type GeneralGridProps = {
     grid: GridCell[][]
-}
-
-const bgStyle = (index: number) => {
-    if (index === 0) return {backgroundColor: 'white', borderBottom: border}
-    const rowIsGray = index % 2 ===1; 
-    return rowIsGray ? 
-    {backgroundColor: 'white'} : 
-    {backgroundColor: '#F2F2F2'}
+    filterValue: string
 }
 
 const GeneralGrid = (props: GeneralGridProps) => {
-    const binding = useGeneralGrid(props.grid);
+
+    const shouldNotRenderRow = (gridRow: GridCell[], index: number): boolean => {
+        if (index === 0) return false; 
+        let shouldRender = true;
+        gridRow.forEach(cell => {
+            if (cell.contains(props.filterValue)) shouldRender = false;
+        });
+        return shouldRender;
+    }
 
     return (
         <GridWrapper>
             <Grid>
-                {binding.columnGrid.map((column, columnIndex) => {
+                {props.grid.map((row, index) => {
+                    if (shouldNotRenderRow(row, index)) return null;
                     return (
-                        <Column>
-                            {column.map((cell: React.ReactNode, index: number) => {
-                                return (
-                                    <Cell style={bgStyle(index)}>
-                                        {cell}
-                                    </Cell>
-                                );
+                        <TableRow>
+                            {row.map(cell => {
+                                return cell.get();
                             })}
-                        </Column>
+                        </TableRow>
                     );
                 })}
             </Grid>

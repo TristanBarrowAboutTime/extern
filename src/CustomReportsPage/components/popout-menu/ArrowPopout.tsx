@@ -6,7 +6,6 @@ import { usePopoutMenu } from '../../hooks/component-hooks/molecular-components/
 import styled from 'styled-components';
 
 /**
- * Description:
  * PopoutMenu is a configurable popout that will open on a custom event and 
  * will close once the user clicks anywhere outside of the popout. 
  * 
@@ -33,8 +32,10 @@ import styled from 'styled-components';
  * If you have nested PopoutMenu's you will need multiple calls to "usePopoutMenu".
  */
 
-type PopoutMenuProps = {
-    children: React.ReactChild | React.ReactChild[]
+export type EventType = React.MouseEvent<HTMLDivElement, MouseEvent>;
+
+type ArrowPopout = {
+    children: React.ReactChild | React.ReactChild[] | React.ReactNode
     menuEvent: PopoutMenuEvent
     padding?: number
     tickPosition?: number // how far down the tick is from the top
@@ -59,7 +60,7 @@ const Arrow = styled.div`
     position: absolute;
 `;
 
-const PopoutMenu = ({
+const ArrowPopout = ({
     children,
     menuEvent,
     padding = 16,
@@ -70,7 +71,7 @@ const PopoutMenu = ({
     hPosition = 10,
     horizontalFix = null,
     verticalFix = null
-}: PopoutMenuProps) => {
+}: ArrowPopout) => {
     
     const binding = usePopoutMenu({
         menuEvent, 
@@ -143,4 +144,4 @@ export const DisabledMenuItem = (props: MenuItemProps) => {
 
 export const HR = () => <HorizontalRule />;
 
-export default PopoutMenu;
+export default ArrowPopout;

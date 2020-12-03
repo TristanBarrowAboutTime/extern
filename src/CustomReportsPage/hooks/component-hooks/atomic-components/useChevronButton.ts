@@ -13,9 +13,7 @@ export const useChevronButton = ({
 }: UseChevronButtonArgs) => {
     const buttonBinding = useButton({buttonType, disabled, onClick: () => {}});
     const [isOpen, setIsOpenTo] = useState(false);
-    const btnRef = useRef() as MutableRefObject<HTMLDivElement>;
 
-    // console.log('body', isOpen);
 
     const click = useCallback(() => {
         setIsOpenTo(!isOpen);

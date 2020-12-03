@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { ButtonType } from '../../../types/ButtonType';
 import Styles from '../../../style/Styles';
 
-
 type UseButtonArgs = {
     buttonType: ButtonType
     disabled: boolean

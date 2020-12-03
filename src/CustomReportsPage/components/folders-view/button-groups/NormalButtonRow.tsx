@@ -5,10 +5,12 @@ import { ButtonType } from '../../../types/ButtonType';
 import SearchBar, { SearchBarProps } from '../../atomic-components/SearchBar';
 import { HSpacer } from '../../atomic-components/CssTriangle';
 import styled from 'styled-components';
-import EmployeeSelector from '../../selectors/EmployeeSelector';
+import EmployeeSelector, { Employee } from '../../selectors/EmployeeSelector';
 import { useMasterCheckmark, useMultipleCheckmarkSlaves } from '../../../hooks/component-hooks/molecular-components/useCheckmark';
+import FolderSelector from '../../selectors/FolderSelector';
+import { Folders } from '../../../types/Folders';
 
-let employees: {id: number, code: string, fullName: string}[] = [];
+let employees: Employee[] = [];
 
 for (let i = 0; i < 105; i++) {
     employees.push({id: i, code: `00${i}`, fullName: `Bob Boberto the ${i}th`});
@@ -19,6 +21,7 @@ const ButtonRow = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
+    
 `;
 
 type NormalButtonRowProps = {
@@ -26,12 +29,13 @@ type NormalButtonRowProps = {
     moveFolderContent: React.ReactChild
     sharingContent: React.ReactChild
     searchBinding: SearchBarProps
+    folders: Folders
 }
 
 const NormalButtonRow = (props: NormalButtonRowProps) => {
-    const slaves = useMultipleCheckmarkSlaves(employees.length);
-    const master = useMasterCheckmark(slaves);
-
+    const binding = useNormalButtonRow({
+        numOfEmployees: employees.length
+    });
     return (
         <ButtonRow>
             <Button
@@ -49,7 +53,12 @@ const NormalButtonRow = (props: NormalButtonRowProps) => {
             <ChevronButton
                 buttonType={ButtonType.NORMAL}
                 text='Move to Folder'
-            >{props.moveFolderContent}</ChevronButton>
+            >
+                <FolderSelector
+                    folders={['f1','f2']}
+                    size={2}
+                />
+            </ChevronButton>
             <ChevronButton
                 buttonType={ButtonType.BARE}
                 text='Sharing'
@@ -57,13 +66,27 @@ const NormalButtonRow = (props: NormalButtonRowProps) => {
                 <EmployeeSelector 
                     employees={employees}
                     size={employees.length}
-                    slaves={slaves}
-                    master={master}
+                    slaves={binding.slaves}
+                    master={binding.master}
                 />
             </ChevronButton>
             <SearchBar {...props.searchBinding} />
         </ButtonRow>
     );
+}
+
+type UseNormalButtonRow = {
+    numOfEmployees: number
+}
+
+const useNormalButtonRow = (args: UseNormalButtonRow) => {
+    const slaves = useMultipleCheckmarkSlaves(employees.length);
+    const master = useMasterCheckmark(slaves);
+    
+    return {
+        slaves,
+        master
+    }
 }
 
 export default NormalButtonRow;

@@ -20,8 +20,8 @@ export const usePagination = (args: UsePaginationArgs) => {
     const [page, setPageTo] = useState(0);
 
     const itemIndexes = useMemo(() => {
-
-        if (page > args.pageSize) throw new Error("Page is greater than the number of pages.");
+        console.log(page, numberOfPages)
+        if (page > numberOfPages) throw new Error("Page is greater than the number of pages.");
         if (page < 0) throw new Error('Page is negative');
 
         let lastItem = page * args.pageSize + (args.pageSize - 1);
@@ -33,7 +33,7 @@ export const usePagination = (args: UsePaginationArgs) => {
         }
 
         return items;
-    }, [page, args.numberOfItems]);
+    }, [page, numberOfPages, args.numberOfItems, args.pageSize]);
 
     const next = useCallback(() => {
         if (page < numberOfPages-1) {

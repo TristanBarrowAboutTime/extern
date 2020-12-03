@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const CustomReportsPage = () => {
     const binding = useCustomReportsPage();
-    console.log(binding.selectionBinding);
+    console.log(binding.selectionBinding.folders);
     return (
         <Container>
             {binding.isShowingModal && <Modal 
@@ -25,6 +25,7 @@ const CustomReportsPage = () => {
             <FolderSelectionList {...binding.selectionBinding}/>
             <FolderView
                 folderName={binding.folderName}
+                folders={binding.selectionBinding.folders}
             />
         </Container>
     );
