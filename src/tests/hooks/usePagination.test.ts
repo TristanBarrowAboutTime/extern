@@ -105,7 +105,7 @@ describe('Use Pagination', () => {
         });
 
         act(() => {
-            result.current.start();
+            result.current.first();
         });
         
         expect(result.current.page).toBe(0);
@@ -119,7 +119,7 @@ describe('Use Pagination', () => {
         }));
         
         act(() => {
-            result.current.end();
+            result.current.last();
         });
         
         expect(result.current.page).toBe(4);
@@ -133,7 +133,7 @@ describe('Use Pagination', () => {
         }));
         
         act(() => {
-            result.current.end();
+            result.current.last();
         });
         act(() => {
             result.current.next();
