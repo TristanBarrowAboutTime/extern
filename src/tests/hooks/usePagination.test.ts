@@ -153,8 +153,8 @@ describe('Use Pagination', () => {
             result.current.gotoPage(3);
         });
     
-        expect(result.current.page).toBe(2);
-        expect(result.current.itemIndexes).toMatchObject([10,11,12,13,14])
+        expect(result.current.page).toBe(3);
+        expect(result.current.itemIndexes).toMatchObject([15,16,17,18,19])
     });
 
     it('give a warning and goes to the last page when attempting to go to a page past the last', () => {
