@@ -1,71 +1,64 @@
+# Intro
 This is my external repo since it has more relevant stuff. The repo is working so you can clone it and mess with it if you want. I would actually be happy if you did. 
 
 Feel free to read as much of this as you want. I thought I would give you more information than you probably wanted to hear and let you sort out what you think is relevant. 
 
-My favorite reuse of a hook is probably Button and ChevronButton.
+## Code
 
-https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/hooks/component-hooks/atomic-components/useChevronButton.ts#L10 
+My favorite reuse of a hook is probably `Button` and `ChevronButton`.
+[useChevronButton](https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/hooks/component-hooks/atomic-components/useChevronButton.ts#L10) 
 
 Notice that in my “useChevronButton” I simply added the “useButton” hook and now I am free to keep or override any functionality I need from “Button” without inheritance. This was incredibly satisfying.
 
 Some of the time I wanted to make things incredibly simple to implement and hook up. There is an example of this with “useWithSeachBar”. 
 
-https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/components/folder-selection-list/FolderSelectionList.tsx#L136 
+[FolderSelectionList L136](https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/components/folder-selection-list/FolderSelectionList.tsx#L136) 
 
 Now all I need to do is use the value off of the hook binding where I wish. I use it here:
 
-https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/components/folder-selection-list/FolderSelectionList.tsx#L141 
+[FolderSelectionList L141](https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/components/folder-selection-list/FolderSelectionList.tsx#L141)
 
 Using the word “binding” is just a random convention I picked out of the air. It could be anything or you could destructure the return value
 
 Another thought behind the hooks is to separate logic from implementation. Here I made a “usePagination” hook that is completely separate from the UI and is tested in its own right. The matching pagination list is a bit bloated because I was going for configurability but It can really be anything. The pagination logic has nothing to do with the ui that implements it. “usePagination” in this case is a bit like “useWithPagingBar” but I anticipate having to use “usePagination” with other components so I separated the two. 
 
-usePagination
-https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/hooks/usePagination.ts 
+[usePagination](https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/hooks/usePagination.ts)
 
-PagingBar
-https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/components/molecular-components/PagingBar.tsx 
+[PagingBar](https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/components/molecular-components/PagingBar.tsx)
 
 
 I decided to useMemo and useCallback on every value and callback. This was quite unnecessary… not sure why I did it. useMemo and useCallback are just memoized values like you are doing dynamic programming. “usePagination” is a good example of me using it… albeit unnecessarily.
 
 Folder selection list ended up quite complicated, it’s another example of me simplifying implementation is with hooks. Usually you would need to make sure that all of the arguments are hooked up correctly on props, but instead you just pass down whatever comes from the hook. This is not my cleanest bit of code… I could stand to scrub it some more.
 
-Usage: 
-https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/hooks/component-hooks/useCustomReportsPage.ts#L8 
+[Usage 1](https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/hooks/component-hooks/useCustomReportsPage.ts#L8) 
 
-And
-https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/components/CustomReportsPage.tsx#L25 
+[Usage 2](https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/components/CustomReportsPage.tsx#L25)
 
 
-Compare the usage to the required arguments:
-https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/hooks/component-hooks/folder-selection-list/useFolderSelectionList.ts#L15 
+Compare the usage to the [required arguments](https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/hooks/component-hooks/folder-selection-list/useFolderSelectionList.ts#L15)
 
 Maybe this is not good. I haven’t really come up with a verdict on how I feel about this yet. Whenever I look at it I think “meh.. I can do better” then I don’t do anything about it because I’m too lazy.
  
-Hooks also allow for extension. In “useSearchableSelector” I am implementing “useWithSearchbar” (line: 12) but I am extending the behavior of it by calling one of the returned functions. (line: 33)
-
-https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/hooks/useSearchableSelector.ts 
+Hooks allow for extension. In “useSearchableSelector” I am implementing “useWithSearchbar” [line: 12](https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/hooks/useSearchableSelector.ts#L12) but I am extending the behavior of it by calling one of the returned functions. [line: 33](https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/CustomReportsPage/hooks/useSearchableSelector.ts#L12)
 
 Hooks are very easy to test because they are just pure functions that can return methods. My favorite tested hook is pagination: 
 
-https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/tests/hooks/usePagination.test.ts 
+[usePagination](https://github.com/TristanBarrowAboutTime/extern/blob/89767685a491e0f7f5a742225c959a5cd4c5c130/src/tests/hooks/usePagination.test.ts)
 
 Also, most of my tests are in the ControlCenter and not in extern… sry. I have many more thoughts. But I’m already kinda inundating you with info so I’ll stop. 
 
-
-
-
+## Some Extra Thoughts
 
 This is a list of some things I think about React backed up by some articles.
 
-React is Functional (Class based components still use a Functional Paradigm)
-React is Declarative
-Use Context very lightly
-Dependency Injection is not required in React
-Shallow Rendering allows for easy testing.
-Pure Functions are easier to test then non-pure functions
-Sources in case you are interested: 
+- React is Functional (Class based components still use a Functional Paradigm)
+- React is Declarative
+- Use Context very lightly
+- Dependency Injection is not required in React
+- Shallow Rendering allows for easy testing.
+- Pure Functions are easier to test then non-pure functions
+- Sources in case you are interested: 
 
 https://lispcast.com/is-react-functional-programming/#:~:text=Even%20though%20React%20modifies%20the,can%20help%20us%20understand%20React.
 
