@@ -59,47 +59,50 @@ This is a list of some things I think about React backed up by some articles.
 - Shallow Rendering allows for easy testing.
 - Pure Functions are easier to test then non-pure functions
 
-### Articles and Quotes
+### Articles and Quotes 
 
-https://lispcast.com/is-react-functional-programming/#:~:text=Even%20though%20React%20modifies%20the,can%20help%20us%20understand%20React.
+[Is React Functional Programming](https://lispcast.com/is-react-functional-programming/#:~:text=Even%20though%20React%20modifies%20the,can%20help%20us%20understand%20React)
 
 “Even though React modifies the DOM, it is considered functional programming.”
 
-https://medium.com/@andrea.chiarelli/the-functional-side-of-react-229bdb26d9a6 
+[The Functional Side of React](https://medium.com/@andrea.chiarelli/the-functional-side-of-react-229bdb26d9a6) 
 
 “The developer approaching React is naturally led to think of it in terms of Object-Oriented Programming. The syntax itself to define a component promotes this idea… However, under the Object-Oriented dress, React hides a functional nature.” 
 
-https://danielpedroso.com/2019/02/25/functional-programming-and-react/ 
+[Functional Programming and React](https://danielpedroso.com/2019/02/25/functional-programming-and-react/) 
 
 “after all, the class keyword is ultimately just syntactic sugar - it boils down to prototypes”
 
-https://leewarrick.com/blog/the-problem-with-context/#:~:text=The%20problem%20with%20context%20is,renders%20all%20over%20the%20place! 
+[The Problem with Context, Renders all over the place](https://leewarrick.com/blog/the-problem-with-context/#:~:text=The%20problem%20with%20context%20is,renders%20all%20over%20the%20place!)
 
+- “The problem with context is simple: Everything that consumes a context re-renders everytime that context’s state changes.”
 
-“The problem with context is simple: Everything that consumes a context re-renders everytime that context’s state changes.”
-“That means that if you’re consuming your context all over the place in your app, or worse, using one context for your entire app’s state, you’re causing a ton of re-renders all over the place!”
-https://blog.theodo.com/2019/07/how-i-ruined-my-application-performances-by-using-react-context-instead-of-redux/ 
+- “That means that if you’re consuming your context all over the place in your app, or worse, using one context for your entire app’s state, you’re causing a ton of re-renders all over the place!”
+
+[How I ruined My application by using React Context instead of redux](https://blog.theodo.com/2019/07/how-i-ruined-my-application-performances-by-using-react-context-instead-of-redux/)
+
 “In my opinion, contexts should be used for simple data that do not change often, and when it gets more complicated than that”
 
-https://marmelab.com/blog/2019/03/13/react-dependency-injection.html 
+[React Dependency Injection](https://marmelab.com/blog/2019/03/13/react-dependency-injection.html)
+
+- “Dependency Injection is a popular pattern that many frameworks implement - but React.js, apparently, doesn't. It turns out React has a dependency injection system built in JSX, and you probably already use it.”
+- “Why doesn't React ship a Dependency Injection Container like Angular.js? Because it doesn't need it. JSX and contexts are good enough to make React applications modular and testable.”
 
 
-“Dependency Injection is a popular pattern that many frameworks implement - but React.js, apparently, doesn't. It turns out React has a dependency injection system built in JSX, and you probably already use it.”
-“Why doesn't React ship a Dependency Injection Container like Angular.js? Because it doesn't need it. JSX and contexts are good enough to make React applications modular and testable.”
+[No need for dependancy injection in React Components](https://maxheiber.medium.com/no-need-for-dependency-injection-in-react-components-641182760aaa)
+“When a component depends on a function, you can pass the function in as a `prop`. When a component depends on another component, shallow rendering can help keep your unit tests isolated. No dependency injection library or framework is needed for reusable, testable UI components.” 
 
-
-From the React Docs
-
-https://reactjs.org/docs/reconciliation.html 
-
-“React provides a declarative API so that you don’t have to worry about exactly what changes on every update.”
-
-https://reactjs.org/docs/context.html 
-“Context is primarily used when some data needs to be accessible by many components at different nesting levels. Apply it sparingly because it makes component reuse more difficult.”
-“If you only want to avoid passing some props through many levels, component composition is often a simpler solution than context.”
-https://maxheiber.medium.com/no-need-for-dependency-injection-in-react-components-641182760aaa 
-“When a component depends on a function, you can pass the function in as a `prop`. When a component depends on another component, shallow rendering can help keep your unit tests isolated. No dependency injection library or framework is needed for reusable, testable UI components.”
-
-https://medium.com/ableneo/testable-javascript-functional-programming-pure-functions-756e049bfd4a 
+[Testing Pure Functions](https://medium.com/ableneo/testable-javascript-functional-programming-pure-functions-756e049bfd4a)
 
 “Testable Javascript -> Functional Programming -> Pure Functions”
+
+### From the React Docs
+
+[Reconciliation](https://reactjs.org/docs/reconciliation.html) is an awesome littl nugget.
+
+[Context](https://reactjs.org/docs/context.html) has a few quotes about how it should really be used sparingly. 
+
+“Context is primarily used when some data needs to be accessible by many components at different nesting levels. Apply it sparingly because it makes component reuse more difficult.”
+“If you only want to avoid passing some props through many levels, component composition is often a simpler solution than context.”
+
+
