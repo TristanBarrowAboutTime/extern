@@ -58,7 +58,8 @@ This is a list of some things I think about React backed up by some articles.
 - Dependency Injection is not required in React
 - Shallow Rendering allows for easy testing.
 - Pure Functions are easier to test then non-pure functions
-- Sources in case you are interested: 
+
+### Articles and Quotes
 
 https://lispcast.com/is-react-functional-programming/#:~:text=Even%20though%20React%20modifies%20the,can%20help%20us%20understand%20React.
 
