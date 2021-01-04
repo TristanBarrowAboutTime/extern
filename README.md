@@ -1,3 +1,12 @@
+# installation and setup
+
+```
+git clone https://github.com/TristanBarrowAboutTime/extern.git
+cd extern 
+npm install
+npm run start
+```
+
 # Intro
 This is my external repo since it has more relevant stuff. The repo is working so you can clone it and mess with it if you want. I would actually be happy if you did. 
 
