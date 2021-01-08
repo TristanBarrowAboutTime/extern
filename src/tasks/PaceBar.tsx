@@ -1,7 +1,6 @@
 import React from 'react';
 import { useMemo } from 'react'; 
 import styled from 'styled-components';
-import Styles from '../CustomReportsPage/style/Styles';
 
 type ProgressStyleProps = {
     width: string
