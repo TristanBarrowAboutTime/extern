@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { useGeneralGrid, flipArray } from '../../CustomReportsPage/hooks/component-hooks/grid/useGeneralGrid';
+import { useGeneralGrid, flipArray } from '../../hooks/component-hooks/grid/useGeneralGrid';
 import { renderHook, act } from '@testing-library/react-hooks';
-import InsertCell, { CellType, GridCell }from '../../CustomReportsPage/components/grid/cells/GridCell';
+import InsertCell, { CellType, GridCell }from '../../components/grid/cells/GridCell';
 
 describe('Use General Grid', () => {
 

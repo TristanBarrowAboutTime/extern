@@ -1,4 +1,4 @@
-import { usePagination } from '../../CustomReportsPage/hooks/usePagination';
+import { usePagination } from '../../hooks/usePagination';
 import { renderHook, act } from '@testing-library/react-hooks';
 
 describe('Use Pagination', () => {
