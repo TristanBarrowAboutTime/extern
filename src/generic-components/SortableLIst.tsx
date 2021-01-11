@@ -28,7 +28,6 @@ const HeaderText = styled.Text`
     padding-left: 10px;
     padding-right: 4px;
     color: ${Styles.color.green}; 
-
 `;
 
 type ListProps<T> = {

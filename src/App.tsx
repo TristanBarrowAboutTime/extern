@@ -5,7 +5,7 @@ import MapBox from './mapbox-maps/MapPage';
 import LeafletMap from './leaflet-maps/MapPage';
 import styled from 'styled-components';
 import SortableList from './generic-components/SortableLIst';
-
+import EmployeeDetails from './generic-components/EmployeeDetails';
 const NavBar = styled.div`
   display: flex;
   flex-direction: row;
@@ -43,7 +43,7 @@ const ImployeeListItem = (props: {item: Imployee}) => {
   return (
     <ImployeeContainer>
       <div>{props.item.id}</div>
-      <div>{props.item.firstName}</div>
+      <div><a href='/employee-details'>{props.item.firstName}</a></div>
       <div>{props.item.lastName}</div>
     </ImployeeContainer>
   );
@@ -96,6 +96,11 @@ function App() {
               lastName: (a: Imployee, b: Imployee) => (a.lastName.toLowerCase() > b.lastName.toLowerCase() ? -1 : 1),
             }}
           />
+          
+        </Route>
+        <Route path = '/employee-details'>
+          <EmployeeDetails/>
+        {/* <div>Hello</div> // my component from generic component */}
         </Route>
       </Switch>
     </Router>
