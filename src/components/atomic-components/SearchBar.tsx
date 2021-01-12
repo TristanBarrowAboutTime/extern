@@ -2,11 +2,16 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Styles from '../../style/Styles';
 
-const Container = styled.div``;
+type ContainerStyleProps = {
+    margin: number
+}
+
+const Container = styled.div`
+    margin: ${(props: ContainerStyleProps) => props.margin}px;
+`;
 
 type StyleProps = {
     width: number
-    mediaQuerySize: number
 }
 
 // this will keep the input from clashing with the styles in the element style defenitions
@@ -28,9 +33,6 @@ const SearchBarStyle = styled.input`
         border: 1px solid ${Styles.color.green} !important;
     }
 
-    @media (max-width: ${(props: StyleProps) => props.mediaQuerySize}px) {
-        width: calc(100% - 16px)
-    }
 `;
 
 export type SearchBarProps = {
@@ -38,25 +40,23 @@ export type SearchBarProps = {
     onChange: (event: {target: {value: string}}) => void,
     includeChevron?: boolean
     width?: number
-    mediaQuerySize?: number
+    margin?: number
 }
 
 const SearchBar = ({
     value,
     onChange,
     width = 316,
-    mediaQuerySize = 0
+    margin = 8
 }: SearchBarProps) => {
-    
     return (
-        <Container>
+        <Container margin={margin}>
             <SearchBarStyle
                 placeholder='Search'
                 type='text' 
                 value={value} 
                 onChange={onChange} 
                 width={width}
-                mediaQuerySize={mediaQuerySize}
             />
         </Container>
     )

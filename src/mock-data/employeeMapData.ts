@@ -1,5 +1,57 @@
-export const employeeListData = [
+import { ListEmployee } from '../components/cellular-components/map-list/EmployeeListTemplate';
+import { MapEmployeeStatus } from '../components/cellular-components/map-list/UserImage'
 
+export const employeeListData: ListEmployee[] = [
+    {
+        code: 1,
+        firstName: 'John',
+        lastName: 'Smith',
+        time: '9 hrs',
+        geoDiscrepancy: true,
+        address: '1234 blah land',
+        status: MapEmployeeStatus.CLOCKED_IN,
+        image: null,
+    },
+    {
+        code: 1234,
+        firstName: 'Kitly',
+        lastName: 'Kitten',
+        time: '98 hrs',
+        geoDiscrepancy: false,
+        address: '1234 blah land',
+        status: MapEmployeeStatus.CLOCKED_OUT,
+        image: null,
+    },
+    {
+        code: 2345,
+        firstName: 'George',
+        lastName: 'The Man Eater',
+        time: '8 hrs',
+        geoDiscrepancy: false,
+        address: '1234 blah land',
+        status: MapEmployeeStatus.CLOCKED_IN,
+        image: null
+    },
+    {
+        code: 3456,
+        firstName: 'Sancheze',
+        lastName: 'Gestapo',
+        time: '1 hrs',
+        geoDiscrepancy: false,
+        address: '1234 blah land',
+        status: MapEmployeeStatus.UNKNOWN,
+        image: null,
+    },
+    {
+        code: 4567,
+        firstName: 'Frank',
+        lastName: 'the Hell Spawn Slayer',
+        time: '5 hrs',
+        geoDiscrepancy: false,
+        status: MapEmployeeStatus.CLOCKED_OUT,
+        address: '1234 blah land',
+        image: null,
+    }
 ]
 
 export const employeeGeoJson = {

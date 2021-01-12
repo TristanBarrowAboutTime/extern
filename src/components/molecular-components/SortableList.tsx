@@ -31,15 +31,20 @@ const HeaderText = styled.Text`
 
 `;
 
+type Sortables = {
+    [key: string]: {
+        title: string, sort: (a: any, b: any) => number
+    }
+} 
+
 type ListProps<T> = {
     data: T[]
-    sortables: {[key: string]: string}
+    sortables: Sortables
     isHorizontal?: boolean
     preHeader?: React.ReactNode
     postHeader?: React.ReactNode
     shouldDisplayItem: (item: T) => boolean
     template: (item: T) => React.ReactNode
-    sortBy: {[key: string]: (a: any, b: any) => number}
 }
 
 const List = <T extends unknown>({
@@ -48,20 +53,19 @@ const List = <T extends unknown>({
     isHorizontal = false,
     preHeader = null,
     postHeader = null,
-    sortBy,
     shouldDisplayItem,
     template,
 }: ListProps<T>) => {
-    const binding = useSortableList({data, sortBy});
+    const binding = useSortableList({data, sortables});
     
     return (
         <View>
             <Header>
                 {preHeader}
                 {Object.keys(sortables).map((currentSort: string) => (
-                    <HeaderItem onPress={() => binding.onPressHeaderItem(currentSort)}>
+                    <HeaderItem key={currentSort} onPress={() => binding.onPressHeaderItem(currentSort)}>
                         <HeaderText>
-                            {sortables[currentSort]}
+                            {sortables[currentSort].title}
                         </HeaderText>
                         <FontAwesomeIcon 
                             size={16}
@@ -83,8 +87,10 @@ const List = <T extends unknown>({
 
 type UseSortableListArgs<T> = {
     data: T[]
-    sortBy: {[key: string]: (a: any, b: any) => number}
+    sortables: Sortables
 }
+
+// Sorting could be done with flex value which would keep profile images from being re-requested.
 
 const useSortableList = <T extends unknown>(args: UseSortableListArgs<T>) => {
     const [orderedData, setOrderedDataTo] = React.useState(args.data);
@@ -100,11 +106,10 @@ const useSortableList = <T extends unknown>(args: UseSortableListArgs<T>) => {
         setSortingDownTo(sortDirection);
         setOrderedDataTo(orderedData.sort((a: T, b: T) => {
             // if (activeSort === null) return 0;
-            // if I could find a way to index into
             return sortDirection ? (
-                args.sortBy[currentSort](a, b) * -1 
+                args.sortables[currentSort].sort(a, b) * -1 
             ) : (
-                args.sortBy[currentSort](a, b)
+                args.sortables[currentSort].sort(a, b)
             )
         }));
     }
