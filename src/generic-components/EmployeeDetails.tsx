@@ -4,14 +4,14 @@ import { View, Image,Text,TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import Styles from '../CustomReportsPage/style/Styles';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-
+import MapSearchbar from '../CustomReportsPage/components/atomic-components/MapSearchbar';
 const Header = styled.View`
     display: flex;
     flex-direction: row;
 `;
 
 const ContainerView = styled.View`
-width:300;
+width:400;
 border-width:1;
 border-color: '#ddd';
 padding-left:20;
@@ -84,6 +84,8 @@ export class EmployeeDetails extends React.Component {
 render() {
 return (
     <ContainerView>
+       <MapSearchbar/>
+        {/* Vector icon with a text 'Open in Time Editor' */}
         <NavView >
             <TouchableOpacity>
             <FontAwesomeIcon
