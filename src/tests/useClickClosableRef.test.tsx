@@ -1,5 +1,5 @@
 import { useEffect, useRef, MutableRefObject } from 'react';
-import { useClickClosableRef } from '../CustomReportsPage/hooks/useClickCloseableRef';
+import { useClickClosableRef } from '../hooks/useClickCloseableRef';
 import { renderHook, act } from '@testing-library/react-hooks';
 
 jest.mock('react');
