@@ -1,5 +1,5 @@
 import * as React from 'react';
-import SortableList from '../../molecular-components/SortableList';
+import SortableList from '../../frames/SortableList';
 import { locationData } from '../../../mock-data/locationMapData';
 import styled from 'styled-components/native';
 import LocationListTemplate from '../../molecular-components/templates/LocationListTemplate';

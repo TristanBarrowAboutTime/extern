@@ -1,7 +1,7 @@
 import * as React from 'react'; 
 import { Text } from 'react-native';
 import styled from 'styled-components/native';
-import SortableList from '../SortableList';
+import SortableList from '../../frames/SortableList';
 import { employeeLocationData } from '../../../mock-data/locationMapData';
 import EmployeeLocationTemplate from '../../cellular-components/map-list/EmployeeLocationTemplate';
 import { EmployeeLocationType } from '../../../types/EmployeeLocationType';

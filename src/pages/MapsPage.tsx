@@ -4,6 +4,7 @@ import { useWithTabs } from '../components/molecular-components/Tabs';
 import styled from 'styled-components/native';
 import { MapTabs } from '../types/MapTabs';
 import MapController from '../components/cellular-components/map-list-controller/MapListController';
+import MapDetailsFrame from '../components/frames/MapDetailsFrame';
 
 const Container = styled.View`
     display: flex;
@@ -16,13 +17,19 @@ const MapsPage = () => {
     
     return (
         <Container>
-            <MapController 
+
+            <MapDetailsFrame 
+                subjectContainer= {<div>subject</div>}
+                tabs={<div>tabs</div>}
+                list={<div>list</div>}
+            />
+            {/* <MapController 
                 tabBinding={binding.tabBinding}
                 searchBinding={binding.searchBinding}
                 searchValue={binding.searchValue}
                 selectedTab={binding.selectedTab}
             />
-            <div>map</div>
+            <div>map</div> */}
         </Container>
     );
 }
