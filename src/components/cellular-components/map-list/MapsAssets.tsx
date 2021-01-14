@@ -1,25 +1,22 @@
 import * as React from 'react';
 import { employeeListData } from '../../../mock-data/employeeMapData';
-import SortableList from '../SortableList';
+import SortableList from '../../molecular-components/SortableList';
 import styled from 'styled-components/native';
-import MapEmployeeListTemplate, { ListEmployee } from '../../cellular-components/map-list/EmployeeListTemplate';
-import EmployeeDetails from '../../../pages/EmployeeDetails';
-
-import MapEmployeeListTemplate, { ListEmployee } from '../list-templates/EmployeeListTemplate';
+import MapEmployeeListTemplate, { ListEmployee } from '../../molecular-components/templates/EmployeeListTemplate';
 
 const Container = styled.View`
 
 `;
 
-type MapsEmployeesProps = {
+type MapAssetsProps = {
     searchValue: string
 }
 
-const MapsEmployees = (props: MapsEmployeesProps) => {
+const MapsAssets = (props: MapAssetsProps) => {
     return (
         <Container>
             <SortableList
-                data={employeeListData}
+                data={[]}
                 template={(employee: ListEmployee) => <MapEmployeeListTemplate employee={employee} />}
                 sortables={{
                     code: { title: 'Code', sort: (a: ListEmployee, b: ListEmployee) => (a.code > b.code ? -1 : 1) },
@@ -35,4 +32,4 @@ const MapsEmployees = (props: MapsEmployeesProps) => {
     );
 };
 
-export default MapsEmployees;
+export default MapsAssets;

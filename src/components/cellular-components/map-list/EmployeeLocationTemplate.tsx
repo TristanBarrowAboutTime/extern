@@ -1,12 +1,9 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
-import { employeeGeoJson } from '../../../mock-data/employeeMapData';
-import UserImage, { MapEmployeeStatus } from './UserImage';
 import styled from 'styled-components/native';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faGlobe } from '@fortawesome/free-solid-svg-icons';
-import Styles from '../../../style/Styles';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { EmployeeLocationType } from '../../../types/EmployeeLocationType';
 
 const Container = styled.View`
     display: flex;
@@ -37,16 +34,6 @@ const Title = styled.Text`
     font-size: 20px;
 `;
 
-const SubTitle = styled.Text`
-
-`;
-
-
-export type EmployeeLocationType = {
-    code: number
-    name: string
-    siteName: string
-}
 
 type EmployeeListTemplateProps = {
     employee: EmployeeLocationType
@@ -56,9 +43,7 @@ const EmployeeLocationTemplate = ({ employee }: EmployeeListTemplateProps) => {
     const {
         code,
         name,
-        siteName,
-    
-    
+        address,
     } = employee;
 
     return (
@@ -67,7 +52,7 @@ const EmployeeLocationTemplate = ({ employee }: EmployeeListTemplateProps) => {
                 <Row>                  
                     <Link to= "/employee-details">  
                     <Title>
-                        {`${code} ${name} ${siteName}`}
+                        {`${code} ${name} ${address}`}
                     </Title >
                     </Link>                
                 </Row>

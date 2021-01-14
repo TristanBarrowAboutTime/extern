@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Tabs from '../../molecular-components/Tabs';
 import SearchBar from '../../atomic-components/SearchBar';
-import MapsLocations from '../../molecular-components/maps/MapsLocations';
-import MapsAssets from '../../molecular-components/maps/MapsAssets';
-import MapsEmployees from '../../molecular-components/maps/MapsEmployees';
+import MapsLocations from '../map-list/MapsLocations';
+import MapsAssets from '../map-list/MapsAssets';
+import MapsEmployees from '../map-list/MapsEmployees';
 import { MapTabs } from '../../../types/MapTabs';
 
 type MapListControllerProps = {

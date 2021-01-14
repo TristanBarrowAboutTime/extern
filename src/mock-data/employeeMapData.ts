@@ -1,8 +1,5 @@
-import { ListEmployee } from '../components/cellular-components/map-list/EmployeeListTemplate';
-import { MapEmployeeStatus } from '../components/cellular-components/map-list/UserImage';
-import {EmployeeLocationType} from '../components/cellular-components/map-list/EmployeeLocationTemplate';
-import { ListEmployee } from '../components/molecular-components/list-templates/EmployeeListTemplate';
 import { MapEmployeeStatus } from '../components/atomic-components/UserImage';
+import { ListEmployee } from '../components/molecular-components/templates/EmployeeListTemplate';
 
 export const employeeListData: ListEmployee[] = [
     {
@@ -98,25 +95,3 @@ export const employeeGeoJson = {
         }
     ]
 }
-export const employeeLocationData: EmployeeLocationType[] = [
-        {
-         code: 1,
-         name: 'John Smith',
-         siteName: 'Payson,utah'
-        },
-        {
-           code: 2,
-           name: 'Rohn Kitten',
-           siteName: 'jercey city,New Jersey'
-            },
-            {
-            code: 3,
-            name: 'Rohn Kitten',
-            siteName: 'jercey city,New Jersey'
-            },
-             {
-            code: 4,
-            name: 'Rohn Kitten',
-            siteName: 'jercey city,New Jersey'
-                    }
-    ]
