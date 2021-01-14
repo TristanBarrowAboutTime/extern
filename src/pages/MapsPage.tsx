@@ -5,7 +5,7 @@ import Tabs, { useWithTabs } from '../components/molecular-components/Tabs';
 import styled from 'styled-components/native';
 import MapsEmployees from '../components/molecular-components/maps/MapsEmployees';
 import EmployeeDetails from './EmployeeDetails';
-import EmployeeLocation from './EmployeeLocation';
+import EmployeeLocation from './Location';
 
 enum MapTabs {
     EMPLOYEE = 'Employee',

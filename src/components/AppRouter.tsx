@@ -5,6 +5,7 @@ import MapBox from './cellular-components/mapbox-maps/MapPage';
 import LeafletMap from './cellular-components/leaflet-maps/MapPage';
 import MapsPage from '../pages/MapsPage';
 import EmployeeDetails from '../pages/EmployeeDetails';
+import LocationEmployeeDetails from '../pages/LocationEmployeeDetails';
 import styled from 'styled-components';
 
 const NavBar = styled.div`
@@ -52,6 +53,9 @@ function AppRouter() {
         </Route>
         <Route path='/employee-details'>
             <EmployeeDetails /> 
+        </Route>
+        <Route path = '/location-employee-details'>
+          <LocationEmployeeDetails />
         </Route>
 
       </Switch>

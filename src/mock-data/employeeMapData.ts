@@ -1,6 +1,6 @@
 import { ListEmployee } from '../components/cellular-components/map-list/EmployeeListTemplate';
 import { MapEmployeeStatus } from '../components/cellular-components/map-list/UserImage';
-import {EmployeeLocationType} from '../components/cellular-components/map-list/EmployeeLocationTemplate';
+import {LocationType} from '../components/cellular-components/map-list/LocationTemplate';
 
 export const employeeListData: ListEmployee[] = [
     {
@@ -96,25 +96,21 @@ export const employeeGeoJson = {
         }
     ]
 }
-export const employeeLocationData: EmployeeLocationType[] = [
+export const employeeLocationData: LocationType[] = [
         {
          code: 1,
          name: 'John Smith',
-         siteName: 'Payson,utah'
+         site: 'Payson,utah'
         },
         {
            code: 2,
            name: 'Rohn Kitten',
-           siteName: 'jercey city,New Jersey'
+           site: 'jercey city,New Jersey'
             },
             {
             code: 3,
             name: 'Rohn Kitten',
-            siteName: 'jercey city,New Jersey'
+            site: 'morrisville,North Carolina'
             },
-             {
-            code: 4,
-            name: 'Rohn Kitten',
-            siteName: 'jercey city,New Jersey'
-                    }
+            
     ]

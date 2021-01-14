@@ -9,15 +9,15 @@ import { employeeLocationData } from '../mock-data/employeeMapData';
 import MapEmployeeListTemplate, { ListEmployee } from '../components/cellular-components/map-list/EmployeeListTemplate';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../components/atomic-components/SearchBar';
-import EmployeeLocationTemplate from '../components/cellular-components/map-list/EmployeeLocationTemplate';
+import EmployeeLocationTemplate from '../components/cellular-components/map-list/LocationTemplate';
 import MapsEmployees from '../components/molecular-components/maps/MapsEmployees';
 
 
 
-type EmployeeLocationType = {
+type LocationType = {
     code: number
     name: string
-    siteName: string
+    site: string
 }
 
 const ContainerView = styled.View`
@@ -80,11 +80,11 @@ const TextGreen = styled.View`
     color:#85B554;    
 `;
 
-type EmployeeLocationProps = {
+type LocationProps = {
     searchValue: string 
 }
 
-const EmployeeLocation = (props:EmployeeLocationProps ) => {
+const Location = (props:LocationProps ) => {
     const searchBar = useWithSearchBar();
 
     return (
@@ -92,16 +92,17 @@ const EmployeeLocation = (props:EmployeeLocationProps ) => {
             <Text>Active job: 4</Text>
         <SortableList
                 data={employeeLocationData}
-                template={(employee: EmployeeLocationType) => <EmployeeLocationTemplate employee={employee} />}
+                template={(employee: LocationType) => <EmployeeLocationTemplate employee={employee} />}
                 sortables={{
-                    code: { title: 'Code', sort: (a: EmployeeLocationType, b: EmployeeLocationType) => (a.code > b.code ? -1 : 1) },
-                    name: { title: ' Name', sort: (a: EmployeeLocationType, b:EmployeeLocationType) => (a.name > b.name ? -1 : 1) },
+                    code: { title: 'Code', sort: (a: LocationType, b: LocationType) => (a.code > b.code ? -1 : 1) },
+                    name: { title: ' Name', sort: (a: LocationType, b:LocationType) => (a.name > b.name ? -1 : 1) },
+                    site: { title: ' site status', sort: (a: LocationType, b:LocationType) => (a.site > b.site ? -1 : 1) },
                    
              }}
-                shouldDisplayItem={(item: EmployeeLocationType) => item.name.includes(props.searchValue)}
+                shouldDisplayItem={(item: LocationType) => item.name.includes(props.searchValue)}
             />
         
         </ContainerView>
     )
 }
-export default EmployeeLocation;
+export default Location;

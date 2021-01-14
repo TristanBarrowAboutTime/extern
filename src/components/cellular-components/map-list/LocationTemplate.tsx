@@ -37,37 +37,34 @@ const Title = styled.Text`
     font-size: 20px;
 `;
 
-const SubTitle = styled.Text`
 
-`;
-
-
-export type EmployeeLocationType = {
+export type LocationType = {
     code: number
     name: string
-    siteName: string
+    site: string
 }
 
-type EmployeeListTemplateProps = {
-    employee: EmployeeLocationType
+type ListTemplateProps = {
+    employee: LocationType
 }
 
-const EmployeeLocationTemplate = ({ employee }: EmployeeListTemplateProps) => {
+const LocationTemplate = ({ employee }: ListTemplateProps) => {
     const {
         code,
         name,
-        siteName,
+        site,
     
     
     } = employee;
 
     return (
         <Container key={code}>
+ 
             <Content>
                 <Row>                  
-                    <Link to= "/employee-details">  
+                    <Link to= "/location-employee-details">  
                     <Title>
-                        {`${code} ${name} ${siteName}`}
+                        {`${code} ${name} ${site}`}
                     </Title >
                     </Link>                
                 </Row>
@@ -78,4 +75,4 @@ const EmployeeLocationTemplate = ({ employee }: EmployeeListTemplateProps) => {
     )
 }
 
-export default EmployeeLocationTemplate;
+export default LocationTemplate;
