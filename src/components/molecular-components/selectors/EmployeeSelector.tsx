@@ -8,7 +8,7 @@ import { HSpacer } from '../../atomic-components/CssTriangle';
 import CheckBox from '../CheckBox';
 import { useWithSearchableSelector } from '../../../hooks/useSearchableSelector';
 import SearchableSelector, { RenderRowArgs } from './SearchableSelector';
-import TopArrowWrapper from '../../wrappers/TopArrowWrapper';
+import TopArrowWrapper from '../../frames/TopArrowWrapper';
 import MultipleSelectors from './MultipleSelectors';
 
 export type Employee = { id: number, code: string, fullName: string };

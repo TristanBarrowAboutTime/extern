@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { employeeListData } from '../../../mock-data/employeeMapData';
-import SortableList from '../../molecular-components/SortableList';
+import SortableList from '../../frames/SortableList';
 import styled from 'styled-components/native';
 import MapEmployeeListTemplate, { ListEmployee } from '../../molecular-components/templates/EmployeeListTemplate';
 import EmployeeDetails from '../../molecular-components/map-controller/EmployeeDetails';
