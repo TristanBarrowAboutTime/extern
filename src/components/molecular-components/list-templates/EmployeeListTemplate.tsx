@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import Styles from '../../../style/Styles';
+import { Link } from 'react-router-dom';
 
 const Container = styled.View`
     display: flex;
@@ -76,10 +77,12 @@ const EmployeeListTemplate = ({ employee }: EmployeeListTemplateProps) => {
                 status={status}
             />
             <Content>
-                <Row>
+                <Row>                  
+                    <Link to= "/employee-details">  
                     <Title>
                         {`${code} ${firstName} ${lastName}`}
                     </Title >
+                    </Link>
                     <View>
                         {geoDiscrepancy && <FontAwesomeIcon icon={faGlobe} color={Styles.color.red} />}
                     </View>

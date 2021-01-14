@@ -2,6 +2,9 @@ import * as React from 'react';
 import { employeeListData } from '../../../mock-data/employeeMapData';
 import SortableList from '../SortableList';
 import styled from 'styled-components/native';
+import MapEmployeeListTemplate, { ListEmployee } from '../../cellular-components/map-list/EmployeeListTemplate';
+import EmployeeDetails from '../../../pages/EmployeeDetails';
+
 import MapEmployeeListTemplate, { ListEmployee } from '../list-templates/EmployeeListTemplate';
 
 const Container = styled.View`
