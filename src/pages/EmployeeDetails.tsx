@@ -1,18 +1,15 @@
 import * as React from 'react'; 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { useWithSearchBar } from '../hooks/component-hooks/atomic-components/useSearchBar';
 import { View, Image,Text,TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
-import Styles from '../CustomReportsPage/style/Styles';
+import Styles from '../style/Styles';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import MapSearchbar from '../CustomReportsPage/components/atomic-components/MapSearchbar';
-const Header = styled.View`
-    display: flex;
-    flex-direction: row;
-`;
-
+import SearchBar from '../components/atomic-components/SearchBar';
+ 
 const ContainerView = styled.View`
-width:400;
-border-width:1;
+display:flex;
+width: 400;
 border-color: '#ddd';
 padding-left:20;
 padding-right:20;
@@ -49,6 +46,7 @@ justify-content: space-between;
 `;
 
 const NavView = styled.View`
+display: flex;
 flex-direction:row;
 justify-content: space-between;
 margin-bottom:10;
@@ -74,19 +72,13 @@ const TextGreen = styled.View`
     color:#85B554;    
 `;
 
-const Body = styled.View`
-    display: flex;
-    flex-direction: ${(props: BodyStyles) => props.isHorizontal ? 'row' : 'column'};
-`;
-
-export class EmployeeDetails extends React.Component {
-
-render() {
+const EmployeeDetails = () => {
+    const searchBar = useWithSearchBar();
 return (
     <ContainerView>
-       <MapSearchbar/>
+       <SearchBar {...searchBar.searchBinding} margin={8}/>
         {/* Vector icon with a text 'Open in Time Editor' */}
-        <NavView >
+        <NavView >            
             <TouchableOpacity>
             <FontAwesomeIcon
                 size={16}
@@ -137,5 +129,4 @@ return (
 
         )
     }
-}
 export default EmployeeDetails;

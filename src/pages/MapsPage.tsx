@@ -4,6 +4,8 @@ import { useWithSearchBar } from '../hooks/component-hooks/atomic-components/use
 import Tabs, { useWithTabs } from '../components/molecular-components/Tabs';
 import styled from 'styled-components/native';
 import MapsEmployees from '../components/molecular-components/maps/MapsEmployees';
+import EmployeeDetails from './EmployeeDetails';
+import EmployeeLocation from './EmployeeLocation';
 
 enum MapTabs {
     EMPLOYEE = 'Employee',
@@ -31,9 +33,11 @@ const MapsPage = () => {
             <SearchBar {...searchBar.searchBinding} margin={8} />
             <Tabs {...tabs.tabsBinding}/>
             {tabs.selected === MapTabs.EMPLOYEE && 
-                <MapsEmployees searchValue={searchBar.value} />}
+                <MapsEmployees searchValue={searchBar.value} />
+                }
             {tabs.selected === MapTabs.LOCATIONS && 
-                <div>Locations</div>}
+              <EmployeeLocation searchValue={searchBar.value} />
+            }
             {tabs.selected === MapTabs.ASSETS && 
                 <div>Assets</div>}
         </Container>

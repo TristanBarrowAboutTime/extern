@@ -4,6 +4,7 @@ import CustomReportsPage from '../pages/CustomReportsPage';
 import MapBox from './cellular-components/mapbox-maps/MapPage';
 import LeafletMap from './cellular-components/leaflet-maps/MapPage';
 import MapsPage from '../pages/MapsPage';
+import EmployeeDetails from '../pages/EmployeeDetails';
 import styled from 'styled-components';
 
 const NavBar = styled.div`
@@ -49,6 +50,10 @@ function AppRouter() {
         <Route path='/map-page'>
             <MapsPage /> 
         </Route>
+        <Route path='/employee-details'>
+            <EmployeeDetails /> 
+        </Route>
+
       </Switch>
     </Router>
   );
