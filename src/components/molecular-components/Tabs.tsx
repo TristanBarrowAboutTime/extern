@@ -23,8 +23,8 @@ const Tab = styled.View`
 
 type TabsProps = {
     tabs: string[]
-    select: (tab: string) => void
     selected: string
+    select: (tab: string) => void
 }
 
 const Tabs = ({

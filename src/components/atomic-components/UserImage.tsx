@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { View, Image } from 'react-native';
+import {  Image } from 'react-native';
 import styled from 'styled-components/native';
-import Styles from '../../../style/Styles';
+import Styles from '../../style/Styles';
 
 export enum MapEmployeeStatus {
     CLOCKED_IN,
@@ -63,8 +63,8 @@ type UserImageProps = {
     src: string | null
     firstName: string
     lastName: string
-    size?: number
     status: MapEmployeeStatus
+    size?: number
 }
 
 const UserImage = ({

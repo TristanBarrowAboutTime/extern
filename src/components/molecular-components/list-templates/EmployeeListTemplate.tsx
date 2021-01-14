@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
-import { employeeGeoJson } from '../../../mock-data/employeeMapData';
-import UserImage, { MapEmployeeStatus } from './UserImage';
+import { View } from 'react-native';
+import UserImage, { MapEmployeeStatus } from '../../atomic-components/UserImage';
 import styled from 'styled-components/native';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faGlobe } from '@fortawesome/free-solid-svg-icons';
@@ -37,7 +36,7 @@ const Title = styled.Text`
 `;
 
 const SubTitle = styled.Text`
-
+    
 `;
 
 
