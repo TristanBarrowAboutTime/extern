@@ -1,7 +1,6 @@
 import React from 'react';
-import SearchBar from '../components/atomic-components/SearchBar';
 import { useWithSearchBar } from '../hooks/component-hooks/atomic-components/useSearchBar';
-import Tabs, { useWithTabs } from '../components/molecular-components/Tabs';
+import { useWithTabs } from '../components/molecular-components/Tabs';
 import styled from 'styled-components/native';
 import MapsEmployees from '../components/molecular-components/maps/MapsEmployees';
 import EmployeeDetails from './EmployeeDetails';
@@ -12,13 +11,32 @@ enum MapTabs {
     LOCATIONS = 'Locations',
     ASSETS = 'Assets'
 }
+import { MapTabs } from '../types/MapTabs';
+import MapController from '../components/cellular-components/map-list-controller/MapListController';
 
 const Container = styled.View`
-    width: 340px; 
+    display: flex;
+    flex-direction: row;
+    width: 340px;
 `;
 
-
 const MapsPage = () => {
+    const binding = useMapPage();
+    
+    return (
+        <Container>
+            <MapController 
+                tabBinding={binding.tabBinding}
+                searchBinding={binding.searchBinding}
+                searchValue={binding.searchValue}
+                selectedTab={binding.selectedTab}
+            />
+            <div>map</div>
+        </Container>
+    );
+}
+
+const useMapPage = () => {
     const searchBar = useWithSearchBar();
     const tabs = useWithTabs({
         tabs: [
@@ -28,6 +46,7 @@ const MapsPage = () => {
         ], 
         selected: MapTabs.EMPLOYEE
     });
+<<<<<<< HEAD
     return (
         <Container>
             <SearchBar {...searchBar.searchBinding} margin={8} />
@@ -42,6 +61,16 @@ const MapsPage = () => {
                 <div>Assets</div>}
         </Container>
     );
+=======
+
+    return {
+        tabBinding: tabs.tabsBinding,
+        searchBinding: searchBar.searchBinding,
+        searchValue: searchBar.value,
+        selectedTab: tabs.selected
+    }
+>>>>>>> bb6c7824ecb58e61804f80b44679aa33cfeabf79
 }
+
 
 export default MapsPage;

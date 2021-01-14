@@ -1,6 +1,8 @@
 import { ListEmployee } from '../components/cellular-components/map-list/EmployeeListTemplate';
 import { MapEmployeeStatus } from '../components/cellular-components/map-list/UserImage';
 import {EmployeeLocationType} from '../components/cellular-components/map-list/EmployeeLocationTemplate';
+import { ListEmployee } from '../components/molecular-components/list-templates/EmployeeListTemplate';
+import { MapEmployeeStatus } from '../components/atomic-components/UserImage';
 
 export const employeeListData: ListEmployee[] = [
     {
@@ -51,7 +53,7 @@ export const employeeListData: ListEmployee[] = [
         geoDiscrepancy: false,
         status: MapEmployeeStatus.CLOCKED_OUT,
         address: '1234 blah land',
-        image: null,
+        image: 'https://homepages.cae.wisc.edu/~ece533/images/cat.png',
     }
 ]
 
