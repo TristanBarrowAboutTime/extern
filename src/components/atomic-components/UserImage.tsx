@@ -9,11 +9,12 @@ export enum MapEmployeeStatus {
     UNKNOWN
 }
 
-const NoImageContainer = styled.View`
-    height: 50;
-`;
-
 type Style = { size: number }
+
+const NoImageContainer = styled.View`
+    height: ${(props: Style) => props.size}px;
+    width: ${(props: Style) => props.size}px;
+`;
 
 const Container = styled.View`
     height: ${(props: Style) => props.size}px;
@@ -86,7 +87,7 @@ const UserImage = ({
         <Container size={size}>
             <ProfileContainer>
                 {src === null ? (
-                    <NoImageContainer>
+                    <NoImageContainer size={size}>
                         <Circle>
                             <Initals>
                                 {firstName[0] + lastName[0]}
