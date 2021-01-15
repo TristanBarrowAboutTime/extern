@@ -23,27 +23,6 @@ const UserTitle = styled.Text`
     font-size:22px;
 
 `;
-const CardView = styled.View`
-    padding-left:10;
-    padding-right:10;
-    padding-top:10;
-    padding-bottom:10;
-    margin-top:10;
-    border-width: 1;
-    border-radius: 2;
-    border-color: #ddd;
-    border-bottom-width: 0;
-    shadow-color: #000;
-    shadow-offset: {width: 0; height: 2};
-    shadow-opacity: 0.8;
-    shadow-radius: 2;
-    elevation: 1;
-`;
-
-const TextView = styled.View`
-    flex-direction:row;
-    justify-content: space-between;
-`;
 
 const EmployeeLabel = styled.View`
     display: flex;
@@ -53,7 +32,7 @@ const EmployeeLabel = styled.View`
 
 `;
 
-export enum EmployeeDetailTabs {
+export enum EmployeeDetailsTabs {
     DISC = 'Discrepancies ',
     HISTORY = 'History',
     LOCATION = 'Location',
@@ -68,13 +47,13 @@ type EmployeeDetailsProps = {
 const EmployeeDetails = (props: EmployeeDetailsProps) => {
     const tabs = useWithTabs({
         tabs: [
-            EmployeeDetailTabs.DISC,
-            EmployeeDetailTabs.HISTORY,
-            EmployeeDetailTabs.LOCATION,
-            EmployeeDetailTabs.ASSETS,
-            EmployeeDetailTabs.FORMS
+            EmployeeDetailsTabs.DISC,
+            EmployeeDetailsTabs.HISTORY,
+            EmployeeDetailsTabs.LOCATION,
+            EmployeeDetailsTabs.ASSETS,
+            EmployeeDetailsTabs.FORMS
         ],
-        selected: EmployeeDetailTabs.DISC
+        selected: EmployeeDetailsTabs.DISC
     })
     return (
         <Container>
@@ -96,7 +75,7 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                 tabs={<Tabs {...tabs.tabsBinding} />}
                 list={
                     <>
-                        {tabs.selected === EmployeeDetailTabs.DISC && (
+                        {tabs.selected === EmployeeDetailsTabs.DISC && (
                             <EmployeeDiscList
                                 company={'company'}
                                 time={'time'}
@@ -104,14 +83,14 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                                 notes={'notes'}
                             />
                         )}
-                        {tabs.selected === EmployeeDetailTabs.HISTORY && (
+                        {tabs.selected === EmployeeDetailsTabs.HISTORY && (
                             <EmployeeHistoryList
                                 time={'time'}
                                 coordinates={'coordinates'}
                                 accuracy={'accuracy'}
                             />
                             )}
-                        {tabs.selected === EmployeeDetailTabs.LOCATION && (
+                        {tabs.selected === EmployeeDetailsTabs.LOCATION && (
                             <EmployeeLocationList
                                 inTime={'in-time'}
                                 outTime={'out-time'}
@@ -119,7 +98,7 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                                 companyArea={'company-area'}
                             />
                         )}
-                        {tabs.selected === EmployeeDetailTabs.ASSETS && (
+                        {tabs.selected === EmployeeDetailsTabs.ASSETS && (
                             <EmployeeAssetsList
                                 inTime={'in-time'}
                                 outTime={'out-time'}
@@ -128,7 +107,7 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                                 company={'comapny name'}
                             />
                         )}
-                        {tabs.selected === EmployeeDetailTabs.FORMS && (
+                        {tabs.selected === EmployeeDetailsTabs.FORMS && (
                             <EmployeeFormsList
                                 formlist={'form list'}
                                 time={'time'}

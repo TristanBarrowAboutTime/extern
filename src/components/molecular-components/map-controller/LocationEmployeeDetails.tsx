@@ -1,10 +1,7 @@
 import * as React from 'react'; 
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useWithSearchBar } from '../../../hooks/component-hooks/atomic-components/useSearchBar';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { Text} from 'react-native';
 import styled from 'styled-components/native';
-import Styles from '../../../style/Styles';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../../atomic-components/SearchBar';
  
 const ContainerView = styled.View`
@@ -63,11 +60,6 @@ const ImageCircle = styled.Image`
     height: 50;
     border-radius: 75;   
 `;
-
-type BodyStyles = {
-    isHorizontal: boolean
-}
-
 const TextGreen = styled.View`
     color:#85B554;    
 `;
@@ -78,34 +70,7 @@ const LocationEmployeeDetails = () => {
     return (
         <ContainerView>
         <SearchBar {...searchBar.searchBinding} margin={8}/>
-            <NavView>            
-                <TouchableOpacity>
-                    <FontAwesomeIcon
-                        size={16}
-                        color={Styles.color.green}
-                        icon={faChevronLeft}
-                    />
-                    <TextGreen>Back</TextGreen>
-                </TouchableOpacity>
-            <View style={{ flexDirection:'row'}}>
-                <TouchableOpacity  style={{paddingRight:10}}>
-                    <FontAwesomeIcon
-                        size={16}
-                        color={Styles.color.green}
-                        icon={faChevronLeft}
-                    />
-                    <TextGreen>Prev</TextGreen>
-                </TouchableOpacity><TouchableOpacity>
-                <FontAwesomeIcon
-                    size={16} 
-                    color={Styles.color.green}
-                    icon={faChevronRight}
-                />
-                <TextGreen>Next</TextGreen>
-                </TouchableOpacity>
-            </View>
-            </NavView>
-            <InnerView>
+              <InnerView>
                 <Avatar>
                     <ImageCircle resizeMode='cover' source={{uri: 'https://media.wired.com/photos/5f5fdba8af1c7b1f76a6a86b/master/w_2560%2Cc_limit/Culture_Pokemane_vtuber.jpg'}}/>
                 </Avatar>      
