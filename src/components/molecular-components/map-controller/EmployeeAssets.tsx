@@ -1,4 +1,4 @@
-import * as React from 'react'; 
+import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useWithSearchBar } from '../../../hooks/component-hooks/atomic-components/useSearchBar';
 import { View, Text, TouchableOpacity } from 'react-native';
@@ -6,7 +6,7 @@ import styled from 'styled-components/native';
 import Styles from '../../../style/Styles';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../../atomic-components/SearchBar';
- 
+
 const ContainerView = styled.View`
     display: flex;
     width: 400;
@@ -34,7 +34,7 @@ const CardView = styled.View`
     elevation: 1;
 `;
 
-const TextView =styled.View`
+const TextView = styled.View`
     flex-direction:row;
     justify-content: space-between;
 `;
@@ -55,50 +55,22 @@ const EmployeeAssets = () => {
 
     return (
         <ContainerView>
-        <SearchBar {...searchBar.searchBinding} margin={8}/>
-        {/* Vector icon with a text 'Open in Time Editor' */}
-        <NavView>
-            <TouchableOpacity>
-                <FontAwesomeIcon
-                    size={16}
-                    color={Styles.color.green}
-                    icon={faChevronLeft}
-                />
-                <TextGreen>Back</TextGreen>
-            </TouchableOpacity>
-        <View style={{ flexDirection:'row'}}>
-            <TouchableOpacity  style={{paddingRight:10}}>
-                <FontAwesomeIcon
-                    size={16}
-                    color={Styles.color.green}
-                    icon={faChevronLeft}
-                />
-                <TextGreen>Prev</TextGreen>
-            </TouchableOpacity>
-            <TouchableOpacity>
-            <FontAwesomeIcon
-                size={16} 
-                color={Styles.color.green}
-                icon={faChevronRight}
-                />
-                <TextGreen>Next</TextGreen>
-            </TouchableOpacity>
-        </View>
-        </NavView>
-        
-        <CardView>
-           <TextView>
-                <Text>Co-operative</Text>
-                <Text>8:05 AM</Text>
-            </TextView>
+            <SearchBar {...searchBar.searchBinding} margin={8} />
+            {/* Vector icon with a text 'Open in Time Editor' */}
+
+            <CardView>
+                <TextView>
+                    <Text>Co-operative</Text>
+                    <Text>8:05 AM</Text>
+                </TextView>
                 <Text>Notes</Text>
             </CardView>
             <CardView>
                 <Text>CLock-in is</Text>
                 <Text>Notes</Text>
-                <Text>I clocked in at</Text> 
-                <Text>Notes</Text> 
-            </CardView>       
+                <Text>I clocked in at</Text>
+                <Text>Notes</Text>
+            </CardView>
         </ContainerView>
     )
 }

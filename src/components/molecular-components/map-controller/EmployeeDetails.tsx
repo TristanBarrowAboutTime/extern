@@ -1,13 +1,15 @@
-import * as React from 'react'; 
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { useWithSearchBar } from '../../../hooks/component-hooks/atomic-components/useSearchBar';
-import { View, Text, TouchableOpacity } from 'react-native';
+import * as React from 'react';
 import styled from 'styled-components/native';
-import Styles from '../../../style/Styles';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import SearchBar from '../../atomic-components/SearchBar';
- 
-const ContainerView = styled.View`
+import MapDetailsFrame from '../../frames/MapDetailsFrame';
+import UserImage, { MapEmployeeStatus } from '../../atomic-components/UserImage';
+import Tabs, { useWithTabs } from '../../molecular-components/Tabs';
+import EmployeeDiscList from '../map-detail-lists/EmployeeDiscList';
+import EmployeeHistoryList from '../map-detail-lists/EmployeeHistoryList';
+import EmployeeLocationList from '../map-detail-lists/EmployeeLocationList';
+import EmployeeAssetsList from '../map-detail-lists/EmployeeAssetsList';
+import EmployeeFormsList from '../map-detail-lists/EmployeeFormsLinst';
+
+const Container = styled.View`
     display:flex;
     width: 400;
     border-color: '#ddd';
@@ -16,13 +18,11 @@ const ContainerView = styled.View`
     padding-top:20;
     padding-bottom:20;
 `;
+const UserTitle = styled.Text`
+    margin-left: 12px;
+    font-size:22px;
 
-const InnerView = styled.View`
-    display:flex;
-    flex-direction:row;
-    align-items: center;
 `;
-
 const CardView = styled.View`
     padding-left:10;
     padding-right:10;
@@ -40,89 +40,107 @@ const CardView = styled.View`
     elevation: 1;
 `;
 
-const TextView =styled.View`
+const TextView = styled.View`
     flex-direction:row;
     justify-content: space-between;
 `;
 
-const NavView = styled.View`
+const EmployeeLabel = styled.View`
     display: flex;
-    flex-direction:row;
-    justify-content: space-between;
-    margin-bottom:10;
+    flex-direction: row;
+    align-items: center;
+    justify-content:flex-start;   
+
 `;
 
-const Avatar = styled.View`
-    width: 50;
-    height: 50;
-    border-radius: 75;
-`;
+export enum EmployeeDetailTabs {
+    DISC = 'Discrepancies ',
+    HISTORY = 'History',
+    LOCATION = 'Location',
+    ASSETS = 'Assets',
+    FORMS = 'Forms'
+}
 
-const ImageCircle = styled.Image`
-    width: 50;
-    height: 50;
-    border-radius: 75;   
-`;
+type EmployeeDetailsProps = {
+    searchValue: string
+}
 
-const TextGreen = styled.View`
-    color:#85B554;    
-`;
-
-const EmployeeDetails = () => {
-    const searchBar = useWithSearchBar();
-return (
-    <ContainerView>
-       <SearchBar {...searchBar.searchBinding} margin={8}/>
-        {/* Vector icon with a text 'Open in Time Editor' */}
-        <NavView >            
-            <TouchableOpacity>
-            <FontAwesomeIcon
-                size={16}
-                color={Styles.color.green}
-                icon={faChevronLeft}
-                />
-                <TextGreen>Back</TextGreen>
-            </TouchableOpacity>
-        <View style={{ flexDirection:'row'}}>
-            <TouchableOpacity  style={{paddingRight:10}}>
-                <FontAwesomeIcon
-                size={16}
-                color={Styles.color.green}
-                icon={faChevronLeft}
-                />
-                <TextGreen>Prev</TextGreen>
-            </TouchableOpacity>
-            <TouchableOpacity>
-            <FontAwesomeIcon
-                size={16} 
-                color={Styles.color.green}
-                icon={faChevronRight}
-                />
-                <TextGreen>Next</TextGreen>
-            </TouchableOpacity>
-        </View>
-        </NavView>
-        <InnerView>
-          <Avatar>
-            <ImageCircle resizeMode='cover' source={{uri: 'https://media.wired.com/photos/5f5fdba8af1c7b1f76a6a86b/master/w_2560%2Cc_limit/Culture_Pokemane_vtuber.jpg'}}/>
-            </Avatar>      
-            <Text style={{paddingLeft:20}}>1004 Joseph Carrigan</Text>
-            </InnerView>   
-            <CardView>
-           <TextView>
-            <Text>Co-operative</Text>
-            <Text>8:05 AM</Text>
-            </TextView>
-            <Text>Notes</Text>
-            </CardView>
-            <CardView>
-            <Text>CLock-in is</Text>
-            <Text>Notes</Text>
-            <Text>I clocked in at</Text> 
-            <Text>Notes</Text> 
-            </CardView>       
-        </ContainerView>
-
-        )
-    }
+const EmployeeDetails = (props: EmployeeDetailsProps) => {
+    const tabs = useWithTabs({
+        tabs: [
+            EmployeeDetailTabs.DISC,
+            EmployeeDetailTabs.HISTORY,
+            EmployeeDetailTabs.LOCATION,
+            EmployeeDetailTabs.ASSETS,
+            EmployeeDetailTabs.FORMS
+        ],
+        selected: EmployeeDetailTabs.DISC
+    })
+    return (
+        <Container>
+            <MapDetailsFrame
+                subjectContainer={
+                    <EmployeeLabel>
+                        <UserImage
+                            src={null}
+                            firstName={'Roshni'}
+                            lastName={'Raval'}
+                            size={60}
+                            status={MapEmployeeStatus.CLOCKED_IN}
+                        />
+                        <UserTitle>
+                            Roshni
+                      </UserTitle>
+                    </EmployeeLabel>
+                }
+                tabs={<Tabs {...tabs.tabsBinding} />}
+                list={
+                    <>
+                        {tabs.selected === EmployeeDetailTabs.DISC && (
+                            <EmployeeDiscList
+                                company={'company'}
+                                time={'time'}
+                                distance={'distance'}
+                                notes={'notes'}
+                            />
+                        )}
+                        {tabs.selected === EmployeeDetailTabs.HISTORY && (
+                            <EmployeeHistoryList
+                                time={'time'}
+                                coordinates={'coordinates'}
+                                accuracy={'accuracy'}
+                            />
+                            )}
+                        {tabs.selected === EmployeeDetailTabs.LOCATION && (
+                            <EmployeeLocationList
+                                inTime={'in-time'}
+                                outTime={'out-time'}
+                                serviceArea={'service area'}
+                                companyArea={'company-area'}
+                            />
+                        )}
+                        {tabs.selected === EmployeeDetailTabs.ASSETS && (
+                            <EmployeeAssetsList
+                                inTime={'in-time'}
+                                outTime={'out-time'}
+                                servicearea={'service area'}
+                                assetsname={'assets name'}
+                                company={'comapny name'}
+                            />
+                        )}
+                        {tabs.selected === EmployeeDetailTabs.FORMS && (
+                            <EmployeeFormsList
+                                formlist={'form list'}
+                                time={'time'}
+                            />
+                        )}
+                    </>
+                }
+                goToNext={() => console.log('Next')}
+                goToPrev={() => console.log('Prev')}
+                back={() => console.log('back')}
+            />
+        </Container>
+    )
+}
 export default EmployeeDetails;

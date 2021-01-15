@@ -44,10 +44,7 @@ function AppRouter() {
         </Route>
         <Route path='/map-page'>
             <MapsPage /> 
-        </Route>
-        <Route path='/employee-details'>
-            <EmployeeDetails /> 
-        </Route>
+        </Route>   
       </Switch>
     </Router>
   );

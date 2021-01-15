@@ -3,8 +3,8 @@ import { useWithSearchBar } from '../hooks/component-hooks/atomic-components/use
 import { useWithTabs } from '../components/molecular-components/Tabs';
 import styled from 'styled-components/native';
 import { MapTabs } from '../types/MapTabs';
-import MapController from '../components/cellular-components/map-list-controller/MapListController';
-import MapDetailsFrame from '../components/frames/MapDetailsFrame';
+import EmployeeDetails from '../components/molecular-components/map-controller/EmployeeDetails';
+
 
 const Container = styled.View`
     display: flex;
@@ -14,18 +14,12 @@ const Container = styled.View`
 
 const MapsPage = () => {
     const binding = useMapPage();
-    
+
     return (
         <Container>
 
-            <MapDetailsFrame 
-                subjectContainer= {<div>subject</div>}
-                tabs={<div>tabs</div>}
-                list={<div>list</div>}
-                goToNext={() => console.log('Next')}
-                goToPrev={() => console.log('Prev')}
-                back={() => console.log('back')}
-            />
+           <EmployeeDetails searchValue={binding.searchValue}/>
+
             {/* <MapController 
                 tabBinding={binding.tabBinding}
                 searchBinding={binding.searchBinding}
@@ -44,10 +38,10 @@ const useMapPage = () => {
             MapTabs.EMPLOYEE,
             MapTabs.LOCATIONS,
             MapTabs.ASSETS
-        ], 
+        ],
         selected: MapTabs.EMPLOYEE
     });
-    
+
 
     return {
         tabBinding: tabs.tabsBinding,
