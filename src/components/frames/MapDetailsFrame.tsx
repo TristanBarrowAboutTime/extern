@@ -7,42 +7,60 @@ import styled from 'styled-components/native';
 const Container = styled.View`
     display: flex;
     flex-direction: column;
+    width: 100%;
 `;
 
 const SubjectContainer = styled.View`
+
 `;
 
 const Tabs = styled.View`
+
 `;
 
 const List = styled.View`
 `;
 
 const Navigation = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
 `;
 
 const NavButton = styled.TouchableOpacity`
-
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 `;
 
 const ButtonText = styled.Text`
+    font-size: 20px;
+    color: ${Styles.color.green};
+    padding: 4px;
 `;
 
 const ButtonContainer = styled.View`
+    display: flex; 
+    flex-direction: row;
+
+
 `;
 
 type MapDetailsFrameProps = {
     subjectContainer: React.ReactNode
     tabs: React.ReactNode
     list: React.ReactNode
+    goToNext: () => void
+    goToPrev: () => void
+    back: () => void
 }
 
 const MapDetailsFrame = (props: MapDetailsFrameProps) => {
     return (
         <Container>
-            <Navigation >
-                <NavButton>
+            <Navigation>
+                <NavButton onPress={props.back}>
                     <FontAwesomeIcon
                         size={16}
                         color={Styles.color.green}
@@ -51,7 +69,7 @@ const MapDetailsFrame = (props: MapDetailsFrameProps) => {
                     <ButtonText>Back</ButtonText>
                 </NavButton>
                 <ButtonContainer>
-                    <NavButton>
+                    <NavButton onPress={props.goToPrev}>
                         <FontAwesomeIcon
                             size={16}
                             color={Styles.color.green}
@@ -59,13 +77,13 @@ const MapDetailsFrame = (props: MapDetailsFrameProps) => {
                         />
                         <ButtonText>Prev</ButtonText>
                     </NavButton>
-                    <NavButton>
+                    <NavButton onPress={props.goToNext}>
+                        <ButtonText>Next</ButtonText>
                         <FontAwesomeIcon
                             size={16}
                             color={Styles.color.green}
                             icon={faChevronRight}
                         />
-                        <ButtonText>Next</ButtonText>
                     </NavButton>
                 </ButtonContainer>
             </Navigation>

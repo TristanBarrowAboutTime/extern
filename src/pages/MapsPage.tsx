@@ -22,6 +22,9 @@ const MapsPage = () => {
                 subjectContainer= {<div>subject</div>}
                 tabs={<div>tabs</div>}
                 list={<div>list</div>}
+                goToNext={() => console.log('Next')}
+                goToPrev={() => console.log('Prev')}
+                back={() => console.log('back')}
             />
             {/* <MapController 
                 tabBinding={binding.tabBinding}
