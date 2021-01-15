@@ -5,28 +5,47 @@ import styled from 'styled-components/native';
 const Container = styled.View`
 `;
 
+const InTime = styled.View`
+`;
+
+const OutTime = styled.View`
+`;
+
+const CompanyArea = styled.View`
+`;
+
+const ServiceArea = styled.View`
+`;
+
+type EmployeeLocationListProps = {
+    inTime: React.ReactNode
+    outTime: React.ReactNode
+    companyArea: React.ReactNode
+    serviceArea: React.ReactNode
+}
 
 
-const EmployeeLocationList = () => {
+const EmployeeLocationList = (props: EmployeeLocationListProps) => {
     return (
         <div>
-            <div>
-                <div>
-                    ClockIn Time
-                </div>
-                <div>
-                    Clockout Time
-                </div>
-           
+            <Container>
+                <InTime>
+                    {props.inTime}
+                </InTime>
 
-            <div>
-                Company
-            </div>
-            <div>
-                Service Type
-            </div>
+                <OutTime>
+                    {props.outTime}
+                </OutTime>
+
+                <CompanyArea>
+                    {props.companyArea}
+                </CompanyArea>
+
+                <ServiceArea>
+                    {props.serviceArea}
+                </ServiceArea>
+            </Container>
         </div>
-    </div>
     )
 }
 
