@@ -1,4 +1,4 @@
- import {MapConfiguration } from '../components/cellular-components/mapbox-maps/Map';
+ import {MapConfiguration } from '../components/cellular-components/map/Map';
 import { LayerProps, SourceProps } from 'react-map-gl';
 
 const exampleSource: SourceProps = {

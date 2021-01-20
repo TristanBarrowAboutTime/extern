@@ -3,7 +3,7 @@ import { useWithSearchBar } from '../hooks/component-hooks/atomic-components/use
 import { useWithTabs } from '../components/molecular-components/Tabs';
 import styled from 'styled-components/native';
 import { MapTabs } from '../types/MapTabs';
-import Map, { useWithMap } from '../components/cellular-components/mapbox-maps/Map';
+import Map, { useWithMap } from '../components/cellular-components/map/Map';
 import { clusterConfig } from '../mock-data/mapConfigs';
 
 const Container = styled.View`
