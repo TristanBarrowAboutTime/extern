@@ -1,7 +1,18 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 
+
+const Container = styled.View`
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom:10px;
+`;
+
 const FormList = styled.View`
+color: #79A949;
+
 `;
 
 const Time = styled.View`
@@ -14,7 +25,7 @@ type EmployeeFormsListProps = {
 
 const EmployeeFormsList = (props: EmployeeFormsListProps) => {
     return (
-        <div>
+        <Container>
             <FormList>
                 {props.formlist}
             </FormList>
@@ -22,7 +33,7 @@ const EmployeeFormsList = (props: EmployeeFormsListProps) => {
             <Time>
                 {props.time}
             </Time>
-        </div>
+        </Container>
     )
 }
 

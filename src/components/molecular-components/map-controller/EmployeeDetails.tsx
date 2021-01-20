@@ -4,10 +4,45 @@ import MapDetailsFrame from '../../frames/MapDetailsFrame';
 import UserImage, { MapEmployeeStatus } from '../../atomic-components/UserImage';
 import Tabs, { useWithTabs } from '../../molecular-components/Tabs';
 import EmployeeDiscList from '../map-detail-lists/EmployeeDiscList';
-import EmployeeHistoryList from '../map-detail-lists/EmployeeHistoryList';
+import EmployeeHistoryList, { EmployeeHistoryTimeRecord } from '../map-detail-lists/EmployeeHistoryList';
 import EmployeeLocationList from '../map-detail-lists/EmployeeLocationList';
 import EmployeeAssetsList from '../map-detail-lists/EmployeeAssetsList';
 import EmployeeFormsList from '../map-detail-lists/EmployeeFormsLinst';
+
+const data: EmployeeHistoryTimeRecord[] = [
+    {
+        id:1,
+        time: '8:09 AM',
+        isClockedIn: true,
+        coordinates: { lat:53.6897 , long: -89.2868},
+        accuracy: 'High'
+
+    },
+    {
+        id:2,
+        time: '5:09 PM',
+        isClockedIn: false,
+        coordinates: { lat:33.6897 , long: -19.2868},
+        accuracy: 'Low'
+
+    },
+    {
+        id:3,
+        time: '8:09 AM',
+        isClockedIn: true,
+        coordinates: { lat:53.6897 , long: -89.2868},
+        accuracy: 'High'
+
+    },
+    {
+        id:4,
+        time: '5:09 PM',
+        isClockedIn: false,
+        coordinates: { lat:33.6897 , long: -19.2868},
+        accuracy: 'Low'
+
+    }
+]
 
 const Container = styled.View`
     display:flex;
@@ -23,27 +58,6 @@ const UserTitle = styled.Text`
     font-size:22px;
 
 `;
-const CardView = styled.View`
-    padding-left:10;
-    padding-right:10;
-    padding-top:10;
-    padding-bottom:10;
-    margin-top:10;
-    border-width: 1;
-    border-radius: 2;
-    border-color: #ddd;
-    border-bottom-width: 0;
-    shadow-color: #000;
-    shadow-offset: {width: 0; height: 2};
-    shadow-opacity: 0.8;
-    shadow-radius: 2;
-    elevation: 1;
-`;
-
-const TextView = styled.View`
-    flex-direction:row;
-    justify-content: space-between;
-`;
 
 const EmployeeLabel = styled.View`
     display: flex;
@@ -53,7 +67,7 @@ const EmployeeLabel = styled.View`
 
 `;
 
-export enum EmployeeDetailTabs {
+export enum EmployeeDetailsTabs {
     DISC = 'Discrepancies ',
     HISTORY = 'History',
     LOCATION = 'Location',
@@ -68,13 +82,13 @@ type EmployeeDetailsProps = {
 const EmployeeDetails = (props: EmployeeDetailsProps) => {
     const tabs = useWithTabs({
         tabs: [
-            EmployeeDetailTabs.DISC,
-            EmployeeDetailTabs.HISTORY,
-            EmployeeDetailTabs.LOCATION,
-            EmployeeDetailTabs.ASSETS,
-            EmployeeDetailTabs.FORMS
+            EmployeeDetailsTabs.DISC,
+            EmployeeDetailsTabs.HISTORY,
+            EmployeeDetailsTabs.LOCATION,
+            EmployeeDetailsTabs.ASSETS,
+            EmployeeDetailsTabs.FORMS
         ],
-        selected: EmployeeDetailTabs.DISC
+        selected: EmployeeDetailsTabs.DISC
     })
     return (
         <Container>
@@ -83,55 +97,66 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                     <EmployeeLabel>
                         <UserImage
                             src={null}
-                            firstName={'Roshni'}
-                            lastName={'Raval'}
+                            firstName={'Joseph'}
+                            lastName={'Carrigan'}
                             size={60}
                             status={MapEmployeeStatus.CLOCKED_IN}
                         />
                         <UserTitle>
-                            Roshni
+                        1002 Joseph Carrigan
                       </UserTitle>
                     </EmployeeLabel>
                 }
                 tabs={<Tabs {...tabs.tabsBinding} />}
                 list={
                     <>
-                        {tabs.selected === EmployeeDetailTabs.DISC && (
+                        {tabs.selected === EmployeeDetailsTabs.DISC && (
+                            <>
                             <EmployeeDiscList
-                                company={'company'}
-                                time={'time'}
-                                distance={'distance'}
-                                notes={'notes'}
+                                company={'Co-operative Limited'}
+                                time={'8:05 AM'}
+                                distance={'Clock-In is outside of GeoFence by 0.5 Miles'}
+                                notes={'Notes'}
+                                text ={'I clocked in at the shop this morning'}
                             />
+                            <EmployeeDiscList
+                                company={'10000 West ERD (K-Rite)'}
+                                time={'5:35 PM0'}
+                                distance={'Clock-OUT is outside of Geofence by 10.5 Miles'}    
+                                notes={'Notes'}
+                                text ={'I forgot to clock out at 5:00, sorry!'}
+                            />
+                            </>
                         )}
-                        {tabs.selected === EmployeeDetailTabs.HISTORY && (
+                        {tabs.selected === EmployeeDetailsTabs.HISTORY && (
+                            <>
                             <EmployeeHistoryList
-                                time={'time'}
-                                coordinates={'coordinates'}
-                                accuracy={'accuracy'}
+                                timeRecords = {data}
                             />
+                            </>
                             )}
-                        {tabs.selected === EmployeeDetailTabs.LOCATION && (
+                        {tabs.selected === EmployeeDetailsTabs.LOCATION && (
                             <EmployeeLocationList
-                                inTime={'in-time'}
-                                outTime={'out-time'}
-                                serviceArea={'service area'}
-                                companyArea={'company-area'}
+                                inTime={'8:05am'}
+                                outTime={'11:56am'}
+                                companyArea={'00006709 UFA Co-operative Limited'}
+                                serviceArea={'100300.00 Full Service'}
                             />
                         )}
-                        {tabs.selected === EmployeeDetailTabs.ASSETS && (
+                        {tabs.selected === EmployeeDetailsTabs.ASSETS && (
                             <EmployeeAssetsList
-                                inTime={'in-time'}
-                                outTime={'out-time'}
-                                servicearea={'service area'}
-                                assetsname={'assets name'}
-                                company={'comapny name'}
+                                inTime={'8:05am'}
+                                outTime={'11:56am'}
+                                assetsname={'SP-WM-07 Miller Big Blue 450 Duo'}
+                                company={'00006709 UFA Co-operative Limited'}
+                                servicearea={'100300.00 Full Service'}                           
+                               
                             />
                         )}
-                        {tabs.selected === EmployeeDetailTabs.FORMS && (
+                        {tabs.selected === EmployeeDetailsTabs.FORMS && (
                             <EmployeeFormsList
-                                formlist={'form list'}
-                                time={'time'}
+                                formlist={'Missing Hours'}
+                                time={'1:11pm'}
                             />
                         )}
                     </>

@@ -5,6 +5,8 @@ import styled from 'styled-components/native';
 import { MapTabs } from '../types/MapTabs';
 import Map, { useWithMap } from '../components/cellular-components/map/Map';
 import { clusterConfig } from '../mock-data/mapConfigs';
+import MapListController from '../components/cellular-components/map-list-controller/MapListController';
+
 
 const Container = styled.View`
     display: flex;
@@ -22,6 +24,18 @@ const MapsPage = () => {
                 actions={binding.mapActions}
                 mapConfigs={clusterConfig}
             />
+{/* 
+           <EmployeeDetails searchValue={binding.searchValue}/> */}
+           {/* <LocationDetails searchValue={binding.searchValue}/>
+           <AssetsDetails searchValue={binding.searchValue}/> */}
+
+            <MapListController
+                tabBinding={binding.tabBinding}
+                searchBinding={binding.searchBinding}
+                searchValue={binding.searchValue}
+                selectedTab={binding.selectedTab}
+            />
+          
         </Container>
     );
 }

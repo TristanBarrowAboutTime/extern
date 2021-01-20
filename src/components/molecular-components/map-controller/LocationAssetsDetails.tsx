@@ -1,10 +1,7 @@
 import * as React from 'react'; 
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useWithSearchBar } from '../../../hooks/component-hooks/atomic-components/useSearchBar';
-import { View, Image,Text,TouchableOpacity } from 'react-native';
+import { Text } from 'react-native';
 import styled from 'styled-components/native';
-import Styles from '../../../style/Styles';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../../atomic-components/SearchBar';
  
 const ContainerView = styled.View`
@@ -45,66 +42,15 @@ const TextView =styled.View`
     justify-content: space-between;
 `;
 
-const NavView = styled.View`
-    display: flex;
-    flex-direction:row;
-    justify-content: space-between;
-    margin-bottom:10;
-`;
-
-const Avatar = styled.View`
-    width: 50;
-    height: 50;
-    border-radius: 75;
-`;
-
-const ImageCircle = styled.Image`
-    width: 50;
-    height: 50;
-    border-radius: 75;   
-`;
-
-const TextGreen = styled.View`
-    color:#85B554;    
-`;
 
 const LocationAssetsDetails = () => {
     const searchBar = useWithSearchBar();
 return (
     <ContainerView>
         <SearchBar {...searchBar.searchBinding} margin={8}/>
-        <NavView>           
-            <TouchableOpacity>
-                <FontAwesomeIcon
-                    size={16}
-                    color={Styles.color.green}
-                    icon={faChevronLeft}
-                />
-                <TextGreen>Back</TextGreen>
-            </TouchableOpacity>
-        <View style={{ flexDirection:'row'}}>
-            <TouchableOpacity  style={{paddingRight:10}}>
-                <FontAwesomeIcon
-                    size={16}
-                    color={Styles.color.green}
-                    icon={faChevronLeft}
-                />
-                <TextGreen>Prev</TextGreen>
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <FontAwesomeIcon
-                    size={16} 
-                    color={Styles.color.green}
-                    icon={faChevronRight}
-                />
-                <TextGreen>Next</TextGreen>
-            </TouchableOpacity>
-        </View>
-        </NavView>
+
         <InnerView>
-            <Avatar>
-            <ImageCircle resizeMode='cover' source={{uri: 'https://media.wired.com/photos/5f5fdba8af1c7b1f76a6a86b/master/w_2560%2Cc_limit/Culture_Pokemane_vtuber.jpg'}}/>
-            </Avatar>      
+      
             <Text style={{paddingLeft:20}}>1004 Joseph Carrigan</Text>
             </InnerView>   
             <CardView>

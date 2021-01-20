@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Tabs from '../../molecular-components/Tabs';
 import SearchBar from '../../atomic-components/SearchBar';
-import MapsLocations from '../map-list/MapsLocations';
-import MapsAssets from '../map-list/MapsAssets';
-import MapsEmployees from '../map-list/MapsEmployees';
 import { MapTabs } from '../../../types/MapTabs';
+import EmployeeDetails from '../../molecular-components/map-controller/EmployeeDetails';
+import LocationDetails from '../../molecular-components/map-controller/LocationDetails';
+import AssetsDetails from '../../molecular-components/map-controller/AssetsDetails';
 
 type MapListControllerProps = {
     tabBinding: any // generic in case tabs changes
@@ -26,11 +26,11 @@ const MapListController = ({
             {binding.isShowingTabs && <Tabs {...tabBinding}/>}
             <SearchBar {...searchBinding} margin={8} />
             {selectedTab === MapTabs.EMPLOYEE && 
-                <MapsEmployees searchValue={searchValue} />}
+                <EmployeeDetails searchValue={searchValue} />}
             {selectedTab === MapTabs.LOCATIONS && 
-                <MapsLocations searchValue={searchValue} />}
+                <LocationDetails searchValue={searchValue} />}
             {selectedTab === MapTabs.ASSETS && 
-                <MapsAssets searchValue={searchValue} />}
+                <AssetsDetails searchValue={searchValue} />}
         </div>
     );
 }

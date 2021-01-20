@@ -64,7 +64,7 @@ type UserImageProps = {
     src: string | null
     firstName: string
     lastName: string
-    status: MapEmployeeStatus
+    status?: MapEmployeeStatus
     size?: number
 }
 
@@ -107,7 +107,7 @@ const UserImage = ({
                     </ImageContainer>
                 )}
             </ProfileContainer>
-            <Status color={statusColor} />
+           { status && <Status color={statusColor} />}
         </Container>
     );
 
