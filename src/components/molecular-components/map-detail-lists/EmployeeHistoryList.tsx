@@ -9,12 +9,12 @@ const Container = styled.View`
     padding-bottom:10px;
 
 `;
-type TimeStyle ={
+type TimeStyle = {
     isClockedIn: boolean
 }
 
 const Time = styled.View`
-color: ${(props:TimeStyle) => props.isClockedIn ? '#79A949' : '#9B3E38'};
+color: ${(props: TimeStyle) => props.isClockedIn ? '#79A949' : '#9B3E38'};
  font-weight:600;
 `;
 
@@ -35,33 +35,52 @@ const CoordinatesLong = styled.Text`
 const Accuracy = styled.View`
 `;
 
-type EmployeeHistoryListProps = {
+export type EmployeeHistoryTimeRecord = {
+    id: number
     time: string
     isClockedIn: boolean
-    coordinates: {lat:number ,long: number}
-    accuracy: React.ReactNode
+    coordinates: { lat: number, long: number }
+    accuracy: string
 
 }
+type EmployeeHistoryListProps = {
+    timeRecords: EmployeeHistoryTimeRecord[]
+}
+
 
 const EmployeeHistoryList = (props: EmployeeHistoryListProps) => {
     return (
-        <Container>
-            <Time isClockedIn={props.isClockedIn}>
-                {props.time}
-            </Time>
-            <CoordinatesArea>
-                <CoordinatesLat>
-                    {props.coordinates.lat}
-                </CoordinatesLat>
-                <CoordinatesLong>
-                    {props.coordinates.long}
-                </CoordinatesLong>
-            </CoordinatesArea>
-            <Accuracy>
-                {props.accuracy}
-            </Accuracy>
+        <>
+            <div>
+                <div>
+                    Title1
+                </div>
+                <div>
+                     Title2
+                </div>
+            </div>
+            {props.timeRecords.map((item) => {
+                return (
+                    <Container>
+                        <Time isClockedIn={item.isClockedIn}>
+                            {item.time}
+                        </Time>
+                        <CoordinatesArea>
+                            <CoordinatesLat>
+                                {item.coordinates.lat}
+                            </CoordinatesLat>
+                            <CoordinatesLong>
+                                {item.coordinates.long}
+                            </CoordinatesLong>
+                        </CoordinatesArea>
+                        <Accuracy>
+                            {item.accuracy}
+                        </Accuracy>
+                    </Container>
+                )
+            })}
 
-        </Container>
+        </>
     )
 }
 
