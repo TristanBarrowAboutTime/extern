@@ -8,8 +8,6 @@ import LocationForm from '../map-detail-lists/LocationForms';
 import SortableList from '../../frames/SortableList';
 import LocationEmployeeListTemplate from '../templates/LocationEmployeeListTemplate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faGlobe } from '@fortawesome/free-solid-svg-icons';
-import UserImage from '../../atomic-components/UserImage';
 import LocationIcon from '../../atomic-components/LocationIcon';
 
 
@@ -33,7 +31,7 @@ const data: LocationEmployeeType[] = [
         code: 2,
         firstName: 'Scott',
         lastName: "Jenkens",
-        status: MapEmployeeStatus.CLOCKED_IN,
+        status: MapEmployeeStatus.CLOCKED_OUT,
         time: '8 hrs',
         address: '120459 Salt Lake City Water',
         image: ''

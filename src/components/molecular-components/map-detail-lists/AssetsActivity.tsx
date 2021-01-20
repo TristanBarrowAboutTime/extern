@@ -27,6 +27,7 @@ font-weight:600;
 
 type AssetsActivityProps ={
     employee: React.ReactNode
+    status:string
 }
 
 const AssetsActivity = (props: AssetsActivityProps) => {
@@ -34,7 +35,8 @@ const AssetsActivity = (props: AssetsActivityProps) => {
         <CardView>
             <Row>
              <Employee>{props.employee}</Employee>
-             <FontAwesomeIcon icon={faUser} color={'gray'} />
+             {props.status == 'assignment' ? <FontAwesomeIcon icon={faUser} color={'gray'} 
+             /> : <FontAwesomeIcon icon={faLocationArrow} color={'gray'}/> }
             </Row>
         </CardView>
     )

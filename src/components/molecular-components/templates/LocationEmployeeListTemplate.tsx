@@ -88,17 +88,18 @@ const LocationEmployeeListTemplate = ({ employee }: EmployeeListTemplateProps) =
             />
             <Content>
                 <Row>                  
-                    <Link to= "/location-details">  
+                    {/* <Link to= "/location-details">   */}
                     <Title>
                         {`${code} ${firstName} ${lastName}`}
                     </Title >
-                    </Link>
+                    {/* </Link> */}
                     <SiteStatus>
                        Onsite
                     </SiteStatus>
                 </Row>
                 <Row>
-                    <SubTitle>{address}</SubTitle>
+                {status !== MapEmployeeStatus.CLOCKED_IN &&  
+                    <SubTitle>offsite {address}</SubTitle>}
                     {status !== MapEmployeeStatus.CLOCKED_IN &&  
                     <SubTitle>{time}</SubTitle>}
                 </Row>

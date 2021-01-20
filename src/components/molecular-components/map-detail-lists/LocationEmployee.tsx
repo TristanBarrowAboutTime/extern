@@ -32,7 +32,6 @@ const LocationEmployee = (props: LocationEmployeeProps) => {
             <Employee>
                 {props.employee}
             </Employee>
-
             <Site>
                 {props.site}
             </Site>

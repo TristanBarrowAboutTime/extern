@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import MapDetailsFrame from '../../frames/MapDetailsFrame';
 import Tabs, { useWithTabs } from '../../molecular-components/Tabs';
 import AssetsActivity from '../map-detail-lists/AssetsActivity';
-
+import AssetListTemplate from '../templates/AssetListTemplate';
 
 const Container = styled.View`
     display:flex;
@@ -42,18 +42,30 @@ const AssetsDetails = (props:AssetsDetailsProps) => {
             <MapDetailsFrame
                 subjectContainer={
                     <AssetsLabel>
-                        {/* <AssetImage>
-
-                        </AssetImage> */}
+                        <AssetListTemplate
+                         assets= {{
+                         code:20015,
+                         image: null,
+                         firstName:'Miller',
+                         lastName:'Blue',
+                         address: 'utah',
+                         }}/>
                     </AssetsLabel>
                 }
                 tabs={<Tabs {...tabs.tabsBinding}/>}
                 list={
                     <>
                     {tabs.selected === AssetsDetailsTabs.ACTIVITY && (
+                        <>
                         <AssetsActivity
+                        status= {'assignment'}
                         employee ={'1345 Erda Water'}
                         />
+                        <AssetsActivity
+                        status= {'time record'}
+                        employee ={'1005 Payson Utah'}
+                        />
+                        </>
                     )}
                     </>
                 }
