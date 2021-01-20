@@ -4,6 +4,9 @@ import { useWithTabs } from '../components/molecular-components/Tabs';
 import styled from 'styled-components/native';
 import { MapTabs } from '../types/MapTabs';
 import EmployeeDetails from '../components/molecular-components/map-controller/EmployeeDetails';
+import MapListController from '../components/cellular-components/map-list-controller/MapListController';
+import LocationDetails from '../components/molecular-components/map-controller/LocationDetails';
+import AssetsDetails from '../components/molecular-components/map-controller/AssetsDetails';
 
 
 const Container = styled.View`
@@ -17,16 +20,18 @@ const MapsPage = () => {
 
     return (
         <Container>
+{/* 
+           <EmployeeDetails searchValue={binding.searchValue}/> */}
+           {/* <LocationDetails searchValue={binding.searchValue}/>
+           <AssetsDetails searchValue={binding.searchValue}/> */}
 
-           <EmployeeDetails searchValue={binding.searchValue}/>
-
-            {/* <MapController 
+            <MapListController
                 tabBinding={binding.tabBinding}
                 searchBinding={binding.searchBinding}
                 searchValue={binding.searchValue}
                 selectedTab={binding.selectedTab}
             />
-            <div>map</div> */}
+          
         </Container>
     );
 }

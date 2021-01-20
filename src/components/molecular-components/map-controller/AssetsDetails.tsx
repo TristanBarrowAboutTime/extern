@@ -22,8 +22,8 @@ const AssetsLabel = styled.View`
 
 `;
 
-type AssetsDetailsProps ={
-    serachValue: string
+type AssetsDetailsProps = { 
+    searchValue: string
 }
 
 export enum AssetsDetailsTabs{
@@ -52,7 +52,7 @@ const AssetsDetails = (props:AssetsDetailsProps) => {
                     <>
                     {tabs.selected === AssetsDetailsTabs.ACTIVITY && (
                         <AssetsActivity
-                        employee ={'employee name'}
+                        employee ={'1345 Erda Water'}
                         />
                     )}
                     </>

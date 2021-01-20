@@ -1,7 +1,29 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
+import { faLocationArrow, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Employee = styled.View``;
+const CardView = styled.View`
+    width:auto;
+    padding-left:10;
+    padding-right:10;
+    padding-top:10;
+    padding-bottom:10;
+    margin-top:10;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px #cccccc;
+    shadow-color: grey;
+    shadow-opacity: 0.8;
+   
+`;
+const Row = styled.View`
+    display:flex;
+    justify-content:space-between;
+`;
+const Employee = styled.View`
+
+font-weight:600;
+`;
 
 type AssetsActivityProps ={
     employee: React.ReactNode
@@ -9,7 +31,12 @@ type AssetsActivityProps ={
 
 const AssetsActivity = (props: AssetsActivityProps) => {
     return (
-        <Employee>{props.employee}</Employee>
+        <CardView>
+            <Row>
+             <Employee>{props.employee}</Employee>
+             <FontAwesomeIcon icon={faUser} color={'gray'} />
+            </Row>
+        </CardView>
     )
 }
 

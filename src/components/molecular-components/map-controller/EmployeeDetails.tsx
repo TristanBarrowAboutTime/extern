@@ -62,13 +62,13 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                     <EmployeeLabel>
                         <UserImage
                             src={null}
-                            firstName={'Roshni'}
-                            lastName={'Raval'}
+                            firstName={'Joseph'}
+                            lastName={'Carrigan'}
                             size={60}
                             status={MapEmployeeStatus.CLOCKED_IN}
                         />
                         <UserTitle>
-                            Roshni
+                        1002 Joseph Carrigan
                       </UserTitle>
                     </EmployeeLabel>
                 }
@@ -76,41 +76,67 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                 list={
                     <>
                         {tabs.selected === EmployeeDetailsTabs.DISC && (
+                            <>
                             <EmployeeDiscList
-                                company={'company'}
-                                time={'time'}
-                                distance={'distance'}
-                                notes={'notes'}
+                                company={'Co-operative Limited'}
+                                time={'8:05 AM'}
+                                distance={'Clock-In is outside of GeoFence by 0.5 Miles'}
+                                notes={'Notes'}
+                                text ={'I clocked in at the shop this morning'}
                             />
+                            <EmployeeDiscList
+                                company={'10000 West ERD (K-Rite)'}
+                                time={'5:35 PM0'}
+                                distance={'Clock-OUT is outside of Geofence by 10.5 Miles'}    
+                                notes={'Notes'}
+                                text ={'I forgot to clock out at 5:00, sorry!'}
+                            />
+                            </>
                         )}
                         {tabs.selected === EmployeeDetailsTabs.HISTORY && (
+                            <>
                             <EmployeeHistoryList
-                                time={'time'}
-                                coordinates={'coordinates'}
-                                accuracy={'accuracy'}
+                                time={'8:05 AM'}
+                                isClockedIn
+                                coordinates={{lat: 53.215664 , long: -119.6657889 }}
+                                accuracy={'High'}
                             />
+                            <EmployeeHistoryList
+                                time={'11:56 AM'}
+                                isClockedIn={false}
+                                coordinates={{lat: 63.135664 , long: -113.5657889 }}
+                                accuracy={'High'}
+                            />
+                            <EmployeeHistoryList
+                                time={'3:05 PM'}
+                                isClockedIn={false}
+                                coordinates={{lat: 43.235664 , long: -112.9657889 }}
+                                accuracy={'High'}
+                            />
+                            </>
                             )}
                         {tabs.selected === EmployeeDetailsTabs.LOCATION && (
                             <EmployeeLocationList
-                                inTime={'in-time'}
-                                outTime={'out-time'}
-                                serviceArea={'service area'}
-                                companyArea={'company-area'}
+                                inTime={'8:05am'}
+                                outTime={'11:56am'}
+                                companyArea={'00006709 UFA Co-operative Limited'}
+                                serviceArea={'100300.00 Full Service'}
                             />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.ASSETS && (
                             <EmployeeAssetsList
-                                inTime={'in-time'}
-                                outTime={'out-time'}
-                                servicearea={'service area'}
-                                assetsname={'assets name'}
-                                company={'comapny name'}
+                                inTime={'8:05am'}
+                                outTime={'11:56am'}
+                                assetsname={'SP-WM-07 Miller Big Blue 450 Duo'}
+                                company={'00006709 UFA Co-operative Limited'}
+                                servicearea={'100300.00 Full Service'}                           
+                               
                             />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.FORMS && (
                             <EmployeeFormsList
-                                formlist={'form list'}
-                                time={'time'}
+                                formlist={'Missing Hours'}
+                                time={'1:11pm'}
                             />
                         )}
                     </>

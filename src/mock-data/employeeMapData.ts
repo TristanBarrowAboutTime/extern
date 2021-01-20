@@ -1,5 +1,6 @@
 import { MapEmployeeStatus } from '../components/atomic-components/UserImage';
 import { ListEmployee } from '../components/molecular-components/templates/EmployeeListTemplate';
+import {EmployeeList} from '../components/molecular-components/templates/LocationEmployeeListTemplate';
 
 export const employeeListData: ListEmployee[] = [
     {
@@ -54,6 +55,53 @@ export const employeeListData: ListEmployee[] = [
     }
 ]
 
+export const locationEmployeeListData: EmployeeList[] = [
+    {
+        code: 1,
+        firstName: 'John',
+        lastName: 'Smith',
+        time: '9 hrs',
+        address: '1234 blah land',
+        status: MapEmployeeStatus.CLOCKED_IN,
+        image: null,
+    },
+    {
+        code: 1234,
+        firstName: 'Kitly',
+        lastName: 'Kitten',
+        time: '98 hrs',
+        address: '1234 blah land',
+        status: MapEmployeeStatus.CLOCKED_OUT,
+        image: null,
+    },
+    {
+        code: 2345,
+        firstName: 'George',
+        lastName: 'The Man Eater',
+        time: '8 hrs',
+        address: '1234 blah land',
+        status: MapEmployeeStatus.CLOCKED_IN,
+        image: null
+    },
+    {
+        code: 3456,
+        firstName: 'Sancheze',
+        lastName: 'Gestapo',
+        time: '1 hrs',
+        address: '1234 blah land',
+        status: MapEmployeeStatus.UNKNOWN,
+        image: null,
+    },
+    {
+        code: 4567,
+        firstName: 'Frank',
+        lastName: 'the Hell Spawn Slayer',
+        time: '5 hrs',
+        status: MapEmployeeStatus.CLOCKED_OUT,
+        address: '1234 blah land',
+        image: 'https://homepages.cae.wisc.edu/~ece533/images/cat.png',
+    }
+]
 export const employeeGeoJson = {
     type: "FeatureCollection",
     crs: { 
