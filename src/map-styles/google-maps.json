@@ -1,0 +1,22 @@
+{
+  "version": 8,
+  "name": "Google Maps",
+  "center": [
+    74.24426803763072,
+    -2.2507114487818853
+  ],
+  "bearing": 0,
+  "pitch": 0,
+  "sources": {
+    "composite": {
+      "url": "",
+      "type": "vector"
+    }
+  },
+  "created": "2015-10-30T22:18:31.111Z",
+  "id": "cjikt35x83t1z2rnxpdmjs7y7",
+  "modified": "2015-10-30T22:22:06.077Z",
+  "owner": "examples",
+  "visibility": "public",
+  "draft": false
+}

@@ -1,3 +1,4 @@
+import { GeolocateControl } from 'react-map-gl';
 import { MapEmployeeStatus } from '../components/atomic-components/UserImage';
 import { ListEmployee } from '../components/molecular-components/templates/EmployeeListTemplate';
 

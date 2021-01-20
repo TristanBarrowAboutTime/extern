@@ -23,6 +23,7 @@ export default {
     searchBar: {
         shadow: '0 1px 4px #cccccc'
     },
+    shadow: '0 1px 4px #cccccc',
     grid: {
         border: '2px solid #A7AFB2',
         light: '#FAFAFA',

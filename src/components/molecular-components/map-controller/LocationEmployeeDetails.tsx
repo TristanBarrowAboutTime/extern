@@ -21,8 +21,7 @@ const InnerView = styled.View`
     display:flex;
     flex-direction:row;
     align-items: center;
-`
-;
+`;
 
 const CardView = styled.View`
     padding-left:10; 

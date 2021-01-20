@@ -1,9 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import CustomReportsPage from '../pages/CustomReportsPage';
-import MapBox from './cellular-components/mapbox-maps/MapPage';
 import MapsPage from '../pages/MapsPage';
-import EmployeeDetails from './molecular-components/map-controller/EmployeeDetails';
 import styled from 'styled-components';
 
 const NavBar = styled.div`
@@ -31,14 +29,10 @@ function AppRouter() {
     <Router>
       <NavBar>
         <NavLink to="/map-page">Map Page</NavLink>
-        <NavLink to="/mapbox">Mapbox Demo</NavLink>
         <NavLink to="/custom-reports">Custom Reports</NavLink>
       </NavBar>
       
       <Switch>
-        <Route path='/mapbox'>
-          <MapBox />
-        </Route>
         <Route path='/custom-reports'>
           <CustomReportsPage />
         </Route>

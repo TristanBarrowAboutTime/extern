@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
-import SortableList from '../../components/frames/SortableList';
+import SortableList from '../../../components/frames/SortableList';
 
 type T = {
     test: string

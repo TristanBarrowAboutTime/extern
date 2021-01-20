@@ -1,32 +1,27 @@
-import React from 'react';
+import * as React from 'react';
 import { useWithSearchBar } from '../hooks/component-hooks/atomic-components/useSearchBar';
 import { useWithTabs } from '../components/molecular-components/Tabs';
 import styled from 'styled-components/native';
 import { MapTabs } from '../types/MapTabs';
-import EmployeeDetails from '../components/molecular-components/map-controller/EmployeeDetails';
-
+import Map, { useWithMap } from '../components/cellular-components/mapbox-maps/Map';
+import { clusterConfig } from '../mock-data/mapConfigs';
 
 const Container = styled.View`
     display: flex;
     flex-direction: row;
-    width: 340px;
+    width: 100vw;
+    height: calc(100vh - 34px);
 `;
 
 const MapsPage = () => {
     const binding = useMapPage();
-
     return (
         <Container>
-
-           <EmployeeDetails searchValue={binding.searchValue}/>
-
-            {/* <MapController 
-                tabBinding={binding.tabBinding}
-                searchBinding={binding.searchBinding}
-                searchValue={binding.searchValue}
-                selectedTab={binding.selectedTab}
+            <Map 
+                viewport={binding.mapViewport} 
+                actions={binding.mapActions}
+                mapConfigs={clusterConfig}
             />
-            <div>map</div> */}
         </Container>
     );
 }
@@ -41,15 +36,16 @@ const useMapPage = () => {
         ],
         selected: MapTabs.EMPLOYEE
     });
-
+    const map = useWithMap({ });
 
     return {
         tabBinding: tabs.tabsBinding,
         searchBinding: searchBar.searchBinding,
         searchValue: searchBar.value,
-        selectedTab: tabs.selected
+        selectedTab: tabs.selected,
+        mapViewport: map.viewport,
+        mapActions: map.actions
     }
 }
-
 
 export default MapsPage;
