@@ -58,7 +58,7 @@ const LocationIcon = (props: LocationIconProps) => {
 
 LocationIcon.defaultProps = {
     color: 'gray',
-    textColor: 'white',
+    textColor: '#E9E9E9',
     size: 50,
 
 }
