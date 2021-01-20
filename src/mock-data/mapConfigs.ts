@@ -52,6 +52,7 @@ const unclusteredPointLayer: LayerProps = {
 
 export const clusterConfig: MapConfiguration[] = [
     {
+        id: 'map-testing-cluster',
         source: exampleSource,
         layers: [
             clusterLayer,

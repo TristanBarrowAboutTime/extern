@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { useRef } from 'react';
-import MapGL, { FlyToInterpolator, Layer, LayerProps, Source, SourceProps } from 'react-map-gl';
+import MapGL, { Layer, LayerProps, Source, SourceProps } from 'react-map-gl';
 import styled from 'styled-components';
 import MapButtons from './MapButtons';
 
 export enum BaseMap { 
     BASIC = 'mapbox://styles/mapbox/streets-v11',
-    // SATELLITE = 'mapbox://styles/mapbox/satellite-v9',
     SATELLITE_STREET = 'mapbox://styles/mapbox/satellite-streets-v11',
 }
 
@@ -15,15 +14,6 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
 `;
-
-const MapControlls = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-
-
-`;
-
 
 export type Viewport = {
     latitude: number
@@ -51,6 +41,7 @@ export type MapActions = {
 }
 
 export type MapConfiguration = {
+    id: string
     source: SourceProps
     layers: LayerProps[]
 }
@@ -71,9 +62,9 @@ const Map = (props: MapProps) => {
                 mapboxApiAccessToken={process.env.REACT_APP_MAP_TOKEN}
             >
                 {mapConfigs.map((config: MapConfiguration) => {
-                    return <Source {...config.source}>
+                    return <Source {...config.source} key={config.id} >
                         {config.layers.map((layer: LayerProps) => {
-                            return <Layer {...layer}/>
+                            return <Layer {...layer} key={layer.id}/>
                         })}
                     </Source>
                 })}
@@ -90,24 +81,27 @@ type UseWithMapArgs = {
     initialBaseMap?: BaseMap
     maxZoom?: number
     minZoom?: number
+    initialZoom?: number 
+    initialLatLong?: {lat: number, long: number}
 }
 
 
 export const useWithMap = ({
     initialBaseMap = BaseMap.BASIC,
+    initialLatLong = {lat: 39.98819048878927, long: -111.75807962919087},
     maxZoom = 22,
-    minZoom = 1
+    minZoom = 1,
+    initialZoom = 5,
 }: UseWithMapArgs) => {
     const ref = useRef(null);
     const [viewport, setViewportTo] = React.useState({
-        latitude: 39.98819048878927,
-        longitude: -111.75807962919087,
-        zoom: 12,
+        latitude: initialLatLong.lat,
+        longitude: initialLatLong.long,
+        zoom: initialZoom,
         bearing: 0,
         pitch: 0,
         transitionDuration: 500,
         transitionEasing: (x: number): number => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2),
-
     });
     
     const [baesMap, setBaseMapTo] = React.useState(initialBaseMap);
@@ -134,10 +128,10 @@ export const useWithMap = ({
 
     const setZoom = (zoom: number) => {
         let newZoom = zoom;
-        if (zoom <= minZoom) {
+        if (zoom < minZoom) {
             newZoom = minZoom;
         }
-        if (zoom >= maxZoom) {
+        if (zoom > maxZoom) {
             newZoom = maxZoom;
         }
         changeViewPort({

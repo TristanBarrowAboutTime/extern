@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Map renders correctly 1`] = `
+<div
+  className="sc-gKAblj bEUqUl"
+>
+  <div
+    style={
+      Object {
+        "cursor": "grab",
+        "height": "100%",
+        "position": "relative",
+        "width": "100%",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "height": "100%",
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+    >
+      <div
+        className=""
+        style={
+          Object {
+            "height": "100%",
+            "overflow": "hidden",
+            "position": "absolute",
+            "visibility": "inherit",
+            "width": "100%",
+          }
+        }
+      />
+      <div
+        style={
+          Object {
+            "height": 0,
+            "overflow": "visible",
+            "width": 0,
+          }
+        }
+      />
+    </div>
+  </div>
+  <div
+    className="sc-bdnylx ctNIPE"
+  >
+    <div
+      className="sc-dlnjPT jtZTbX"
+      onClick={[MockFunction]}
+    >
+      Map
+    </div>
+    <div
+      className="sc-gtssRu dnZDtQ"
+      onClick={[MockFunction]}
+    >
+      Satellite
+    </div>
+  </div>
+  <div
+    className="sc-hKFyIo dcvdQf"
+  >
+    <div
+      className="sc-eCApGN jeVmJR"
+      onClick={[MockFunction]}
+    >
+      +
+    </div>
+    <div
+      className="sc-jSFkmK iJtdXc"
+      onClick={[MockFunction]}
+    >
+      -
+    </div>
+  </div>
+</div>
+`;
