@@ -19,23 +19,17 @@ const MapsPage = () => {
     const binding = useMapPage();
     return (
         <Container>
-            <Map 
-                viewport={binding.mapViewport} 
-                actions={binding.mapActions}
-                mapConfigs={clusterConfig}
-            />
-{/* 
-           <EmployeeDetails searchValue={binding.searchValue}/> */}
-           {/* <LocationDetails searchValue={binding.searchValue}/>
-           <AssetsDetails searchValue={binding.searchValue}/> */}
-
             <MapListController
                 tabBinding={binding.tabBinding}
                 searchBinding={binding.searchBinding}
                 searchValue={binding.searchValue}
                 selectedTab={binding.selectedTab}
             />
-          
+            <Map 
+                viewport={binding.mapViewport} 
+                actions={binding.mapActions}
+                mapConfigs={clusterConfig}
+            />
         </Container>
     );
 }
