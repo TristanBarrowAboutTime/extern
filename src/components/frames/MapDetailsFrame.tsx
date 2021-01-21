@@ -1,6 +1,6 @@
+import React from 'react';
 import {  faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import * as React from 'react';
 import Styles from '../../style/Styles';
 import styled from 'styled-components/native';
 

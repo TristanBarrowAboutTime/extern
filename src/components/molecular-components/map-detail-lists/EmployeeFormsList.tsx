@@ -9,6 +9,13 @@ const Container = styled.View`
     justify-content: space-between;
     padding-bottom:10px;
 `;
+const Title = styled.View`
+display:flex;
+flex-direction: row;
+justify-content:space-between;
+font-weight:400;
+padding:10px;
+`;
 
 const FormList = styled.View`
 color: #79A949;
@@ -18,6 +25,7 @@ color: #79A949;
 const Time = styled.View`
 `;
 
+
 type EmployeeFormsListProps = {
     formlist: React.ReactNode
     time: React.ReactNode
@@ -25,6 +33,16 @@ type EmployeeFormsListProps = {
 
 const EmployeeFormsList = (props: EmployeeFormsListProps) => {
     return (
+        <>
+        <Title>
+            <div>
+                Form Name
+            </div>
+            <div>
+                 Synced Time
+            </div>
+
+        </Title>
         <Container>
             <FormList>
                 {props.formlist}
@@ -34,6 +52,7 @@ const EmployeeFormsList = (props: EmployeeFormsListProps) => {
                 {props.time}
             </Time>
         </Container>
+        </>
     )
 }
 

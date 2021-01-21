@@ -7,7 +7,9 @@ import EmployeeDiscList from '../map-detail-lists/EmployeeDiscList';
 import EmployeeHistoryList, { EmployeeHistoryTimeRecord } from '../map-detail-lists/EmployeeHistoryList';
 import EmployeeLocationList from '../map-detail-lists/EmployeeLocationList';
 import EmployeeAssetsList from '../map-detail-lists/EmployeeAssetsList';
-import EmployeeFormsList from '../map-detail-lists/EmployeeFormsLinst';
+import EmployeeFormsList from '../map-detail-lists/EmployeeFormsList';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
 const data: EmployeeHistoryTimeRecord[] = [
     {
@@ -67,6 +69,12 @@ const EmployeeLabel = styled.View`
 
 `;
 
+const Link = styled.View`
+display:flex;
+flex-direction: row;
+justify-content:flex-end; 
+padding: 5px;
+`;
 export enum EmployeeDetailsTabs {
     DISC = 'Discrepancies ',
     HISTORY = 'History',
@@ -110,6 +118,11 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                 tabs={<Tabs {...tabs.tabsBinding} />}
                 list={
                     <>
+                    <Link>
+                    Open link into the Time editor
+                    <FontAwesomeIcon icon={faExternalLinkAlt} color={'gray'}/>
+                       
+                        </Link>
                         {tabs.selected === EmployeeDetailsTabs.DISC && (
                             <>
                             <EmployeeDiscList
@@ -165,6 +178,7 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                 goToPrev={() => console.log('Prev')}
                 back={() => console.log('back')}
             />
+
         </Container>
     )
 }
