@@ -54,37 +54,49 @@ const ServiceArea = styled.View`
     padding-bottom:8px;
 `;
 
-type EmployeeLocationListProps = {
+export type EmployeeLocationRecord = {
     inTime: React.ReactNode
     outTime: React.ReactNode
     companyArea: React.ReactNode
     serviceArea: React.ReactNode
 }
 
+type EmployeeLocationListProps = {
+    locationRecord: EmployeeLocationRecord[]
+}
+
 
 const EmployeeLocationList = (props: EmployeeLocationListProps) => {
-    return (
+    return(
+        <>
+        {props.locationRecord.map((item) => {
+             return (
 
-        <CardView>
-            <Time>
-                <InTime>
-                    {props.inTime}
-                </InTime>
-
-                <OutTime>
-                    {props.outTime}
-                </OutTime>
-            </Time>
-            <CompanyArea>
-                {props.companyArea}
-            </CompanyArea>
-
-            <ServiceArea>
-                {props.serviceArea}
-            </ServiceArea>
-        </CardView>
-
+                <CardView>
+                    <Time>
+                        <InTime>
+                            {item.inTime}
+                        </InTime>
+        
+                        <OutTime>
+                            {item.outTime}
+                        </OutTime>
+                    </Time>
+                    <CompanyArea>
+                        {item.companyArea}
+                    </CompanyArea>
+        
+                    <ServiceArea>
+                        {item.serviceArea}
+                    </ServiceArea>
+                </CardView>
+        
+            )
+        })}
+        
+        </>
     )
+   
 }
 
 export default EmployeeLocationList;

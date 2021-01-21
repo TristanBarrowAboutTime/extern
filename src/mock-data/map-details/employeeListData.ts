@@ -1,4 +1,28 @@
+import { EmployeeAssetsRecord } from "../../components/molecular-components/map-detail-lists/EmployeeAssetsList";
+import { EmployeeDiscRecord } from "../../components/molecular-components/map-detail-lists/EmployeeDiscList";
+import { EmployeeFormsRecord } from "../../components/molecular-components/map-detail-lists/EmployeeFormsList";
 import { EmployeeHistoryTimeRecord } from "../../components/molecular-components/map-detail-lists/EmployeeHistoryList";
+import { EmployeeLocationRecord } from "../../components/molecular-components/map-detail-lists/EmployeeLocationList";
+
+export const discData: EmployeeDiscRecord[] = [
+    {
+
+        company:'Co-operative Limited',
+        time:'8:05 AM',
+        distance:'Clock-In is outside of GeoFence by 0.5 Miles',
+        notes:'Notes',
+        text :'I clocked in at the shop this morning'
+   
+    },
+    {
+        company:'10000 West ERD (K-Rite)',
+        time:'5:35 PM0',
+        distance:'Clock-OUT is outside of Geofence by 10.5 Miles',   
+        notes:'Notes',
+        text :'I forgot to clock out at 5:00, sorry!'
+
+    }
+]
 
 export const data: EmployeeHistoryTimeRecord[] = [
     {
@@ -33,4 +57,60 @@ export const data: EmployeeHistoryTimeRecord[] = [
         accuracy: 'Low'
 
     }
+]
+
+export const locationData: EmployeeLocationRecord[] = [
+    {
+        inTime:'8:05am',
+        outTime:'11:56am',
+        companyArea:'00006709 UFA Co-operative Limited',
+        serviceArea:'100300.00 Full Service'
+    },
+    {
+        inTime:'8:05am',
+        outTime:'11:56am',
+        companyArea:'00006709 UFA Co-operative Limited',
+        serviceArea:'100300.00 Full Service'
+    },
+    {
+        inTime:'8:05am',
+        outTime:'',
+        companyArea:'00006709 UFA Co-operative Limited',
+        serviceArea:'100300.00 Full Service',
+    }
+]
+
+export const assetsData: EmployeeAssetsRecord[] = [
+    {
+        inTime:'8:05am',
+        outTime:'11:56am',
+        assetsname:'SP-WM-07 Miller Big Blue 450 Duo',
+        company:'00006709 UFA Co-operative Limited',
+        servicearea:'100300.00 Full Service',
+    },
+    {
+        inTime:'8:05am',
+        outTime:'11:56am',
+        assetsname:'SP-WM-07 Miller Big Blue 450 Duo',
+        company:'00006709 UFA Co-operative Limited',
+        servicearea:'100300.00 Full Service',
+    },
+    {
+        inTime:'8:05am',
+        outTime:'11:56am',
+        assetsname:'SP-WM-07 Miller Big Blue 450 Duo',
+        company:'00006709 UFA Co-operative Limited',
+        servicearea:'100300.00 Full Service',
+    },
+]
+
+export const formData: EmployeeFormsRecord[] = [
+    {
+        formlist:'Missing Hours',
+        time:'1:11pm'
+    },
+    {
+        formlist:'PTO',
+        time:'1:11pm'
+    },
 ]

@@ -60,7 +60,7 @@ const Text = styled.Text`
     font-size:15px;
 `;
 
-type EmployeeDiscListProps = {
+export type EmployeeDiscRecord = {
     company: string
     time: string
     distance: string
@@ -68,32 +68,41 @@ type EmployeeDiscListProps = {
     text:string
 }
 
+type EmployeeDiscListProps = {
+    discRecords: EmployeeDiscRecord[]
+}
+
 const EmployeeDiscList = (props: EmployeeDiscListProps) => {
-    return (
-        <CardView>
-     
-            <CompanyArea>
-                {props.company}
+    return(
+        <>
+         {props.discRecords.map((item) => {
+        return (
+            <CardView>
          
-
-            <Time isClockedIn={true} >
-
-                {props.time}
-            </Time>
-            </CompanyArea>
-        
-            <Distance>
-                {props.distance}
-            </Distance>
-
-            <Notes>
-                {props.notes}
-            </Notes>
-            <Text>
-                {props.text}
-            </Text>
-        </CardView>
-
+                <CompanyArea>
+                    {item.company}           
+    
+                <Time isClockedIn={true} >  
+                    {item.time}
+                </Time>
+               
+                </CompanyArea>
+            
+                <Distance>
+                    {item.distance}
+                </Distance>
+    
+                <Notes>
+                    {item.notes}
+                </Notes>
+                <Text>
+                    {item.text}
+                </Text>
+            </CardView>
+    
+        )
+            })}
+</>
     )
 }
 

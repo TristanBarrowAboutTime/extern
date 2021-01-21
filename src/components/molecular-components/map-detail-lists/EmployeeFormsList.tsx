@@ -25,35 +25,45 @@ color: #79A949;
 const Time = styled.View`
 `;
 
-
-type EmployeeFormsListProps = {
+export type EmployeeFormsRecord = {
     formlist: React.ReactNode
     time: React.ReactNode
+}
+
+
+type EmployeeFormsListProps = {
+    formRecord: EmployeeFormsRecord[]
 }
 
 const EmployeeFormsList = (props: EmployeeFormsListProps) => {
     return (
         <>
-        <Title>
-            <div>
-                Form Name
+            <Title>
+                <div>
+                    Form Name
             </div>
-            <div>
-                 Synced Time
+                <div>
+                    Synced Time
             </div>
 
-        </Title>
-        <Container>
-            <FormList>
-                {props.formlist}
-            </FormList>
+            </Title>
+            {props.formRecord.map((item) => {
+                return (
+                    <Container>
+                        <FormList>
+                            {item.formlist}
+                        </FormList>
 
-            <Time>
-                {props.time}
-            </Time>
-        </Container>
+                        <Time>
+                            {item.time}
+                        </Time>
+                    </Container>
+
+                )
+            })}
         </>
     )
+
 }
 
 export default EmployeeFormsList;

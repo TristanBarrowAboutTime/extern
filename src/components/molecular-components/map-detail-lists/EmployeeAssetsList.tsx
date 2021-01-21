@@ -63,40 +63,52 @@ const ServiceArea = styled.View`
     font-size:15px;  
 `;
 
-type EmployeeAssetsListProps = {
+export type EmployeeAssetsRecord = {
     inTime: React.ReactNode
     outTime: React.ReactNode
     assetsname: React.ReactNode
     company: React.ReactNode
     servicearea: React.ReactNode
+}
+
+type EmployeeAssetsListProps = {
+    assetsRecord: EmployeeAssetsRecord[]
 
 }
 
 const EmployeeAssetsList = (props: EmployeeAssetsListProps) => {
-    return (
-        <CardView>
-            <Time>
-                <InTime>
-                    {props.inTime}
-                </InTime>
-
-                <OutTime>
-                    {props.outTime}
-                </OutTime>
-                </Time>
-            <AssetsName>
-                {props.assetsname}
-            </AssetsName>
-
-            <CompanyDetails>
-                {props.company}
-            </CompanyDetails>
-
-            <ServiceArea>
-                {props.servicearea}
-            </ServiceArea>
-        </CardView>
+    return(
+        <>
+        {props.assetsRecord.map((item) =>{
+            return (
+                <CardView>
+                    <Time>
+                        <InTime>
+                            {item.inTime}
+                        </InTime>
+        
+                        <OutTime>
+                            {item.outTime}
+                        </OutTime>
+                        </Time>
+                    <AssetsName>
+                        {item.assetsname}
+                    </AssetsName>
+        
+                    <CompanyDetails>
+                        {item.company}
+                    </CompanyDetails>
+        
+                    <ServiceArea>
+                        {item.servicearea}
+                    </ServiceArea>
+                </CardView>
+            )
+        })}
+            </>
     )
+
+    
 }
 
 export default EmployeeAssetsList;
