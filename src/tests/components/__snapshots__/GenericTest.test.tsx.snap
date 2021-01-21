@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Edit Folder Row renders Correctly 1`] = `
-<div>
-  Generic Test
-</div>
-`;

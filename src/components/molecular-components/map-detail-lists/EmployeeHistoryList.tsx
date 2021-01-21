@@ -22,6 +22,7 @@ const CoordinatesArea = styled.View`
 display:flex;
 flex-direction:row;
 justify-content:space-between;
+text-align:left;
 `;
 
 const CoordinatesLat = styled.Text`
@@ -32,7 +33,18 @@ const CoordinatesLong = styled.Text`
 
 `;
 
+const Title = styled.View`
+display:flex;
+flex-direction: row;
+justify-content:space-between;
+font-weight:600;
+padding:10px;
+`;
 const Accuracy = styled.View`
+display:flex;
+justify-content:left;
+align-items:stretch;
+text-align:left;
 `;
 
 export type EmployeeHistoryTimeRecord = {
@@ -51,14 +63,17 @@ type EmployeeHistoryListProps = {
 const EmployeeHistoryList = (props: EmployeeHistoryListProps) => {
     return (
         <>
-            <div>
+            <Title>
                 <div>
-                    Title1
+                    Time
                 </div>
                 <div>
-                     Title2
+                     Coordinates
                 </div>
-            </div>
+                <div>
+                     Accuracy
+                </div>
+            </Title>
             {props.timeRecords.map((item) => {
                 return (
                     <Container>
