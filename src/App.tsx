@@ -1,9 +1,14 @@
 import React from 'react';
 import AppRouter from './components/AppRouter';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <AppRouter />
+    <QueryClientProvider client={queryClient}>
+      <AppRouter />
+    </QueryClientProvider>
   );
 }
 

@@ -5,14 +5,18 @@ import styled from 'styled-components/native';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import Styles from '../../../style/Styles';
-import { Link } from 'react-router-dom';
 
 const Container = styled.View`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 360;
+    width: 360px;
+    padding: 4px;
+    padding-left: 20px;
+    :hover {
+        background-color: lightgray;
+    }
 
 `;
 
@@ -28,11 +32,14 @@ const Content = styled.View`
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-left: 8;
-    margin-right: 8;
+    margin-left: 8px;
+    margin-right: 8px;
 `;
 
 const Title = styled.Text`
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: 20px;
 `;
 
@@ -67,33 +74,32 @@ const EmployeeListTemplate = ({ employee }: EmployeeListTemplateProps) => {
         status,
         image
     } = employee;
-
     return (
-        <Container key={code}>
-            <UserImage 
-                src={image} 
-                firstName={firstName}
-                lastName={lastName}
-                status={status}
-            />
-            <Content>
-                <Row>                  
-                    <Link to= "/employee-details">  
-                    <Title>
-                        {`${code} ${firstName} ${lastName}`}
-                    </Title >
-                    </Link>
-                    <View>
-                        {geoDiscrepancy && <FontAwesomeIcon icon={faGlobe} color={Styles.color.red} />}
-                    </View>
-                </Row>
-                <Row>
-                    <SubTitle>{address}</SubTitle>
-                    <SubTitle>{time}</SubTitle>
-                </Row>
-            </Content>
-            <FontAwesomeIcon icon={faChevronRight} color={'gray'} />
-        </Container>
+            <Container key={code}>
+                <UserImage 
+                    src={image} 
+                    firstName={firstName}
+                    lastName={lastName}
+                    status={status}
+                    shouldShowStatus={true}
+                    size={36}
+                />
+                <Content>
+                    <Row>                  
+                        <Title>
+                            {`${code} ${firstName} ${lastName}`}
+                        </Title >
+                        <View>
+                            {geoDiscrepancy && <FontAwesomeIcon icon={faGlobe} color={Styles.color.red} size={'lg'} />}
+                        </View>
+                    </Row>
+                    <Row>
+                        <SubTitle>{address}</SubTitle>
+                        <SubTitle>{time}</SubTitle>
+                    </Row>
+                </Content>
+                <FontAwesomeIcon icon={faChevronRight} color={'gray'} />
+            </Container>
     )
 }
 

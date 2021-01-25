@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { MapListLocation } from '../../../types/MapListLocation';
 import styled from 'styled-components/native';
+import LocationIcon from '../../atomic-components/LocationIcon';
 
 const Container = styled.View`
 
@@ -29,7 +30,7 @@ const LocationListTemplate = ({ location }: LocationListTemplateProps) => {
 
     return (
         <Container>
-            <MarkerIcon />
+            <LocationIcon first={'T'} last={'B'} />
             <Content>
                 <Title>{`${code} ${name}`}</Title>
                 <SubTitle>{address}</SubTitle>

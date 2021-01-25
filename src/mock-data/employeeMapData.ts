@@ -52,7 +52,7 @@ export const employeeListData: ListEmployee[] = [
         geoDiscrepancy: false,
         status: MapEmployeeStatus.CLOCKED_OUT,
         address: '1234 blah land',
-        image: 'https://homepages.cae.wisc.edu/~ece533/images/cat.png',
+        image: null,
     }
 ]
 

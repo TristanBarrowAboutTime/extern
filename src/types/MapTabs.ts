@@ -1,5 +1,6 @@
 export enum MapTabs {
     EMPLOYEE = 'Employee',
     LOCATIONS = 'Locations',
-    ASSETS = 'Assets'
+    ASSETS = 'Assets',
+    DELETE_ME = 'Delete Me'
 }

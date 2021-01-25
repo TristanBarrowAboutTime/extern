@@ -10,7 +10,7 @@ const Container = styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 360;
+    width: 360px;
 
 `;
 
@@ -26,8 +26,8 @@ const Content = styled.View`
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-left: 8;
-    margin-right: 8;
+    margin-left: 8px;
+    margin-right: 8px;
 `;
 
 const Title = styled.Text`
@@ -66,14 +66,13 @@ const AssetListTemplate = ({ assets }: AssetListTemplateProps) => {
                 src={image} 
                 firstName={firstName}
                 lastName={lastName}
+                status={MapEmployeeStatus.CLOCKED_IN}
              />
             <Content>
                 <Row>                  
-                    {/* <Link to= "/assets-details">   */}
                     <Title>
                         {`${code} ${firstName} ${lastName}`}
                     </Title >
-                    {/* </Link> */}
                 </Row>
                 <Row>
                     <SubTitle>{address}</SubTitle>

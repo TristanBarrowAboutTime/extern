@@ -44,7 +44,7 @@ type TimeStyle ={
 }
 
 const SiteStatus =styled.View`
-color: #79A949;
+    color: #79A949;
 `;
 
 const SubTitle = styled.Text`
@@ -88,11 +88,9 @@ const LocationEmployeeListTemplate = ({ employee }: EmployeeListTemplateProps) =
             />
             <Content>
                 <Row>                  
-                    {/* <Link to= "/location-details">   */}
                     <Title>
                         {`${code} ${firstName} ${lastName}`}
                     </Title >
-                    {/* </Link> */}
                     <SiteStatus>
                        Onsite
                     </SiteStatus>

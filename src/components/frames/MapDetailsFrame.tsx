@@ -3,6 +3,7 @@ import {  faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Styles from '../../style/Styles';
 import styled from 'styled-components/native';
+import { MapControllerActions } from '../../pages/MapsPage';
 
 const Container = styled.View`
     display: flex;
@@ -53,16 +54,14 @@ type MapDetailsFrameProps = {
     subjectContainer: React.ReactNode
     tabs: React.ReactNode
     list: React.ReactNode
-    goToNext: () => void
-    goToPrev: () => void
-    back: () => void
+    actions: MapControllerActions
 }
 
 const MapDetailsFrame = (props: MapDetailsFrameProps) => {
     return (
         <Container>
             <Navigation>
-                <NavButton onPress={props.back}>
+                <NavButton onPress={props.actions.back}>
                     <FontAwesomeIcon
                         size={16}
                         color={Styles.color.green}
@@ -71,7 +70,7 @@ const MapDetailsFrame = (props: MapDetailsFrameProps) => {
                     <ButtonText>Back</ButtonText>
                 </NavButton>
                 <ButtonContainer>
-                    <NavButton onPress={props.goToPrev}>
+                    <NavButton onPress={props.actions.prev}>
                         <FontAwesomeIcon
                             size={16}
                             color={Styles.color.green}
@@ -79,7 +78,7 @@ const MapDetailsFrame = (props: MapDetailsFrameProps) => {
                         />
                         <ButtonText>Prev</ButtonText>
                     </NavButton>
-                    <NavButton onPress={props.goToNext}>
+                    <NavButton onPress={props.actions.next}>
                         <ButtonText>Next</ButtonText>
                         <FontAwesomeIcon
                             size={16}

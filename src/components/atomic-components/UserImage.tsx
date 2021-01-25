@@ -4,9 +4,9 @@ import styled from 'styled-components/native';
 import Styles from '../../style/Styles';
 
 export enum MapEmployeeStatus {
-    CLOCKED_IN,
-    CLOCKED_OUT,
-    UNKNOWN
+    CLOCKED_IN = 'CLOCKED_IN',
+    CLOCKED_OUT = 'CLOCKED_OUT',
+    UNKNOWN = 'UNKNOWN'
 }
 
 type Style = { size: number }
@@ -21,6 +21,7 @@ const Container = styled.View`
     width: ${(props: Style) => props.size}px;
 
 `;
+
 
 const ProfileContainer = styled.View`
 
@@ -66,6 +67,7 @@ type UserImageProps = {
     lastName: string
     status?: MapEmployeeStatus
     size?: number
+    shouldShowStatus?: boolean
 }
 
 const UserImage = ({
@@ -73,7 +75,8 @@ const UserImage = ({
     firstName,
     lastName,
     size = 50,
-    status
+    status = MapEmployeeStatus.UNKNOWN,
+    shouldShowStatus = false
 }: UserImageProps) => {
     let statusColor = 'gray';
 
@@ -107,7 +110,7 @@ const UserImage = ({
                     </ImageContainer>
                 )}
             </ProfileContainer>
-           { status && <Status color={statusColor} />}
+           {shouldShowStatus &&  <Status color={statusColor} />}
         </Container>
     );
 

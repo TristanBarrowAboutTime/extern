@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { useWithSearchBar } from '../hooks/component-hooks/atomic-components/useSearchBar';
-import { useWithTabs } from '../components/molecular-components/Tabs';
+import Tabs, { useWithTabs } from '../components/molecular-components/Tabs';
 import styled from 'styled-components/native';
 import { MapTabs } from '../types/MapTabs';
 import Map, { useWithMap } from '../components/cellular-components/map/Map';
-import { clusterConfig } from '../mock-data/mapConfigs';
-import MapListController from '../components/cellular-components/map-list-controller/MapListController';
-
+import SearchBar from '../components/atomic-components/SearchBar';
+import { useWithEmployeeDetails } from '../components/cellular-components/map-list/EmployeeDetails';
+import { useWithLocationDetails } from '../components/cellular-components/map-list/LocationDetails';
+import { useWithAssetDetails } from '../components/cellular-components/map-list/AssetsDetails';
+import MapsEmployees from '../components/cellular-components/map-list/MapsEmployees';
+import MapsLocations from '../components/cellular-components/map-list/MapsLocations';
+import MapsAssets from '../components/cellular-components/map-list/MapsAssets';
 
 const Container = styled.View`
     display: flex;
@@ -15,44 +19,115 @@ const Container = styled.View`
     height: calc(100vh - 34px);
 `;
 
+const MapController = styled.View`
+    display: flex;
+    flex-direction: column;
+`; 
+
 const MapsPage = () => {
-    const binding = useMapPage();
+    const {
+        mainTabs,
+        tabs,
+        search,
+        isShowingDetails,
+        actions,
+    } = useMapPage();
     return (
         <Container>
-            <MapListController
-                tabBinding={binding.tabBinding}
-                searchBinding={binding.searchBinding}
-                searchValue={binding.searchValue}
-                selectedTab={binding.selectedTab}
-            />
-            <Map 
+            <MapController>
+                {mainTabs.isShowing && <Tabs {...mainTabs.binding}/>}
+                <SearchBar {...search.binding} margin={8} />
+
+                {mainTabs.selected === MapTabs.EMPLOYEE && (
+                    <MapsEmployees
+                        searchValue={search.value} 
+                        tabs={tabs.locations} 
+                        isShowingDetails={isShowingDetails}
+                        actions={actions}
+                    />
+                )}
+
+                {mainTabs.selected === MapTabs.LOCATIONS && (
+                    <MapsLocations 
+                        searchValue={search.value} 
+                        tabs={tabs.locations}
+                        isShowingDetails={isShowingDetails}
+                        actions={actions}
+                    />
+                )}
+
+                {mainTabs.selected === MapTabs.ASSETS && (
+                    <MapsAssets
+                        searchValue={search.value}
+                        tabs={tabs.assets}
+                        isShowingDetails={isShowingDetails}
+                        actions={actions}
+                    />
+                )}
+            </MapController>
+            {/* <Map 
+                
                 viewport={binding.mapViewport} 
                 actions={binding.mapActions}
                 mapConfigs={clusterConfig}
-            />
+            /> */}
         </Container>
     );
 }
 
+export type MapControllerActions = {
+    back: () => void
+    next: () => void
+    prev: () => void
+    goToDetails: () => void
+    goToList: () => void
+}
+
 const useMapPage = () => {
+    const map = useWithMap({});
     const searchBar = useWithSearchBar();
-    const tabs = useWithTabs({
+    const [isShowingDetails, setIsShowingDetailsTo] = React.useState(false);
+    const employeeTabs = useWithEmployeeDetails();
+    const locationTabs = useWithLocationDetails();
+    const assetTabs = useWithAssetDetails();
+
+    const mainTabs = useWithTabs({
         tabs: [
             MapTabs.EMPLOYEE,
             MapTabs.LOCATIONS,
-            MapTabs.ASSETS
+            MapTabs.ASSETS,
         ],
         selected: MapTabs.EMPLOYEE
     });
-    const map = useWithMap({ });
-
+    const goToDetails = () => setIsShowingDetailsTo(true);
+    const goToList = () => setIsShowingDetailsTo(false);
+    const actions = {
+        back: goToList,
+        next: () => console.log('next'),
+        prev: () => console.log('prev'),
+        goToDetails,
+        goToList
+    }
+    
     return {
-        tabBinding: tabs.tabsBinding,
-        searchBinding: searchBar.searchBinding,
-        searchValue: searchBar.value,
-        selectedTab: tabs.selected,
+        mainTabs: {
+            binding: mainTabs.tabsBinding,
+            isShowing: !isShowingDetails,
+            selected: mainTabs.selected,
+        },
+        search: {
+            binding: searchBar.searchBinding,
+            value: searchBar.value,
+        },
+        tabs: {
+            employees: employeeTabs,
+            locations: locationTabs,
+            assets: assetTabs,
+        },
+        isShowingDetails,
         mapViewport: map.viewport,
-        mapActions: map.actions
+        mapActions: map.actions,
+        actions
     }
 }
 

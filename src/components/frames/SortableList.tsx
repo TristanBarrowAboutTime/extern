@@ -42,6 +42,7 @@ type ListProps<T> = {
     isHorizontal?: boolean
     preHeader?: React.ReactNode
     postHeader?: React.ReactNode
+    spacingArray?: number[] | null
     shouldDisplayItem: (item: T) => boolean
     template: (item: T) => React.ReactNode
 }
@@ -52,27 +53,30 @@ const List = <T extends unknown>({
     isHorizontal = false,
     preHeader = null,
     postHeader = null,
+    spacingArray = null, 
     shouldDisplayItem,
     template,
 }: ListProps<T>) => {
     const binding = useSortableList({data, sortables});
-    
+
     return (
         <View>
             <Header>
                 {preHeader}
-                {Object.keys(sortables).map((currentSort: string) => (
-                    <HeaderItem key={currentSort} onPress={() => binding.onPressHeaderItem(currentSort)}>
-                        <HeaderText>
-                            {sortables[currentSort].title}
-                        </HeaderText>
-                        <FontAwesomeIcon 
-                            size={16}
-                            color={Styles.color.green} 
-                            icon={binding.chevronPointsDown(currentSort) ? faChevronDown : faChevronUp} 
-                        />
-                    </HeaderItem>
-                ))}
+                {Object.keys(sortables).map((currentSort: string, index: number) => {
+                    return (
+                        <HeaderItem key={currentSort} onPress={() => binding.onPressHeaderItem(currentSort)}>
+                            <HeaderText>
+                                {sortables[currentSort].title}
+                            </HeaderText>
+                            <FontAwesomeIcon 
+                                size={16}
+                                color={Styles.color.green} 
+                                icon={binding.chevronPointsDown(currentSort) ? faChevronDown : faChevronUp} 
+                            />
+                        </HeaderItem>
+                    )
+                })}
                 {postHeader}
             </Header>
             <Body isHorizontal={isHorizontal}>
