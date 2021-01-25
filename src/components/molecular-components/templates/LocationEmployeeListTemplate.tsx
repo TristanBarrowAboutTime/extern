@@ -4,8 +4,6 @@ import UserImage, { MapEmployeeStatus } from '../../atomic-components/UserImage'
 import styled from 'styled-components/native';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faGlobe } from '@fortawesome/free-solid-svg-icons';
-import Styles from '../../../style/Styles';
-import { Link } from 'react-router-dom';
 
 
 const Container = styled.View`

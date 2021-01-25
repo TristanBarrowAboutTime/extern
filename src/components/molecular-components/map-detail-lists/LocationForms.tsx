@@ -21,34 +21,70 @@ font-size:15px;
 
 `;
 
+const Title = styled.View`
+display:flex;
+flex-direction: row;
+justify-content:space-between;
+font-weight:400;
+padding:10px;
+`;
 const Time = styled.View`
 color: #525252;
 font-size:15px;
 
 `;
 
-type LocationFormProps = {
+export type LocationFormsRecord = {
     formlist: string;
     employee: string;
-    time: React.ReactNode;
+    time: string;
+}
+type LocationFormProps = {
+    locationFormsRecord: LocationFormsRecord[]
+    filterValue: string
 }
 
 const LocationForm = (props: LocationFormProps) => {
+    const value = props.filterValue.toLowerCase();
     return (
-        <Container>
-            <FormList>
-                {props.formlist}
-            </FormList>
+        <>
+                   <Title>
+                <div>
+                    Form Name
+                </div>
+                <div>
+                    Employee
+                </div>
+                <div>
+                    Synced Time
+                </div>
 
-            <Employee>
-                {props.employee}
-            </Employee>
-
-            <Time>
-                {props.time}
-            </Time>
-        </Container>
+            </Title>
+        {props.locationFormsRecord.map((item)  => {
+            if(item.formlist.toLowerCase().includes(value) ||
+            item.employee.toLowerCase().includes(value) ||
+            item.time.toLowerCase().includes(value)){
+                return (
+                    <Container>
+                        <FormList>
+                            {item.formlist}
+                        </FormList>
+            
+                        <Employee>
+                            {item.employee}
+                        </Employee>
+            
+                        <Time>
+                            {item.time}
+                        </Time>
+                    </Container>
+                )
+            }
+                
+        })}
+        </>
     )
+
 }
 
 export default LocationForm;

@@ -14,12 +14,9 @@ import { assetsData, data, discData, formData, locationData } from '../../../moc
 
 const Container = styled.View`
     display:flex;
-    width: 400;
+    width: 400px;
     border-color: '#ddd';
-    padding-left:20;
-    padding-right:20;
-    padding-top:20;
-    padding-bottom:20;
+    padding: 20px;
 `;
 const UserTitle = styled.Text`
     margin-left: 12px;
@@ -36,10 +33,10 @@ const EmployeeLabel = styled.View`
 `;
 
 const Link = styled.View`
-display:flex;
-flex-direction: row;
-justify-content:flex-end; 
-padding: 5px;
+    display:flex;
+    flex-direction: row;
+    justify-content:flex-end; 
+    padding: 5px;
 `;
 export enum EmployeeDetailsTabs {
     DISC = 'Discrepancies ',
@@ -51,9 +48,11 @@ export enum EmployeeDetailsTabs {
 
 type EmployeeDetailsProps = {
     searchValue: string
+    filterValue: string
 }
 
 const EmployeeDetails = (props: EmployeeDetailsProps) => {
+ 
     const tabs = useWithTabs({
         tabs: [
             EmployeeDetailsTabs.DISC,
@@ -85,7 +84,7 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                 list={
                     <>
                     <Link>
-                    Open link into the Time editor
+                    {/* Open link into the Time editor */}
                     <FontAwesomeIcon icon={faExternalLinkAlt} color={'gray'}/>
                        
                         </Link>
@@ -93,6 +92,7 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                             <>
                             <EmployeeDiscList
                             discRecords = {discData}
+                            filterValue = {props.filterValue}
                             />
                             </>
                         )}
@@ -100,22 +100,26 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                             <>
                             <EmployeeHistoryList
                                 timeRecords = {data}
+                                filterValue = {props.filterValue}
                             />
                             </>
                             )}
                         {tabs.selected === EmployeeDetailsTabs.LOCATION && (
                             <EmployeeLocationList
                             locationRecord = {locationData}
+                            filterValue = {props.filterValue}
                             />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.ASSETS && (
                             <EmployeeAssetsList
-                            assetsRecord = {assetsData}                             
+                            assetsRecord = {assetsData} 
+                            filterValue = {props.filterValue}                            
                             />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.FORMS && (
                             <EmployeeFormsList
                             formRecord = {formData}
+                            filterValue = {props.filterValue}
                             />
                         )}
                     </>

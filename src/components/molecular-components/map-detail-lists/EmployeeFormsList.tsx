@@ -26,16 +26,18 @@ const Time = styled.View`
 `;
 
 export type EmployeeFormsRecord = {
-    formlist: React.ReactNode
-    time: React.ReactNode
+    formlist: string
+    time: string
 }
 
 
 type EmployeeFormsListProps = {
     formRecord: EmployeeFormsRecord[]
+    filterValue: string
 }
 
 const EmployeeFormsList = (props: EmployeeFormsListProps) => {
+    const value = props.filterValue.toLowerCase();
     return (
         <>
             <Title>
@@ -48,18 +50,22 @@ const EmployeeFormsList = (props: EmployeeFormsListProps) => {
 
             </Title>
             {props.formRecord.map((item) => {
-                return (
-                    <Container>
-                        <FormList>
-                            {item.formlist}
-                        </FormList>
+                if(item.formlist.toLowerCase().includes(value) ||
+                item.time.toLowerCase().includes(value)) {
+                    return (
+                        <Container>
+                            <FormList>
+                                {item.formlist}
+                            </FormList>
+    
+                            <Time>
+                                {item.time}
+                            </Time>
+                        </Container>
+    
+                    )
+                }
 
-                        <Time>
-                            {item.time}
-                        </Time>
-                    </Container>
-
-                )
             })}
         </>
     )

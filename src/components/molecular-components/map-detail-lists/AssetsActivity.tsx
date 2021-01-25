@@ -5,11 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CardView = styled.View`
     width:auto;
-    padding-left:10;
-    padding-right:10;
-    padding-top:10;
-    padding-bottom:10;
-    margin-top:10;
+    padding: 10px;
     border-radius: 4px;
     box-shadow: 0 1px 4px #cccccc;
     shadow-color: grey;
@@ -25,21 +21,37 @@ const Employee = styled.View`
 font-weight:600;
 `;
 
-type AssetsActivityProps ={
-    employee: React.ReactNode
+export type AssetsActivityRecord = {
+    employee: string
     status:string
 }
 
+type AssetsActivityProps = {
+    assetsRecords: AssetsActivityRecord[]
+    filterValue: string
+}
+
 const AssetsActivity = (props: AssetsActivityProps) => {
-    return (
-        <CardView>
-            <Row>
-             <Employee>{props.employee}</Employee>
-             {props.status == 'assignment' ? <FontAwesomeIcon icon={faUser} color={'gray'} 
-             /> : <FontAwesomeIcon icon={faLocationArrow} color={'gray'}/> }
-            </Row>
-        </CardView>
-    )
+    const value = props.filterValue.toLowerCase();
+    return(
+        <>
+        {props.assetsRecords.map((item) => {
+            if(item.employee.toLowerCase().includes(value) ||
+            item.status.toLowerCase().includes(value)) {
+
+        return (
+            <CardView>
+                <Row>
+                 <Employee>{item.employee}</Employee>
+                 {item.status == 'assignment' ? <FontAwesomeIcon icon={faUser} color={'gray'} 
+                 /> : <FontAwesomeIcon icon={faLocationArrow} color={'gray'}/> }
+                </Row>
+            </CardView>
+        )
+    }
+})}
+</>
+)
 }
 
 export default AssetsActivity;

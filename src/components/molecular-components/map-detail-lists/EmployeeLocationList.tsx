@@ -3,10 +3,7 @@ import styled from 'styled-components/native';
 
 const CardView = styled.View`
     width:auto;
-    padding-left:10;
-    padding-right:10;
-    padding-top:10;
-    padding-bottom:10;
+    padding: 10px;
     margin-top:10;
     border-radius: 4px;
     box-shadow: 0 1px 4px #cccccc;
@@ -55,21 +52,29 @@ const ServiceArea = styled.View`
 `;
 
 export type EmployeeLocationRecord = {
-    inTime: React.ReactNode
-    outTime: React.ReactNode
-    companyArea: React.ReactNode
-    serviceArea: React.ReactNode
+    inTime: string
+    outTime: string
+    companyArea: string
+    serviceArea: string
 }
 
 type EmployeeLocationListProps = {
     locationRecord: EmployeeLocationRecord[]
+    filterValue: string
 }
 
 
 const EmployeeLocationList = (props: EmployeeLocationListProps) => {
+    const value = props.filterValue.toLowerCase();
+
     return(
         <>
         {props.locationRecord.map((item) => {
+            if(item.inTime.toString().toLowerCase().includes(value) ||
+            item.outTime.toString().toLowerCase().includes(value) ||
+            item.serviceArea.toString().toLowerCase().includes(value) || 
+            item.companyArea.toString().toLowerCase().includes(value)) {
+
              return (
 
                 <CardView>
@@ -92,6 +97,7 @@ const EmployeeLocationList = (props: EmployeeLocationListProps) => {
                 </CardView>
         
             )
+             }
         })}
         
         </>

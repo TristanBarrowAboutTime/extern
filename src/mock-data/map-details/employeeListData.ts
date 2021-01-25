@@ -68,9 +68,9 @@ export const locationData: EmployeeLocationRecord[] = [
     },
     {
         inTime:'8:05am',
-        outTime:'11:56am',
-        companyArea:'00006709 UFA Co-operative Limited',
-        serviceArea:'100300.00 Full Service'
+        outTime:'5:56pm',
+        companyArea:'00006819 UFA Co-operative Limited',
+        serviceArea:'100300.00 Service'
     },
     {
         inTime:'8:05am',

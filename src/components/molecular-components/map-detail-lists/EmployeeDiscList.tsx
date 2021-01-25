@@ -6,10 +6,7 @@ import Styles from '../../../style/Styles';
 
 const CardView = styled.View`
     width:auto;
-    padding-left:10;
-    padding-right:10;
-    padding-top:10;
-    padding-bottom:10;
+    padding: 10px;
     margin-top:10;
     border-radius: 4px;
     box-shadow: 0 1px 4px #cccccc;
@@ -70,37 +67,45 @@ export type EmployeeDiscRecord = {
 
 type EmployeeDiscListProps = {
     discRecords: EmployeeDiscRecord[]
+    filterValue: string
 }
 
 const EmployeeDiscList = (props: EmployeeDiscListProps) => {
+    const value = props.filterValue.toLowerCase();
     return(
         <>
          {props.discRecords.map((item) => {
-        return (
-            <CardView>
-         
-                <CompanyArea>
-                    {item.company}           
-    
-                <Time isClockedIn={true} >  
-                    {item.time}
-                </Time>
-               
-                </CompanyArea>
+             if(item.company.toLowerCase().includes(value) ||
+             item.time.toLowerCase().includes(value) ||
+             item.distance.toLowerCase().includes(value) ||
+             item.text.toLowerCase().includes(value)) {
+                return (
+                    <CardView>
+                 
+                        <CompanyArea>
+                            {item.company}           
             
-                <Distance>
-                    {item.distance}
-                </Distance>
-    
-                <Notes>
-                    {item.notes}
-                </Notes>
-                <Text>
-                    {item.text}
-                </Text>
-            </CardView>
-    
-        )
+                        <Time isClockedIn={true} >  
+                            {item.time}
+                        </Time>
+                       
+                        </CompanyArea>
+                    
+                        <Distance>
+                            {item.distance}
+                        </Distance>
+            
+                        <Notes>
+                            {item.notes}
+                        </Notes>
+                        <Text>
+                            {item.text}
+                        </Text>
+                    </CardView>
+            
+                )
+             }
+        
             })}
 </>
     )
