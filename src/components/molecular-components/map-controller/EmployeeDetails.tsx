@@ -52,7 +52,7 @@ type EmployeeDetailsProps = {
 }
 
 const EmployeeDetails = (props: EmployeeDetailsProps) => {
- 
+
     const tabs = useWithTabs({
         tabs: [
             EmployeeDetailsTabs.DISC,
@@ -76,50 +76,50 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                             status={MapEmployeeStatus.CLOCKED_IN}
                         />
                         <UserTitle>
-                        1002 Joseph Carrigan
+                            1002 Joseph Carrigan
                       </UserTitle>
                     </EmployeeLabel>
                 }
                 tabs={<Tabs {...tabs.tabsBinding} />}
                 list={
                     <>
-                    <Link>
-                    {/* Open link into the Time editor */}
-                    <FontAwesomeIcon icon={faExternalLinkAlt} color={'gray'}/>
-                       
+                        <Link>
+                            {/* Open link into the Time editor */}
+                            <FontAwesomeIcon icon={faExternalLinkAlt} color={'gray'} />
+
                         </Link>
                         {tabs.selected === EmployeeDetailsTabs.DISC && (
                             <>
-                            <EmployeeDiscList
-                            discRecords = {discData}
-                            filterValue = {props.filterValue}
-                            />
+                                <EmployeeDiscList
+                                    discRecords={discData}
+                                    filterValue={props.filterValue}
+                                />
                             </>
                         )}
                         {tabs.selected === EmployeeDetailsTabs.HISTORY && (
                             <>
-                            <EmployeeHistoryList
-                                timeRecords = {data}
-                                filterValue = {props.filterValue}
-                            />
+                                <EmployeeHistoryList
+                                    timeRecords={data}
+                                    filterValue={props.filterValue}
+                                />
                             </>
-                            )}
+                        )}
                         {tabs.selected === EmployeeDetailsTabs.LOCATION && (
                             <EmployeeLocationList
-                            locationRecord = {locationData}
-                            filterValue = {props.filterValue}
+                                locationRecord={locationData}
+                                filterValue={props.filterValue}
                             />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.ASSETS && (
                             <EmployeeAssetsList
-                            assetsRecord = {assetsData} 
-                            filterValue = {props.filterValue}                            
+                                assetsRecord={assetsData}
+                                filterValue={props.filterValue}
                             />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.FORMS && (
                             <EmployeeFormsList
-                            formRecord = {formData}
-                            filterValue = {props.filterValue}
+                                formRecord={formData}
+                                filterValue={props.filterValue}
                             />
                         )}
                     </>

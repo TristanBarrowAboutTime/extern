@@ -1,6 +1,6 @@
 import { MapEmployeeStatus } from "../../components/atomic-components/UserImage";
 import { LocationAssetsRecord } from "../../components/molecular-components/map-detail-lists/LocationAssets";
-import { LocationEmployeeRecord } from "../../components/molecular-components/map-detail-lists/LocationEmployee" ;
+import { LocationEmployeeRecord } from "../../components/molecular-components/map-detail-lists/LocationEmployee";
 import { LocationFormsRecord } from "../../components/molecular-components/map-detail-lists/LocationForms";
 
 
@@ -23,26 +23,26 @@ export const locationAssetsData: LocationAssetsRecord[] = [
 ]
 
 export const locationEmployeeData: LocationEmployeeRecord[] = [
-    
-        {
-            code: 1,
-            firstName: 'Roshni',
-            lastName: "Raval",
-            status:MapEmployeeStatus.CLOCKED_IN,
-            time: '8 hrs',
-            address: 'Payson, Utah',
-            image: ''
-        },
-        {
-            code: 2,
-            firstName: 'Scott',
-            lastName: "Jenkens",
-            status: MapEmployeeStatus.CLOCKED_OUT,
-            time: '8 hrs',
-            address: '120459 Salt Lake City Water',
-            image: ''
-        },
-    ]
+
+    {
+        code: 1,
+        firstName: 'Roshni',
+        lastName: "Raval",
+        status: MapEmployeeStatus.CLOCKED_IN,
+        time: '8 hrs',
+        address: 'Payson, Utah',
+        image: ''
+    },
+    {
+        code: 2,
+        firstName: 'Scott',
+        lastName: "Jenkens",
+        status: MapEmployeeStatus.CLOCKED_OUT,
+        time: '8 hrs',
+        address: '120459 Salt Lake City Water',
+        image: ''
+    },
+]
 export const locationFormsData: LocationFormsRecord[] = [
     {
 
@@ -50,5 +50,5 @@ export const locationFormsData: LocationFormsRecord[] = [
         employee: 'Joseph Carrigan',
         time: '1:11pm'
     },
-    
+
 ]

@@ -70,7 +70,7 @@ type LocationDetailsProps = {
     filterValue: string
 }
 
-const LocationDetails = (props:LocationDetailsProps) => {
+const LocationDetails = (props: LocationDetailsProps) => {
     const tabs = useWithTabs({
         tabs: [
             LocationDetailsTabs.EMPLOYEES,
@@ -86,56 +86,56 @@ const LocationDetails = (props:LocationDetailsProps) => {
             <MapDetailsFrame
                 subjectContainer={
                     <LocationLabel>
-                      <LocationIcon
-                      first={'Erda'}
-                      last={'Water'}
-                      color={'#9B3E38'}
-                      size={45}
-                      />
-                      <Column>
-                      <LocationTitle>
-                        1345 Erda Water
+                        <LocationIcon
+                            first={'Erda'}
+                            last={'Water'}
+                            color={'#9B3E38'}
+                            size={45}
+                        />
+                        <Column>
+                            <LocationTitle>
+                                1345 Erda Water
                       </LocationTitle>
-                                         
-                      <SubTitle>
-                      8740 UT-36, Lake Point, UT 84074
+
+                            <SubTitle>
+                                8740 UT-36, Lake Point, UT 84074
                     </SubTitle>
-                    </Column>
+                        </Column>
                     </LocationLabel>
                 }
                 tabs={<Tabs {...tabs.tabsBinding} />}
                 list={
                     <>
                         {tabs.selected === LocationDetailsTabs.EMPLOYEES && (
-                   
-                        <LocationEmployee
-                        locationEmployeeRecord = {locationEmployeeData}     
-                         filterValue = {props.filterValue}
-                        />                                  
-                         
+
+                            <LocationEmployee
+                                locationEmployeeRecord={locationEmployeeData}
+                                filterValue={props.filterValue}
+                            />
+
                         )}
                         {tabs.selected === LocationDetailsTabs.ASSETS && (
                             <>
-                            <LocationAssets   
-                            locationAssetsRecord ={locationAssetsData}  
-                            filterValue = {props.filterValue}                    
-                            />
+                                <LocationAssets
+                                    locationAssetsRecord={locationAssetsData}
+                                    filterValue={props.filterValue}
+                                />
                             </>
                         )}
                         {tabs.selected === LocationDetailsTabs.FORMS && (
                             <LocationForm
-                                locationFormsRecord = {locationFormsData}
-                                filterValue = {props.filterValue}
+                                locationFormsRecord={locationFormsData}
+                                filterValue={props.filterValue}
                             />
-                            
+
                         )}
                     </>
                 }
                 goToNext={() => console.log('Next')}
                 goToPrev={() => console.log('Prev')}
                 back={() => console.log('back')}
-                />
-                    </Container>
+            />
+        </Container>
     )
 }
 

@@ -26,12 +26,12 @@ const CompanyArea = styled.Text`
     
 `;
 
-type TimeStyle ={
+type TimeStyle = {
     isClockedIn: boolean
 }
 
 const Time = styled.Text`
-    color: ${(props:TimeStyle) => props.isClockedIn ? '#79A949' : '#9B3E38'};
+    color: ${(props: TimeStyle) => props.isClockedIn ? '#79A949' : '#9B3E38'};
    
 `;
 
@@ -62,7 +62,7 @@ export type EmployeeDiscRecord = {
     time: string
     distance: string
     notes: string
-    text:string
+    text: string
 }
 
 type EmployeeDiscListProps = {
@@ -72,42 +72,42 @@ type EmployeeDiscListProps = {
 
 const EmployeeDiscList = (props: EmployeeDiscListProps) => {
     const value = props.filterValue.toLowerCase();
-    return(
+    return (
         <>
-         {props.discRecords.map((item) => {
-             if(item.company.toLowerCase().includes(value) ||
-             item.time.toLowerCase().includes(value) ||
-             item.distance.toLowerCase().includes(value) ||
-             item.text.toLowerCase().includes(value)) {
-                return (
-                    <CardView>
-                 
-                        <CompanyArea>
-                            {item.company}           
-            
-                        <Time isClockedIn={true} >  
-                            {item.time}
-                        </Time>
-                       
-                        </CompanyArea>
-                    
-                        <Distance>
-                            {item.distance}
-                        </Distance>
-            
-                        <Notes>
-                            {item.notes}
-                        </Notes>
-                        <Text>
-                            {item.text}
-                        </Text>
-                    </CardView>
-            
-                )
-             }
-        
+            {props.discRecords.map((item) => {
+                if (item.company.toLowerCase().includes(value) ||
+                    item.time.toLowerCase().includes(value) ||
+                    item.distance.toLowerCase().includes(value) ||
+                    item.text.toLowerCase().includes(value)) {
+                    return (
+                        <CardView>
+
+                            <CompanyArea>
+                                {item.company}
+
+                                <Time isClockedIn={true} >
+                                    {item.time}
+                                </Time>
+
+                            </CompanyArea>
+
+                            <Distance>
+                                {item.distance}
+                            </Distance>
+
+                            <Notes>
+                                {item.notes}
+                            </Notes>
+                            <Text>
+                                {item.text}
+                            </Text>
+                        </CardView>
+
+                    )
+                }
+
             })}
-</>
+        </>
     )
 }
 

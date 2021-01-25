@@ -18,36 +18,6 @@ const Employee = styled.View`
 const Site = styled.View`
 `;
 
-// const data: LocationEmployeeType[] = [
-    // {
-    //     code: 1,
-    //     firstName: 'Roshni',
-    //     lastName: "Raval",
-    //     status: MapEmployeeStatus.CLOCKED_IN,
-    //     time: '8 hrs',
-    //     address: 'Payson, Utah',
-    //     image: ''
-    // },
-    // {
-    //     code: 2,
-    //     firstName: 'Scott',
-    //     lastName: "Jenkens",
-    //     status: MapEmployeeStatus.CLOCKED_OUT,
-    //     time: '8 hrs',
-    //     address: '120459 Salt Lake City Water',
-    //     image: ''
-    // }
-// ]
-// type LocationEmployeeType = {
-//     code: number
-//     firstName: string
-//     lastName: string
-//     status: MapEmployeeStatus
-//     time: string
-//     address: string
-//     image: string
-// }
-
 export type LocationEmployeeRecord = {
     code: number
     firstName: string
@@ -65,7 +35,7 @@ type LocationEmployeeProps = {
 
 const LocationEmployee = (props: LocationEmployeeProps) => {
     const value = props.filterValue.toLowerCase();
-    return(
+    return (
         <>
             <SortableList
                 data={locationEmployeeData}
@@ -84,27 +54,27 @@ const LocationEmployee = (props: LocationEmployeeProps) => {
 
                 }}
                 shouldDisplayItem={(item: LocationEmployeeRecord) => true}
-            /> 
-        {props.locationEmployeeRecord.map((item) => {
-            if(item.firstName.toLowerCase().includes(value) ||
-            item.lastName.toLowerCase().includes(value) ||
-            item.address.toLowerCase().includes(value)) {
-                return (
-                    <Container>
-                        <Employee>
-                            {item.firstName}{item.lastName}
-                        </Employee>
-                        <Site>
-                            {item.address}
-                        </Site>
-            
-                    </Container>
-                )
-            }     
-               })}
+            />
+            {props.locationEmployeeRecord.map((item) => {
+                if (item.firstName.toLowerCase().includes(value) ||
+                    item.lastName.toLowerCase().includes(value) ||
+                    item.address.toLowerCase().includes(value)) {
+                    return (
+                        <Container>
+                            <Employee>
+                                {item.firstName}{item.lastName}
+                            </Employee>
+                            <Site>
+                                {item.address}
+                            </Site>
+
+                        </Container>
+                    )
+                }
+            })}
         </>
     )
-    
+
 }
 
 export default LocationEmployee;
