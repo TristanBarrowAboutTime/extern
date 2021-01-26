@@ -3,11 +3,11 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 
 const Container = styled.View`
-    display:flex;
-    flex-direction:row;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding-bottom:10px;
+    padding-bottom: 10px;
 
 `;
 type TimeStyle = {
@@ -15,19 +15,19 @@ type TimeStyle = {
 }
 
 const Time = styled.Text`
-color: ${(props: TimeStyle) => props.isClockedIn ? '#79A949' : '#9B3E38'};
- font-weight:600;
+    color: ${(props: TimeStyle) => props.isClockedIn ? '#79A949' : '#9B3E38'};
+    font-weight:600;
 `;
 
 const CoordinatesArea = styled.View`
-display:flex;
-flex-direction:row;
-justify-content:space-between;
-text-align:left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
 `;
 
 const CoordinatesLat = styled.View`
-margin-right:10px;
+    margin-right:10px;
 `;
 
 const CoordinatesLong = styled.View`
@@ -35,18 +35,19 @@ const CoordinatesLong = styled.View`
 `;
 
 const Title = styled.Text`
-display:flex;
-flex-direction: row;
-justify-content:space-between;
-font-weight:600;
-padding:10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 600;
+    padding: 10px;
 `;
 
 const Accuracy = styled.Text`
-display:flex;
-justify-content:left;
-align-items:stretch;
-text-align:left;
+    display: flex;
+    justify-content: left;
+    align-items: stretch;
+    text-align: left;
+    
 `;
 
 export type EmployeeHistoryTimeRecord = {
@@ -81,10 +82,11 @@ const EmployeeHistoryList = (props: EmployeeHistoryListProps) => {
                 </div>
             </Title>
             {props.timeRecords.map((item) => {
-                if(item.time.toLowerCase().includes(value) ||   
-                item.coordinates.lat.toString().includes(value) ||
-                item.coordinates.long.toString().includes(value) || 
-                item.accuracy.toLowerCase().includes(value)) {
+                if (item.time.toLowerCase().includes(value) ||   
+                    item.coordinates.lat.toString().includes(value) ||
+                    item.coordinates.long.toString().includes(value) || 
+                    item.accuracy.toLowerCase().includes(value)) 
+                {
                     return (
                         <Container>
                             <Time isClockedIn={item.isClockedIn}>
@@ -104,9 +106,7 @@ const EmployeeHistoryList = (props: EmployeeHistoryListProps) => {
                         </Container>
                     )
                 }
-               
             })}
-
         </>
     )
 }

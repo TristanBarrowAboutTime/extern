@@ -2,23 +2,18 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import Tabs, { useWithTabs } from '../../molecular-components/Tabs';
 import MapDetailsFrame from '../../frames/MapDetailsFrame';
-import LocationAssets from '../map-detail-lists/LocationAssets';
-import LocationEmployee from '../map-detail-lists/LocationEmployee';
-import LocationForm from '../map-detail-lists/LocationForms';
-import SortableList from '../../frames/SortableList';
-import LocationEmployeeListTemplate from '../templates/LocationEmployeeListTemplate';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import LocationAssets from '../../molecular-components/map-detail-lists/LocationAssets';
+import LocationEmployee from '../../molecular-components/map-detail-lists/LocationEmployee';
+import LocationForm from '../../molecular-components/map-detail-lists/LocationForms';
 import LocationIcon from '../../atomic-components/LocationIcon';
-
 import { locationAssetsData, locationEmployeeData, locationFormsData } from '../../../mock-data/map-details/locationListData';
-
+import { MapControllerActions } from '../../../pages/MapsPage';
 
 enum MapEmployeeStatus {
     CLOCKED_IN,
     CLOCKED_OUT,
     UNKNOWN
 }
-
 
 const Container = styled.View`
     display:flex;
@@ -67,19 +62,15 @@ export enum LocationDetailsTabs {
 
 type LocationDetailsProps = {
     searchValue: string
-    filterValue: string
+    tabs: {
+        tabsBinding: any // any because of binding
+        selected: string
+    }
+    actions: MapControllerActions
 }
 
 const LocationDetails = (props: LocationDetailsProps) => {
-    const tabs = useWithTabs({
-        tabs: [
-            LocationDetailsTabs.EMPLOYEES,
-            LocationDetailsTabs.ASSETS,
-            LocationDetailsTabs.FORMS
-        ],
-        selected: LocationDetailsTabs.EMPLOYEES
-
-    })
+    const { searchValue, tabs, actions } = props;
 
     return (
         <Container>
@@ -107,36 +98,43 @@ const LocationDetails = (props: LocationDetailsProps) => {
                 list={
                     <>
                         {tabs.selected === LocationDetailsTabs.EMPLOYEES && (
-
                             <LocationEmployee
                                 locationEmployeeRecord={locationEmployeeData}
-                                filterValue={props.filterValue}
+                                filterValue={props.searchValue}
                             />
-
                         )}
                         {tabs.selected === LocationDetailsTabs.ASSETS && (
-                            <>
-                                <LocationAssets
-                                    locationAssetsRecord={locationAssetsData}
-                                    filterValue={props.filterValue}
-                                />
-                            </>
+                            <LocationAssets
+                                locationAssetsRecord={locationAssetsData}
+                                filterValue={props.searchValue}
+                            />
                         )}
                         {tabs.selected === LocationDetailsTabs.FORMS && (
                             <LocationForm
                                 locationFormsRecord={locationFormsData}
-                                filterValue={props.filterValue}
+                                filterValue={props.searchValue}
                             />
 
                         )}
                     </>
                 }
-                goToNext={() => console.log('Next')}
-                goToPrev={() => console.log('Prev')}
-                back={() => console.log('back')}
+                actions={props.actions}
             />
         </Container>
     )
+}
+
+export const useWithLocationDetails = () => {
+    const tabs = useWithTabs({
+        tabs: [
+            LocationDetailsTabs.EMPLOYEES,
+            LocationDetailsTabs.ASSETS,
+            LocationDetailsTabs.FORMS
+        ],
+        selected: LocationDetailsTabs.EMPLOYEES
+    });
+
+    return tabs;
 }
 
 export default LocationDetails;

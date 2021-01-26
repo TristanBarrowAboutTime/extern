@@ -81,43 +81,42 @@ const LocationAssets = (props: LocationAssetsProps) => {
     const value = props.filterValue.toLowerCase();
     return (
         <>
-        {props.locationAssetsRecord.map((item) => {
-            if(item.assets.toLowerCase().includes(value) ||
-            item.employee.toLowerCase().includes(value) ||
-            item.service.toLowerCase().includes(value) ||
-            item.activity.toLowerCase().includes(value))
- 
-        return (
-            <div>
-                <CardView>
-                    <AssetsName>
-                        {item.assets}
-                    </AssetsName>
-                    <Employee>
-                        {item.employee}
-                    </Employee>
-                    <ServiceType>
-                        {item.service}
-                    </ServiceType>
-                    <Time>
-                        {item.time}
-                    </Time>
-                    <Activity>
-                        {item.activity}
-                        <FontAwesomeIcon icon={faUser} color={'gray'} />
-                    </Activity>
-               
-                    <Assigned>
-    {/* last activity here */}
-                    </Assigned>
-    
-                </CardView>
-            </div>
-        )
-    })}
-    </>
-    )
-   
+            {props.locationAssetsRecord.map((item) => {
+                if (item.assets.toLowerCase().includes(value) ||
+                    item.employee.toLowerCase().includes(value) ||
+                    item.service.toLowerCase().includes(value) ||
+                    item.activity.toLowerCase().includes(value))
+                {
+                    return (
+                        <div>
+                            <CardView>
+                                <AssetsName>
+                                    {item.assets}
+                                </AssetsName>
+                                <Employee>
+                                    {item.employee}
+                                </Employee>
+                                <ServiceType>
+                                    {item.service}
+                                </ServiceType>
+                                <Time>
+                                    {item.time}
+                                </Time>
+                                <Activity>
+                                    {item.activity}
+                                    <FontAwesomeIcon icon={faUser} color={'gray'} />
+                                </Activity>
+                        
+                                <Assigned>
+                                    {/* last activity here */}
+                                </Assigned>
+                            </CardView>
+                        </div>
+                    )
+                }
+            })}
+        </>
+    );
 }
 
 export default LocationAssets;

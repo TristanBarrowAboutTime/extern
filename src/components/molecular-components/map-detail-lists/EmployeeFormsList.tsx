@@ -3,23 +3,23 @@ import styled from 'styled-components/native';
 
 
 const Container = styled.View`
-    display:flex;
-    flex-direction:row;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding-bottom:10px;
+    padding-bottom: 10px;
 `;
+
 const Title = styled.View`
-display:flex;
-flex-direction: row;
-justify-content:space-between;
-font-weight:400;
-padding:10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 400;
+    padding: 10px;
 `;
 
 const FormList = styled.View`
-color: #79A949;
-
+    color: #79A949;
 `;
 
 const Time = styled.View`
@@ -43,15 +43,15 @@ const EmployeeFormsList = (props: EmployeeFormsListProps) => {
             <Title>
                 <div>
                     Form Name
-            </div>
+                </div>
                 <div>
                     Synced Time
-            </div>
-
+                </div>
             </Title>
             {props.formRecord.map((item) => {
-                if(item.formlist.toLowerCase().includes(value) ||
-                item.time.toLowerCase().includes(value)) {
+                if (item.formlist.toLowerCase().includes(value) ||
+                    item.time.toLowerCase().includes(value)) 
+                {
                     return (
                         <Container>
                             <FormList>
@@ -62,10 +62,8 @@ const EmployeeFormsList = (props: EmployeeFormsListProps) => {
                                 {item.time}
                             </Time>
                         </Container>
-    
                     )
                 }
-
             })}
         </>
     )

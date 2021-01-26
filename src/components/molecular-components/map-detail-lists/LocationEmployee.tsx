@@ -6,8 +6,8 @@ import { MapEmployeeStatus } from '../../atomic-components/UserImage';
 import { locationEmployeeData } from '../../../mock-data/map-details/locationListData';
 
 const Container = styled.View`
-    display:flex;
-    width: 400;
+    display: flex;
+    width: 400px;
     border-color: '#ddd';
     padding: 20px;
 `;
@@ -44,14 +44,13 @@ const LocationEmployee = (props: LocationEmployeeProps) => {
                         <LocationEmployeeListTemplate
                             employee={employee}
                         />
-                    )
+                    );
                 }}
                 sortables={{
                     code: { title: 'Code', sort: (a: LocationEmployeeRecord, b: LocationEmployeeRecord) => (a.code > b.code ? -1 : 1) },
                     firstName: { title: 'First', sort: (a: LocationEmployeeRecord, b: LocationEmployeeRecord) => (a.firstName > b.firstName ? -1 : 1) },
                     lastName: { title: 'Last', sort: (a: LocationEmployeeRecord, b: LocationEmployeeRecord) => (a.lastName > b.lastName ? -1 : 1) },
-                    siteStatus: { title: 'Site Status', sort: (a: LocationEmployeeRecord, b: LocationEmployeeRecord) => (a.status > b.status ? -1 : 1) },
-
+                    status: { title: 'Site Status', sort: (a: LocationEmployeeRecord, b: LocationEmployeeRecord) => (a.status > b.status ? -1 : 1) },
                 }}
                 shouldDisplayItem={(item: LocationEmployeeRecord) => true}
             />

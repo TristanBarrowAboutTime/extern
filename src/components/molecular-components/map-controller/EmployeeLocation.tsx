@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import styled from 'styled-components/native';
 import SortableList from '../../frames/SortableList';
 import { employeeLocationData } from '../../../mock-data/locationMapData';
-import EmployeeLocationTemplate from '../../cellular-components/map-list/EmployeeLocationTemplate';
+import EmployeeLocationTemplate from '../templates/EmployeeLocationTemplate';
 import { EmployeeLocationType } from '../../../types/EmployeeLocationType';
 
 const ContainerView = styled.View`

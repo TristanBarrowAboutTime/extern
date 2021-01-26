@@ -11,6 +11,7 @@ import EmployeeFormsList from '../../molecular-components/map-detail-lists/Emplo
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { assetsData, data, discData, formData, locationData } from '../../../mock-data/map-details/employeeListData';
+import { MapControllerActions } from '../../../pages/MapsPage';
 
 const Container = styled.View`
     display:flex;
@@ -58,7 +59,7 @@ type EmployeeDetailsProps = {
 }
 
 const EmployeeDetails = (props: EmployeeDetailsProps) => {
-    const { tabs, actions } = props;
+    const { tabs, actions, searchValue } = props;
     return (
         <Container>
             <MapDetailsFrame
@@ -74,49 +75,40 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                         />
                         <UserTitle>
                             1002 Joseph Carrigan
-                      </UserTitle>
+                        </UserTitle>
                     </EmployeeLabel>
                 }
                 tabs={<Tabs {...tabs.tabsBinding} />}
                 list={
                     <>
-                        <Link>
-                            {/* Open link into the Time editor */}
-                            <FontAwesomeIcon icon={faExternalLinkAlt} color={'gray'} />
-
-                        </Link>
                         {tabs.selected === EmployeeDetailsTabs.DISC && (
-                            <>
-                                <EmployeeDiscList
-                                    discRecords={discData}
-                                    filterValue={props.filterValue}
-                                />
-                            </>
+                            <EmployeeDiscList
+                                discRecords={discData}
+                                filterValue={searchValue}
+                            />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.HISTORY && (
-                            <>
-                                <EmployeeHistoryList
-                                    timeRecords={data}
-                                    filterValue={props.filterValue}
-                                />
-                            </>
+                            <EmployeeHistoryList
+                                timeRecords={data}
+                                filterValue={searchValue}
+                            />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.LOCATION && (
                             <EmployeeLocationList
                                 locationRecord={locationData}
-                                filterValue={props.filterValue}
+                                filterValue={searchValue}
                             />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.ASSETS && (
                             <EmployeeAssetsList
                                 assetsRecord={assetsData}
-                                filterValue={props.filterValue}
+                                filterValue={searchValue}
                             />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.FORMS && (
                             <EmployeeFormsList
                                 formRecord={formData}
-                                filterValue={props.filterValue}
+                                filterValue={searchValue}
                             />
                         )}
                     </>
@@ -137,7 +129,8 @@ export const useWithEmployeeDetails = () => {
             EmployeeDetailsTabs.FORMS
         ],
         selected: EmployeeDetailsTabs.DISC
-    })
+    });
+
     return tabs; // employee tabs
 }
 

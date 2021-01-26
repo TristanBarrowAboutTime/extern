@@ -3,14 +3,14 @@ import { useWithSearchBar } from '../hooks/component-hooks/atomic-components/use
 import Tabs, { useWithTabs } from '../components/molecular-components/Tabs';
 import styled from 'styled-components/native';
 import { MapTabs } from '../types/MapTabs';
-import Map, { useWithMap } from '../components/cellular-components/map/Map';
+import { useWithMap } from '../components/cellular-components/map/Map';
 import SearchBar from '../components/atomic-components/SearchBar';
-import { useWithEmployeeDetails } from '../components/cellular-components/map-list/EmployeeDetails';
-import { useWithLocationDetails } from '../components/cellular-components/map-list/LocationDetails';
-import { useWithAssetDetails } from '../components/cellular-components/map-list/AssetsDetails';
-import MapsEmployees from '../components/cellular-components/map-list/MapsEmployees';
-import MapsLocations from '../components/cellular-components/map-list/MapsLocations';
-import MapsAssets from '../components/cellular-components/map-list/MapsAssets';
+import { useWithEmployeeDetails } from '../components/cellular-components/map-controller/EmployeeDetails';
+import { useWithLocationDetails } from '../components/cellular-components/map-controller/LocationDetails';
+import { useWithAssetDetails } from '../components/cellular-components/map-controller/AssetsDetails';
+import MapsEmployees from '../components/cellular-components/map-controller/MapsEmployees';
+import MapsLocations from '../components/cellular-components/map-controller/MapsLocations';
+import MapsAssets from '../components/cellular-components/map-controller/MapsAssets';
 
 const Container = styled.View`
     display: flex;

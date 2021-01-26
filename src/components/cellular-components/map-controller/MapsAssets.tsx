@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { employeeListData } from '../../../mock-data/employeeMapData';
 import SortableList from '../../frames/SortableList';
 import styled from 'styled-components/native';
 import AssetsDetails from './AssetsDetails';
@@ -32,6 +31,7 @@ const MapsAssets = (props: MapAssetsProps) => {
             ) : (
                 <SortableList
                     data={[]}
+                    
                     template={(employee: any) => 
                         <TouchableOpacity onPress={props.actions.goToDetails}>
                             <div>Asset Template</div>

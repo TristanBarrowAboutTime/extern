@@ -23,7 +23,6 @@ type MapsLocationsProps = {
 }
 
 const MapsLocations = (props: MapsLocationsProps) => {
-    console.log('hi')
     return (
         <Container>
             {props.isShowingDetails ? (

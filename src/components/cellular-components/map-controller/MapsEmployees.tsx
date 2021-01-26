@@ -34,6 +34,7 @@ const MapsEmployees = (props: MapsEmployeesProps) => {
             ) : (
                 <SortableList
                     data={employeeListData}
+                    spacingArray={[56]}
                     template={(employee: ListEmployee) => 
                         <TouchableOpacity onPress={props.actions.goToDetails}>
                             <MapEmployeeListTemplate employee={employee} />

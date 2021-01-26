@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import styled from 'styled-components/native';
 import Styles from '../../style/Styles';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { divIcon } from 'leaflet';
 
 const Header = styled.View`
     display: flex;
@@ -47,36 +48,43 @@ type ListProps<T> = {
     template: (item: T) => React.ReactNode
 }
 
-const List = <T extends unknown>({
+const SortableList = <T extends unknown>({
     data,
     sortables,
     isHorizontal = false,
-    preHeader = null,
-    postHeader = null,
+    preHeader,
+    postHeader,
     spacingArray = null, 
     shouldDisplayItem,
     template,
 }: ListProps<T>) => {
-    const binding = useSortableList({data, sortables});
+    const binding = useSortableList({data, sortables, spacingArray});
+    console.log(postHeader)
+
 
     return (
         <View>
             <Header>
+                <div style={{width: binding.spaces[0]}} />
                 {preHeader}
                 {Object.keys(sortables).map((currentSort: string, index: number) => {
                     return (
-                        <HeaderItem key={currentSort} onPress={() => binding.onPressHeaderItem(currentSort)}>
-                            <HeaderText>
-                                {sortables[currentSort].title}
-                            </HeaderText>
-                            <FontAwesomeIcon 
-                                size={16}
-                                color={Styles.color.green} 
-                                icon={binding.chevronPointsDown(currentSort) ? faChevronDown : faChevronUp} 
-                            />
-                        </HeaderItem>
+                        <>
+                            <div style={{width: binding.spaces[index+1]}} />
+                            <HeaderItem key={currentSort} onPress={() => binding.onPressHeaderItem(currentSort)}>
+                                <HeaderText>
+                                    {sortables[currentSort].title}
+                                </HeaderText>
+                                <FontAwesomeIcon 
+                                    size={16}
+                                    color={Styles.color.green} 
+                                    icon={binding.chevronPointsDown(currentSort) ? faChevronDown : faChevronUp} 
+                                />
+                            </HeaderItem>
+                        </>
                     )
                 })}
+                <div style={{ width: binding.spaces[binding.spaces.length - 1]}} />
                 {postHeader}
             </Header>
             <Body isHorizontal={isHorizontal}>
@@ -91,6 +99,7 @@ const List = <T extends unknown>({
 type UseSortableListArgs<T> = {
     data: T[]
     sortables: Sortables
+    spacingArray: number[] | null
 }
 
 // Sorting could be done with flex value which would keep profile images from being re-requested.
@@ -124,12 +133,32 @@ const useSortableList = <T extends unknown>(args: UseSortableListArgs<T>) => {
         }
         return chevronIsDown;
     }
+
+    const spaces = React.useMemo(() => {
+        let tmpSpaces = new Array(Object.keys(args.sortables).length + 2).fill(0);
+        if (args.spacingArray !== null) {
+            tmpSpaces = tmpSpaces.map((x, index) => {
+                if (args.spacingArray![index] !== undefined) {
+                    return args.spacingArray![index];
+                } else {
+                    return x; 
+                }
+            }); 
+        }
+        console.log(tmpSpaces);
+        return tmpSpaces;
+    }, [args.sortables, args.spacingArray]);
+
+
+
+
     return {
         orderedData,
         activeSort,
         onPressHeaderItem,
-        chevronPointsDown
+        chevronPointsDown,
+        spaces,
     }
 }
 
-export default List;
+export default SortableList;

@@ -78,7 +78,8 @@ const EmployeeDiscList = (props: EmployeeDiscListProps) => {
                 if (item.company.toLowerCase().includes(value) ||
                     item.time.toLowerCase().includes(value) ||
                     item.distance.toLowerCase().includes(value) ||
-                    item.text.toLowerCase().includes(value)) {
+                    item.text.toLowerCase().includes(value)) 
+                {
                     return (
                         <CardView>
 

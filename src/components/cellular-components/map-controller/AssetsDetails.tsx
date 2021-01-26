@@ -35,7 +35,7 @@ type AssetsDetailsProps = {
 }
 
 const AssetsDetails = (props: AssetsDetailsProps) => {
-    const { tabs, actions } = props; 
+    const { tabs, actions, searchValue } = props; 
     return (
         <Container>
             <MapDetailsFrame
@@ -57,16 +57,10 @@ const AssetsDetails = (props: AssetsDetailsProps) => {
                 list={
                     <>
                         {tabs.selected === AssetsDetailsTabs.ACTIVITY && (
-                            <>
-                                <AssetsActivity
-                                    status= {'assignment'}
-                                    employee ={'1345 Erda Water'}
-                                />
-                                <AssetsActivity
-                                    status= {'time record'}
-                                    employee ={'1005 Payson Utah'}
-                                />
-                            </>
+                            <AssetsActivity
+                                assetsRecords={[]}
+                                filterValue={searchValue} 
+                            />
                         )}
                     </>
                 }

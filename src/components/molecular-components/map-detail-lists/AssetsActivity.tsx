@@ -33,25 +33,25 @@ type AssetsActivityProps = {
 
 const AssetsActivity = (props: AssetsActivityProps) => {
     const value = props.filterValue.toLowerCase();
-    return(
+     return(
         <>
-        {props.assetsRecords.map((item) => {
-            if(item.employee.toLowerCase().includes(value) ||
-            item.status.toLowerCase().includes(value)) {
-
-        return (
-            <CardView>
-                <Row>
-                 <Employee>{item.employee}</Employee>
-                 {item.status == 'assignment' ? <FontAwesomeIcon icon={faUser} color={'gray'} 
-                 /> : <FontAwesomeIcon icon={faLocationArrow} color={'gray'}/> }
-                </Row>
-            </CardView>
-        )
-    }
-})}
-</>
-)
+            {props.assetsRecords.map((item) => {
+                if (item.employee.toLowerCase().includes(value) ||
+                    item.status.toLowerCase().includes(value)) 
+                {
+                    return (
+                        <CardView>
+                            <Row>
+                            <Employee>{item.employee}</Employee>
+                            {item.status == 'assignment' ? <FontAwesomeIcon icon={faUser} color={'gray'} 
+                            /> : <FontAwesomeIcon icon={faLocationArrow} color={'gray'}/> }
+                            </Row>
+                        </CardView>
+                    );
+                }
+            })}
+        </>
+    )
 }
 
 export default AssetsActivity;
