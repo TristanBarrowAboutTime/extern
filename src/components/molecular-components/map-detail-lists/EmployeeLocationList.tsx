@@ -3,10 +3,7 @@ import styled from 'styled-components/native';
 
 const CardView = styled.View`
     width:auto;
-    padding-left:10;
-    padding-right:10;
-    padding-top:10;
-    padding-bottom:10;
+    padding: 10px;
     margin-top:10;
     border-radius: 4px;
     box-shadow: 0 1px 4px #cccccc;
@@ -54,37 +51,58 @@ const ServiceArea = styled.View`
     padding-bottom:8px;
 `;
 
+export type EmployeeLocationRecord = {
+    inTime: string
+    outTime: string
+    companyArea: string
+    serviceArea: string
+}
+
 type EmployeeLocationListProps = {
-    inTime: React.ReactNode
-    outTime: React.ReactNode
-    companyArea: React.ReactNode
-    serviceArea: React.ReactNode
+    locationRecord: EmployeeLocationRecord[]
+    filterValue: string
 }
 
 
 const EmployeeLocationList = (props: EmployeeLocationListProps) => {
-    return (
+    const value = props.filterValue.toLowerCase();
 
-        <CardView>
-            <Time>
-                <InTime>
-                    {props.inTime}
-                </InTime>
+    return(
+        <>
+        {props.locationRecord.map((item) => {
+            if(item.inTime.toString().toLowerCase().includes(value) ||
+            item.outTime.toString().toLowerCase().includes(value) ||
+            item.serviceArea.toString().toLowerCase().includes(value) || 
+            item.companyArea.toString().toLowerCase().includes(value)) {
 
-                <OutTime>
-                    {props.outTime}
-                </OutTime>
-            </Time>
-            <CompanyArea>
-                {props.companyArea}
-            </CompanyArea>
+             return (
 
-            <ServiceArea>
-                {props.serviceArea}
-            </ServiceArea>
-        </CardView>
-
+                <CardView>
+                    <Time>
+                        <InTime>
+                            {item.inTime}
+                        </InTime>
+        
+                        <OutTime>
+                            {item.outTime}
+                        </OutTime>
+                    </Time>
+                    <CompanyArea>
+                        {item.companyArea}
+                    </CompanyArea>
+        
+                    <ServiceArea>
+                        {item.serviceArea}
+                    </ServiceArea>
+                </CardView>
+        
+            )
+             }
+        })}
+        
+        </>
     )
+   
 }
 
 export default EmployeeLocationList;

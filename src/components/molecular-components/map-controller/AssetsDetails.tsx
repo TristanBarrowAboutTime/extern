@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
+import { assetsActivityData } from '../../../mock-data/map-details/assetsListData';
 import MapDetailsFrame from '../../frames/MapDetailsFrame';
 import Tabs, { useWithTabs } from '../../molecular-components/Tabs';
 import AssetsActivity from '../map-detail-lists/AssetsActivity';
@@ -9,10 +10,8 @@ const Container = styled.View`
     display:flex;
     width: 400;
     border-color: '#ddd';
-    padding-left:20;
-    padding-right:20;
-    padding-top:20;
-    padding-bottom:20;
+    padding:20px;
+   
 `;
 const AssetsLabel = styled.View`
     display: flex;
@@ -24,6 +23,7 @@ const AssetsLabel = styled.View`
 
 type AssetsDetailsProps = { 
     searchValue: string
+    filterValue : string
 }
 
 export enum AssetsDetailsTabs{
@@ -58,12 +58,8 @@ const AssetsDetails = (props:AssetsDetailsProps) => {
                     {tabs.selected === AssetsDetailsTabs.ACTIVITY && (
                         <>
                         <AssetsActivity
-                        status= {'assignment'}
-                        employee ={'1345 Erda Water'}
-                        />
-                        <AssetsActivity
-                        status= {'time record'}
-                        employee ={'1005 Payson Utah'}
+                        assetsRecords = {assetsActivityData}
+                        filterValue = {props.filterValue}                                       
                         />
                         </>
                     )}

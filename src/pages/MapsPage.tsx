@@ -24,12 +24,13 @@ const MapsPage = () => {
                 searchBinding={binding.searchBinding}
                 searchValue={binding.searchValue}
                 selectedTab={binding.selectedTab}
+                filterValue={binding.searchValue}
             />
-            <Map 
+            {/* <Map 
                 viewport={binding.mapViewport} 
                 actions={binding.mapActions}
                 mapConfigs={clusterConfig}
-            />
+            /> */}
         </Container>
     );
 }

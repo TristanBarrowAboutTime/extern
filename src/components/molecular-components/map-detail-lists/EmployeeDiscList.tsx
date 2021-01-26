@@ -6,10 +6,7 @@ import Styles from '../../../style/Styles';
 
 const CardView = styled.View`
     width:auto;
-    padding-left:10;
-    padding-right:10;
-    padding-top:10;
-    padding-bottom:10;
+    padding: 10px;
     margin-top:10;
     border-radius: 4px;
     box-shadow: 0 1px 4px #cccccc;
@@ -29,12 +26,12 @@ const CompanyArea = styled.Text`
     
 `;
 
-type TimeStyle ={
+type TimeStyle = {
     isClockedIn: boolean
 }
 
 const Time = styled.Text`
-    color: ${(props:TimeStyle) => props.isClockedIn ? '#79A949' : '#9B3E38'};
+    color: ${(props: TimeStyle) => props.isClockedIn ? '#79A949' : '#9B3E38'};
    
 `;
 
@@ -60,40 +57,57 @@ const Text = styled.Text`
     font-size:15px;
 `;
 
-type EmployeeDiscListProps = {
+export type EmployeeDiscRecord = {
     company: string
     time: string
     distance: string
     notes: string
-    text:string
+    text: string
+}
+
+type EmployeeDiscListProps = {
+    discRecords: EmployeeDiscRecord[]
+    filterValue: string
 }
 
 const EmployeeDiscList = (props: EmployeeDiscListProps) => {
+    const value = props.filterValue.toLowerCase();
     return (
-        <CardView>
-     
-            <CompanyArea>
-                {props.company}
-         
+        <>
+            {props.discRecords.map((item) => {
+                if (item.company.toLowerCase().includes(value) ||
+                    item.time.toLowerCase().includes(value) ||
+                    item.distance.toLowerCase().includes(value) ||
+                    item.text.toLowerCase().includes(value)) {
+                    return (
+                        <CardView>
 
-            <Time isClockedIn={true} >
+                            <CompanyArea>
+                                {item.company}
 
-                {props.time}
-            </Time>
-            </CompanyArea>
-        
-            <Distance>
-                {props.distance}
-            </Distance>
+                                <Time isClockedIn={true} >
+                                    {item.time}
+                                </Time>
 
-            <Notes>
-                {props.notes}
-            </Notes>
-            <Text>
-                {props.text}
-            </Text>
-        </CardView>
+                            </CompanyArea>
 
+                            <Distance>
+                                {item.distance}
+                            </Distance>
+
+                            <Notes>
+                                {item.notes}
+                            </Notes>
+                            <Text>
+                                {item.text}
+                            </Text>
+                        </CardView>
+
+                    )
+                }
+
+            })}
+        </>
     )
 }
 

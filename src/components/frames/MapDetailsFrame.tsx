@@ -45,8 +45,6 @@ const ButtonText = styled.Text`
 const ButtonContainer = styled.View`
     display: flex; 
     flex-direction: row;
-
-
 `;
 
 type MapDetailsFrameProps = {

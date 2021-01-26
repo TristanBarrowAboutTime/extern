@@ -6,10 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CardView = styled.View`
     width:auto;
-    padding-left:10;
-    padding-right:10;
-    padding-top:10;
-    padding-bottom:10;
+    padding: 10px
     margin-top:10;
     border-radius: 4px;
     box-shadow: 0 1px 4px #cccccc;
@@ -67,42 +64,60 @@ const Activity = styled.View`
 
 const Assigned = styled.View`
 `;
-type LocationAssetsProps = {
+export type LocationAssetsRecord = {
     assets: string
-    employee: React.ReactNode
-    service: React.ReactNode
-    time: React.ReactNode
-    activity: React.ReactNode
+    employee: string
+    service: string
+    time: string
+    activity: string
+}
+
+type LocationAssetsProps = {
+    locationAssetsRecord: LocationAssetsRecord[]
+    filterValue: string
 }
 
 const LocationAssets = (props: LocationAssetsProps) => {
+    const value = props.filterValue.toLowerCase();
     return (
-        <div>
-            <CardView>
-                <AssetsName>
-                    {props.assets}
-                </AssetsName>
-                <Employee>
-                    {props.employee}
-                </Employee>
-                <ServiceType>
-                    {props.service}
-                </ServiceType>
-                <Time>
-                    {props.time}
-                </Time>
-                <Activity>
-                    {props.activity}
-                    <FontAwesomeIcon icon={faUser} color={'gray'} />
-                </Activity>
-           
-                <Assigned>
-{/* last activity here */}
-                </Assigned>
-
-            </CardView>
-        </div>
+        <>
+        {props.locationAssetsRecord.map((item) => {
+            if(item.assets.toLowerCase().includes(value) ||
+            item.employee.toLowerCase().includes(value) ||
+            item.service.toLowerCase().includes(value) ||
+            item.activity.toLowerCase().includes(value))
+ 
+        return (
+            <div>
+                <CardView>
+                    <AssetsName>
+                        {item.assets}
+                    </AssetsName>
+                    <Employee>
+                        {item.employee}
+                    </Employee>
+                    <ServiceType>
+                        {item.service}
+                    </ServiceType>
+                    <Time>
+                        {item.time}
+                    </Time>
+                    <Activity>
+                        {item.activity}
+                        <FontAwesomeIcon icon={faUser} color={'gray'} />
+                    </Activity>
+               
+                    <Assigned>
+    {/* last activity here */}
+                    </Assigned>
+    
+                </CardView>
+            </div>
+        )
+    })}
+    </>
     )
+   
 }
 
 export default LocationAssets;

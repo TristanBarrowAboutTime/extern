@@ -4,8 +4,6 @@ import UserImage, { MapEmployeeStatus } from '../../atomic-components/UserImage'
 import styled from 'styled-components/native';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faGlobe } from '@fortawesome/free-solid-svg-icons';
-import Styles from '../../../style/Styles';
-import { Link } from 'react-router-dom';
 
 
 const Container = styled.View`
@@ -39,11 +37,11 @@ const Title = styled.Text`
     font-size: 20px;
 `;
 
-type TimeStyle ={
+type TimeStyle = {
     isClockedIn: boolean
 }
 
-const SiteStatus =styled.View`
+const SiteStatus = styled.View`
 color: #79A949;
 `;
 
@@ -58,8 +56,8 @@ export type EmployeeList = {
     firstName: string
     lastName: string
     time: string
-    address: string 
-    status: MapEmployeeStatus 
+    address: string
+    status: MapEmployeeStatus
     image: null | string
 }
 
@@ -80,28 +78,28 @@ const LocationEmployeeListTemplate = ({ employee }: EmployeeListTemplateProps) =
 
     return (
         <Container key={code}>
-              <UserImage 
-                src={null} 
+            <UserImage
+                src={null}
                 firstName={firstName}
                 lastName={lastName}
                 status={status}
             />
             <Content>
-                <Row>                  
+                <Row>
                     {/* <Link to= "/location-details">   */}
                     <Title>
                         {`${code} ${firstName} ${lastName}`}
                     </Title >
                     {/* </Link> */}
                     <SiteStatus>
-                       Onsite
+                        Onsite
                     </SiteStatus>
                 </Row>
                 <Row>
-                {status !== MapEmployeeStatus.CLOCKED_IN &&  
-                    <SubTitle>offsite {address}</SubTitle>}
-                    {status !== MapEmployeeStatus.CLOCKED_IN &&  
-                    <SubTitle>{time}</SubTitle>}
+                    {status !== MapEmployeeStatus.CLOCKED_IN &&
+                        <SubTitle>offsite {address}</SubTitle>}
+                    {status !== MapEmployeeStatus.CLOCKED_IN &&
+                        <SubTitle>{time}</SubTitle>}
                 </Row>
             </Content>
             <FontAwesomeIcon icon={faChevronRight} color={'gray'} />
