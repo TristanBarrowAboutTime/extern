@@ -27,10 +27,9 @@ const EmployeeLocation = (props: EmployeeLocationProps) => {
             <SortableList
                 data={employeeLocationData}
                 template={(employee: EmployeeLocationType) => <EmployeeLocationTemplate employee={employee} />}
-                postHeader={<Text>Active job: 4</Text>}
                 sortables={{
                     code: { title: 'Code', sort: (a: EmployeeLocationType, b: EmployeeLocationType) => (a.code > b.code ? -1 : 1) },
-                    name: { title: ' Name', sort: (a: EmployeeLocationType, b:EmployeeLocationType) => (a.name > b.name ? -1 : 1) },
+                    name: { title: ' Name', sort: (a: EmployeeLocationType, b: EmployeeLocationType) => (a.name > b.name ? -1 : 1) },
                 }}
                 shouldDisplayItem={(item: EmployeeLocationType) => item.name.includes(props.searchValue)}
             />

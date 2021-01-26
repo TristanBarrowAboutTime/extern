@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import CustomReportsPage from '../pages/CustomReportsPage';
 import MapsPage from '../pages/MapsPage';
 import styled from 'styled-components';
+import RequestPage from '../pages/RequestPage';
 
 const NavBar = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ function AppRouter() {
       <NavBar>
         <NavLink to="/map-page">Map Page</NavLink>
         <NavLink to="/custom-reports">Custom Reports</NavLink>
+        <NavLink to="/req">Request</NavLink>
       </NavBar>
       
       <Switch>
@@ -38,7 +40,10 @@ function AppRouter() {
         </Route>
         <Route path='/map-page'>
             <MapsPage /> 
-        </Route>   
+        </Route>
+        <Route path='/req'>
+            <RequestPage /> 
+        </Route>
       </Switch>
     </Router>
   );
