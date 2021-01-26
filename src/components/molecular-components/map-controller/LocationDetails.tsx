@@ -9,7 +9,6 @@ import SortableList from '../../frames/SortableList';
 import LocationEmployeeListTemplate from '../templates/LocationEmployeeListTemplate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LocationIcon from '../../atomic-components/LocationIcon';
-
 import { locationAssetsData, locationEmployeeData, locationFormsData } from '../../../mock-data/map-details/locationListData';
 
 
@@ -18,7 +17,6 @@ enum MapEmployeeStatus {
     CLOCKED_OUT,
     UNKNOWN
 }
-
 
 const Container = styled.View`
     display:flex;
@@ -95,11 +93,11 @@ const LocationDetails = (props: LocationDetailsProps) => {
                         <Column>
                             <LocationTitle>
                                 1345 Erda Water
-                      </LocationTitle>
+                            </LocationTitle>
 
                             <SubTitle>
                                 8740 UT-36, Lake Point, UT 84074
-                    </SubTitle>
+                            </SubTitle>
                         </Column>
                     </LocationLabel>
                 }

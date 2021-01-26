@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import CustomReportsPage from '../pages/CustomReportsPage';
 import MapsPage from '../pages/MapsPage';
 import styled from 'styled-components';
+import AssetListTemplate from '../pages/TempTemplatePage';
 
 const NavBar = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ function AppRouter() {
       <NavBar>
         <NavLink to="/map-page">Map Page</NavLink>
         <NavLink to="/custom-reports">Custom Reports</NavLink>
+        <NavLink to="/temp-page">Temp Page</NavLink>
       </NavBar>
       
       <Switch>
@@ -39,6 +41,19 @@ function AppRouter() {
         <Route path='/map-page'>
             <MapsPage /> 
         </Route>   
+        <Route path='/temp-page'>
+          <AssetListTemplate
+          assets = {{
+            assetsCode : 'SP-WM-07',
+            assetsFirstName: 'Miller',
+            assetsLastName: 'Big Blue',
+            employeeCode: 1002,
+            employeeFirstName:'Joseph',
+            employeeLastName: 'Carrigan',
+            address:'1345 Erda Water' ,
+            image: null 
+          }} />
+        </Route>
       </Switch>
     </Router>
   );

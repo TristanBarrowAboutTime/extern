@@ -36,10 +36,8 @@ const Title = styled.Text`
     font-size: 20px;
 `;
 
-const SubTitle = styled.Text`
-    
+const SubTitle = styled.Text`  
 `;
-
 
 export type ListEmployee = {
     code: number
