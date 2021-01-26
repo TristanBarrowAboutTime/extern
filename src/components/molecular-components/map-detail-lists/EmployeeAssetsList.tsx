@@ -3,10 +3,7 @@ import styled from 'styled-components/native';
 
 const CardView = styled.View`
     width:auto;
-    padding-left:10;
-    padding-right:10;
-    padding-top:10;
-    padding-bottom:10;
+    padding: 10px;
     margin-top:10;
     border-radius: 4px;
     box-shadow: 0 1px 4px #cccccc;
@@ -63,40 +60,61 @@ const ServiceArea = styled.View`
     font-size:15px;  
 `;
 
-type EmployeeAssetsListProps = {
-    inTime: React.ReactNode
-    outTime: React.ReactNode
-    assetsname: React.ReactNode
-    company: React.ReactNode
-    servicearea: React.ReactNode
+export type EmployeeAssetsRecord = {
+    inTime: string
+    outTime: string
+    assetsname: string
+    company: string
+    servicearea: string
+}
 
+type EmployeeAssetsListProps = {
+    assetsRecord: EmployeeAssetsRecord[]
+    filterValue: string
 }
 
 const EmployeeAssetsList = (props: EmployeeAssetsListProps) => {
-    return (
-        <CardView>
-            <Time>
-                <InTime>
-                    {props.inTime}
-                </InTime>
+    const value = props.filterValue.toLowerCase();
+    return(
+        <>
+        {props.assetsRecord.map((item) =>{
+            if(item.inTime.toLowerCase().includes(value) ||
+            item.outTime.toLowerCase().includes(value) ||
+            item.assetsname.toLowerCase().includes(value) ||
+            item.company.toLowerCase().includes(value) ||
+            item.servicearea.toLowerCase().includes(value)) {
+                return (
+                    <CardView>
+                        <Time>
+                            <InTime>
+                                {item.inTime}
+                            </InTime>
+            
+                            <OutTime>
+                                {item.outTime}
+                            </OutTime>
+                            </Time>
+                        <AssetsName>
+                            {item.assetsname}
+                        </AssetsName>
+            
+                        <CompanyDetails>
+                            {item.company}
+                        </CompanyDetails>
+            
+                        <ServiceArea>
+                            {item.servicearea}
+                        </ServiceArea>
+                    </CardView>
+                )
+            }
+          
 
-                <OutTime>
-                    {props.outTime}
-                </OutTime>
-                </Time>
-            <AssetsName>
-                {props.assetsname}
-            </AssetsName>
-
-            <CompanyDetails>
-                {props.company}
-            </CompanyDetails>
-
-            <ServiceArea>
-                {props.servicearea}
-            </ServiceArea>
-        </CardView>
+        })}
+            </>
     )
+
+    
 }
 
 export default EmployeeAssetsList;

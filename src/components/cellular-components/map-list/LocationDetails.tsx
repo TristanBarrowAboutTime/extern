@@ -2,14 +2,15 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import Tabs, { useWithTabs } from '../../molecular-components/Tabs';
 import MapDetailsFrame from '../../frames/MapDetailsFrame';
-import LocationAssets from '../../molecular-components/map-detail-lists/LocationAssets';
-import LocationEmployee from '../../molecular-components/map-detail-lists/LocationEmployee';
-import LocationForm from '../../molecular-components/map-detail-lists/LocationForms';
+import LocationAssets from '../map-detail-lists/LocationAssets';
+import LocationEmployee from '../map-detail-lists/LocationEmployee';
+import LocationForm from '../map-detail-lists/LocationForms';
 import SortableList from '../../frames/SortableList';
-import LocationEmployeeListTemplate from '../../molecular-components/templates/LocationEmployeeListTemplate';
+import LocationEmployeeListTemplate from '../templates/LocationEmployeeListTemplate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LocationIcon from '../../atomic-components/LocationIcon';
-import { MapControllerActions } from '../../../pages/MapsPage';
+
+import { locationAssetsData, locationEmployeeData, locationFormsData } from '../../../mock-data/map-details/locationListData';
 
 
 enum MapEmployeeStatus {
@@ -18,36 +19,16 @@ enum MapEmployeeStatus {
     UNKNOWN
 }
 
-const data: LocationEmployeeType[] = [
-    {
-        code: 1,
-        firstName: 'Roshni',
-        lastName: "Raval",
-        status: MapEmployeeStatus.CLOCKED_IN,
-        time: '8 hrs',
-        address: 'Payson, Utah',
-        image: ''
-    },
-    {
-        code: 2,
-        firstName: 'Scott',
-        lastName: "Jenkens",
-        status: MapEmployeeStatus.CLOCKED_OUT,
-        time: '8 hrs',
-        address: '120459 Salt Lake City Water',
-        image: ''
-    }
-]
 
 const Container = styled.View`
     display:flex;
-    width: 400px;
-    border-color: '#DDDDDD';
+    width: 400;
+    border-color: '#ddd';
     padding: 20px;
 `;
 const LocationTitle = styled.Text`
     margin-left: 12px;
-    font-size: 22px;
+    font-size:22px;
     color: #525252;
 `;
 
@@ -71,8 +52,8 @@ const LocationLabel = styled.View`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start; 
-    padding: 15px;  
+    justify-content:flex-start; 
+    padding: 15px 15px 15px 15px;  
 
 `;
 
@@ -82,31 +63,27 @@ export enum LocationDetailsTabs {
     FORMS = 'Forms'
 }
 
-type LocationEmployeeType = {
-    code: number
-    firstName: string
-    lastName: string
-    status: MapEmployeeStatus
-    time: string
-    address: string
-    image: string
-}
+
 
 type LocationDetailsProps = {
     searchValue: string
-    tabs: {
-        tabsBinding: any
-        selected: string
-    },
-    actions: MapControllerActions
+    filterValue: string
 }
 
 const LocationDetails = (props: LocationDetailsProps) => {
-    const { tabs, actions } = props;
+    const tabs = useWithTabs({
+        tabs: [
+            LocationDetailsTabs.EMPLOYEES,
+            LocationDetailsTabs.ASSETS,
+            LocationDetailsTabs.FORMS
+        ],
+        selected: LocationDetailsTabs.EMPLOYEES
+
+    })
+
     return (
         <Container>
             <MapDetailsFrame
-                actions={actions}
                 subjectContainer={
                     <LocationLabel>
                         <LocationIcon
@@ -118,10 +95,11 @@ const LocationDetails = (props: LocationDetailsProps) => {
                         <Column>
                             <LocationTitle>
                                 1345 Erda Water
-                            </LocationTitle>
+                      </LocationTitle>
+
                             <SubTitle>
                                 8740 UT-36, Lake Point, UT 84074
-                            </SubTitle>
+                    </SubTitle>
                         </Column>
                     </LocationLabel>
                 }
@@ -129,70 +107,36 @@ const LocationDetails = (props: LocationDetailsProps) => {
                 list={
                     <>
                         {tabs.selected === LocationDetailsTabs.EMPLOYEES && (
-                            <SortableList 
-                                data={data}
-                                template={(employee : LocationEmployeeType) => (
-                                    <LocationEmployeeListTemplate employee={employee} />
-                                )}
-                                sortables={{
-                                    code: {title: 'Code' , sort: (a: LocationEmployeeType , b: LocationEmployeeType) => (a.code > b.code ? -1 : 1)},
-                                    firstName: {title: 'First' , sort: (a: LocationEmployeeType , b: LocationEmployeeType) => (a.firstName > b.firstName ? -1 : 1)},
-                                    lastName: {title: 'Last' , sort: (a: LocationEmployeeType , b: LocationEmployeeType) => (a.lastName > b.lastName ? -1 : 1)},
-                                    siteStatus: {title: 'Site Status' , sort: (a: LocationEmployeeType , b: LocationEmployeeType) => (a.status > b.status ? -1 : 1)},
-                                         
-                                }}
-                                shouldDisplayItem={(item: LocationEmployeeType) => true}
-                            />                
-                          
-                         
+
+                            <LocationEmployee
+                                locationEmployeeRecord={locationEmployeeData}
+                                filterValue={props.filterValue}
+                            />
+
                         )}
                         {tabs.selected === LocationDetailsTabs.ASSETS && (
                             <>
-                                <LocationAssets                         
-                                    assets={'SP-WM-07 Miller Big Blue 450 Duo'}
-                                    employee={'1002 Joseph Carrigan'}
-                                    service={'100300.00 Full Service'}
-                                    time={'Time on Site: 25 days'}
-                                    activity={' 12:54pm MDT'}
-                                
-                                />
                                 <LocationAssets
-                                    assets={'SP-WS-02 WALL/FLOOR SCANNER'}
-                                    employee={'1002 Joseph Carrigan'}
-                                    service={''}
-                                    time={'Time Assigned to Site: 45 days'}
-                                    activity={' '}
-                                    // last activity will be in the locationAsset file
+                                    locationAssetsRecord={locationAssetsData}
+                                    filterValue={props.filterValue}
                                 />
                             </>
                         )}
                         {tabs.selected === LocationDetailsTabs.FORMS && (
                             <LocationForm
-                                formlist={'Missing Hours'}
-                                employee={'Joseph Carrigan'}
-                                time={'1:11pm'}
+                                locationFormsRecord={locationFormsData}
+                                filterValue={props.filterValue}
                             />
+
                         )}
                     </>
                 }
-
-                />
-                    </Container>
+                goToNext={() => console.log('Next')}
+                goToPrev={() => console.log('Prev')}
+                back={() => console.log('back')}
+            />
+        </Container>
     )
-}
-
-export const useWithLocationDetails = () => {
-    const tabs = useWithTabs({
-        tabs: [
-            LocationDetailsTabs.EMPLOYEES,
-            LocationDetailsTabs.ASSETS,
-            LocationDetailsTabs.FORMS
-        ],
-        selected: LocationDetailsTabs.EMPLOYEES
-
-    })
-
-    return tabs; // location
 }
 
 export default LocationDetails;

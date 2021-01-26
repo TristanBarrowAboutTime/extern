@@ -1,3 +1,4 @@
+import { latLng } from 'leaflet';
 import * as React from 'react';
 import styled from 'styled-components/native';
 
@@ -13,7 +14,7 @@ type TimeStyle = {
     isClockedIn: boolean
 }
 
-const Time = styled.View`
+const Time = styled.Text`
 color: ${(props: TimeStyle) => props.isClockedIn ? '#79A949' : '#9B3E38'};
  font-weight:600;
 `;
@@ -25,22 +26,23 @@ justify-content:space-between;
 text-align:left;
 `;
 
-const CoordinatesLat = styled.Text`
+const CoordinatesLat = styled.View`
 margin-right:10px;
 `;
 
-const CoordinatesLong = styled.Text`
+const CoordinatesLong = styled.View`
 
 `;
 
-const Title = styled.View`
+const Title = styled.Text`
 display:flex;
 flex-direction: row;
 justify-content:space-between;
 font-weight:600;
 padding:10px;
 `;
-const Accuracy = styled.View`
+
+const Accuracy = styled.Text`
 display:flex;
 justify-content:left;
 align-items:stretch;
@@ -57,10 +59,14 @@ export type EmployeeHistoryTimeRecord = {
 }
 type EmployeeHistoryListProps = {
     timeRecords: EmployeeHistoryTimeRecord[]
+    filterValue: string
 }
 
 
 const EmployeeHistoryList = (props: EmployeeHistoryListProps) => {
+    const value = props.filterValue.toLowerCase();
+
+    console.log(props.filterValue);
     return (
         <>
             <Title>
@@ -75,24 +81,30 @@ const EmployeeHistoryList = (props: EmployeeHistoryListProps) => {
                 </div>
             </Title>
             {props.timeRecords.map((item) => {
-                return (
-                    <Container>
-                        <Time isClockedIn={item.isClockedIn}>
-                            {item.time}
-                        </Time>
-                        <CoordinatesArea>
-                            <CoordinatesLat>
-                                {item.coordinates.lat}
-                            </CoordinatesLat>
-                            <CoordinatesLong>
-                                {item.coordinates.long}
-                            </CoordinatesLong>
-                        </CoordinatesArea>
-                        <Accuracy>
-                            {item.accuracy}
-                        </Accuracy>
-                    </Container>
-                )
+                if(item.time.toLowerCase().includes(value) ||   
+                item.coordinates.lat.toString().includes(value) ||
+                item.coordinates.long.toString().includes(value) || 
+                item.accuracy.toLowerCase().includes(value)) {
+                    return (
+                        <Container>
+                            <Time isClockedIn={item.isClockedIn}>
+                                {item.time}
+                            </Time>
+                            <CoordinatesArea>
+                                <CoordinatesLat>
+                                    {item.coordinates.lat}
+                                </CoordinatesLat>
+                                <CoordinatesLong>
+                                    {item.coordinates.long}
+                                </CoordinatesLong>
+                            </CoordinatesArea>
+                            <Accuracy>
+                                {item.accuracy}
+                            </Accuracy>
+                        </Container>
+                    )
+                }
+               
             })}
 
         </>
