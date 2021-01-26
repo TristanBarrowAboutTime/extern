@@ -21,10 +21,7 @@ const InnerView = styled.View`
 `;
 
 const CardView = styled.View`
-    padding-left:10; 
-    padding-right:10;
-    padding-top:10;
-    padding-bottom:10;
+    padding: 10px;
     margin-top:10;
     border-width: 1;
     border-radius: 2;

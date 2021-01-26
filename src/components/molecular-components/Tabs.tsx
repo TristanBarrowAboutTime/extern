@@ -16,7 +16,7 @@ type TabStyle = {
     isSelected: boolean
 }
 
-const Tab = styled.View`
+const Tab = styled.Text`
     padding: 2px 8px 2px 8px;
     background-color: ${(props: TabStyle) => props.isSelected ? Styles.color.green : 'white'};
 `;
