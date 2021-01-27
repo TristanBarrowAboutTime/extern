@@ -36,9 +36,9 @@ const AssetsActivity = (props: AssetsActivityProps) => {
      return(
         <>
             {props.assetsRecords.map((item) => {
-                if (item.employee.toLowerCase().includes(value) ||
-                    item.status.toLowerCase().includes(value)) 
-                {
+                // if (item.employee.toLowerCase().includes(value) ||
+                //     item.status.toLowerCase().includes(value)) 
+                // {
                     return (
                         <CardView>
                             <Row>
@@ -48,7 +48,7 @@ const AssetsActivity = (props: AssetsActivityProps) => {
                             </Row>
                         </CardView>
                     );
-                }
+                // }
             })}
         </>
     )

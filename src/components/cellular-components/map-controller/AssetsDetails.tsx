@@ -5,7 +5,8 @@ import Tabs, { useWithTabs } from '../../molecular-components/Tabs';
 import AssetsActivity from '../../molecular-components/map-detail-lists/AssetsActivity';
 import AssetListTemplate from '../../molecular-components/templates/AssetListTemplate';
 import { MapControllerActions } from '../../../pages/MapsPage';
-import { assetsListData } from '../../../mock-data/assetsListData';
+import { assetsListData } from '../../../mock-data/map-details/assetsListData';
+import { assetsActivityData } from '../../../mock-data/assetsActivityListData';
 
 const Container = styled.View`
     display: flex;
@@ -53,7 +54,7 @@ const AssetsDetails = (props: AssetsDetailsProps) => {
                     <>
                         {tabs.selected === AssetsDetailsTabs.ACTIVITY && (
                             <AssetsActivity
-                                assetsRecords={[]}
+                                assetsRecords={assetsActivityData}
                                 filterValue={searchValue} 
                             />
                         )}

@@ -58,8 +58,6 @@ export enum LocationDetailsTabs {
     FORMS = 'Forms'
 }
 
-
-
 type LocationDetailsProps = {
     searchValue: string
     tabs: {
@@ -75,6 +73,7 @@ const LocationDetails = (props: LocationDetailsProps) => {
     return (
         <Container>
             <MapDetailsFrame
+            actions={actions}
                 subjectContainer={
                     <LocationLabel>
                         <LocationIcon
@@ -100,25 +99,25 @@ const LocationDetails = (props: LocationDetailsProps) => {
                         {tabs.selected === LocationDetailsTabs.EMPLOYEES && (
                             <LocationEmployee
                                 locationEmployeeRecord={locationEmployeeData}
-                                filterValue={props.searchValue}
+                                filterValue={searchValue}
                             />
                         )}
                         {tabs.selected === LocationDetailsTabs.ASSETS && (
                             <LocationAssets
                                 locationAssetsRecord={locationAssetsData}
-                                filterValue={props.searchValue}
+                                filterValue={searchValue}
                             />
                         )}
                         {tabs.selected === LocationDetailsTabs.FORMS && (
                             <LocationForm
                                 locationFormsRecord={locationFormsData}
-                                filterValue={props.searchValue}
+                                filterValue={searchValue}
                             />
 
                         )}
                     </>
                 }
-                actions={props.actions}
+              
             />
         </Container>
     )

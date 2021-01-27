@@ -3,19 +3,28 @@ import { MapListLocation } from '../types/MapListLocation';
 
 export const locationData: MapListLocation[] = [
     {
-        code: 1234,
-        name: 'North Urn Museum',
-        address: '1234 West Urn PK, Podunk, UT'
+        locationCode: 1345,
+        locationFirstName: 'Erda',
+        locationLastName: 'Water',
+        jobAddress: '5934 West Urn PK, Podunk, NJ'
     },
     {
-        code: 4523,
-        name: 'North Urn Museum',
-        address: '1234 West Urn PK, Podunk, UT'
+        locationCode: 1447,
+        locationFirstName: 'Toelle',
+        locationLastName: 'Water',
+        jobAddress: '1259 North Urn PK, Podunk, NC'
     },
     {
-        code: 5354,
-        name: 'North Urn Museum',
-        address: '1234 West Urn PK, Podunk, UT'
+        locationCode: 8765,
+        locationFirstName: 'West Jordan',
+        locationLastName: 'Water',
+        jobAddress: '00258 South Urn PK, Podunk, UT'
+    },
+    {
+        locationCode: 1007,
+        locationFirstName: 'Koelle',
+        locationLastName: 'City',
+        jobAddress: '1259 North Urn PK, Podunk, UT'
     }
 ]
 

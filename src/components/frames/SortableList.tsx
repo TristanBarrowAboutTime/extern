@@ -23,6 +23,7 @@ const Body = styled.View`
 const HeaderItem = styled.TouchableOpacity`
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 `;
 
 const HeaderText = styled.Text`

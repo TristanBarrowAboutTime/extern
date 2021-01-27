@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import AssetsDetails from './AssetsDetails';
 import { TouchableOpacity } from 'react-native';
 import { MapControllerActions } from '../../../pages/MapsPage';
-import { assetsListData } from '../../../mock-data/assetsListData';
+import { assetsListData } from '../../../mock-data/map-details/assetsListData';
 import AssetListTemplate, { AssetsListRecord } from '../../molecular-components/templates/AssetListTemplate';
 
 const Container = styled.View`
