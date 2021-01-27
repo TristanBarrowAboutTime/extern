@@ -1,4 +1,4 @@
-import { AssetsActivityRecord } from "../../components/molecular-components/map-detail-lists/AssetsActivity"
+import { AssetsActivityRecord } from "../components/molecular-components/map-detail-lists/AssetsActivity"
 
 
 export const assetsActivityData: AssetsActivityRecord[] = [
