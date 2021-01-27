@@ -1,8 +1,8 @@
-import {assetsListRecord} from '../components/molecular-components/templates/AssetListTemplate';
+import {AssetsListRecord} from '../components/molecular-components/templates/AssetListTemplate';
 
 
 
-export const assetsListData: assetsListRecord[] = [
+export const assetsListData: AssetsListRecord[] = [
     {
         assetsCode : 'SP-WM-07',
         assetsFirstName: 'Miller',

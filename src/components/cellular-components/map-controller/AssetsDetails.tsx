@@ -5,6 +5,7 @@ import Tabs, { useWithTabs } from '../../molecular-components/Tabs';
 import AssetsActivity from '../../molecular-components/map-detail-lists/AssetsActivity';
 import AssetListTemplate from '../../molecular-components/templates/AssetListTemplate';
 import { MapControllerActions } from '../../../pages/MapsPage';
+import { assetsListData } from '../../../mock-data/assetsListData';
 
 const Container = styled.View`
     display: flex;
@@ -43,13 +44,7 @@ const AssetsDetails = (props: AssetsDetailsProps) => {
                 subjectContainer={
                     <AssetsLabel>
                         <AssetListTemplate
-                            assets= {{
-                                code: 20015,
-                                image: null,
-                                firstName: 'Miller',
-                                lastName: 'Blue',
-                                address: 'utah',
-                            }}
+                            assets= { assetsListData[0] }
                         />
                     </AssetsLabel>
                 }
