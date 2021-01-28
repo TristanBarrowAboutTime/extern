@@ -2,7 +2,7 @@ import * as React from 'react';
 import SortableList from '../../frames/SortableList';
 import styled from 'styled-components/native';
 import AssetsDetails from './AssetsDetails';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View,Text } from 'react-native';
 import { MapControllerActions } from '../../../pages/MapsPage';
 import { assetsListData } from '../../../mock-data/map-details/assetsListData';
 import AssetListTemplate, { AssetsListRecord } from '../../molecular-components/templates/AssetListTemplate';
@@ -39,6 +39,7 @@ const MapsAssets = (props: MapAssetsProps) => {
                            <AssetListTemplate assets={assets} />
                         </TouchableOpacity>
                     }
+                    postHeader={<View><Text>Active Assets {assetsListData.length}</Text></View>}
                     sortables={{
                         code: { title: 'Code', sort: (a: AssetsListRecord, b: AssetsListRecord) => (a.assetsCode > b.assetsCode ? -1 : 1) },
                         firstName: { title: 'First Name', sort: (a: AssetsListRecord, b:AssetsListRecord) => (a.assetsFirstName > b.assetsFirstName ? -1 : 1) },

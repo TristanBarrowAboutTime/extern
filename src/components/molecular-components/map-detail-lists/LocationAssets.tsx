@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CardView = styled.View`
     width:auto;
-    padding: 10px
+    padding: 10px;
     margin-top:10;
     border-radius: 4px;
     box-shadow: 0 1px 4px #cccccc;

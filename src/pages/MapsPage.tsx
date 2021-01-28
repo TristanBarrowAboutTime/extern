@@ -41,7 +41,7 @@ const MapsPage = () => {
                 {mainTabs.selected === MapTabs.EMPLOYEE && (
                     <MapsEmployees
                         searchValue={search.value} 
-                        tabs={tabs.locations} 
+                        tabs={tabs.employees} 
                         isShowingDetails={isShowingDetails}
                         actions={actions}
                     />

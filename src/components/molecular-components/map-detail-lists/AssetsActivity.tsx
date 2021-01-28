@@ -4,6 +4,7 @@ import { faLocationArrow, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CardView = styled.View`
+    margin:10px;
     width:auto;
     padding: 10px;
     border-radius: 4px;
@@ -12,7 +13,7 @@ const CardView = styled.View`
     shadow-opacity: 0.8;
    
 `;
-const Row = styled.View`
+const Row = styled.View`     
     display:flex;
     justify-content:space-between;
 `;
@@ -36,9 +37,9 @@ const AssetsActivity = (props: AssetsActivityProps) => {
      return(
         <>
             {props.assetsRecords.map((item) => {
-                // if (item.employee.toLowerCase().includes(value) ||
-                //     item.status.toLowerCase().includes(value)) 
-                // {
+                if (item.employee.toLowerCase().includes(value) ||
+                    item.status.toLowerCase().includes(value)) 
+                {
                     return (
                         <CardView>
                             <Row>
@@ -48,7 +49,7 @@ const AssetsActivity = (props: AssetsActivityProps) => {
                             </Row>
                         </CardView>
                     );
-                // }
+                }
             })}
         </>
     )
