@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useWithSearchBar } from '../hooks/component-hooks/atomic-components/useSearchBar';
 import Tabs, { useWithTabs } from '../components/molecular-components/Tabs';
 import styled from 'styled-components/native';
 import { MapTabs } from '../types/MapTabs';
 import { useWithMap } from '../components/cellular-components/map/Map';
+import { useWithSearchBar } from '../hooks/component-hooks/atomic-components/useSearchBar';
 import SearchBar from '../components/atomic-components/SearchBar';
 import { useWithEmployeeDetails } from '../components/cellular-components/map-controller/EmployeeDetails';
 import { useWithLocationDetails } from '../components/cellular-components/map-controller/LocationDetails';

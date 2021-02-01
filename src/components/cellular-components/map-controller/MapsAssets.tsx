@@ -5,9 +5,7 @@ import AssetsDetails from './AssetsDetails';
 import { TouchableOpacity } from 'react-native';
 import { MapControllerActions } from '../../../pages/MapsPage';
 
-const Container = styled.View`
-
-`;
+const Container = styled.View``;
 
 type MapAssetsProps = {
     searchValue: string,

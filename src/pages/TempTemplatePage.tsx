@@ -4,8 +4,6 @@ import styled from 'styled-components/native';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faUser } from '@fortawesome/free-solid-svg-icons';
 
-
-
 const Container = styled.View`
     padding: 10px;
     display: flex;
@@ -39,10 +37,12 @@ const Title = styled.View`
     flex: 1;
    
 `;
+
 const Text = styled.Text`
     font-size: 20px;
 
 `;
+
 const SubTitle = styled.Text`
     
 `;

@@ -4,17 +4,15 @@ import MapDetailsFrame from '../../frames/MapDetailsFrame';
 import UserImage, { MapEmployeeStatus } from '../../atomic-components/UserImage';
 import Tabs, { useWithTabs } from '../../molecular-components/Tabs';
 import EmployeeDiscList from '../../molecular-components/map-detail-lists/EmployeeDiscList';
-import EmployeeHistoryList, { EmployeeHistoryTimeRecord } from '../../molecular-components/map-detail-lists/EmployeeHistoryList';
+import EmployeeHistoryList from '../../molecular-components/map-detail-lists/EmployeeHistoryList';
 import EmployeeLocationList from '../../molecular-components/map-detail-lists/EmployeeLocationList';
 import EmployeeAssetsList from '../../molecular-components/map-detail-lists/EmployeeAssetsList';
 import EmployeeFormsList from '../../molecular-components/map-detail-lists/EmployeeFormsList';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { assetsData, data, discData, formData, locationData } from '../../../mock-data/map-details/employeeListData';
 import { MapControllerActions } from '../../../pages/MapsPage';
 
 const Container = styled.View`
-    display:flex;
+    display: flex;
     width: 400px;
     border-color: '#ddd';
     padding: 20px;
@@ -23,7 +21,6 @@ const Container = styled.View`
 const UserTitle = styled.Text`
     margin-left: 12px;
     font-size: 22px;
-
 `;
 
 const EmployeeLabel = styled.View`
@@ -31,14 +28,6 @@ const EmployeeLabel = styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;   
-
-`;
-
-const Link = styled.View`
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end; 
-    padding: 5px;
 `;
 
 export enum EmployeeDetailsTabs {
@@ -55,11 +44,18 @@ type EmployeeDetailsProps = {
         tabsBinding: any // any because of binding
         selected: string
     }
+    employee: {
+        code: string
+        firstName: string
+        lastName: string
+        status: MapEmployeeStatus
+        userImage: string | null
+    }
     actions: MapControllerActions
 }
 
 const EmployeeDetails = (props: EmployeeDetailsProps) => {
-    const { tabs, actions, searchValue } = props;
+    const { tabs, actions, searchValue, employee } = props;
     return (
         <Container>
             <MapDetailsFrame
@@ -67,14 +63,14 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                 subjectContainer={
                     <EmployeeLabel>
                         <UserImage
-                            src={null}
-                            firstName={'Joseph'}
-                            lastName={'Carrigan'}
+                            firstName={employee.firstName}
+                            lastName={employee.lastName}
+                            status={employee.status}
+                            src={employee.userImage}
                             size={60}
-                            status={MapEmployeeStatus.CLOCKED_IN}
                         />
                         <UserTitle>
-                            1002 Joseph Carrigan
+                            {`${employee.code} ${employee.firstName} ${employee.lastName}`}
                         </UserTitle>
                     </EmployeeLabel>
                 }

@@ -8,9 +8,8 @@ import { MapListLocation } from '../../../types/MapListLocation';
 import { TouchableOpacity } from 'react-native';
 import LocationDetails from './LocationDetails';
 
-const Container = styled.View`
+const Container = styled.View``;
 
-`;
 
 type MapsLocationsProps = {
     searchValue: string,

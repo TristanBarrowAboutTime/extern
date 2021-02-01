@@ -6,11 +6,10 @@ import MapEmployeeListTemplate, { ListEmployee } from '../../molecular-component
 import EmployeeDetails from './EmployeeDetails';
 import { TouchableOpacity } from 'react-native';
 import { MapControllerActions } from '../../../pages/MapsPage';
+import { MapEmployeeStatus } from '../../atomic-components/UserImage';
 
 
-const Container = styled.View`
-
-`;
+const Container = styled.View``;
 
 type MapsEmployeesProps = {
     searchValue: string,
@@ -22,6 +21,15 @@ type MapsEmployeesProps = {
     actions: MapControllerActions // tunneling
 }
 
+const tmpEmployee = {
+    code: '1234',
+    firstName: 'Tristan',
+    lastName: 'Barrow',
+    status: MapEmployeeStatus.CLOCKED_IN,
+    userImage: null
+
+}
+
 const MapsEmployees = (props: MapsEmployeesProps) => {
     return (
         <Container>
@@ -29,6 +37,7 @@ const MapsEmployees = (props: MapsEmployeesProps) => {
                 <EmployeeDetails 
                     searchValue={props.searchValue}
                     tabs={props.tabs}
+                    employee={tmpEmployee}
                     actions={props.actions}
                  />
             ) : (
