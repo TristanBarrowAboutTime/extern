@@ -26,6 +26,7 @@ const Employee = styled.View`
 `;
 
 export type AssetsActivityRecord = {
+    assetsCode: string,
     location: string
     employee: string
     status:string

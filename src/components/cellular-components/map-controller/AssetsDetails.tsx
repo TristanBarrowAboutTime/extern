@@ -16,6 +16,37 @@ const Container = styled.View`
     padding: 20px;
 `;
 
+const Row = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+
+`;
+
+const Content = styled.View`
+    display: flex;
+    padding:10px;
+    flex-direction: column;
+    flex: 1;
+    margin-left: 8px;
+    margin-right: 8px;
+`;
+
+const Title = styled.View`
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex: 1;
+   
+`;
+const Text = styled.Text`
+    font-size: 20px;
+
+`;
+const SubTitle = styled.Text`
+    
+`;
 const AssetsLabel = styled.View`
     display: flex;
     flex-direction: row;
@@ -24,11 +55,21 @@ const AssetsLabel = styled.View`
 
 `;
 
+export type AssetsListRecord = {
+    assetsCode: string
+    assetsFirstName: string
+    assetsLastName: string
+    employeeCode: number
+    employeeFirstName: string
+    employeeLastName: string
+    address: string
+    image: null | string
+}
 export enum AssetsDetailsTabs {
     ACTIVITY = 'Activity'
 }
 
-type AssetsDetailsProps = { 
+type AssetsDetailsProps = {
     searchValue: string
     tabs: {
         tabsBinding: any
@@ -38,25 +79,44 @@ type AssetsDetailsProps = {
 }
 
 const AssetsDetails = (props: AssetsDetailsProps) => {
-    const { tabs, actions, searchValue } = props; 
+    const { tabs, actions, searchValue } = props;
     return (
         <Container>
             <MapDetailsFrame
                 actions={actions}
                 subjectContainer={
                     <AssetsLabel>
-                         <AssetListTemplate
+                        <UserImage
+                            src={null}
+                            firstName={'Miller'}
+                            lastName={'Big Blue 450'}
+                            size={40}
+                        />
+                        <Content>
+                            <Row>
+                                <Title>
+                                    <Text>{`${'SP-WM-07'} ${'Miller'} ${'Big Blue 450'}`} </Text>
+                                </Title >
+
+                            </Row>
+                            <Row>
+                                <SubTitle>{'1345 Erda Water'}</SubTitle>
+                            </Row>
+                        </Content>
+
+
+                        {/* <AssetListTemplate
                             assets= { assetsListData[0] }
-                         />
+                         /> */}
                     </AssetsLabel>
                 }
-                tabs={<Tabs {...tabs.tabsBinding}/>}
+                tabs={<Tabs {...tabs.tabsBinding} />}
                 list={
                     <>
                         {tabs.selected === AssetsDetailsTabs.ACTIVITY && (
                             <AssetsActivity
                                 assetsRecords={assetsActivityData}
-                                filterValue={searchValue} 
+                                filterValue={searchValue}
                             />
                         )}
                     </>
@@ -68,7 +128,7 @@ const AssetsDetails = (props: AssetsDetailsProps) => {
 
 export const useWithAssetDetails = () => {
     const tabs = useWithTabs({
-        tabs: [ AssetsDetailsTabs.ACTIVITY ],
+        tabs: [AssetsDetailsTabs.ACTIVITY],
         selected: AssetsDetailsTabs.ACTIVITY
     });
 

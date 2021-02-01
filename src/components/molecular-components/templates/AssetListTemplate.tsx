@@ -3,7 +3,7 @@ import UserImage from '../../atomic-components/UserImage';
 import styled from 'styled-components/native';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faUser } from '@fortawesome/free-solid-svg-icons';
-
+import { assetsActivityData } from '../../../mock-data/assetsActivityListData';
 
 
 const Container = styled.View`
@@ -55,15 +55,16 @@ export type AssetsListRecord = {
     employeeCode: number
     employeeFirstName: string
     employeeLastName: string
-    address: string 
+    address: string
     image: null | string
 }
 
 type AssetListTemplateProps = {
     assets: AssetsListRecord
+    showNoActivity:boolean
 }
 
-const AssetListTemplate = ({ assets }: AssetListTemplateProps) => {
+const AssetListTemplate = ({ assets,showNoActivity }: AssetListTemplateProps) => {
     const {
         assetsCode,
         assetsFirstName,
@@ -77,32 +78,43 @@ const AssetListTemplate = ({ assets }: AssetListTemplateProps) => {
 
     return (
         <Container key={assetsCode}>
-            <UserImage 
-                src={image} 
+            <UserImage
+                src={image}
                 firstName={assetsFirstName}
                 lastName={assetsLastName}
-                size = {40}
-             />
+                size={40}
+            />
             <Content>
-                <Row>                  
-             
+                <Row>
+
                     <Title>
-                        <Text>{`${assetsCode} ${assetsFirstName} ${assetsLastName}`} </Text>                                                                                       
-                    </Title > 
-                        <FontAwesomeIcon icon={faChevronRight} color={'gray'} />                           
-                              
+                        <Text>{`${assetsCode} ${assetsFirstName} ${assetsLastName}`} </Text>
+                    </Title >
+                    <FontAwesomeIcon icon={faChevronRight} color={'gray'} />
+
                 </Row>
-                <Row>
-                    <SubTitle>{address}</SubTitle>                      
-                </Row>
-                <Row>
-                    <SubTitle>{`${employeeCode} ${employeeFirstName} ${employeeLastName}`}</SubTitle>
-                    <FontAwesomeIcon icon={faUser} color={'gray'}/>
-                </Row>
-                
+                {showNoActivity?
+                    <>
+                        <Row>
+                            <SubTitle>{address}</SubTitle>
+                        </Row>
+                        <Row>
+                            <SubTitle>{`${employeeCode} ${employeeFirstName} ${employeeLastName}`}</SubTitle>
+                            <FontAwesomeIcon icon={faUser} color={'gray'} />
+                        </Row>
+                    </>
+                    :
+                    <Row>
+                        <SubTitle>No Activity</SubTitle>
+                    </Row>
+
+                }
+
+
+
             </Content>
-            
-            </Container>
+
+        </Container>
     )
 }
 

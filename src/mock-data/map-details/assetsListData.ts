@@ -14,9 +14,9 @@ export const assetsListData: AssetsListRecord[] = [
         image: null
     },
     {
-        assetsCode : 'SP-WM-07',
-        assetsFirstName: 'Miller',
-        assetsLastName: 'Big Blue',
+        assetsCode : 'SP-DRH-1118',
+        assetsFirstName: 'JACK',
+        assetsLastName: 'HYDROLIC',
         employeeCode: 1004,
         employeeFirstName:'Roshni',
         employeeLastName: 'Raval',

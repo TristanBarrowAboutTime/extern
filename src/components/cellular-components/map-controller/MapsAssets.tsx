@@ -6,6 +6,7 @@ import { TouchableOpacity, View,Text } from 'react-native';
 import { MapControllerActions } from '../../../pages/MapsPage';
 import { assetsListData } from '../../../mock-data/map-details/assetsListData';
 import AssetListTemplate, { AssetsListRecord } from '../../molecular-components/templates/AssetListTemplate';
+import { assetsActivityData } from '../../../mock-data/assetsActivityListData';
 
 const Container = styled.View`
 
@@ -22,6 +23,19 @@ type MapAssetsProps = {
 }
 
 const MapsAssets = (props: MapAssetsProps) => {
+  
+  const checkActivityDetails = (assets:AssetsListRecord) => {
+   if(checkIsActivityAvailable(assets)){
+       props.actions.goToDetails()
+   }  
+  }
+
+  const checkIsActivityAvailable = (assets:AssetsListRecord) => {
+    if(assetsActivityData.find(item=>item.assetsCode === assets.assetsCode)){
+        return true
+    }  
+    return false
+  }
     return (
         <Container>
             {props.isShowingDetails ? (
@@ -35,8 +49,8 @@ const MapsAssets = (props: MapAssetsProps) => {
                     data={assetsListData}
                     
                     template={(assets: AssetsListRecord) => 
-                        <TouchableOpacity onPress={props.actions.goToDetails}>
-                           <AssetListTemplate assets={assets} />
+                        <TouchableOpacity onPress={()=>checkActivityDetails(assets)}>
+                           <AssetListTemplate showNoActivity={checkIsActivityAvailable(assets)}  assets={assets} />
                         </TouchableOpacity>
                     }
                     postHeader={<View><Text>Active Assets {assetsListData.length}</Text></View>}

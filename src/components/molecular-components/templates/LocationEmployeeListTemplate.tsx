@@ -42,12 +42,15 @@ type TimeStyle = {
 }
 
 const SiteStatus =styled.View`
-    color: #79A949;
+     color: ${(props: TimeStyle) => props.isClockedIn ? '#79A949' : '#9B3E38'};
+     display: flex;
+     flex-direction: row;
+     align-items:baseline;
 `;
 
 const SubTitle = styled.Text`
    color: #525252;
- 
+
 `;
 
 
@@ -90,18 +93,22 @@ const LocationEmployeeListTemplate = ({ employee}: EmployeeListTemplateProps) =>
                     <Title>
                         {`${code} ${firstName} ${lastName}`}
                     </Title >
-                    <SiteStatus>
-                        Onsite
+                    <SiteStatus isClockedIn={true}>
+                    {status === MapEmployeeStatus.CLOCKED_IN &&
+                     'Onsite'}
                     </SiteStatus>
                 </Row>
                 <Row>
+                <SiteStatus isClockedIn={false}>
                     {status !== MapEmployeeStatus.CLOCKED_IN &&
-                        <SubTitle>offsite {address}</SubTitle>}
+                        `${'offsite'}`}
+                        <SubTitle>{address}</SubTitle>
+                 </SiteStatus> 
                     {status !== MapEmployeeStatus.CLOCKED_IN &&
-                        <SubTitle>{time}</SubTitle>}
+                        <SiteStatus isClockedIn={false}>{time}</SiteStatus>}  
+                               
                 </Row>
             </Content>
-            <FontAwesomeIcon icon={faChevronRight} color={'gray'} />
         </Container>
     )
 }

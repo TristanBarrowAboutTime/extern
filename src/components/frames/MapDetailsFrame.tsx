@@ -12,8 +12,8 @@ const Container = styled.View`
 `;
 
 const SubjectContainer = styled.View`
-flex-direction: row;
-margin-bottom: 10px;
+    flex-direction: row;
+    margin-bottom: 10px;
 
 `;
 
