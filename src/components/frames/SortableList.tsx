@@ -9,6 +9,7 @@ import { divIcon } from 'leaflet';
 const Header = styled.View`
     display: flex;
     flex-direction: row;
+    justify-content:space-between;
 `;
 
 type BodyStyles = {
@@ -68,6 +69,7 @@ const SortableList = <T extends unknown>({
             <Header>
                 <div style={{width: binding.spaces[0]}} />
                 {preHeader}
+                <div style={{display:'flex'}}>
                 {Object.keys(sortables).map((currentSort: string, index: number) => {
                     return (
                         <>
@@ -85,6 +87,7 @@ const SortableList = <T extends unknown>({
                         </>
                     )
                 })}
+                </div>
                 <div style={{ width: binding.spaces[binding.spaces.length - 1]}} />
                 {postHeader}
             </Header>
