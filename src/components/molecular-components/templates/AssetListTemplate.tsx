@@ -87,8 +87,7 @@ const AssetListTemplate = ({ assets }: AssetListTemplateProps) => {
                 <Row>                  
              
                     <Title>
-                        <Text>{`${assetsCode} ${assetsFirstName} ${assetsLastName}`} </Text>                          
-                                                              
+                        <Text>{`${assetsCode} ${assetsFirstName} ${assetsLastName}`} </Text>                                                                                       
                     </Title > 
                         <FontAwesomeIcon icon={faChevronRight} color={'gray'} />                           
                               

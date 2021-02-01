@@ -4,11 +4,13 @@ import { AssetsActivityRecord } from "../components/molecular-components/map-det
 export const assetsActivityData: AssetsActivityRecord[] = [
     {
     status: 'assignment',
-    employee: '1345 Erda Water'
+    location: '1345 Erda Water',
+    employee: '1002 Joseph Carrigan'
 },
 {
     status: 'time record',
-    employee: '1005 Payson Utah'
+    location: '1005 Payson Utah',
+    employee:'1002 Joseph Carrigan'
 }
 
 ]

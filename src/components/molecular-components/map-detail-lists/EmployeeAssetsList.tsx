@@ -1,3 +1,5 @@
+import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import styled from 'styled-components/native';
 
@@ -9,6 +11,12 @@ const CardView = styled.View`
     box-shadow: 0 1px 4px #cccccc;
 `;
 
+const Row = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: baseline;
+`;
 const Time = styled.View`
     display: flex;
     flex-direction: row;
@@ -22,7 +30,6 @@ const InTime = styled.View`
     color: #79A949;
     display: flex;
     flex-direction: row;
-    align-items: center;
     padding-right: 20px;
 `;
 
@@ -84,6 +91,7 @@ const EmployeeAssetsList = (props: EmployeeAssetsListProps) => {
                 {
                     return (
                         <CardView>
+                            <Row>
                             <Time>
                                 <InTime>
                                     {item.inTime}
@@ -91,8 +99,11 @@ const EmployeeAssetsList = (props: EmployeeAssetsListProps) => {
                 
                                 <OutTime>
                                     {item.outTime}
-                                </OutTime>
+                                </OutTime>                         
                                 </Time>
+                                <FontAwesomeIcon icon={faLocationArrow} color={'gray'}/>
+                                </Row>
+                         
                             <AssetsName>
                                 {item.assetsname}
                             </AssetsName>

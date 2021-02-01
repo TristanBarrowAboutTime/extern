@@ -65,7 +65,7 @@ type EmployeeListTemplateProps = {
     employee: EmployeeList
 }
 
-const LocationEmployeeListTemplate = ({ employee }: EmployeeListTemplateProps) => {
+const LocationEmployeeListTemplate = ({ employee}: EmployeeListTemplateProps) => {
     const {
         code,
         firstName,

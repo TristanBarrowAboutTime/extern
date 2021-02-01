@@ -16,13 +16,17 @@ const CardView = styled.View`
 const Row = styled.View`     
     display:flex;
     justify-content:space-between;
+    flex-direction:row;
+`;
+const Location = styled.View`
+    font-weight:600;
 `;
 const Employee = styled.View`
 
-font-weight:600;
 `;
 
 export type AssetsActivityRecord = {
+    location: string
     employee: string
     status:string
 }
@@ -43,10 +47,13 @@ const AssetsActivity = (props: AssetsActivityProps) => {
                     return (
                         <CardView>
                             <Row>
-                            <Employee>{item.employee}</Employee>
+                            <Location>{item.location}</Location>
                             {item.status == 'assignment' ? <FontAwesomeIcon icon={faUser} color={'gray'} 
                             /> : <FontAwesomeIcon icon={faLocationArrow} color={'gray'}/> }
                             </Row>
+                            <Employee>{item.employee}</Employee>
+                            
+                          
                         </CardView>
                     );
                 }

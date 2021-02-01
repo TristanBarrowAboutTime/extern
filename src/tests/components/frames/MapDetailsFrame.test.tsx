@@ -16,9 +16,7 @@ describe('Map Details Frame', () => {
                 subjectContainer = {<div>subject container</div>}
                 tabs = {<div> tabs</div>}
                 list = {<div> list</div>}
-                goToNext = {actions.goToNext}
-                goToPrev =  {actions.goToPrev}
-                back = {actions.back}
+                actions = {<div></div>}
             />
         ).toJSON();   
         expect(tree).toMatchSnapshot();    

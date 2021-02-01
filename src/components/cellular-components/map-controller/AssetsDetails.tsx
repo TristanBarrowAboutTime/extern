@@ -7,6 +7,7 @@ import AssetListTemplate from '../../molecular-components/templates/AssetListTem
 import { MapControllerActions } from '../../../pages/MapsPage';
 import { assetsListData } from '../../../mock-data/map-details/assetsListData';
 import { assetsActivityData } from '../../../mock-data/assetsActivityListData';
+import UserImage from '../../atomic-components/UserImage';
 
 const Container = styled.View`
     display: flex;
@@ -44,9 +45,9 @@ const AssetsDetails = (props: AssetsDetailsProps) => {
                 actions={actions}
                 subjectContainer={
                     <AssetsLabel>
-                        <AssetListTemplate
+                         <AssetListTemplate
                             assets= { assetsListData[0] }
-                        />
+                         />
                     </AssetsLabel>
                 }
                 tabs={<Tabs {...tabs.tabsBinding}/>}
@@ -73,6 +74,5 @@ export const useWithAssetDetails = () => {
 
     return tabs; // asset tabs
 }
-
 
 export default AssetsDetails;

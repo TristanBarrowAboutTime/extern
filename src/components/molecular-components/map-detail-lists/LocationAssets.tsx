@@ -14,6 +14,11 @@ const CardView = styled.View`
     shadow-opacity: 0.8;
 `;
 
+const Row = styled.View`
+    flex-direction:row;
+    display:flex;
+    justify-content:space-between;
+`;
 const AssetsName = styled.View`
     color: #525252;
     display:flex;
@@ -90,9 +95,12 @@ const LocationAssets = (props: LocationAssetsProps) => {
                     return (
                         <div>
                             <CardView>
-                                <AssetsName>
-                                    {item.assets}
-                                </AssetsName>
+                                <Row>
+                                    <AssetsName>
+                                        {item.assets}                                  
+                                    </AssetsName>
+                                    <FontAwesomeIcon icon={faUser} color={'gray'} />
+                                </Row>                              
                                 <Employee>
                                     {item.employee}
                                 </Employee>
@@ -104,7 +112,7 @@ const LocationAssets = (props: LocationAssetsProps) => {
                                 </Time>
                                 <Activity>
                                     {item.activity}
-                                    <FontAwesomeIcon icon={faUser} color={'gray'} />
+                                
                                 </Activity>
                         
                                 <Assigned>
