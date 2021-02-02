@@ -46,6 +46,7 @@ const MapsLocations = (props: MapsLocationsProps) => {
                             <LocationListTemplate location={location} />
                         </TouchableOpacity>
                     )}
+                    spacingArray={[40, 0, 0, 100]}
                     postHeader={<View><Text>Active Jobs {locationData.length}</Text></View>}
                     shouldDisplayItem={(item: MapListLocation) => item.jobAddress.includes(props.searchValue)}
                     sortables={{

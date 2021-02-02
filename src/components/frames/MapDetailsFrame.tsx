@@ -5,6 +5,12 @@ import Styles from '../../style/Styles';
 import styled from 'styled-components/native';
 import { MapControllerActions } from '../../pages/MapsPage';
 
+const STRINGS = {
+    BACK: 'Back',
+    PREV: 'Prev',
+    NEXT: 'Next',
+}
+
 const Container = styled.View`
     display: flex;
     flex-direction: column;
@@ -22,6 +28,7 @@ const Tabs = styled.View`
 `;
 
 const List = styled.View`
+
 `;
 
 const Navigation = styled.View`
@@ -65,7 +72,9 @@ const MapDetailsFrame = (props: MapDetailsFrameProps) => {
                         color={Styles.color.green}
                         icon={faChevronLeft}
                     />
-                    <ButtonText>Back</ButtonText>
+                    <ButtonText>
+                        {STRINGS.BACK}
+                    </ButtonText>
                 </NavButton>
                 <ButtonContainer>
                     <NavButton onPress={props.actions.prev}>
@@ -74,10 +83,14 @@ const MapDetailsFrame = (props: MapDetailsFrameProps) => {
                             color={Styles.color.green}
                             icon={faChevronLeft}
                         />
-                        <ButtonText>Prev</ButtonText>
+                        <ButtonText>
+                            {STRINGS.PREV}
+                        </ButtonText>
                     </NavButton>
                     <NavButton onPress={props.actions.next}>
-                        <ButtonText>Next</ButtonText>
+                        <ButtonText>
+                            {STRINGS.NEXT}
+                        </ButtonText>
                         <FontAwesomeIcon
                             size={16}
                             color={Styles.color.green}
