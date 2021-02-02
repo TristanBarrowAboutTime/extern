@@ -4,6 +4,7 @@ import { faLocationArrow, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CardView = styled.View`
+    margin:10px;
     width:auto;
     padding: 10px;
     border-radius: 4px;
@@ -12,16 +13,21 @@ const CardView = styled.View`
     shadow-opacity: 0.8;
    
 `;
-const Row = styled.View`
+const Row = styled.View`     
     display:flex;
     justify-content:space-between;
+    flex-direction:row;
+`;
+const Location = styled.View`
+    font-weight:600;
 `;
 const Employee = styled.View`
 
-font-weight:600;
 `;
 
 export type AssetsActivityRecord = {
+    assetsCode: string,
+    location: string
     employee: string
     status:string
 }
@@ -42,10 +48,13 @@ const AssetsActivity = (props: AssetsActivityProps) => {
                     return (
                         <CardView>
                             <Row>
-                            <Employee>{item.employee}</Employee>
+                            <Location>{item.location}</Location>
                             {item.status == 'assignment' ? <FontAwesomeIcon icon={faUser} color={'gray'} 
                             /> : <FontAwesomeIcon icon={faLocationArrow} color={'gray'}/> }
                             </Row>
+                            <Employee>{item.employee}</Employee>
+                            
+                          
                         </CardView>
                     );
                 }

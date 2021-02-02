@@ -4,6 +4,7 @@ import SortableList from '../../frames/SortableList';
 import LocationEmployeeListTemplate from '../templates/LocationEmployeeListTemplate';
 import { MapEmployeeStatus } from '../../atomic-components/UserImage';
 import { locationEmployeeData } from '../../../mock-data/map-details/locationListData';
+import { useEffect, useState } from 'react';
 
 const Container = styled.View`
     display: flex;
@@ -35,14 +36,24 @@ type LocationEmployeeProps = {
 
 const LocationEmployee = (props: LocationEmployeeProps) => {
     const value = props.filterValue.toLowerCase();
+    const [locationEmployeeState, setLocationEmployeeState] = useState(locationEmployeeData)
+
+    const showItem = (item: LocationEmployeeRecord) => {
+        if (item.firstName.toLowerCase().includes(value) ||
+        item.lastName.toLowerCase().includes(value) ||
+        item.address.toLowerCase().includes(value)){
+            return true
+        }
+        return false
+    }
     return (
         <>
             <SortableList
-                data={locationEmployeeData}
+                data={locationEmployeeData}              
                 template={(employee: LocationEmployeeRecord) => {
                     return (
                         <LocationEmployeeListTemplate
-                            employee={employee}
+                            employee={employee}                          
                         />
                     );
                 }}
@@ -52,25 +63,8 @@ const LocationEmployee = (props: LocationEmployeeProps) => {
                     lastName: { title: 'Last', sort: (a: LocationEmployeeRecord, b: LocationEmployeeRecord) => (a.lastName > b.lastName ? -1 : 1) },
                     status: { title: 'Site Status', sort: (a: LocationEmployeeRecord, b: LocationEmployeeRecord) => (a.status > b.status ? -1 : 1) },
                 }}
-                shouldDisplayItem={(item: LocationEmployeeRecord) => true}
+                shouldDisplayItem={(item: LocationEmployeeRecord) => showItem(item)}
             />
-            {props.locationEmployeeRecord.map((item) => {
-                if (item.firstName.toLowerCase().includes(value) ||
-                    item.lastName.toLowerCase().includes(value) ||
-                    item.address.toLowerCase().includes(value)) {
-                    return (
-                        <Container>
-                            <Employee>
-                                {item.firstName}{item.lastName}
-                            </Employee>
-                            <Site>
-                                {item.address}
-                            </Site>
-
-                        </Container>
-                    )
-                }
-            })}
         </>
     )
 

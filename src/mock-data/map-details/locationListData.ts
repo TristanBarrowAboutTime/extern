@@ -15,7 +15,7 @@ export const locationAssetsData: LocationAssetsRecord[] = [
     {
         assets: 'SP-WS-02 WALL/FLOOR SCANNER',
         employee: '1002 Joseph Carrigan',
-        service: 'e',
+        service: '',
         time: 'Time Assigned to Site: 45 days',
         activity: ' ',
     },
