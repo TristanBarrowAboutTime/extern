@@ -7,9 +7,17 @@ import LocationListTemplate from '../../molecular-components/templates/LocationL
 import { MapListLocation } from '../../../types/MapListLocation';
 import { TouchableOpacity } from 'react-native';
 import LocationDetails from './LocationDetails';
+import { MapActions } from '../map/Map';
+import { MapControllerActions } from '../../../pages/MapsPage';
 
-const Container = styled.View``;
-
+const Container = styled.View`
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 360px;
+`;
 
 type MapsLocationsProps = {
     searchValue: string,
@@ -18,7 +26,7 @@ type MapsLocationsProps = {
         tabsBinding: any,
         selected: string
     }
-    actions: any
+    actions: MapControllerActions
 }
 
 const MapsLocations = (props: MapsLocationsProps) => {
@@ -34,15 +42,16 @@ const MapsLocations = (props: MapsLocationsProps) => {
                 <SortableList
                     data={locationData}
                     template={(location: MapListLocation) => (
-                        <TouchableOpacity onPress={() => console.log(location)}>
+                        <TouchableOpacity onPress={props.actions.goToDetails}>
                             <LocationListTemplate location={location} />
                         </TouchableOpacity>
                     )}
+                    spacingArray={[40, 0, 0, 100]}
                     postHeader={<View><Text>Active Jobs {locationData.length}</Text></View>}
-                    shouldDisplayItem={(item: MapListLocation) => item.address.includes(props.searchValue)}
+                    shouldDisplayItem={(item: MapListLocation) => item.jobAddress.includes(props.searchValue)}
                     sortables={{
-                        code: { title: 'Code', sort: (a: MapListLocation, b: MapListLocation) => (a.code > b.code ? -1 : 1) },
-                        name: { title: 'Name', sort: (a: MapListLocation, b: MapListLocation) => (a.name > b.name ? -1 : 1) },
+                        locationCode: { title: 'Code', sort: (a: MapListLocation, b: MapListLocation) => (a.locationCode > b.locationCode ? -1 : 1) },
+                        locationFirstName: { title: 'Name', sort: (a: MapListLocation, b: MapListLocation) => (a.locationFirstName > b.locationFirstName ? -1 : 1) },
                     }}
                 />
             )}

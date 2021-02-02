@@ -16,7 +16,7 @@ export const discData: EmployeeDiscRecord[] = [
     },
     {
         company:'10000 West ERD (K-Rite)',
-        time:'5:35 PM0',
+        time:'5:35 PM',
         distance:'Clock-OUT is outside of Geofence by 10.5 Miles',   
         notes:'Notes',
         text :'I forgot to clock out at 5:00, sorry!'

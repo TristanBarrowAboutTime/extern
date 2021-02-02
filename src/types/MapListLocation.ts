@@ -1,5 +1,6 @@
 export type MapListLocation = {
-    code: number
-    name: string
-    address: string
+    locationCode: number
+    locationFirstName: string
+    locationLastName: string
+    jobAddress: string
 }

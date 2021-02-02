@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { View } from 'react-native';
-import UserImage, { MapEmployeeStatus } from '../../atomic-components/UserImage';
+import UserImage from '../../atomic-components/UserImage';
 import styled from 'styled-components/native';
-import Styles from '../../../style/Styles';
-import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight, faUser } from '@fortawesome/free-solid-svg-icons';
+import { assetsActivityData } from '../../../mock-data/assetsActivityListData';
+
 
 const Container = styled.View`
+    padding: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -18,7 +20,7 @@ const Row = styled.View`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: baseline;
 
 `;
 
@@ -30,55 +32,89 @@ const Content = styled.View`
     margin-right: 8px;
 `;
 
-const Title = styled.Text`
-    font-size: 20px;
+const Title = styled.View`
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex: 1;
+   
 `;
+const Text = styled.Text`
+    font-size: 20px;
 
+`;
 const SubTitle = styled.Text`
     
 `;
 
 
-export type ListEmployee = {
-    code: number
-    firstName: string
-    lastName: string
-    address: string 
+export type AssetsListRecord = {
+    assetsCode: string
+    assetsFirstName: string
+    assetsLastName: string
+    employeeCode: number
+    employeeFirstName: string
+    employeeLastName: string
+    address: string
     image: null | string
 }
 
 type AssetListTemplateProps = {
-    assets: ListEmployee
+    assets: AssetsListRecord
+    showNoActivity:boolean
 }
 
-const AssetListTemplate = ({ assets }: AssetListTemplateProps) => {
+const AssetListTemplate = ({ assets,showNoActivity }: AssetListTemplateProps) => {
     const {
-        code,
-        firstName,
-        lastName,
+        assetsCode,
+        assetsFirstName,
+        assetsLastName,
+        employeeCode,
+        employeeFirstName,
+        employeeLastName,
         address,
         image
     } = assets;
 
     return (
-        <Container key={code}>
-            <UserImage 
-                src={image} 
-                firstName={firstName}
-                lastName={lastName}
-                status={MapEmployeeStatus.CLOCKED_IN}
-             />
+        <Container key={assetsCode}>
+            <UserImage
+                src={image}
+                firstName={assetsFirstName}
+                lastName={assetsLastName}
+                size={40}
+            />
             <Content>
-                <Row>                  
-                    <Title>
-                        {`${code} ${firstName} ${lastName}`}
-                    </Title >
-                </Row>
                 <Row>
-                    <SubTitle>{address}</SubTitle>
+
+                    <Title>
+                        <Text>{`${assetsCode} ${assetsFirstName} ${assetsLastName}`} </Text>
+                    </Title >
+                    <FontAwesomeIcon icon={faChevronRight} color={'gray'} />
+
                 </Row>
+                {showNoActivity?
+                    <>
+                        <Row>
+                            <SubTitle>{address}</SubTitle>
+                        </Row>
+                        <Row>
+                            <SubTitle>{`${employeeCode} ${employeeFirstName} ${employeeLastName}`}</SubTitle>
+                            <FontAwesomeIcon icon={faUser} color={'gray'} />
+                        </Row>
+                    </>
+                    :
+                    <Row>
+                        <SubTitle>No Activity</SubTitle>
+                    </Row>
+
+                }
+
+
+
             </Content>
-            </Container>
+
+        </Container>
     )
 }
 
