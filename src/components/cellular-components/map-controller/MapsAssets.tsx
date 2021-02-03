@@ -9,7 +9,6 @@ import AssetListTemplate, { AssetsListRecord } from '../../molecular-components/
 import { assetsActivityData } from '../../../mock-data/assetsActivityListData';
 
 const Container = styled.View`
-
 `;
 
 type MapAssetsProps = {
@@ -23,6 +22,21 @@ type MapAssetsProps = {
 }
 
 const MapsAssets = (props: MapAssetsProps) => {
+
+    const checkLocationDetails = (assets:AssetsListRecord) => {
+        if(checkLocationAvailable(assets)){
+            props.actions.goToDetails()
+        }  
+       }
+
+
+   const checkLocationAvailable = (assets: AssetsListRecord) => {
+    if(assetsActivityData.find(item=>item.location === assets.location)){
+        return true
+    }
+    return false
+}
+
   
   const checkActivityDetails = (assets:AssetsListRecord) => {
    if(checkIsActivityAvailable(assets)){
@@ -47,17 +61,17 @@ const MapsAssets = (props: MapAssetsProps) => {
             ) : (
                 <SortableList
                     data={assetsListData}
-                    
+                    spacingArray={[40, 0, 0, 0, 50]}
                     template={(assets: AssetsListRecord) => 
                         <TouchableOpacity onPress={()=>checkActivityDetails(assets)}>
-                           <AssetListTemplate showNoActivity={checkIsActivityAvailable(assets)}  assets={assets} />
+                           <AssetListTemplate showNoActivity={checkIsActivityAvailable(assets)} showNoLocation={checkLocationAvailable(assets)}  assets={assets} />
                         </TouchableOpacity>
                     }
                     postHeader={<View><Text>Active Assets {assetsListData.length}</Text></View>}
                     sortables={{
                         code: { title: 'Code', sort: (a: AssetsListRecord, b: AssetsListRecord) => (a.assetsCode > b.assetsCode ? -1 : 1) },
-                        firstName: { title: 'First Name', sort: (a: AssetsListRecord, b:AssetsListRecord) => (a.assetsFirstName > b.assetsFirstName ? -1 : 1) },
-                        lastName: { title: 'Last Name', sort: (a: AssetsListRecord, b: AssetsListRecord) => (a.assetsLastName > b.assetsLastName ? -1 : 1) },
+                        firstName: { title: 'First', sort: (a: AssetsListRecord, b:AssetsListRecord) => (a.assetsFirstName > b.assetsFirstName ? -1 : 1) },
+                        lastName: { title: 'Last', sort: (a: AssetsListRecord, b: AssetsListRecord) => (a.assetsLastName > b.assetsLastName ? -1 : 1) },
                     }}
                     shouldDisplayItem={(item: AssetsListRecord) => true}
                 />
