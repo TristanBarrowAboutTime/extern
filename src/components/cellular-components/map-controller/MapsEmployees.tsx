@@ -8,7 +8,6 @@ import EmployeeDetails from './EmployeeDetails';
 import { TouchableOpacity } from 'react-native';
 import { MapControllerActions } from '../../../pages/MapsPage';
 
-
 const Container = styled.View`
     padding: 10px;
     display: flex;
