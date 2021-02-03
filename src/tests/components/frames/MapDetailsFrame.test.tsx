@@ -1,24 +1,26 @@
 import * as React from 'react';
-import * as renderer from 'react-test-renderer';
+// import { Text } from 'react-native';
+import { render } from '@testing-library/react-native';
 import MapDetailsFrame from '../../../components/frames/MapDetailsFrame';
 
 describe('Map Details Frame', () => {
     it('renders Correctly', () => {
 
         const actions = {
-            goToNext: jest.fn(),
-            goToPrev: jest.fn(),
-            back: jest.fn()
+            next: jest.fn(),
+            prev: jest.fn(),
+            back: jest.fn(),
+            goToDetails: jest.fn(),
+            goToList: jest.fn(),
         }
-
-        const tree = renderer.create(
-            <MapDetailsFrame 
-                subjectContainer = {<div>subject container</div>}
-                tabs = {<div> tabs</div>}
-                list = {<div> list</div>}
-                actions = {<div></div>}
+        
+        const { toJSON } = render(<MapDetailsFrame 
+                subjectContainer={''}
+                tabs={''}
+                list={''}
+                actions={actions}
             />
-        ).toJSON();   
-        expect(tree).toMatchSnapshot();    
+        );
+        expect(toJSON()).toMatchSnapshot();    
     });
 });

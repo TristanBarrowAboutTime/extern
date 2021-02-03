@@ -9,7 +9,7 @@ import { divIcon } from 'leaflet';
 const Header = styled.View`
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
+    /* justify-content: space-between; */
 `;
 
 type BodyStyles = {
@@ -24,7 +24,7 @@ const Body = styled.View`
 const HeaderItem = styled.TouchableOpacity`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 `;
 
 const HeaderText = styled.Text`
@@ -69,7 +69,7 @@ const SortableList = <T extends unknown>({
             <Header>
                 <div style={{width: binding.spaces[0]}} />
                 {preHeader}
-                <div style={{display:'flex'}}>
+                {/* <div style={{display:'flex'}}> */}
                 {Object.keys(sortables).map((currentSort: string, index: number) => {
                     return (
                         <>
@@ -87,7 +87,7 @@ const SortableList = <T extends unknown>({
                         </>
                     )
                 })}
-                </div>
+                {/* </div> */}
                 <div style={{ width: binding.spaces[binding.spaces.length - 1]}} />
                 {postHeader}
             </Header>

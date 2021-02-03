@@ -37,19 +37,10 @@ const MapsAssets = (props: MapAssetsProps) => {
     return false
 }
 
-  
-  const checkActivityDetails = (assets:AssetsListRecord) => {
-   if(checkIsActivityAvailable(assets)){
-       props.actions.goToDetails()
-   }  
-  }
+    const binding = useMapAssets({
+        goToDetails: props.actions.goToDetails
+    });
 
-  const checkIsActivityAvailable = (assets:AssetsListRecord) => {
-    if(assetsActivityData.find(item=>item.assetsCode === assets.assetsCode)){
-        return true
-    }  
-    return false
-  }
     return (
         <Container>
             {props.isShowingDetails ? (
@@ -63,8 +54,8 @@ const MapsAssets = (props: MapAssetsProps) => {
                     data={assetsListData}
                     spacingArray={[40, 0, 0, 0, 50]}
                     template={(assets: AssetsListRecord) => 
-                        <TouchableOpacity onPress={()=>checkActivityDetails(assets)}>
-                           <AssetListTemplate showNoActivity={checkIsActivityAvailable(assets)} showNoLocation={checkLocationAvailable(assets)}  assets={assets} />
+                        <TouchableOpacity onPress={() => binding.checkActivityDetails(assets)}>
+                           <AssetListTemplate showNoActivity={binding.checkIsActivityAvailable(assets)} showNoLocation={checkLocationAvailable(assets)} assets={assets} />
                         </TouchableOpacity>
                     }
                     postHeader={<View><Text>Active Assets {assetsListData.length}</Text></View>}
@@ -79,5 +70,29 @@ const MapsAssets = (props: MapAssetsProps) => {
         </Container>
     );
 };
+
+type UseMapAssetsArgs = {
+    goToDetails: () => void
+}
+
+const useMapAssets = (args: UseMapAssetsArgs) => {
+    const checkActivityDetails = (assets: AssetsListRecord) => {
+        if (checkIsActivityAvailable(assets)){
+            args.goToDetails();
+        }  
+    }
+
+    const checkIsActivityAvailable = (assets: AssetsListRecord) => {
+        if (assetsActivityData.find(item => item.assetsCode === assets.assetsCode)) {
+            return true;
+        }  
+        return false;
+    }
+
+    return {
+        checkIsActivityAvailable,
+        checkActivityDetails,
+    }
+}
 
 export default MapsAssets;
