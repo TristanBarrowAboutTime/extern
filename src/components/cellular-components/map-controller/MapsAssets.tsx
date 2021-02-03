@@ -9,6 +9,12 @@ import AssetListTemplate, { AssetsListRecord } from '../../molecular-components/
 import { assetsActivityData } from '../../../mock-data/assetsActivityListData';
 
 const Container = styled.View`
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 360px;
 `;
 
 type MapAssetsProps = {
@@ -52,7 +58,7 @@ const MapsAssets = (props: MapAssetsProps) => {
             ) : (
                 <SortableList
                     data={assetsListData}
-                    spacingArray={[40, 0, 0, 0, 50]}
+                    spacingArray={[40, 0, 0, 0, 35]}
                     template={(assets: AssetsListRecord) => 
                         <TouchableOpacity onPress={() => binding.checkActivityDetails(assets)}>
                            <AssetListTemplate showNoActivity={binding.checkIsActivityAvailable(assets)} showNoLocation={checkLocationAvailable(assets)} assets={assets} />

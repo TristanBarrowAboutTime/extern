@@ -10,6 +10,12 @@ import { MapControllerActions } from '../../../pages/MapsPage';
 
 
 const Container = styled.View`
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 360px;
 
 `;
 
