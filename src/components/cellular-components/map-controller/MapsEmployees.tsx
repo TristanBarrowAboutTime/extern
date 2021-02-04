@@ -7,16 +7,10 @@ import MapEmployeeListTemplate, { ListEmployee } from '../../molecular-component
 import EmployeeDetails from './EmployeeDetails';
 import { TouchableOpacity } from 'react-native';
 import { MapControllerActions } from '../../../pages/MapsPage';
+import { MapEmployeeStatus } from '../../atomic-components/UserImage';
 
-const Container = styled.View`
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 360px;
 
-`;
+const Container = styled.View``;
 
 type ColorStyle = {
     isActive: boolean
@@ -64,6 +58,15 @@ type MapsEmployeesProps = {
     actions: MapControllerActions // tunneling
 }
 
+const tmpEmployee = {
+    code: '1234',
+    firstName: 'Tristan',
+    lastName: 'Barrow',
+    status: MapEmployeeStatus.CLOCKED_IN,
+    userImage: null
+
+}
+
 const MapsEmployees = (props: MapsEmployeesProps) => {
     return (
         <Container>
@@ -71,6 +74,7 @@ const MapsEmployees = (props: MapsEmployeesProps) => {
                 <EmployeeDetails 
                     searchValue={props.searchValue}
                     tabs={props.tabs}
+                    employee={tmpEmployee}
                     actions={props.actions}
                  />
             ) : (

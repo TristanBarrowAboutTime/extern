@@ -8,14 +8,7 @@ import { assetsListData } from '../../../mock-data/map-details/assetsListData';
 import AssetListTemplate, { AssetsListRecord } from '../../molecular-components/templates/AssetListTemplate';
 import { assetsActivityData } from '../../../mock-data/assetsActivityListData';
 
-const Container = styled.View`
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 360px;
-`;
+const Container = styled.View``;
 
 type MapAssetsProps = {
     searchValue: string,
