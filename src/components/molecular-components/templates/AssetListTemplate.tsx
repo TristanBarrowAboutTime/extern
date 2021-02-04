@@ -3,7 +3,6 @@ import UserImage from '../../atomic-components/UserImage';
 import styled from 'styled-components/native';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faUser } from '@fortawesome/free-solid-svg-icons';
-import { assetsActivityData } from '../../../mock-data/assetsActivityListData';
 
 
 const Container = styled.View`

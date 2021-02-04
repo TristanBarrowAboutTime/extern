@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import { faLocationArrow, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useLocationAssetData } from '../../../hooks/loadable-data/live-maps/controller/locations/useLocationAssetData';
 //<i class="fas fa-user"></i>
 
 const CardView = styled.View`
@@ -10,8 +11,6 @@ const CardView = styled.View`
     margin-top:10;
     border-radius: 4px;
     box-shadow: 0 1px 4px #cccccc;
-    shadow-color: grey;
-    shadow-opacity: 0.8;
 `;
 
 const Row = styled.View`
@@ -65,7 +64,7 @@ const Activity = styled.View`
     padding-bottom:8px;
     padding-left:10px;
     justify-content:space-between;
-    `;
+`;
 
 const Assigned = styled.View`
 `;
@@ -78,48 +77,46 @@ export type LocationAssetsRecord = {
 }
 
 type LocationAssetsProps = {
-    locationAssetsRecord: LocationAssetsRecord[]
     filterValue: string
 }
 
 const LocationAssets = (props: LocationAssetsProps) => {
     const value = props.filterValue.toLowerCase();
+    const locationAssetRecords = useLocationAssetData();
     return (
         <>
-            {props.locationAssetsRecord.map((item) => {
-                if (item.assets.toLowerCase().includes(value) ||
-                    item.employee.toLowerCase().includes(value) ||
-                    item.service.toLowerCase().includes(value) ||
-                    item.activity.toLowerCase().includes(value))
-                {
+            {locationAssetRecords.map((locationAssetRecord) => {
+                const {
+                    assets,
+                    employee,
+                    service,
+                    activity,
+                    time
+                } = locationAssetRecord;
+
+                const shouldRenderRow = (
+                    assets.toLowerCase().includes(value) ||
+                    employee.toLowerCase().includes(value) ||
+                    service.toLowerCase().includes(value) ||
+                    activity.toLowerCase().includes(value)
+                )
+
+                if (shouldRenderRow) {
                     return (
-                        <div>
-                            <CardView>
-                                <Row>
-                                    <AssetsName>
-                                        {item.assets}                                  
-                                    </AssetsName>
-                                    <FontAwesomeIcon icon={faUser} color={'gray'} />
-                                </Row>                              
-                                <Employee>
-                                    {item.employee}
-                                </Employee>
-                                <ServiceType>
-                                    {item.service}
-                                </ServiceType>
-                                <Time>
-                                    {item.time}
-                                </Time>
-                                <Activity>
-                                    {item.activity}
-                                
-                                </Activity>
-                        
-                                <Assigned>
-                                    {/* last activity here */}
-                                </Assigned>
-                            </CardView>
-                        </div>
+                        <CardView>
+                            <Row>
+                                <AssetsName>{assets}</AssetsName>
+                                <FontAwesomeIcon icon={faUser} color={'gray'} />
+                            </Row>                              
+                            <Employee>{employee}</Employee>
+                            <ServiceType>{service}</ServiceType>
+                            <Time>{time}</Time>
+                            <Activity>{activity}</Activity>
+                    
+                            <Assigned>
+                                {/* last activity here */}
+                            </Assigned>
+                        </CardView>
                     )
                 }
             })}

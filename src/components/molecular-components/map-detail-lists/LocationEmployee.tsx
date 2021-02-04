@@ -3,21 +3,7 @@ import styled from 'styled-components/native';
 import SortableList from '../../frames/SortableList';
 import LocationEmployeeListTemplate from '../templates/LocationEmployeeListTemplate';
 import { MapEmployeeStatus } from '../../atomic-components/UserImage';
-import { locationEmployeeData } from '../../../mock-data/map-details/locationListData';
-import { useEffect, useState } from 'react';
-
-const Container = styled.View`
-    display: flex;
-    width: 400px;
-    border-color: '#ddd';
-    padding: 20px;
-`;
-
-const Employee = styled.View`
-`;
-
-const Site = styled.View`
-`;
+import { useLocationEmployeeData } from '../../../hooks/loadable-data/live-maps/controller/locations/useLocationEmployeeData';
 
 export type LocationEmployeeRecord = {
     code: number
@@ -30,13 +16,12 @@ export type LocationEmployeeRecord = {
 }
 
 type LocationEmployeeProps = {
-    locationEmployeeRecord: LocationEmployeeRecord[]
     filterValue: string
 }
 
 const LocationEmployee = (props: LocationEmployeeProps) => {
     const value = props.filterValue.toLowerCase();
-    const [locationEmployeeState, setLocationEmployeeState] = useState(locationEmployeeData)
+    const locationEmployeeRecords =  useLocationEmployeeData();
 
     const showItem = (item: LocationEmployeeRecord) => {
         if (item.firstName.toLowerCase().includes(value) ||
@@ -49,7 +34,7 @@ const LocationEmployee = (props: LocationEmployeeProps) => {
     return (
         <>
             <SortableList
-                data={locationEmployeeData}              
+                data={locationEmployeeRecords}              
                 template={(employee: LocationEmployeeRecord) => {
                     return (
                         <LocationEmployeeListTemplate

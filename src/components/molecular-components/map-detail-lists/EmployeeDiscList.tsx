@@ -1,160 +1,162 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
+import { useEmployeeDescrepancyData } from '../../../hooks/loadable-data/live-maps/controller/employees/useEmployeeDescrepancyData';
+
+const STRINGS = {
+    NOTES: 'Notes',
+    CLOCK_IN: 'Clock-IN',
+    CLOCK_OUT: 'Clock-OUT',
+    GEOFENCE_WARNING: 'is outside of Geofence by',
+}
+
+type CompTheme = {
+    colors: {
+        active: string
+        error: string
+        text: string
+    }
+    components: {
+        cardShadow: string
+        cardBorderRadius: number
+    }
+    fontSizes: {
+        normal: number
+    }
+}
+
+const DEFAULT_THEME = {
+    theme: {
+        colors: {
+            active: 'green',
+            error: 'red',
+            text: 'black',
+        },
+        components: {
+            cardShadow: '0 1px 4px #cccccc',
+            cardBorderRadius: 4
+        },
+        fontSizes: {
+            normal: 15
+        },
+        
+    } as CompTheme
+}
 
 const CardView = styled.View`
     width: auto;
     padding: 10px;
-    margin-top:10;
+    margin-top: 10px;
     border-radius: 4px;
-    box-shadow: 0 1px 4px #cccccc;
+    box-shadow: ${(props: { theme: CompTheme }) => props.theme.components.cardShadow};
 `;
 
-const CompanyArea = styled.Text`
+CardView.defaultProps = DEFAULT_THEME;
+
+const Header = styled.Text`
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    color: #525252;
-    padding-bottom:10px;
-    font-size:15px;
-    font-weight:600;
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.text};
+    padding-bottom: 10px;
+    font-size: 15px;
+    font-weight: 600;
     
 `;
 
-type TimeStyle = {
-    isClockedIn: boolean
-    theme: {
-        colors: {
-            green: string
-            red: string
-        }
-    }
-}
+Header.defaultProps = DEFAULT_THEME;
 
-const Time = styled.Text`
-    color: ${(props: TimeStyle) => props.isClockedIn ?  props.theme.colors.green : props.theme.colors.red};
+const Location = styled.Text`
+
 `;
 
-Time.defaultProps = {
-    isClockedIn: true,
-    theme: {
-        colors: {
-            green: '#79A949',
-            red: '#9B3E38' 
-        }
-    }
-}
+const ErrorTimePunch = styled.Text`
+    font-weight: bold;
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.error};
+`;
 
-type DistanceStyle = {
-    theme: {
-        colors: {
-            red: string
-        }
-    }
-}
+ErrorTimePunch.defaultProps = DEFAULT_THEME;
 
-const Distance = styled.Text`
+const ActiveTimePunch = styled.Text`
+    font-weight: bold;
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.active};
+`;
+
+ActiveTimePunch.defaultProps = DEFAULT_THEME;
+
+const DiscrepancyMessage = styled.Text`
     display: flex;
     width: auto;
     padding-bottom: 20px;
     font-size: 15px;
-    color: ${(props: DistanceStyle) => props.theme.colors};
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.text};
 `;
 
-Distance.defaultProps = {
-    theme: { 
-        colors: {
-            red: '#9B3E38'
-        }
-    }
-}
+DiscrepancyMessage.defaultProps = DEFAULT_THEME;
 
-type GrayTextStyle = {
-    theme: {
-        fontColors: {
-            default: string
-        }
-    }
-}
-
-const Notes = styled.Text`
+const NoteLabel = styled.Text`
     font-size: 15px;
-    color: ${(props: GrayTextStyle) => props.theme.fontColors.default};
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.text};
     font-weight: 600;
 `;
 
-Notes.defaultProps = {
-    theme: {
-        fontColors: {
-            default: '#525252'
-        }
-    }
-}
+NoteLabel.defaultProps = DEFAULT_THEME;
 
-const Text = styled.Text`
-    color: ${(props: GrayTextStyle) => props.theme.fontColors.default};
+const NotesBody = styled.Text`
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.text};
     padding-bottom: 10px;
     font-size: 15px;
 `;
 
-Text.defaultProps = {
-    theme: {
-        fontColors: {
-            default: '#525252'
-        }
-    }
-}
-
-export type EmployeeDiscRecord = {
-    company: string
-    time: string
-    distance: string
-    notes: string
-    text: string
-}
+NotesBody.defaultProps = DEFAULT_THEME;
 
 type EmployeeDiscListProps = {
-    discRecords: EmployeeDiscRecord[]
     filterValue: string
 }
 
 const EmployeeDiscList = (props: EmployeeDiscListProps) => {
     const value = props.filterValue.toLowerCase();
+    const employeeDescrepancyData = useEmployeeDescrepancyData();
+
     return (
         <>
-            {props.discRecords.map((item) => {
-                if (item.company.toLowerCase().includes(value) ||
-                    item.time.toLowerCase().includes(value) ||
-                    item.distance.toLowerCase().includes(value) ||
-                    item.text.toLowerCase().includes(value)) 
-                {
+            {employeeDescrepancyData.map((descrepancyRecord) => {
+                const { 
+                    time, 
+                    notes,
+                    isAClockin,
+                    jobLocation, 
+                    units,
+                    unitsOutSide, 
+                } = descrepancyRecord;
+
+                const punchType = isAClockin ? STRINGS.CLOCK_IN : STRINGS.CLOCK_OUT;
+                const descrpeancyMessage = `${punchType} ${STRINGS.GEOFENCE_WARNING} ${unitsOutSide} ${units}.`;
+
+                const cardShouldDisplay: boolean = (
+                    jobLocation.toLowerCase().includes(value) ||
+                    descrpeancyMessage.toLowerCase().includes(value) || 
+                    time.toLowerCase().includes(value) ||
+                    notes.toLowerCase().includes(value)
+                );
+                
+                if (cardShouldDisplay) {
                     return (
                         <CardView>
-
-                            <CompanyArea>
-                                {item.company}
-
-                                <Time isClockedIn={true} >
-                                    {item.time}
-                                </Time>
-
-                            </CompanyArea>
-
-                            <Distance>
-                                {item.distance}
-                            </Distance>
-
-                            <Notes>
-                                {item.notes}
-                            </Notes>
-                            <Text>
-                                {item.text}
-                            </Text>
+                            <Header>
+                                <Location>{jobLocation}</Location>
+                                {isAClockin ? (
+                                    <ErrorTimePunch>{time}</ErrorTimePunch>
+                                ) : ( 
+                                    <ActiveTimePunch>{time}</ActiveTimePunch> 
+                                )}
+                            </Header>
+                            <DiscrepancyMessage>{descrpeancyMessage}</DiscrepancyMessage>
+                            <NoteLabel>{STRINGS.NOTES}</NoteLabel>
+                            <NotesBody>{notes}</NotesBody>
                         </CardView>
-
-                    )
+                    );
                 }
-
             })}
         </>
     )

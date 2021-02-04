@@ -4,12 +4,10 @@ import { View } from 'react-native';
 import styled from 'styled-components/native';
 import Styles from '../../style/Styles';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { divIcon } from 'leaflet';
 
 const Header = styled.View`
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
 `;
 
 type BodyStyles = {
@@ -24,7 +22,6 @@ const Body = styled.View`
 const HeaderItem = styled.TouchableOpacity`
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
 `;
 
 const HeaderText = styled.Text`
@@ -42,9 +39,9 @@ type Sortables = {
 type ListProps<T> = {
     data: T[]
     sortables: Sortables
-    isHorizontal?: boolean
     preHeader?: React.ReactNode
     postHeader?: React.ReactNode
+    isHorizontal?: boolean
     spacingArray?: number[] | null
     shouldDisplayItem: (item: T) => boolean
     template: (item: T) => React.ReactNode
@@ -53,23 +50,19 @@ type ListProps<T> = {
 const SortableList = <T extends unknown>({
     data,
     sortables,
+    preHeader = null,
+    postHeader = null,
     isHorizontal = false,
-    preHeader,
-    postHeader,
     spacingArray = null, 
     shouldDisplayItem,
     template,
 }: ListProps<T>) => {
     const binding = useSortableList({data, sortables, spacingArray});
-    console.log(postHeader)
-
-
     return (
         <View>
             <Header>
                 <div style={{width: binding.spaces[0]}} />
                 {preHeader}
-                {/* <div style={{display:'flex'}}> */}
                 {Object.keys(sortables).map((currentSort: string, index: number) => {
                     return (
                         <>
@@ -85,9 +78,8 @@ const SortableList = <T extends unknown>({
                                 />
                             </HeaderItem>
                         </>
-                    )
+                    );
                 })}
-                {/* </div> */}
                 <div style={{ width: binding.spaces[binding.spaces.length - 1]}} />
                 {postHeader}
             </Header>
