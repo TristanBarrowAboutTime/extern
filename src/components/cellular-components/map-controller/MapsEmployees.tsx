@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
-import { employeeListData } from '../../../mock-data/employeeMapData';
+import { Text } from 'react-native';
+import { useMapEmployeesData } from '../../../hooks/loadable-data/live-maps/controller/employees/useMapEmployeesData';
 import SortableList from '../../frames/SortableList';
 import styled from 'styled-components/native';
 import MapEmployeeListTemplate, { ListEmployee } from '../../molecular-components/templates/EmployeeListTemplate';
@@ -8,6 +8,10 @@ import EmployeeDetails from './EmployeeDetails';
 import { TouchableOpacity } from 'react-native';
 import { MapControllerActions } from '../../../pages/MapsPage';
 import { MapEmployeeStatus } from '../../atomic-components/UserImage';
+
+type CompTheme = {
+}
+
 
 
 const Container = styled.View``;
@@ -68,6 +72,7 @@ const tmpEmployee = {
 }
 
 const MapsEmployees = (props: MapsEmployeesProps) => {
+    const employeeData = useMapEmployeesData();
     return (
         <Container>
             {props.isShowingDetails ? (
@@ -79,7 +84,7 @@ const MapsEmployees = (props: MapsEmployeesProps) => {
                  />
             ) : (
                 <SortableList
-                    data={employeeListData}
+                    data={employeeData}
                     spacingArray={[56,0,0,0,45]}
                     postHeader={
                         <ActiveEmployees>
@@ -98,9 +103,6 @@ const MapsEmployees = (props: MapsEmployeesProps) => {
                         code: { title: 'Code', sort: (a: ListEmployee, b: ListEmployee) => (a.code > b.code ? -1 : 1) },
                         firstName: { title: 'First', sort: (a: ListEmployee, b:ListEmployee) => (a.firstName > b.firstName ? -1 : 1) },
                         lastName: { title: 'Last', sort: (a: ListEmployee, b: ListEmployee) => (a.lastName > b.lastName ? -1 : 1) },
-                        // time:{title: 'Code', sort: (a: LP, b:LP) => (a.code > b.code ? -1 : 1)},
-                        // geoDiscrepancy: {title: 'Code', sort: (a: LP, b:LP) => (a.code > b.code ? -1 : 1)},
-                        // address: {title: 'Code', sort: (a: LP, b:LP) => (a.code > b.code ? -1 : 1)}
                     }}
                     shouldDisplayItem={(item: ListEmployee) => item.address.includes(props.searchValue)}
                 />

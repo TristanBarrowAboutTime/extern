@@ -8,7 +8,6 @@ import EmployeeHistoryList from '../../molecular-components/map-detail-lists/Emp
 import EmployeeLocationList from '../../molecular-components/map-detail-lists/EmployeeLocationList';
 import EmployeeAssetsList from '../../molecular-components/map-detail-lists/EmployeeAssetsList';
 import EmployeeFormsList from '../../molecular-components/map-detail-lists/EmployeeFormsList';
-import { assetsData, data, discData, formData, locationData } from '../../../mock-data/map-details/employeeListData';
 import { MapControllerActions } from '../../../pages/MapsPage';
 
 const Container = styled.View`
@@ -78,34 +77,19 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                 list={
                     <>
                         {tabs.selected === EmployeeDetailsTabs.DISC && (
-                            <EmployeeDiscList
-                                discRecords={discData}
-                                filterValue={searchValue}
-                            />
+                            <EmployeeDiscList filterValue={searchValue} />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.HISTORY && (
-                            <EmployeeHistoryList
-                                timeRecords={data}
-                                filterValue={searchValue}
-                            />
+                            <EmployeeHistoryList filterValue={searchValue} />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.LOCATION && (
-                            <EmployeeLocationList
-                                locationRecord={locationData}
-                                filterValue={searchValue}
-                            />
+                            <EmployeeLocationList filterValue={searchValue} />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.ASSETS && (
-                            <EmployeeAssetsList
-                                assetsRecord={assetsData}
-                                filterValue={searchValue}
-                            />
+                            <EmployeeAssetsList filterValue={searchValue} />
                         )}
                         {tabs.selected === EmployeeDetailsTabs.FORMS && (
-                            <EmployeeFormsList
-                                formRecord={formData}
-                                filterValue={searchValue}
-                            />
+                            <EmployeeFormsList filterValue={searchValue} />
                         )}
                     </>
                 }

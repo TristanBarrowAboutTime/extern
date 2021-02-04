@@ -1,120 +1,143 @@
-import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import styled from 'styled-components/native';
+import { withTheme } from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
+import { useEmployeeAssetData } from '../../../hooks/loadable-data/live-maps/controller/employees/useEmployeeAssetData';
+
+type CompTheme = {
+    colors: {
+        active: string
+        error: string
+        text: string
+    }
+    components: {
+        cardShadow: string
+    }
+}
+
+const DEFAULT_THEME = {
+    theme: {
+        colors: {
+            active: 'green',
+            error: 'red',
+            text: 'black',
+        },
+        components: {
+            cardShadow: '0 1px 4px #cccccc'
+        }
+    }
+}
 
 const CardView = styled.View`
     width: auto;
     padding: 10px;
     margin-top: 10px;
     border-radius: 4px;
-    box-shadow: 0 1px 4px #cccccc;
+    box-shadow: ${(props: { theme: CompTheme }) => props.theme.components.cardShadow};
 `;
 
-const Row = styled.View`
+const Header = styled.View`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-content: baseline;
 `;
-const Time = styled.View`
+
+const TimeContainer = styled.View`
     display: flex;
     flex-direction: row;
-    align-items: center;
     font-size: 15px;
     font-weight: 400;
     padding-bottom: 8px;
     padding-left: 10px;
+
 `;
-const InTime = styled.View`
-    color: #79A949;
-    display: flex;
-    flex-direction: row;
+
+const TimeIn = styled.Text`
     padding-right: 20px;
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.active};
 `;
 
-const OutTime = styled.View`
-    color: #9B3E38;
-    display: flex;
-    flex-direction: row;
+TimeIn.defaultProps = DEFAULT_THEME;
+
+const TimeOut = styled.View`
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.error};
 `;
 
-const AssetsName = styled.View`
-    color: #79767F;
-    display: flex;
+TimeOut.defaultProps = DEFAULT_THEME;
+
+const Title = styled.Text`
     padding-left: 10px;
     padding-bottom: 10px;
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.error};
     font-size: 15px;
     font-weight: 600;
-`;
-
-const CompanyDetails = styled.View`
-    color: #79767F;
-    display: flex;
-    padding-left: 10px;
-    padding-bottom: 10px;
-    font-size: 15px;  
 
 `;
 
-const ServiceArea = styled.View`
-    color: #79767F;
-    display: flex;
+Title.defaultProps = DEFAULT_THEME;
+
+
+const SubTitle = styled.View`
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.text};
     padding-left: 10px;
     padding-bottom: 10px;
     font-size: 15px;  
 `;
 
-export type EmployeeAssetsRecord = {
-    inTime: string
-    outTime: string
-    assetsname: string
-    company: string
-    servicearea: string
-}
+SubTitle.defaultProps = DEFAULT_THEME;
 
 type EmployeeAssetsListProps = {
-    assetsRecord: EmployeeAssetsRecord[]
     filterValue: string
+    theme?: CompTheme
 }
 
-const EmployeeAssetsList = (props: EmployeeAssetsListProps) => {
-    const value = props.filterValue.toLowerCase();
+const EmployeeAssetsList = ({
+    filterValue,
+    theme = DEFAULT_THEME.theme
+}: EmployeeAssetsListProps) => {
+    const value = filterValue.toLowerCase();
+    const employeeAssetData = useEmployeeAssetData();
+
     return (
         <>
-            {props.assetsRecord.map((item) =>{
-                if (item.inTime.toLowerCase().includes(value) ||
-                    item.outTime.toLowerCase().includes(value) ||
-                    item.assetsname.toLowerCase().includes(value) ||
-                    item.company.toLowerCase().includes(value) ||
-                    item.servicearea.toLowerCase().includes(value)) 
-                {
+            {employeeAssetData.map((employeeAssetRecord) => {
+                const {
+                    timeIn,
+                    timeOut,
+                    assetName,
+                    location,
+                    costCode,
+                } = employeeAssetRecord;
+
+                const _timeOut = timeOut !== null ? timeOut : '';
+                const shouldRenderRecord = (
+                    timeIn.toLowerCase().includes(value) ||
+                    _timeOut.toLowerCase().includes(value) ||
+                    location.toLowerCase().includes(value) ||
+                    assetName.toLowerCase().includes(value) ||
+                    costCode.toLowerCase().includes(value)
+                );
+
+                if (shouldRenderRecord) {
                     return (
                         <CardView>
-                            <Row>
-                            <Time>
-                                <InTime>
-                                    {item.inTime}
-                                </InTime>
-                
-                                <OutTime>
-                                    {item.outTime}
-                                </OutTime>                         
-                                </Time>
-                                <FontAwesomeIcon icon={faLocationArrow} color={'gray'}/>
-                                </Row>
-                         
-                            <AssetsName>
-                                {item.assetsname}
-                            </AssetsName>
-                
-                            <CompanyDetails>
-                                {item.company}
-                            </CompanyDetails>
-                
-                            <ServiceArea>
-                                {item.servicearea}
-                            </ServiceArea>
+                            <Header>
+                                <TimeContainer>
+                                    <TimeIn>{timeOut}</TimeIn>
+                                    {timeOut !== null && (
+                                        <TimeOut>{timeOut}</TimeOut>
+                                    )}
+                                </TimeContainer>
+                                <FontAwesomeIcon 
+                                    icon={faLocationArrow} 
+                                    color={theme.colors.text}
+                                />
+                            </Header>
+                            <Title>{assetName}</Title>
+                            <SubTitle>{location}</SubTitle>
+                            <SubTitle>{costCode}</SubTitle>
                         </CardView>
                     )
                 }
@@ -123,4 +146,4 @@ const EmployeeAssetsList = (props: EmployeeAssetsListProps) => {
     )
 }
 
-export default EmployeeAssetsList;
+export default withTheme(EmployeeAssetsList);

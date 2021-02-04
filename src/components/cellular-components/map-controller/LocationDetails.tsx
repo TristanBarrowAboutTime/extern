@@ -6,7 +6,6 @@ import LocationAssets from '../../molecular-components/map-detail-lists/Location
 import LocationEmployee from '../../molecular-components/map-detail-lists/LocationEmployee';
 import LocationForm from '../../molecular-components/map-detail-lists/LocationForms';
 import LocationIcon from '../../atomic-components/LocationIcon';
-import { locationAssetsData, locationEmployeeData, locationFormsData } from '../../../mock-data/map-details/locationListData';
 import { MapControllerActions } from '../../../pages/MapsPage';
 
 enum MapEmployeeStatus {
@@ -85,11 +84,11 @@ const LocationDetails = (props: LocationDetailsProps) => {
                         <Column>
                             <LocationTitle>
                                 1345 Erda Water
-                      </LocationTitle>
+                            </LocationTitle>
 
                             <SubTitle>
                                 8740 UT-36, Lake Point, UT 84074
-                    </SubTitle>
+                            </SubTitle>
                         </Column>
                     </LocationLabel>
                 }
@@ -97,22 +96,13 @@ const LocationDetails = (props: LocationDetailsProps) => {
                 list={
                     <>
                         {tabs.selected === LocationDetailsTabs.EMPLOYEES && (
-                            <LocationEmployee
-                                locationEmployeeRecord={locationEmployeeData}
-                                filterValue={searchValue}
-                            />
+                            <LocationEmployee filterValue={searchValue} />
                         )}
                         {tabs.selected === LocationDetailsTabs.ASSETS && (
-                            <LocationAssets
-                                locationAssetsRecord={locationAssetsData}
-                                filterValue={searchValue}
-                            />
+                            <LocationAssets filterValue={searchValue} />
                         )}
                         {tabs.selected === LocationDetailsTabs.FORMS && (
-                            <LocationForm
-                                locationFormsRecord={locationFormsData}
-                                filterValue={searchValue}
-                            />
+                            <LocationForm filterValue={searchValue} />
 
                         )}
                     </>
