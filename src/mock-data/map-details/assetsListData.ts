@@ -10,7 +10,7 @@ export const assetsListData: AssetsListRecord[] = [
         employeeCode: 1002,
         employeeFirstName:'Joseph',
         employeeLastName: 'Carrigan',
-        address:'1345 Erda Water' ,
+        location:'1345 Erda Water' ,
         image: null
     },
     {
@@ -20,7 +20,17 @@ export const assetsListData: AssetsListRecord[] = [
         employeeCode: 1004,
         employeeFirstName:'Roshni',
         employeeLastName: 'Raval',
-        address:'1345 Erda Water' ,
+        location:'1345 Erda Water' ,
+        image: null
+    },
+    {
+        assetsCode : 'SP-DRH-2000',
+        assetsFirstName: 'JACK',
+        assetsLastName: 'HYDROLIC',
+        employeeCode: 1008,
+        employeeFirstName:'Joseph ',
+        employeeLastName: 'Peters',
+        location:'' ,
         image: null
     }
 ]

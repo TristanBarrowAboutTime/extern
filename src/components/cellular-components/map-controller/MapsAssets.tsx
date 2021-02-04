@@ -21,6 +21,21 @@ type MapAssetsProps = {
 }
 
 const MapsAssets = (props: MapAssetsProps) => {
+
+    const checkLocationDetails = (assets:AssetsListRecord) => {
+        if(checkLocationAvailable(assets)){
+            props.actions.goToDetails()
+        }  
+       }
+
+
+   const checkLocationAvailable = (assets: AssetsListRecord) => {
+    if(assetsActivityData.find(item=>item.location === assets.location)){
+        return true
+    }
+    return false
+}
+
     const binding = useMapAssets({
         goToDetails: props.actions.goToDetails
     });
@@ -36,10 +51,10 @@ const MapsAssets = (props: MapAssetsProps) => {
             ) : (
                 <SortableList
                     data={assetsListData}
-                    
+                    spacingArray={[40, 0, 0, 0, 35]}
                     template={(assets: AssetsListRecord) => 
                         <TouchableOpacity onPress={() => binding.checkActivityDetails(assets)}>
-                           <AssetListTemplate showNoActivity={binding.checkIsActivityAvailable(assets)} assets={assets} />
+                           <AssetListTemplate showNoActivity={binding.checkIsActivityAvailable(assets)} showNoLocation={checkLocationAvailable(assets)} assets={assets} />
                         </TouchableOpacity>
                     }
                     postHeader={<View><Text>Active Assets {assetsListData.length}</Text></View>}

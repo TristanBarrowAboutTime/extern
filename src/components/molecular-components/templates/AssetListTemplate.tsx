@@ -47,7 +47,6 @@ const SubTitle = styled.Text`
     
 `;
 
-
 export type AssetsListRecord = {
     assetsCode: string
     assetsFirstName: string
@@ -55,16 +54,17 @@ export type AssetsListRecord = {
     employeeCode: number
     employeeFirstName: string
     employeeLastName: string
-    address: string
+    location: string
     image: null | string
 }
 
 type AssetListTemplateProps = {
     assets: AssetsListRecord
     showNoActivity:boolean
+    showNoLocation: boolean
 }
 
-const AssetListTemplate = ({ assets,showNoActivity }: AssetListTemplateProps) => {
+const AssetListTemplate = ({ assets,showNoActivity, showNoLocation }: AssetListTemplateProps) => {
     const {
         assetsCode,
         assetsFirstName,
@@ -72,7 +72,7 @@ const AssetListTemplate = ({ assets,showNoActivity }: AssetListTemplateProps) =>
         employeeCode,
         employeeFirstName,
         employeeLastName,
-        address,
+        location,
         image
     } = assets;
 
@@ -86,34 +86,33 @@ const AssetListTemplate = ({ assets,showNoActivity }: AssetListTemplateProps) =>
             />
             <Content>
                 <Row>
-
                     <Title>
                         <Text>{`${assetsCode} ${assetsFirstName} ${assetsLastName}`} </Text>
                     </Title >
                     <FontAwesomeIcon icon={faChevronRight} color={'gray'} />
 
-                </Row>
-                {showNoActivity?
-                    <>
+                </Row>                
                         <Row>
-                            <SubTitle>{address}</SubTitle>
-                        </Row>
+                            {showNoLocation?                           
+                            <SubTitle>{location}</SubTitle>                           
+                            :
+                            <Row>
+                                <SubTitle>No Location</SubTitle>
+                            </Row>                          
+                            }
+                        </Row> 
+                        
+                        {showNoActivity?                                              
                         <Row>
                             <SubTitle>{`${employeeCode} ${employeeFirstName} ${employeeLastName}`}</SubTitle>
                             <FontAwesomeIcon icon={faUser} color={'gray'} />
-                        </Row>
-                    </>
+                        </Row>                  
                     :
                     <Row>
                         <SubTitle>No Activity</SubTitle>
                     </Row>
-
                 }
-
-
-
             </Content>
-
         </Container>
     )
 }
