@@ -18,6 +18,10 @@ const Container = styled.View`
     width: 360px;
 `;
 
+const TextBold = styled.View`
+    font-weight: 600;
+`;
+
 type MapsLocationsProps = {
     searchValue: string,
     isShowingDetails: boolean
@@ -47,8 +51,8 @@ const MapsLocations = (props: MapsLocationsProps) => {
                         </TouchableOpacity>
                     )}
                     spacingArray={[40, 0, 0, 100]}
-                    postHeader={<View><Text>Active Jobs {locationData.length}</Text></View>}
                     shouldDisplayItem={(item: LocationMapControllerData) => item.jobAddress.includes(props.searchValue)}
+                    postHeader={<View><Text>Active Jobs <TextBold>{locationData.length}</TextBold> </Text></View>}
                     sortables={{
                         locationCode: { title: 'Code', sort: (a: LocationMapControllerData, b: LocationMapControllerData) => (a.locationCode > b.locationCode ? -1 : 1) },
                         locationFirstName: { title: 'Name', sort: (a: LocationMapControllerData, b: LocationMapControllerData) => (a.locationFirstName > b.locationFirstName ? -1 : 1) },
