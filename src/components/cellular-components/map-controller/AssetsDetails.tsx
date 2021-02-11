@@ -3,11 +3,9 @@ import styled from 'styled-components/native';
 import MapDetailsFrame from '../../frames/MapDetailsFrame';
 import Tabs, { useWithTabs } from '../../molecular-components/Tabs';
 import AssetsActivity from '../../molecular-components/map-detail-lists/AssetsActivity';
-import AssetListTemplate from '../../molecular-components/templates/AssetListTemplate';
 import { MapControllerActions } from '../../../pages/MapsPage';
-import { assetsListData } from '../../../mock-data/map-details/assetsListData';
-import { assetsActivityData } from '../../../mock-data/assetsActivityListData';
 import UserImage from '../../atomic-components/UserImage';
+import { useAssetActivityData } from '../../../hooks/loadable-data/live-maps/controller/assets/useAssetActivityData';
 
 const Container = styled.View`
     display: flex;
@@ -80,6 +78,7 @@ type AssetsDetailsProps = {
 
 const AssetsDetails = (props: AssetsDetailsProps) => {
     const { tabs, actions, searchValue } = props;
+    const assetsActivityData = useAssetActivityData();
     return (
         <Container>
             <MapDetailsFrame
@@ -115,7 +114,6 @@ const AssetsDetails = (props: AssetsDetailsProps) => {
                     <>
                         {tabs.selected === AssetsDetailsTabs.ACTIVITY && (
                             <AssetsActivity
-                                assetsRecords={assetsActivityData}
                                 filterValue={searchValue}
                             />
                         )}

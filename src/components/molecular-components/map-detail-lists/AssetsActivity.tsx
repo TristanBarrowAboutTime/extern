@@ -1,26 +1,37 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
+import { withTheme } from 'styled-components';
 import { faLocationArrow, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useAssetActivityData } from '../../../hooks/loadable-data/live-maps/controller/assets/useAssetActivityData';
+
+type CompTheme = {
+    colors: {
+        active: string
+        error: string
+        text: string
+    }
+}
+
 
 const CardView = styled.View`
-    margin:10px;
-    width:auto;
+    margin: 10px;
+    width: auto;
     padding: 10px;
     border-radius: 4px;
     box-shadow: 0 1px 4px #cccccc;
-    shadow-color: grey;
-    shadow-opacity: 0.8;
-   
 `;
+
 const Row = styled.View`     
-    display:flex;
-    justify-content:space-between;
-    flex-direction:row;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 `;
+
 const Location = styled.View`
-    font-weight:600;
+    font-weight: 600;
 `;
+
 const Employee = styled.View`
 
 `;
@@ -29,32 +40,43 @@ export type AssetsActivityRecord = {
     assetsCode: string,
     location: string
     employee: string
-    status:string
+    status: string
 }
 
 type AssetsActivityProps = {
-    assetsRecords: AssetsActivityRecord[]
     filterValue: string
+    theme: CompTheme
 }
 
 const AssetsActivity = (props: AssetsActivityProps) => {
     const value = props.filterValue.toLowerCase();
-     return(
+    const assetRecords = useAssetActivityData();
+    return(
         <>
-            {props.assetsRecords.map((item) => {
-                if (item.employee.toLowerCase().includes(value) ||
-                    item.status.toLowerCase().includes(value)) 
-                {
+            {assetRecords.map((assetRecord) => {
+                const {
+                    employee,
+                    status,
+                    location,
+                } = assetRecord;
+
+                const shouldRenderRow: boolean = (
+                    employee.toLowerCase().includes(value) ||
+                    status.toLowerCase().includes(value)
+                );
+
+                if (shouldRenderRow) {
                     return (
                         <CardView>
                             <Row>
-                            <Location>{item.location}</Location>
-                            {item.status == 'assignment' ? <FontAwesomeIcon icon={faUser} color={'gray'} 
-                            /> : <FontAwesomeIcon icon={faLocationArrow} color={'gray'}/> }
+                                <Location>{location}</Location>
+                                {status == 'assignment' ? (
+                                    <FontAwesomeIcon icon={faUser} color={'gray'} /> 
+                                ) : (
+                                    <FontAwesomeIcon icon={faLocationArrow} color={'gray'} />
+                                )}
                             </Row>
-                            <Employee>{item.employee}</Employee>
-                            
-                          
+                            <Employee>{employee}</Employee>
                         </CardView>
                     );
                 }
@@ -63,4 +85,4 @@ const AssetsActivity = (props: AssetsActivityProps) => {
     )
 }
 
-export default AssetsActivity;
+export default withTheme(AssetsActivity);
