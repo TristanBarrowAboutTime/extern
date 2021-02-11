@@ -13,6 +13,18 @@ export type CompTheme = {
 
 }
 
+const DEFAULT_THEME = {
+    theme: {
+        colors: {
+            active: 'green',
+            error: 'red',
+        },
+        components: {
+            cardShadow: '0 1px 4px #cccccc'
+        }
+    }
+}
+
 const Container = styled.View`
     width: auto;
     padding: 10px;
@@ -20,6 +32,8 @@ const Container = styled.View`
     border-radius: 4px;
     box-shadow: ${(props: { theme: CompTheme }) => props.theme.components.cardShadow};
 `;
+
+Container.defaultProps = DEFAULT_THEME;
 
 const Time = styled.View`
     display: flex;
@@ -40,12 +54,16 @@ const TimeIn = styled.View`
     padding-right: 20px;
 `;
 
+TimeIn.defaultProps = DEFAULT_THEME;
+
 const TimeOut = styled.View`
     color: ${(props: { theme: CompTheme }) => props.theme.colors.error};
     display: flex;
     flex-direction: row;
 
 `;
+
+TimeOut.defaultProps = DEFAULT_THEME;
 
 const Location = styled.View`
     display: flex;
@@ -67,12 +85,20 @@ type EmployeeLocationListProps = {
 
 const EmployeeLocationList = (props: EmployeeLocationListProps) => {
     const employeeLocationData = useEmployeeLocationData();
-    // const value = props.filterValue.toLowerCase();
+    const value = props.filterValue.toLowerCase();
     return (
         <>
             {employeeLocationData.map((locationData) => {
                 const { timeIn, timeOut, location, jobType } = locationData;
-                if (true) { // make search work
+                const _timeOut = timeOut !== null ? timeOut : '';
+                const shouldRenderLocation = (
+                    _timeOut.toLowerCase().includes(value) ||
+                    timeIn.toLowerCase().includes(value) ||
+                    location.toLowerCase().includes(value) ||
+                    jobType.toLowerCase().includes(value)
+                );
+
+                if (shouldRenderLocation) { // make search work
                     return (
                         <Container>
                             <Time>

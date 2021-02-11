@@ -1,6 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
+import RNHoverable from '../../atomic-components/RNHoverable';
 import { useEmployeeDescrepancyData } from '../../../hooks/loadable-data/live-maps/controller/employees/useEmployeeDescrepancyData';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
 const STRINGS = {
     NOTES: 'Notes',
@@ -9,7 +12,7 @@ const STRINGS = {
     GEOFENCE_WARNING: 'is outside of Geofence by',
 }
 
-type CompTheme = {
+export type CompTheme = {
     colors: {
         active: string
         error: string
@@ -21,6 +24,11 @@ type CompTheme = {
     }
     fontSizes: {
         normal: number
+    }
+    font: {
+        weight: {
+            bold: string
+        }
     }
 }
 
@@ -38,13 +46,19 @@ const DEFAULT_THEME = {
         fontSizes: {
             normal: 15
         },
-        
+        font: {
+            weight: {
+                bold: 'bold'
+            }
+        }
     } as CompTheme
 }
 
 const CardView = styled.View`
-    width: auto;
-    padding: 10px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-top: 10px;
     border-radius: 4px;
     box-shadow: ${(props: { theme: CompTheme }) => props.theme.components.cardShadow};
@@ -58,8 +72,8 @@ const Header = styled.Text`
     align-items: center;
     justify-content: space-between;
     color: ${(props: { theme: CompTheme }) => props.theme.colors.text};
-    padding-bottom: 10px;
-    font-size: 15px;
+    padding-bottom: 8px;
+    font-size: ${(props: { theme: CompTheme }) => props.theme.fontSizes.normal};
     font-weight: 600;
     
 `;
@@ -67,7 +81,26 @@ const Header = styled.Text`
 Header.defaultProps = DEFAULT_THEME;
 
 const Location = styled.Text`
+    font-weight: ${(props: { theme: CompTheme }) => props.theme.font.weight.bold};
 
+`;
+
+const LinkPopout = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-right: 8px; 
+    padding-left: 8px;
+    background-color: white;
+    box-shadow: ${(props: { theme: CompTheme }) => props.theme.components.cardShadow};
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.text};
+    
+`;
+
+const LinkPopoutText = styled.Text`
+    margin-right: 5px;
+    white-space: nowrap;
 `;
 
 const ErrorTimePunch = styled.Text`
@@ -87,25 +120,24 @@ ActiveTimePunch.defaultProps = DEFAULT_THEME;
 const DiscrepancyMessage = styled.Text`
     display: flex;
     width: auto;
-    padding-bottom: 20px;
-    font-size: 15px;
+    padding-bottom: 16px;
+    font-size: ${(props: { theme: CompTheme }) => props.theme.fontSizes.normal};
     color: ${(props: { theme: CompTheme }) => props.theme.colors.text};
 `;
 
 DiscrepancyMessage.defaultProps = DEFAULT_THEME;
 
 const NoteLabel = styled.Text`
-    font-size: 15px;
     color: ${(props: { theme: CompTheme }) => props.theme.colors.text};
-    font-weight: 600;
+    font-size: ${(props: { theme: CompTheme }) => props.theme.fontSizes.normal}px;
+    font-weight: ${(props: { theme: CompTheme }) => props.theme.font.weight.bold};
 `;
 
 NoteLabel.defaultProps = DEFAULT_THEME;
 
 const NotesBody = styled.Text`
     color: ${(props: { theme: CompTheme }) => props.theme.colors.text};
-    padding-bottom: 10px;
-    font-size: 15px;
+    font-size: ${(props: { theme: CompTheme }) => props.theme.fontSizes.normal}px;
 `;
 
 NotesBody.defaultProps = DEFAULT_THEME;
@@ -145,11 +177,21 @@ const EmployeeDiscList = (props: EmployeeDiscListProps) => {
                         <CardView>
                             <Header>
                                 <Location>{jobLocation}</Location>
-                                {isAClockin ? (
-                                    <ErrorTimePunch>{time}</ErrorTimePunch>
-                                ) : ( 
-                                    <ActiveTimePunch>{time}</ActiveTimePunch> 
-                                )}
+                                <RNHoverable
+                                    position={{ horizontal: 0, vertical: -20 }}
+                                    popout={
+                                        <LinkPopout >
+                                            <LinkPopoutText>Open in Time Editor</LinkPopoutText>
+                                            <FontAwesomeIcon icon={faExternalLinkAlt} size={10} />
+                                        </LinkPopout>
+                                    }
+                                >
+                                    {isAClockin ? (
+                                        <ErrorTimePunch>{time}</ErrorTimePunch>
+                                    ) : ( 
+                                        <ActiveTimePunch>{time}</ActiveTimePunch> 
+                                    )}
+                                </RNHoverable>
                             </Header>
                             <DiscrepancyMessage>{descrpeancyMessage}</DiscrepancyMessage>
                             <NoteLabel>{STRINGS.NOTES}</NoteLabel>

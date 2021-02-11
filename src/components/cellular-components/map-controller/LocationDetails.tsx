@@ -63,7 +63,7 @@ type LocationDetailsProps = {
         tabsBinding: any // any because of binding
         selected: string
     }
-    actions: MapControllerActions
+    actions: MapControllerActions // pipe
 }
 
 const LocationDetails = (props: LocationDetailsProps) => {
@@ -103,7 +103,6 @@ const LocationDetails = (props: LocationDetailsProps) => {
                         )}
                         {tabs.selected === LocationDetailsTabs.FORMS && (
                             <LocationForm filterValue={searchValue} />
-
                         )}
                     </>
                 }

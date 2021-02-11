@@ -3,6 +3,7 @@ import UserImage from '../../atomic-components/UserImage';
 import styled from 'styled-components/native';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faUser } from '@fortawesome/free-solid-svg-icons';
+import { AssetMapControllerData } from '../../../hooks/loadable-data/live-maps/controller/assets/useMapAssetsData';
 
 
 const Container = styled.View`
@@ -38,32 +39,25 @@ const Title = styled.View`
     flex: 1;
    
 `;
+
 const Text = styled.Text`
     font-size: 20px;
 
 `;
+
 const SubTitle = styled.Text`
     
 `;
 
-export type AssetsListRecord = {
-    assetsCode: string
-    assetsFirstName: string
-    assetsLastName: string
-    employeeCode: number
-    employeeFirstName: string
-    employeeLastName: string
-    location: string
-    image: null | string
-}
+
 
 type AssetListTemplateProps = {
-    assets: AssetsListRecord
-    showNoActivity:boolean
+    asset: AssetMapControllerData
+    showNoActivity: boolean
     showNoLocation: boolean
 }
 
-const AssetListTemplate = ({ assets,showNoActivity, showNoLocation }: AssetListTemplateProps) => {
+const AssetListTemplate = ({ asset, showNoActivity, showNoLocation }: AssetListTemplateProps) => {
     const {
         assetsCode,
         assetsFirstName,
@@ -71,9 +65,9 @@ const AssetListTemplate = ({ assets,showNoActivity, showNoLocation }: AssetListT
         employeeCode,
         employeeFirstName,
         employeeLastName,
-        location,
+        address,
         image
-    } = assets;
+    } = asset;
 
     return (
         <Container key={assetsCode}>
@@ -89,28 +83,26 @@ const AssetListTemplate = ({ assets,showNoActivity, showNoLocation }: AssetListT
                         <Text>{`${assetsCode} ${assetsFirstName} ${assetsLastName}`} </Text>
                     </Title >
                     <FontAwesomeIcon icon={faChevronRight} color={'gray'} />
-
                 </Row>                
+                <Row>
+                    {showNoLocation ? (                          
+                        <SubTitle>{address}</SubTitle>                           
+                    ) : (
                         <Row>
-                            {showNoLocation?                           
-                            <SubTitle>{location}</SubTitle>                           
-                            :
-                            <Row>
-                                <SubTitle>No Location</SubTitle>
-                            </Row>                          
-                            }
-                        </Row> 
-                        
-                        {showNoActivity?                                              
-                        <Row>
-                            <SubTitle>{`${employeeCode} ${employeeFirstName} ${employeeLastName}`}</SubTitle>
-                            <FontAwesomeIcon icon={faUser} color={'gray'} />
-                        </Row>                  
-                    :
+                            <SubTitle>No Location</SubTitle>
+                        </Row>                          
+                    )}
+                </Row> 
+                {showNoActivity ? (                                              
+                    <Row>
+                        <SubTitle>{`${employeeCode} ${employeeFirstName} ${employeeLastName}`}</SubTitle>
+                        <FontAwesomeIcon icon={faUser} color={'gray'} />
+                    </Row>                  
+                ) : (
                     <Row>
                         <SubTitle>No Activity</SubTitle>
                     </Row>
-                }
+                )}
             </Content>
         </Container>
     )

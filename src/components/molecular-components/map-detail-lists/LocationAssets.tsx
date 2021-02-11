@@ -1,23 +1,44 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { faLocationArrow, faUser } from '@fortawesome/free-solid-svg-icons';
+import { withTheme } from 'styled-components';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocationAssetData } from '../../../hooks/loadable-data/live-maps/controller/locations/useLocationAssetData';
-//<i class="fas fa-user"></i>
+
+type CompTheme = {
+    colors: {
+        normalIcon: string 
+    }
+    components: {
+        cardShadow: string
+        borderRadius: string
+    }
+}
+
+const DEFAULT_THEME = {
+    theme: {
+        components: {
+            cardShadow: '0 1px 4px #cccccc',
+            borderRadius: '4px',
+        }
+    } as CompTheme
+}
 
 const CardView = styled.View`
-    width:auto;
     padding: 10px;
-    margin-top:10;
-    border-radius: 4px;
-    box-shadow: 0 1px 4px #cccccc;
+    margin-top: 10px;
+    border-radius: ${(props: { theme: CompTheme}) => props.theme.components.borderRadius};
+    box-shadow: ${(props: { theme: CompTheme }) => props.theme.components.cardShadow};
 `;
+
+CardView.defaultProps = DEFAULT_THEME;
 
 const Row = styled.View`
     flex-direction:row;
     display:flex;
     justify-content:space-between;
 `;
+
 const AssetsName = styled.View`
     color: #525252;
     display:flex;
@@ -39,10 +60,10 @@ const Employee = styled.View`
 
 const ServiceType = styled.View`
     color: #525252;
-    display:flex;
-    padding-left:10px;
-    padding-bottom:10px;
-    font-size:15px; 
+    display: flex;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    font-size: 15px; 
 `;
 
 const Time = styled.View`
@@ -50,9 +71,9 @@ const Time = styled.View`
     display: flex;
     flex-direction:row;
     align-items: center;
-    font-size:15px;
-    padding-bottom:8px;
-    padding-left:10px;
+    font-size: 15px;
+    padding-bottom: 8px;
+    padding-left: 10px;
 `;
 
 const Activity = styled.View`
@@ -78,10 +99,15 @@ export type LocationAssetsRecord = {
 
 type LocationAssetsProps = {
     filterValue: string
+    theme: CompTheme
+    color?: string
 }
 
-const LocationAssets = (props: LocationAssetsProps) => {
-    const value = props.filterValue.toLowerCase();
+const LocationAssets = ({
+    filterValue,
+    theme = DEFAULT_THEME.theme
+}: LocationAssetsProps) => {
+    const value = filterValue.toLowerCase();
     const locationAssetRecords = useLocationAssetData();
     return (
         <>
@@ -106,7 +132,7 @@ const LocationAssets = (props: LocationAssetsProps) => {
                         <CardView>
                             <Row>
                                 <AssetsName>{assets}</AssetsName>
-                                <FontAwesomeIcon icon={faUser} color={'gray'} />
+                                <FontAwesomeIcon icon={faUser} color={theme.colors.normalIcon} />
                             </Row>                              
                             <Employee>{employee}</Employee>
                             <ServiceType>{service}</ServiceType>
@@ -124,4 +150,4 @@ const LocationAssets = (props: LocationAssetsProps) => {
     );
 }
 
-export default LocationAssets;
+export default withTheme(LocationAssets);

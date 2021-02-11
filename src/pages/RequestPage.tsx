@@ -31,17 +31,42 @@ const list: ListThingy[] = [
     },
 ];
 
+const Provider = React.createContext('bob');
 
 const RequestPage = () => {
+    const [context, setContext] = React.useState('bob');
     return (
-        <Container>
-            {/* <SortableList 
-                data={list}
-                template={(item: ListThingy) => <Text>{item.name}</Text>}
-            /> */}
-        </Container>
+        <Provider.Provider value={context}>
+            <Right />
+            {/* <button onClick={() => setIsLeftTo(!isLeft)}>toggle</button> */}
+            <button onClick={() => setContext(context + '!')}>Set Context</button>
+        </Provider.Provider>
     );
 
+}
+
+const Right = () => {
+    const context = React.useContext(Provider);
+    console.log('right');
+    return (
+        <div>
+            right is rendering: 
+            <Left />
+            {context}
+        </div>
+    );
+}
+
+
+const Left = () => {
+    const context = React.useContext(Provider);
+    console.log('left');
+    return (
+        <div>
+            left
+            {context}
+        </div>
+    );
 }
 
 // const useRequest = () => {

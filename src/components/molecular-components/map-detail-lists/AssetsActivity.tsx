@@ -1,26 +1,40 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { withTheme } from 'styled-components';
 import { faLocationArrow, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAssetActivityData } from '../../../hooks/loadable-data/live-maps/controller/assets/useAssetActivityData';
+import { withTheme } from 'styled-components';
 
-type CompTheme = {
+export type CompTheme = {
     colors: {
-        active: string
-        error: string
         text: string
+    }
+    components: {
+        cardShadow: string
     }
 }
 
+const DEFAULT_THEME = {
+    theme: {
+        colors: {
+            text: 'gray'
+        },
+        components: {
+            cardShadow: '0 1px 4px #cccccc'
+        }
+    }
+}
 
 const CardView = styled.View`
     margin: 10px;
     width: auto;
     padding: 10px;
     border-radius: 4px;
-    box-shadow: 0 1px 4px #cccccc;
+    box-shadow: ${(props: { theme: CompTheme }) => props.theme.components.cardShadow};
+   
 `;
+
+CardView.defaultProps = DEFAULT_THEME;
 
 const Row = styled.View`     
     display: flex;
@@ -28,11 +42,11 @@ const Row = styled.View`
     flex-direction: row;
 `;
 
-const Location = styled.View`
+const Location = styled.Text`
     font-weight: 600;
 `;
 
-const Employee = styled.View`
+const Employee = styled.Text`
 
 `;
 
@@ -48,33 +62,33 @@ type AssetsActivityProps = {
     theme: CompTheme
 }
 
-const AssetsActivity = (props: AssetsActivityProps) => {
-    const value = props.filterValue.toLowerCase();
-    const assetRecords = useAssetActivityData();
-    return(
+export const AssetsActivity = ({
+    filterValue,
+    theme = DEFAULT_THEME.theme
+}: AssetsActivityProps) => {
+    const mapAssetActivityData = useAssetActivityData();
+    const value = filterValue.toLowerCase();
+    return (
         <>
-            {assetRecords.map((assetRecord) => {
+            {mapAssetActivityData.map((assetActivity) => {
                 const {
                     employee,
                     status,
-                    location,
-                } = assetRecord;
-
-                const shouldRenderRow: boolean = (
+                    location
+                } = assetActivity;
+                const shouldRenderAsset = (
                     employee.toLowerCase().includes(value) ||
                     status.toLowerCase().includes(value)
                 );
+                
+                const icon = status == 'assignment' ? faUser : faLocationArrow;
 
-                if (shouldRenderRow) {
+                if (shouldRenderAsset) {
                     return (
                         <CardView>
                             <Row>
                                 <Location>{location}</Location>
-                                {status == 'assignment' ? (
-                                    <FontAwesomeIcon icon={faUser} color={'gray'} /> 
-                                ) : (
-                                    <FontAwesomeIcon icon={faLocationArrow} color={'gray'} />
-                                )}
+                                <FontAwesomeIcon icon={icon} color={theme.colors.text} /> 
                             </Row>
                             <Employee>{employee}</Employee>
                         </CardView>

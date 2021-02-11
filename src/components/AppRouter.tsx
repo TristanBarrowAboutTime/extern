@@ -46,21 +46,6 @@ function AppRouter() {
         <Route path='/req'>
             <RequestPage /> 
         </Route>   
-        <Route path='/temp-page'>
-          <AssetListTemplate
-          showNoLocation = {false}
-          showNoActivity = {false}
-          assets = {{
-            assetsCode : 'SP-WM-07',
-            assetsFirstName: 'Miller',
-            assetsLastName: 'Big Blue',
-            employeeCode: 1002,
-            employeeFirstName:'Joseph',
-            employeeLastName: 'Carrigan',
-            location:'1345 Erda Water' ,
-            image: null 
-          }} />
-        </Route>
       </Switch>
     </Router>
   );

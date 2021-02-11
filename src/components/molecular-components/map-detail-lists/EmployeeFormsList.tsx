@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { useEmployeeFormData } from '../../../hooks/loadable-data/live-maps/controller/employees/useEmployeeFormData';
+import { useEmployeeFormData, EmployeeFormRecord } from '../../../hooks/loadable-data/live-maps/controller/employees/useEmployeeFormData';
 
 const STRINGS = {
     FORM_NAME: 'Form Name',
@@ -52,13 +52,12 @@ const ColumnHeader = styled.Text`
 
 `;
 
-const FormName = styled.View`
+const FormName = styled.Text`
     // change to active color when link is put in.  
     color: ${(props: { theme: CompTheme }) => props.theme.colors.text}; 
 `;
 
-const Time = styled.View`
-`;
+const Time = styled.Text``;
 
 export type EmployeeFormsRecord = {
     formName: string
@@ -80,7 +79,7 @@ const EmployeeFormsList = (props: EmployeeFormsListProps) => {
                 <ColumnHeader>{STRINGS.FORM_NAME} </ColumnHeader>
                 <ColumnHeader>{STRINGS.SYNCED_TIME}</ColumnHeader>
             </FormHeader>
-            {employeeFromRecords.map((employeeFormRecord) => {
+            {employeeFromRecords.map((employeeFormRecord: EmployeeFormRecord) => {
                 const { formName, time } = employeeFormRecord;
                 const shouldDisplayItem: boolean = (
                     formName.toLowerCase().includes(value) ||

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-export const useHoverable = (init: boolean) => {
+export const useHoverable = (init: boolean, ) => {
     const [isHovered, setIsHoveredTo] = useState(init);
     
     const onMouseEnter = useCallback(() => setIsHoveredTo(true), []);

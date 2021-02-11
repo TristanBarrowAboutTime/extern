@@ -4,8 +4,8 @@ import styled from 'styled-components/native';
 import AssetsDetails from './AssetsDetails';
 import { TouchableOpacity, View,Text } from 'react-native';
 import { MapControllerActions } from '../../../pages/MapsPage';
-import AssetListTemplate, { AssetsListRecord } from '../../molecular-components/templates/AssetListTemplate';
-import { useMapAssetsData } from '../../../hooks/loadable-data/live-maps/controller/assets/useMapAssetsData';
+import AssetListTemplate from '../../molecular-components/templates/AssetListTemplate';
+import { useMapAssetsData, AssetMapControllerData } from '../../../hooks/loadable-data/live-maps/controller/assets/useMapAssetsData';
 
 const Container = styled.View``;
 
@@ -20,25 +20,8 @@ type MapAssetsProps = {
 }
 
 const MapsAssets = (props: MapAssetsProps) => {
-
-    const checkLocationDetails = (assets:AssetsListRecord) => {
-        if(checkLocationAvailable(assets)){
-            props.actions.goToDetails()
-        }  
-       }
-
-
-   const checkLocationAvailable = (assets: AssetsListRecord) => {
-    if(assetsActivityData.find(item=>item.location === assets.location)){
-        return true
-    }
-    return false
-}
-
-    const binding = useMapAssets({
-        goToDetails: props.actions.goToDetails
-    });
-
+    const mapAssetData = useMapAssetsData();
+    
     return (
         <Container>
             {props.isShowingDetails ? (
@@ -49,51 +32,24 @@ const MapsAssets = (props: MapAssetsProps) => {
                 />
             ) : (
                 <SortableList
-                    data={binding.data}
+                    data={mapAssetData}
                     spacingArray={[40, 0, 0, 0, 35]}
-                    template={(assets: AssetsListRecord) => 
-                        <TouchableOpacity onPress={() => binding.checkActivityDetails(assets)}>
-                           <AssetListTemplate showNoActivity={binding.checkIsActivityAvailable(assets)} showNoLocation={checkLocationAvailable(assets)} assets={assets} />
+                    template={(asset: AssetMapControllerData) => 
+                        <TouchableOpacity onPress={props.actions.goToDetails}>
+                           <AssetListTemplate showNoActivity={true} showNoLocation={true} asset={asset} />
                         </TouchableOpacity>
                     }
-                    postHeader={<View><Text>Active Assets {binding.data.length}</Text></View>}
+                    postHeader={<Text>Active Assets {mapAssetData.length}</Text>}
                     sortables={{
-                        code: { title: 'Code', sort: (a: AssetsListRecord, b: AssetsListRecord) => (a.assetsCode > b.assetsCode ? -1 : 1) },
-                        firstName: { title: 'First', sort: (a: AssetsListRecord, b:AssetsListRecord) => (a.assetsFirstName > b.assetsFirstName ? -1 : 1) },
-                        lastName: { title: 'Last', sort: (a: AssetsListRecord, b: AssetsListRecord) => (a.assetsLastName > b.assetsLastName ? -1 : 1) },
+                        code: { title: 'Code', sort: (a: AssetMapControllerData, b: AssetMapControllerData) => (a.assetsCode > b.assetsCode ? -1 : 1) },
+                        firstName: { title: 'First', sort: (a: AssetMapControllerData, b: AssetMapControllerData) => (a.assetsFirstName > b.assetsFirstName ? -1 : 1) },
+                        lastName: { title: 'Last', sort: (a: AssetMapControllerData, b: AssetMapControllerData) => (a.assetsLastName > b.assetsLastName ? -1 : 1) },
                     }}
-                    shouldDisplayItem={(item: AssetsListRecord) => true}
+                    shouldDisplayItem={(item: AssetMapControllerData) => true}
                 />
             )}
         </Container>
     );
 };
-
-type UseMapAssetsArgs = {
-    goToDetails: () => void
-}
-
-const useMapAssets = (args: UseMapAssetsArgs) => {
-    const mapAssetData = useMapAssetsData();
-
-    const checkActivityDetails = (assets: AssetsListRecord) => {
-        if (checkIsActivityAvailable(assets)){
-            args.goToDetails();
-        }  
-    }
-
-    const checkIsActivityAvailable = (assets: AssetsListRecord) => {
-        if (mapAssetData.find(item => item.assetsCode === assets.assetsCode)) {
-            return true;
-        }  
-        return false;
-    }
-
-    return {
-        checkIsActivityAvailable,
-        checkActivityDetails,
-        data: mapAssetData,
-    }
-}
 
 export default MapsAssets;

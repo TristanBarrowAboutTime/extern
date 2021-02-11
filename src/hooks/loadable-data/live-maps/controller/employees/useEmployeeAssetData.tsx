@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-enum AssetRecordType {
+export enum AssetRecordType {
     TIME_RECORD = 'TIME_RECORD',
     ASSIGNMENT = 'ASSIGNMENT',
 }
@@ -17,6 +17,7 @@ export type EmployeeAssetRecord = {
 export const useEmployeeAssetData = () => {
     return [
         {
+            type: AssetRecordType.TIME_RECORD,
             timeIn: '8:05am',
             timeOut: '11:56am',
             assetName: 'SP-WM-07 Miller Big Blue 450 Duo',
@@ -24,6 +25,7 @@ export const useEmployeeAssetData = () => {
             costCode: '100300.00 Full Service',
         },
         {
+            type: AssetRecordType.TIME_RECORD,
             timeIn: '8:05am',
             timeOut: '11:56am',
             assetName: 'SP-WM-07 Miller Big Blue 450 Duo',
@@ -31,13 +33,15 @@ export const useEmployeeAssetData = () => {
             costCode: '100300.00 Full Service',
         },
         {
+            type: AssetRecordType.TIME_RECORD,
             timeIn: '8:05am',
             timeOut: '11:56am',
             assetName: 'SP-WM-07 Miller Big Blue 450 Duo',
             location: '00006709 UFA Co-operative Limited',
             costCode: '100300.00 Full Service',
         },
-        {
+        {  
+            type: AssetRecordType.ASSIGNMENT,
             timeIn: '8:05am',
             timeOut: null, 
             assetName: 'SP-WM-07 Miller Big Blue 450 Duo',

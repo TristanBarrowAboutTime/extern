@@ -35,6 +35,7 @@ const ColoredDot = styled.View`
     margin-left: 18px;
 
 `;
+
 const ActiveEmployees = styled.View`
     display: flex;
     flex-direction: row;
@@ -59,7 +60,7 @@ type MapsEmployeesProps = {
     }
     activeEmployees: number
     inactiveEmployees: number
-    actions: MapControllerActions // tunneling
+    actions: MapControllerActions // piping
 }
 
 const tmpEmployee = {

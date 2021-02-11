@@ -93,7 +93,6 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                         )}
                     </>
                 }
-              
             />
         </Container>
     )

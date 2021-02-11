@@ -49,7 +49,7 @@ const Tabs = ({
 
 
 type UseWithTabsArgs = {
-    tabs: string[]
+    tabs: {}
     selected: string
 }
 

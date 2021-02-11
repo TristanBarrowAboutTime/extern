@@ -37,11 +37,11 @@ const Cords = styled.View`
     text-align: left;
 `;
 
-const Lat = styled.View`
+const Lat = styled.Text`
     margin-right: 10px;
 `;
 
-const Long = styled.View`
+const Long = styled.Text`
 
 `;
 

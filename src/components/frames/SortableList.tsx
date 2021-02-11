@@ -145,9 +145,6 @@ const useSortableList = <T extends unknown>(args: UseSortableListArgs<T>) => {
         return tmpSpaces;
     }, [args.sortables, args.spacingArray]);
 
-
-
-
     return {
         orderedData,
         activeSort,

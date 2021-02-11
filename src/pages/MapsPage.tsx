@@ -101,6 +101,7 @@ const useMapPage = () => {
         ],
         selected: MapTabs.EMPLOYEE
     });
+
     const goToDetails = () => setIsShowingDetailsTo(true);
     const goToList = () => setIsShowingDetailsTo(false);
     const actions = {
