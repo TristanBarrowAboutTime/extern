@@ -60,10 +60,9 @@ export type AssetsListRecord = {
 type AssetListTemplateProps = {
     assets: AssetsListRecord
     showNoActivity:boolean
-    showNoLocation: boolean
 }
 
-const AssetListTemplate = ({ assets,showNoActivity, showNoLocation }: AssetListTemplateProps) => {
+const AssetListTemplate = ({ assets,showNoActivity }: AssetListTemplateProps) => {
     const {
         assetsCode,
         assetsFirstName,
@@ -92,13 +91,13 @@ const AssetListTemplate = ({ assets,showNoActivity, showNoLocation }: AssetListT
 
                 </Row>                
                         <Row>
-                            {showNoLocation?                           
+                                                     
                             <SubTitle>{location}</SubTitle>                           
                             :
                             <Row>
                                 <SubTitle>No Location</SubTitle>
                             </Row>                          
-                            }
+                          
                         </Row> 
                         
                         {showNoActivity?                                              

@@ -7,7 +7,7 @@ export type AssetMapControllerData = {
     employeeCode: number
     employeeFirstName: string
     employeeLastName: string
-    address: string
+    location: string
     image: null | string
 }
 
@@ -20,7 +20,7 @@ export const useMapAssetsData = (): AssetMapControllerData[] => {
             employeeCode: 1002,
             employeeFirstName:'Joseph',
             employeeLastName: 'Carrigan',
-            address:'1345 Erda Water' ,
+            location:'1345 Erda Water' ,
             image: null
         },
         {
@@ -30,7 +30,7 @@ export const useMapAssetsData = (): AssetMapControllerData[] => {
             employeeCode: 1004,
             employeeFirstName:'Roshni',
             employeeLastName: 'Raval',
-            address:'1345 Erda Water' ,
+            location:'1345 Erda Water' ,
             image: null
         }
     ] as AssetMapControllerData[]; 

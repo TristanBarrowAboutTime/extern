@@ -48,7 +48,6 @@ function AppRouter() {
         </Route>   
         <Route path='/temp-page'>
           <AssetListTemplate
-          showNoLocation = {false}
           showNoActivity = {false}
           assets = {{
             assetsCode : 'SP-WM-07',

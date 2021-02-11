@@ -6,6 +6,7 @@ import { TouchableOpacity, View,Text } from 'react-native';
 import { MapControllerActions } from '../../../pages/MapsPage';
 import AssetListTemplate, { AssetsListRecord } from '../../molecular-components/templates/AssetListTemplate';
 import { useMapAssetsData } from '../../../hooks/loadable-data/live-maps/controller/assets/useMapAssetsData';
+import { assets } from '../../../network/hooks/Assets';
 
 const Container = styled.View``;
 
@@ -20,20 +21,7 @@ type MapAssetsProps = {
 }
 
 const MapsAssets = (props: MapAssetsProps) => {
-
-    const checkLocationDetails = (assets:AssetsListRecord) => {
-        if(checkLocationAvailable(assets)){
-            props.actions.goToDetails()
-        }  
-       }
-
-
-   const checkLocationAvailable = (assets: AssetsListRecord) => {
-    if(assetsActivityData.find(item=>item.location === assets.location)){
-        return true
-    }
-    return false
-}
+    const mapAssetData = useMapAssetsData();
 
     const binding = useMapAssets({
         goToDetails: props.actions.goToDetails
@@ -49,11 +37,11 @@ const MapsAssets = (props: MapAssetsProps) => {
                 />
             ) : (
                 <SortableList
-                    data={binding.data}
+                  data={mapAssetData}
                     spacingArray={[40, 0, 0, 0, 35]}
                     template={(assets: AssetsListRecord) => 
                         <TouchableOpacity onPress={() => binding.checkActivityDetails(assets)}>
-                           <AssetListTemplate showNoActivity={binding.checkIsActivityAvailable(assets)} showNoLocation={checkLocationAvailable(assets)} assets={assets} />
+                           <AssetListTemplate showNoActivity={binding.checkIsActivityAvailable(assets)} assets={assets} />
                         </TouchableOpacity>
                     }
                     postHeader={<View><Text>Active Assets {binding.data.length}</Text></View>}
