@@ -1,12 +1,24 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
+import { useEmployeeLocationData } from '../../../hooks/loadable-data/live-maps/controller/employees/useEmployeeLocationData';
 
-const CardView = styled.View`
+export type CompTheme = {
+    colors: {
+        active: string
+        error: string
+    }
+    components: {
+        cardShadow: string
+    }
+
+}
+
+const Container = styled.View`
     width: auto;
     padding: 10px;
-    margin-top: 10;
+    margin-top: 10px;
     border-radius: 4px;
-    box-shadow: 0 1px 4px #cccccc;
+    box-shadow: ${(props: { theme: CompTheme }) => props.theme.components.cardShadow};
 `;
 
 const Time = styled.View`
@@ -20,84 +32,63 @@ const Time = styled.View`
       
 `;
 
-const InTime = styled.View`
-    color: #79A949;
+const TimeIn = styled.View`
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.active};
     display: flex;
     flex-direction: row;
     align-items: center;
     padding-right: 20px;
 `;
 
-const OutTime = styled.View`
-    color: #9B3E38;
+const TimeOut = styled.View`
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.error};
     display: flex;
     flex-direction: row;
 
 `;
 
-const CompanyArea = styled.View`
+const Location = styled.View`
     display: flex;
     font-weight: 400;
     padding-left: 10px;
     padding-bottom: 8px;
 `;
 
-const ServiceArea = styled.View`
+const JobType = styled.View`
     display: flex;
     font-weight: 400;
     padding-left: 10px;
     padding-bottom: 8px;
 `;
-
-export type EmployeeLocationRecord = {
-    inTime: string
-    outTime: string
-    companyArea: string
-    serviceArea: string
-}
 
 type EmployeeLocationListProps = {
-    locationRecord: EmployeeLocationRecord[]
     filterValue: string
 }
 
-
 const EmployeeLocationList = (props: EmployeeLocationListProps) => {
-    const value = props.filterValue.toLowerCase();
-
-    return(
+    const employeeLocationData = useEmployeeLocationData();
+    // const value = props.filterValue.toLowerCase();
+    return (
         <>
-            {props.locationRecord.map((item) => {
-                if (item.inTime.toString().toLowerCase().includes(value) ||
-                    item.outTime.toString().toLowerCase().includes(value) ||
-                    item.serviceArea.toString().toLowerCase().includes(value) || 
-                    item.companyArea.toString().toLowerCase().includes(value)) 
-                {
+            {employeeLocationData.map((locationData) => {
+                const { timeIn, timeOut, location, jobType } = locationData;
+                if (true) { // make search work
                     return (
-                        <CardView>
+                        <Container>
                             <Time>
-                                <InTime>
-                                    {item.inTime}
-                                </InTime>
-                
-                                <OutTime>
-                                    {item.outTime}
-                                </OutTime>
+                                <TimeIn>{timeIn}</TimeIn>
+                                {timeOut !== null && (
+                                    <TimeOut>{timeOut}</TimeOut>
+                                )}
                             </Time>
-                            <CompanyArea>
-                                {item.companyArea}
-                            </CompanyArea>
-                
-                            <ServiceArea>
-                                {item.serviceArea}
-                            </ServiceArea>
-                        </CardView>
-                
-                    )
+                            <Location>{location}</Location>
+                            <JobType>{jobType}</JobType>
+                        </Container>
+                    );
                 }
             })}
         </>
-    )
+    );
    
 }
 

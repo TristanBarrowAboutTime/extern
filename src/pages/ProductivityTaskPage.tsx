@@ -130,11 +130,6 @@ const TaskDrilldown = ({
             ]}
         />,
     ];
-    // buttonType?: ButtonType,
-    // text: string,
-    // styles?: object,
-    // onClick: () => void,
-    // disabled?: boolean
     
       return (
         <UniformDashboard>

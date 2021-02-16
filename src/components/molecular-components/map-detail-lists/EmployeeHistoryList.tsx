@@ -1,6 +1,17 @@
-import { latLng } from 'leaflet';
 import * as React from 'react';
 import styled from 'styled-components/native';
+import { useEmployeeHistoryData } from '../../../hooks/loadable-data/live-maps/controller/employees/useEmployeeHistoryData';
+
+type CompTheme = {
+    
+}
+
+const STRINGS = {
+    TIME: 'Time',
+    CORDS: 'Coordinates',
+    ACCURACY: 'Accuracy'
+}
+
 
 const Container = styled.View`
     display: flex;
@@ -16,30 +27,34 @@ type TimeStyle = {
 
 const Time = styled.Text`
     color: ${(props: TimeStyle) => props.isClockedIn ? '#79A949' : '#9B3E38'};
-    font-weight:600;
+    font-weight: 600;
 `;
 
-const CoordinatesArea = styled.View`
+const Cords = styled.View`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     text-align: left;
 `;
 
-const CoordinatesLat = styled.View`
-    margin-right:10px;
+const Lat = styled.View`
+    margin-right: 10px;
 `;
 
-const CoordinatesLong = styled.View`
+const Long = styled.View`
 
 `;
 
-const Title = styled.Text`
+const Header = styled.Text`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     font-weight: 600;
     padding: 10px;
+`;
+
+const ColumnHeader = styled.Text`
+
 `;
 
 const Accuracy = styled.Text`
@@ -50,59 +65,48 @@ const Accuracy = styled.Text`
     
 `;
 
-export type EmployeeHistoryTimeRecord = {
-    id: number
-    time: string
-    isClockedIn: boolean
-    coordinates: { lat: number, long: number }
-    accuracy: string
-
-}
 type EmployeeHistoryListProps = {
-    timeRecords: EmployeeHistoryTimeRecord[]
     filterValue: string
 }
 
 
 const EmployeeHistoryList = (props: EmployeeHistoryListProps) => {
     const value = props.filterValue.toLowerCase();
+    const employeeHistoryRecords = useEmployeeHistoryData();
 
-    console.log(props.filterValue);
     return (
         <>
-            <Title>
-                <div>
-                    Time
-                </div>
-                <div>
-                     Coordinates
-                </div>
-                <div>
-                     Accuracy
-                </div>
-            </Title>
-            {props.timeRecords.map((item) => {
-                if (item.time.toLowerCase().includes(value) ||   
-                    item.coordinates.lat.toString().includes(value) ||
-                    item.coordinates.long.toString().includes(value) || 
-                    item.accuracy.toLowerCase().includes(value)) 
-                {
+            <Header>
+                <ColumnHeader>{STRINGS.TIME}</ColumnHeader>
+                <ColumnHeader>{STRINGS.CORDS}</ColumnHeader>
+                <ColumnHeader>{STRINGS.ACCURACY}</ColumnHeader>
+            </Header>
+            {employeeHistoryRecords.map((employeeHistoryRecord) => {
+                const {
+                    time,
+                    coordinates: { lat, long },
+                    accuracy,
+                    isClockedIn
+                } = employeeHistoryRecord;
+
+                const shouldRenderRow = (
+                    time.toLowerCase().includes(value) ||   
+                    lat.toString().includes(value) ||
+                    long.toString().includes(value) || 
+                    accuracy.toLowerCase().includes(value)
+                );
+
+                if (shouldRenderRow) {
                     return (
                         <Container>
-                            <Time isClockedIn={item.isClockedIn}>
-                                {item.time}
+                            <Time isClockedIn={isClockedIn}>
+                                {time}
                             </Time>
-                            <CoordinatesArea>
-                                <CoordinatesLat>
-                                    {item.coordinates.lat}
-                                </CoordinatesLat>
-                                <CoordinatesLong>
-                                    {item.coordinates.long}
-                                </CoordinatesLong>
-                            </CoordinatesArea>
-                            <Accuracy>
-                                {item.accuracy}
-                            </Accuracy>
+                            <Cords>
+                                <Lat>{lat}</Lat>
+                                <Long>{long}</Long>
+                            </Cords>
+                            <Accuracy>{accuracy}</Accuracy>
                         </Container>
                     )
                 }

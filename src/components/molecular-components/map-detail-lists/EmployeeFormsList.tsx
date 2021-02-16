@@ -1,8 +1,38 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
+import { useEmployeeFormData } from '../../../hooks/loadable-data/live-maps/controller/employees/useEmployeeFormData';
 
+const STRINGS = {
+    FORM_NAME: 'Form Name',
+    SYNCED_TIME: 'Synced Time',
+}
 
-const Container = styled.View`
+type CompTheme = {
+    colors: {
+        active: string
+        error: string
+        text: string
+    }
+    fontSizes: {
+        normal: number
+    }
+}
+
+const DEFAULT_THEME = {
+    theme: {
+        colors: {
+            active: 'green',
+            error: 'red',
+            text: 'black',
+        },
+        fontSizes: {
+            normal: 15
+        },
+        
+    } as CompTheme
+}
+
+const Row = styled.View`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -10,7 +40,7 @@ const Container = styled.View`
     padding-bottom: 10px;
 `;
 
-const Title = styled.View`
+const FormHeader = styled.View`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -18,50 +48,51 @@ const Title = styled.View`
     padding: 10px;
 `;
 
-const FormList = styled.View`
-    color: #79A949;
+const ColumnHeader = styled.Text`
+
+`;
+
+const FormName = styled.View`
+    // change to active color when link is put in.  
+    color: ${(props: { theme: CompTheme }) => props.theme.colors.text}; 
 `;
 
 const Time = styled.View`
 `;
 
 export type EmployeeFormsRecord = {
-    formlist: string
+    formName: string
     time: string
 }
 
 
 type EmployeeFormsListProps = {
-    formRecord: EmployeeFormsRecord[]
     filterValue: string
 }
 
 const EmployeeFormsList = (props: EmployeeFormsListProps) => {
     const value = props.filterValue.toLowerCase();
+    const employeeFromRecords = useEmployeeFormData();
+
     return (
         <>
-            <Title>
-                <div>
-                    Form Name
-                </div>
-                <div>
-                    Synced Time
-                </div>
-            </Title>
-            {props.formRecord.map((item) => {
-                if (item.formlist.toLowerCase().includes(value) ||
-                    item.time.toLowerCase().includes(value)) 
-                {
+            <FormHeader>
+                <ColumnHeader>{STRINGS.FORM_NAME} </ColumnHeader>
+                <ColumnHeader>{STRINGS.SYNCED_TIME}</ColumnHeader>
+            </FormHeader>
+            {employeeFromRecords.map((employeeFormRecord) => {
+                const { formName, time } = employeeFormRecord;
+                const shouldDisplayItem: boolean = (
+                    formName.toLowerCase().includes(value) ||
+                    time.toLowerCase().includes(value)
+                );
+
+                if (shouldDisplayItem) {
                     return (
-                        <Container>
-                            <FormList>
-                                {item.formlist}
-                            </FormList>
-    
-                            <Time>
-                                {item.time}
-                            </Time>
-                        </Container>
+                        <Row>
+                            <FormName>{formName}</FormName>
+                            <Time>{time}</Time>
+                        </Row>
                     )
                 }
             })}
