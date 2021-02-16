@@ -7,6 +7,7 @@ import { MapControllerActions } from '../../../pages/MapsPage';
 import AssetListTemplate, { AssetsListRecord } from '../../molecular-components/templates/AssetListTemplate';
 import { useMapAssetsData } from '../../../hooks/loadable-data/live-maps/controller/assets/useMapAssetsData';
 import { assets } from '../../../network/hooks/Assets';
+import { useAssetActivityData } from '../../../hooks/loadable-data/live-maps/controller/assets/useAssetActivityData';
 
 const Container = styled.View``;
 
@@ -71,6 +72,7 @@ const useMapAssets = (args: UseMapAssetsArgs) => {
         return activityCounter;
     }
     const mapAssetData = useMapAssetsData();
+    const assetsActivityData = useAssetActivityData();
 
     const checkActivityDetails = (assets: AssetsListRecord) => {
         if (checkIsActivityAvailable(assets) && checkLocationAvailable(assets)) {
@@ -79,7 +81,7 @@ const useMapAssets = (args: UseMapAssetsArgs) => {
     }
 
     const checkIsActivityAvailable = (assets: AssetsListRecord) => {
-        if (mapAssetData.find(item => item.assetsCode === assets.assetsCode)) {
+        if (assetsActivityData.find(item => item.assetsCode === assets.assetsCode)) {
             return true;
         }
         return false;

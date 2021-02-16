@@ -16,9 +16,15 @@ export const useAssetActivityData = (): AssetActivityRecord[] => {
             employee: '1002 Joseph Carrigan'
         },
         {
-            assetsCode: 'SP-WM-07',
+            assetsCode: 'SP-WM-2007',
             status: 'time record',
             location: '1005 Payson Utah',
+            employee: '1002 Joseph Carrigan'
+        },
+        {
+            assetsCode: 'SP-DRH-1118',
+            status: 'time record',
+            location: '',
             employee: '1002 Joseph Carrigan'
         }
     ] as AssetActivityRecord[]; 
