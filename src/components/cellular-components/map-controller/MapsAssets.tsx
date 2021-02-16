@@ -43,7 +43,7 @@ const MapsAssets = (props: MapAssetsProps) => {
                                 <AssetListTemplate showActivity={binding.checkIsActivityAvailable(assets)} assets={assets} />
                             </TouchableOpacity>
                         }
-                        postHeader={<View><Text>Active Assets {assetsListData.length}</Text></View>}
+                        postHeader={<View><Text>Active Assets {binding.activeAssetsCount()}</Text></View>}
                         sortables={{
                             code: { title: 'Code', sort: (a: AssetsListRecord, b: AssetsListRecord) => (a.assetsCode > b.assetsCode ? -1 : 1) },
                             firstName: { title: 'First', sort: (a: AssetsListRecord, b: AssetsListRecord) => (a.assetsFirstName > b.assetsFirstName ? -1 : 1) },
@@ -61,6 +61,15 @@ type UseMapAssetsArgs = {
 }
 
 const useMapAssets = (args: UseMapAssetsArgs) => {
+
+    const activeAssetsCount = () => {
+        let activityCounter = 0
+        assetsListData.forEach(assets => {
+            if(checkIsActivityAvailable(assets)) activityCounter++ ;
+        })
+        return activityCounter;
+    }
+
     const checkActivityDetails = (assets: AssetsListRecord) => {
         if (checkIsActivityAvailable(assets) && checkLocationAvailable(assets)) {
             args.goToDetails();
@@ -83,6 +92,7 @@ const useMapAssets = (args: UseMapAssetsArgs) => {
     return {
         checkIsActivityAvailable,
         checkActivityDetails,
+        activeAssetsCount
     }
 }
 

@@ -9,8 +9,6 @@ const CardView = styled.View`
     padding: 10px;
     border-radius: 4px;
     box-shadow: 0 1px 4px #cccccc;
-    shadow-color: grey;
-    shadow-opacity: 0.8;
    
 `;
 const Row = styled.View`     
