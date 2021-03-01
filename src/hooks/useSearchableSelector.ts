@@ -35,7 +35,7 @@ export const useWithSearchableSelector = <T>(args: UseSearchableSelectorArgs<T>)
             pages.first();
         }
     }
-
+    console.log(newItems)
     return {
         items: newItems,
         searchBinding,

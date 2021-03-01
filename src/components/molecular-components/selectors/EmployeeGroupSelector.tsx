@@ -29,6 +29,9 @@ const Title = styled.div`
     margin-left: 35px;
     color: ${Styles.color.green};
     font-size: 14px;
+    :hover {
+        cursor: pointer;
+    }
 
 `;
 
@@ -54,32 +57,21 @@ type employeeGroupSelectorProps = {
 }
 
 
-let count = 0;
 const EmployeeGroupSelector = (props: employeeGroupSelectorProps) => {
-
-
-    const[counter, setCounter]= React.useState(0);
-
-    // React.useEffect(()=> {
-    //     console.log('sortedGroup', sortedGroup)
-    // },[sortedGroup])
     const binding = useEmployeeGroupSelector({
         employeeGroup: props.employeeGroup,
         numberOfItems: props.size,
         pageSize: 10,     
     });
 
-    // console.log('employee group',props.employeeGroup);
-        return (
+    return (
         <Container>
-            {counter}
-
             <SearchableSelector
                 title={'Employee Group'}
-                searchBinding={binding.searchBinding}
-                pageIndexes={binding.pageIndexes}
+                searchBinding={binding.selector.searchBinding}
+                pageIndexes={binding.selector.pageIndexes}
                 slaves={props.slaves}
-                items={binding.items}
+                items={binding.sortedGroup}
                 filters={
                     <FilterContainer>
                         <TopArrowWrapper color={'#A7AFB2'} position={-22}>
@@ -87,28 +79,24 @@ const EmployeeGroupSelector = (props: employeeGroupSelectorProps) => {
                         </TopArrowWrapper>
                     </FilterContainer>
                 }
-
                 header={
                     <>
-                    
                         <Checkbox 
                             isChecked={props.master.state}
                             onClick={props.master.toggle}
                         />
                         <HSpacer size={8} />
                         <FontAwesomeIcon icon={faCheck} color={Styles.color.green} />
-                    
-                         
-                        <Title onClick={() => {binding.sortedGroupByName()}}>Employee Groups </Title> 
+                        <Title onClick={() => binding.sort()}>Employee Groups </Title> 
                     </>
                 } 
                 // renderRow={(args: any) => (
-                     renderRow={(args: RenderRowArgs<EmployeeGroup>) => (
+                renderRow={(args: RenderRowArgs<EmployeeGroup>) => (
                     <DepartmentRow key={args.index}>
-                        <CheckBox 
+                        {/* <CheckBox 
                             isChecked={args.slaves!.slave(args.items[args.index].id)}
                             onClick={() => args.slaves!.toggleSlave(args.items[args.index].id)}
-                        />
+                        /> */}
                       
                         <GroupName>
                             {/* {args.items.name} */}
@@ -117,7 +105,7 @@ const EmployeeGroupSelector = (props: employeeGroupSelectorProps) => {
                     </DepartmentRow>
                 )} 
                 pagerBinding={{
-                    ...binding.pagerBinding,
+                    ...binding.selector.pagerBinding,
                     showGoToEnd: true,
                     pagesShowing: 6
                 }}
@@ -132,38 +120,36 @@ type UseemployeeGroupSelectorArgs = {
     pageSize: number
 }
 
+
 const useEmployeeGroupSelector = (args: UseemployeeGroupSelectorArgs) => {
-
+    console.log('init', args.employeeGroup);
     const [sortedGroup, setSortedGroup] = React.useState(args.employeeGroup);
-    const searchFor = (searchValue: string, item: EmployeeGroup): boolean => {
-        return (
-            item.name.toLowerCase().includes(searchValue.toLowerCase())          
-        );
-    }
- 
-    let order = true;
-    const sortedGroupByName = () => {  
-        // setCounter(count++);
-        order = !order;      
-        console.log('order of sorting', order)
-        const sort = order ? args.employeeGroup : args.employeeGroup.reverse()
-        //API response will always be in sorted order, so reverse() will work for sor
-        //  const sort = employeeGroup.sort((a,b) => order ? a.name > b.name : a.name < b.name);
-     
-         setSortedGroup(sort);
+    
+    const sort = () => {
+        
+        const unsorted = [...sortedGroup];
+        let sorted: EmployeeGroup[] = unsorted.reverse();
 
+        // for (let i = sortedGroup.length-1; i >= 0; i--) {
+        //     reversed.push(sortedGroup[i])
+        // }
+        console.log('norm', sortedGroup);
+        console.log('sort', sorted);
+        setSortedGroup(sorted);
     }
+    // console.log(count);
+
+    console.log('what will show in ui', sortedGroup);
 
     const searchableSelector = useWithSearchableSelector<EmployeeGroup>({
-        items: sortedGroup,       
+        items: sortedGroup, 
         initPageSize: args.pageSize,
-        searchFor,      
+        searchFor: (searchValue: string, item: EmployeeGroup): boolean => true,
     });
-
-
     return {
-        ...searchableSelector, 
-        sortedGroupByName,
+        selector: searchableSelector, 
+        sort,
+        sortedGroup,
     
     };
 }

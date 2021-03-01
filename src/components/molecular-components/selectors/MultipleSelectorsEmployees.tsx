@@ -36,13 +36,18 @@ let divisions: Division[] = [
 
 let employeeGroup: EmployeeGroup[] = [
     {
-    id:0,
-    name: 'Cement Crew',
-},
-{
-    id:1,
-    name: 'Framing Crew',
-}];
+        id: 3,
+        name: 'Charlie Crew',
+    },
+    {
+        id: 2,
+        name: 'Bravo Crew',
+    },
+    {
+        id: 1,
+        name: 'Alpha Crew',
+    },
+];
 
 let tags: Tag[] = [
     {
@@ -117,12 +122,12 @@ const MultipleSelectorsEmployees = () => {
             </TaglessDropDownSelector>
             <TagElement>Division</TagElement>
             <TaglessDropDownSelector >
-            <DivisionSelector
-                divisions={divisions} 
-                size={10}
-                slaves={departmentSlaves}
-                master={divisionMaster}
-            />
+                <DivisionSelector
+                    divisions={divisions} 
+                    size={10}
+                    slaves={departmentSlaves}
+                    master={divisionMaster}
+                />
             </TaglessDropDownSelector>
             <TagElement>Department</TagElement>
             <TaglessDropDownSelector >

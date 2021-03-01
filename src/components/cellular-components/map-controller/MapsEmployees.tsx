@@ -122,9 +122,7 @@ const MapsEmployees = (props: MapsEmployeesProps) => {
                                 setDropdownIsOpenTo(false)
                             }}
                         >
-                            <>
                             <MultipleSelectorsEmployees/>
-                        </>
                         </Popup>
                     </Dropdown>
                 )} 
