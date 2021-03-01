@@ -56,6 +56,7 @@ const FormName = styled.View`
     // change to active color when link is put in.  
     color: ${(props: { theme: CompTheme }) => props.theme.colors.text}; 
 `;
+FormName.defaultProps = DEFAULT_THEME;
 
 const Time = styled.View`
 `;

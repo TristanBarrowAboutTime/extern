@@ -63,7 +63,8 @@ const AssetsActivity = (props: AssetsActivityProps) => {
 
                 const shouldRenderRow: boolean = (
                     employee.toLowerCase().includes(value) ||
-                    status.toLowerCase().includes(value)
+                    status.toLowerCase().includes(value) ||
+                    location.toLowerCase().includes(value)
                 );
 
                 if (shouldRenderRow) {

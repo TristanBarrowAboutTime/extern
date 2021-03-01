@@ -3,7 +3,20 @@ import styled from 'styled-components/native';
 import { useEmployeeHistoryData } from '../../../hooks/loadable-data/live-maps/controller/employees/useEmployeeHistoryData';
 
 type CompTheme = {
-    
+    colors: {
+        active: string
+        error: string
+    }
+
+}
+
+const DEFAULT_THEME = {
+    theme: {
+        colors: {
+            active: 'green',
+            error: 'red',
+        }
+    }
 }
 
 const STRINGS = {
@@ -23,12 +36,15 @@ const Container = styled.View`
 `;
 type TimeStyle = {
     isClockedIn: boolean
+    theme: CompTheme
 }
 
 const Time = styled.Text`
-    color: ${(props: TimeStyle) => props.isClockedIn ? '#79A949' : '#9B3E38'};
+    color: ${(props: TimeStyle) => props.isClockedIn ? props.theme.colors.error : props.theme.colors.active};
     font-weight: 600;
 `;
+
+Time.defaultProps = DEFAULT_THEME;
 
 const Cords = styled.View`
     display: flex;

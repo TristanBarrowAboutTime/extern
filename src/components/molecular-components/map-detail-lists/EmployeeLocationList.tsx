@@ -12,6 +12,18 @@ export type CompTheme = {
     }
 
 }
+const DEFAULT_THEME = {
+    theme: {
+        colors: {
+            active: 'green',
+            error: 'red',
+            text: 'black',
+        },
+        components: {
+            cardShadow: '0 1px 4px #cccccc'
+        }
+    }
+}
 
 const Container = styled.View`
     width: auto;
@@ -20,6 +32,7 @@ const Container = styled.View`
     border-radius: 4px;
     box-shadow: ${(props: { theme: CompTheme }) => props.theme.components.cardShadow};
 `;
+Container.defaultProps = DEFAULT_THEME;
 
 const Time = styled.View`
     display: flex;
@@ -39,6 +52,7 @@ const TimeIn = styled.View`
     align-items: center;
     padding-right: 20px;
 `;
+TimeIn.defaultProps = DEFAULT_THEME;
 
 const TimeOut = styled.View`
     color: ${(props: { theme: CompTheme }) => props.theme.colors.error};
@@ -46,6 +60,7 @@ const TimeOut = styled.View`
     flex-direction: row;
 
 `;
+TimeOut.defaultProps = DEFAULT_THEME;
 
 const Location = styled.View`
     display: flex;

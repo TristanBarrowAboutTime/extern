@@ -15,19 +15,20 @@ import Popup from '../popout-menu/Popup';
 import MultipleSelectorsEmployees from '../../molecular-components/selectors/MultipleSelectorsEmployees';
 
 type CompTheme = {
+    colors: {
+        active: string 
+        error:string  
+     }
 }
 
-
-type ColorStyle = {
-    isActive: boolean
+const DEFAULT_THEME = {
     theme: {
         colors: {
-            active: string
-            error: string
-        }
+            active: 'green',         
+            error:'red'
+        },
     }
 }
-
 const Container = styled.View`
 
 `;
@@ -37,6 +38,10 @@ const Style1 = styled.View`
     padding: 20px 0;        
 `;
 
+type ColorStyle = {
+    isActive: boolean
+    theme: CompTheme
+}
 const ColoredDot = styled.View`
     height: 7px;
     width: 7px;
@@ -44,8 +49,9 @@ const ColoredDot = styled.View`
     background-color: ${(props: ColorStyle) => props.isActive ? props.theme.colors.active : props.theme.colors.error};
     margin-right: 4px; 
     margin-left: 18px;
-
 `;
+
+ColoredDot.defaultProps = DEFAULT_THEME;
 const ActiveEmployees = styled.View`
     display: flex;
     flex-direction: row;

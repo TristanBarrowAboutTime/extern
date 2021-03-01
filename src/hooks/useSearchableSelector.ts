@@ -21,7 +21,7 @@ export const useWithSearchableSelector = <T>(args: UseSearchableSelectorArgs<T>)
         });
 
         return tempItems;
-    }, [args, searchBar.value]);
+    }, [args, searchBar.value, args.items]);
 
     const pages = usePagination({
         numberOfItems: newItems.length,

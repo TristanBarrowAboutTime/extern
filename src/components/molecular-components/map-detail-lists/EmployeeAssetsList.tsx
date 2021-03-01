@@ -36,6 +36,7 @@ const CardView = styled.View`
     border-radius: 4px;
     box-shadow: ${(props: { theme: CompTheme }) => props.theme.components.cardShadow};
 `;
+CardView.defaultProps = DEFAULT_THEME;
 
 const Header = styled.View`
     display: flex;
