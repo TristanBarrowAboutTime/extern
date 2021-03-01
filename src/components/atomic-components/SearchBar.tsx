@@ -8,6 +8,7 @@ type ContainerStyleProps = {
 
 const Container = styled.div`
     margin: ${(props: ContainerStyleProps) => props.margin}px;
+    position: relative;
 `;
 
 type StyleProps = {
@@ -32,32 +33,30 @@ const SearchBarStyle = styled.input`
         outline: none;
         border: 1px solid ${Styles.color.green} !important;
     }
-
 `;
 
 export type SearchBarProps = {
-    value: string,
+    value: string,   
     onChange: (event: {target: {value: string}}) => void,
     includeChevron?: boolean
     width?: number
     margin?: number
 }
-
 const SearchBar = ({
-    value,
+    value, 
     onChange,
     width = 316,
     margin = 8
 }: SearchBarProps) => {
-    return (
-        <Container margin={margin}>
+      return (
+        <Container className='searchbar-container' margin={margin}>    
             <SearchBarStyle
                 placeholder='Search'
                 type='text' 
                 value={value} 
                 onChange={onChange} 
                 width={width}
-            />
+            />          
         </Container>
     )
 }

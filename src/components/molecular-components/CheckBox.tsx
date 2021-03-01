@@ -42,7 +42,7 @@ const Box = styled.div`
 
 
 type CheckboxProps = {
-    isChecked: boolean
+    isChecked?: boolean
     onClick: () => void
 }
 

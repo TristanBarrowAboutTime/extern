@@ -10,7 +10,10 @@ export const useClickClosableRef = (action: (e?: MouseEvent) => void) => {
         const handleClick = (e: MouseEvent) => {
             // You may have forgot to pass the ref to the jsx element if 
             // 'contains' doesn't exist.
+
+          
             if (ref.current.contains(e.target as Node)) return;
+           
             action(e);
         }
         document.addEventListener('click', handleClick, { capture: true });

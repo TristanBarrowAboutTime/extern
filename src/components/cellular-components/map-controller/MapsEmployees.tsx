@@ -8,13 +8,15 @@ import EmployeeDetails from './EmployeeDetails';
 import { TouchableOpacity } from 'react-native';
 import { MapControllerActions } from '../../../pages/MapsPage';
 import { MapEmployeeStatus } from '../../atomic-components/UserImage';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { useState } from 'react';
+import Popup from '../popout-menu/Popup';
+import MultipleSelectorsEmployees from '../../molecular-components/selectors/MultipleSelectorsEmployees';
 
 type CompTheme = {
 }
 
-
-
-const Container = styled.View``;
 
 type ColorStyle = {
     isActive: boolean
@@ -25,6 +27,15 @@ type ColorStyle = {
         }
     }
 }
+
+const Container = styled.View`
+
+`;
+
+const Style1 = styled.View`
+    text-align: center;
+    padding: 20px 0;        
+`;
 
 const ColoredDot = styled.View`
     height: 7px;
@@ -39,6 +50,20 @@ const ActiveEmployees = styled.View`
     display: flex;
     flex-direction: row;
     align-items: center;
+`;
+const Dropdown = styled.View`
+position: absolute;
+`;
+
+const IconContainer = styled.View`
+    position: relative;
+    margin-bottom: 20px;
+    padding-right: 10px;
+    padding-top: 6px;
+    z-index:10;
+    :hover {
+        cursor: pointer;
+    }
 `;
 
 ColoredDot.defaultProps = {
@@ -68,13 +93,34 @@ const tmpEmployee = {
     lastName: 'Barrow',
     status: MapEmployeeStatus.CLOCKED_IN,
     userImage: null
-
 }
 
 const MapsEmployees = (props: MapsEmployeesProps) => {
     const employeeData = useMapEmployeesData();
+    const [dropdownIsOpen, setDropdownIsOpenTo] = useState(false);
     return (
         <Container>
+            <IconContainer> 
+                <span className = "dropdown" style={{right: '30px', top: '-35px', position: 'absolute' }} onClick={() => setDropdownIsOpenTo(!dropdownIsOpen)}>
+                <FontAwesomeIcon               
+                    icon={!dropdownIsOpen ? faChevronDown : faChevronUp}                                   
+                />
+                </span> 
+                {dropdownIsOpen && (
+                    <Dropdown >
+                        <Popup 
+                            close={(e) => {
+                                e?.stopPropagation();
+                                setDropdownIsOpenTo(false)
+                            }}
+                        >
+                            <>
+                            <MultipleSelectorsEmployees/>
+                        </>
+                        </Popup>
+                    </Dropdown>
+                )} 
+            </IconContainer> 
             {props.isShowingDetails ? (
                 <EmployeeDetails 
                     searchValue={props.searchValue}

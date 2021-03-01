@@ -13,7 +13,7 @@ import { Folders } from '../../../../types/Folders';
 let employees: Employee[] = [];
 
 for (let i = 0; i < 105; i++) {
-    employees.push({id: i, code: `00${i}`, fullName: `Bob Boberto the ${i}th`});
+    employees.push({id: i, code: `00${i}`, name: `Bob Boberto the ${i}th`});
 }
 
 const ButtonRow = styled.div`

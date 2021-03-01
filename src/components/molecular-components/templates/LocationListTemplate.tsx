@@ -19,10 +19,10 @@ type CompTheme = {
 const DEFAULT_THEME = {
     theme: {
         colors: {
-            error: 'red',
+            error: '#9B3E38',
             subTitle: '#525252',
             normalIcon: '#5A5A5A',
-            locationPin: 'red'
+            locationPin: '#9B3E38'
         }
     } as CompTheme
 }

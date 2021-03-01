@@ -8,7 +8,33 @@ export type LocationMapControllerData = {
 }
 
 export const useMapLocationsData = () => {
-    return [] as LocationMapControllerData[]; 
+    return [
+        {
+            locationCode: 1345,
+            locationFirstName: 'Erda',
+            locationLastName: 'Water',
+            jobAddress: '8740 UT-36, Lake Point, UT 84074'
+        },
+        {
+            locationCode: 1447,
+            locationFirstName: 'Toelle',
+            locationLastName: 'Water',
+            jobAddress: '1531 N Main St, Tooele, UT 84074'
+        },
+        {
+            locationCode: 8765,
+            locationFirstName: 'Jordan',
+            locationLastName: 'Water',
+            jobAddress: '8740 UT-36, Lake Point, UT 84074'
+        },
+        {
+            locationCode: 667,
+            locationFirstName: 'Valley',
+            locationLastName: 'Water',
+            jobAddress: '8740 UT-36, Lake Point, UT 84074'
+        },
+        
+    ] as LocationMapControllerData[]; 
 }
 
 // only use if you need to use MapEmployeeData in a class component. 
