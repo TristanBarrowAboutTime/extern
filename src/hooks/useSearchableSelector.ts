@@ -39,6 +39,7 @@ export const useWithSearchableSelector = <T>(args: UseSearchableSelectorArgs<T>)
     return {
         items: newItems,
         searchBinding,
+        setValue: searchBar.setValue,
         searchValue: searchBar.value,
         pages,
         page: pages.page,

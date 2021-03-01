@@ -55,7 +55,7 @@ type SearchableSelectorProps<T> = {
 function SearchableSelector<T>(props: SearchableSelectorProps<T>) {
     const toggler = useToggler(false);
     return (
-        <Container>
+        <Container className='innerdropdown-container'>
             <Title>{props.title}</Title>
             <SearchBar {...props.searchBinding} />
             <Header>
@@ -71,12 +71,13 @@ function SearchableSelector<T>(props: SearchableSelectorProps<T>) {
                 })}
             </div>
             <PagingBar {...props.pagerBinding}/> 
-            {!!props.filters && <IconContainer>
+            {/* {!!props.filters && <IconContainer> <span className = "dropdown" style={{right: '10px',top: '5px', position: 'absolute' }}>
                 <FontAwesomeIcon 
                     onClick={toggler.toggle}
                     icon={toggler.toggleState ? faChevronUp : faChevronDown}
                 />
-            </IconContainer>}
+                </span>
+            </IconContainer>} */}
             {!!props.filters && toggler.toggleState && props.filters}
         </Container>
     );

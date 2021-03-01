@@ -9,9 +9,9 @@ import CheckBox from '../CheckBox';
 import { useWithSearchableSelector } from '../../../hooks/useSearchableSelector';
 import SearchableSelector, { RenderRowArgs } from './SearchableSelector';
 import TopArrowWrapper from '../../frames/TopArrowWrapper';
-import MultipleSelectors from './MultipleSelectors';
+import MultipleSelectorsEmployees from './MultipleSelectorsEmployees';
 
-export type Employee = { id: number, code: string, fullName: string };
+export type Employee = { id: number, code: string, name: string };
 
 const Container = styled.div`
     padding: 4px;
@@ -73,11 +73,12 @@ const EmployeeSelector = (props: EmployeeSelectorProps) => {
                 searchBinding={binding.searchBinding}
                 pageIndexes={binding.pageIndexes}
                 slaves={props.slaves}
+                // sortable={}
                 items={binding.items}
                 filters={
                     <FilterContainer>
                         <TopArrowWrapper color={'#A7AFB2'} position={-22}>
-                            <MultipleSelectors />
+                            <MultipleSelectorsEmployees />
                         </TopArrowWrapper>
                     </FilterContainer>
                 }
@@ -94,16 +95,18 @@ const EmployeeSelector = (props: EmployeeSelectorProps) => {
                     </>
                 } 
                 renderRow={(args: RenderRowArgs<Employee>) => (
-                    <EmployeeRow key={args.index}>
+                    <>
+                     <EmployeeRow key={args.index}>
                         <CheckBox 
                             isChecked={args.slaves!.slave(args.items[args.index].id)}
                             onClick={() => args.slaves!.toggleSlave(args.items[args.index].id)}
                         />
                         <EmployeeCode>{args.items[args.index].code}</EmployeeCode>
                         <EmployeeFullName>
-                            {args.items[args.index].fullName}
+                            {args.items[args.index].name}
                         </EmployeeFullName>
                     </EmployeeRow>
+                    </>
                 )} 
                 pagerBinding={{
                     ...binding.pagerBinding,
@@ -122,13 +125,19 @@ type UseEmployeeSelectorArgs = {
 }
 
 const useEmployeeSelector = (args: UseEmployeeSelectorArgs) => {
-
+    const [sortedEmployee, setSortedEmployee] = React.useState(args.employees);
     const searchFor = (searchValue: string, item: Employee): boolean => {
         return (
             item.code.toLowerCase().includes(searchValue.toLowerCase()) || 
-            item.fullName.toLowerCase().includes(searchValue.toLowerCase())
+            item.name.toLowerCase().includes(searchValue.toLowerCase())
         );
     }
+
+    const sortedEmployeeByName = () => {        
+ 
+        const sort = sortedEmployee.sort((a,b) => a.name > b.name ? -1 : 1);
+   }
+
     
     const searchableSelector = useWithSearchableSelector<Employee>({
         items: args.employees,

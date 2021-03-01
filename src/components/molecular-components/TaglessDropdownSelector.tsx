@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { ReactChild, ReactChildren } from 'react';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
@@ -6,11 +6,17 @@ import styled from 'styled-components';
 import EmployeeSelector, { Employee } from './selectors/EmployeeSelector';
 import { useMasterCheckmark, useMultipleCheckmarkSlaves } from '../../hooks/component-hooks/molecular-components/useCheckmark';
 import Popup from '../cellular-components/popout-menu/Popup';
+import DepartmentSelector, { Department } from './selectors/DepartmentSelector';
+import DivisionSelector, { Division } from './selectors/DivisionSelector';
 
 let employees: Employee[] = [];
 
+let departments: Department[] = [];
+
+let divisions: Division[] = [];
+
 for (let i = 0; i < 105; i++) {
-    employees.push({id: i, code: `00${i}`, fullName: `Bob Boberto the ${i}th`});
+    employees.push({id: i, code: `00${i}`, name: `Joseph Peterson`});
 }
 
 const Container = styled.div`
@@ -27,12 +33,11 @@ const Bar = styled.div`
     align-items: center;
     padding-right: 10px;
     height: 31px;
-    width: 350px;
+    width: 330px;
     :hover {
         cursor: pointer;
     }
 `;
-
 
 const Dropdown = styled.div`
     position: absolute;
@@ -40,15 +45,20 @@ const Dropdown = styled.div`
     right: 363px;
 `;
 
-const TaglessDropDownSelector = () => {
+type DropDownSelectorProps = {
+    children: ReactChild | ReactChildren
+
+}
+
+const TaglessDropDownSelector = (props: DropDownSelectorProps) => {
     const [dropdownIsOpen, setDropdownIsOpenTo] = useState(false);
     const slaves = useMultipleCheckmarkSlaves(employees.length);
     const master = useMasterCheckmark(slaves);
     return (
-        <Container>
+        <Container className='container-bar'>
             <Bar onClick={() => setDropdownIsOpenTo(true)}>
                 <FontAwesomeIcon
-                    icon={dropdownIsOpen ? faChevronDown : faChevronUp} 
+                    icon={!dropdownIsOpen ? faChevronDown : faChevronUp} 
                 />
             </Bar>
             {dropdownIsOpen && (
@@ -59,12 +69,7 @@ const TaglessDropDownSelector = () => {
                             setDropdownIsOpenTo(false)
                         }}
                     >
-                        <EmployeeSelector 
-                            employees={employees} 
-                            size={10}
-                            slaves={slaves}
-                            master={master}
-                        />
+                        {props.children}
                     </Popup>
                 </Dropdown>
             )}

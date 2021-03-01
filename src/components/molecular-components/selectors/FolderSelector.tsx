@@ -68,7 +68,7 @@ const useFolderSelector = (args: UseFolderSelectorArgs) => {
     const searchFor = (searchValue: string, item: string): boolean => {
         return item.toLowerCase().includes(searchValue.toLowerCase());
     }
-    
+      
     const searchableSelector = useWithSearchableSelector<string>({
         items: args.folders,
         initPageSize: args.pageSize,

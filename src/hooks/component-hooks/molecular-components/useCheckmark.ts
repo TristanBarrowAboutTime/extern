@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { useWithSearchBar } from '../atomic-components/useSearchBar';
 
 type Slaves = {
     setAllSlaves: (master: boolean) => void
@@ -19,6 +20,8 @@ export const useMasterCheckmark = (slaves: Slaves, init: boolean = false) => {
 }
 
 export const useMultipleCheckmarkSlaves = (numberOfSlaves: number, init: boolean = false) => {
+    
+    const searchBar = useWithSearchBar();
     const [checkmarkSlaves, setSlaveArrayTo] = useState(
         Array<Boolean>(numberOfSlaves).fill(init)
     );
@@ -28,8 +31,10 @@ export const useMultipleCheckmarkSlaves = (numberOfSlaves: number, init: boolean
     }, [checkmarkSlaves.length, setSlaveArrayTo]);
 
     const toggleSlave = useCallback((slaveIndex: number) => {
+        console.log('searchbar set value', slaveIndex);
         let arr = [...checkmarkSlaves];
         arr[slaveIndex] = !checkmarkSlaves[slaveIndex]
+        searchBar.setValue('roshni')
         setSlaveArrayTo(arr);
     }, [checkmarkSlaves, setSlaveArrayTo]);
     

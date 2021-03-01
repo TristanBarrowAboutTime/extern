@@ -2,9 +2,6 @@ import * as React from 'react';
 import { View } from 'react-native';
 import UserImage, { MapEmployeeStatus } from '../../atomic-components/UserImage';
 import styled from 'styled-components/native';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faGlobe } from '@fortawesome/free-solid-svg-icons';
-
 
 const Container = styled.View`
     display: flex;
