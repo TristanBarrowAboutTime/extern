@@ -55,7 +55,7 @@ type SearchableSelectorProps<T> = {
 function SearchableSelector<T>(props: SearchableSelectorProps<T>) {
     const toggler = useToggler(false);
     return (
-        <Container>
+        <Container className='innerdropdown-container'>
             <Title>{props.title}</Title>
             <SearchBar {...props.searchBinding} />
             <Header>

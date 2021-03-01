@@ -42,6 +42,8 @@ type ColorStyle = {
     isActive: boolean
     theme: CompTheme
 }
+
+
 const ColoredDot = styled.View`
     height: 7px;
     width: 7px;
