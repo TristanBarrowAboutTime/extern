@@ -6,7 +6,6 @@ import Modal from '../../molecular-components/Modal';
 import { ButtonType } from '../../../types/ButtonType';
 import { useWithPopoutMenu } from '../../../hooks/component-hooks/molecular-components/usePopoutMenu';
 import NormalButtonRow from './button-groups/NormalButtonRow';
-import NormalGrid from '../grid/NormalGrid';
 import { Folders } from '../../../types/Folders';
 import NormalFolderViewPopout from './NormalFolderViewPopout';
 
@@ -61,21 +60,6 @@ const FolderView = (props: FolderViewProps) => {
                     folders={props.folders}
                 />
             </Header>
-            <NormalGrid 
-                filterValue={binding.searchValue} 
-                popoutMenu={binding.popoutMenu} 
-                popoutContent={
-                    <NormalFolderViewPopout 
-                        selectedRow={binding.selectedRow}
-                        run={() => {}}
-                        edit={() => {}}
-                        share={() => {}}
-                        duplicate={() => {}}
-                        deleteReport={() => {}}
-                    />
-                }
-                selectRow={(rowIndex: number) => binding.selectRow(rowIndex)}
-            />
             {binding.showModal && <Modal 
                 title={'Confirm Delete'}
                 content={'Are you sure you want to delete this report?'}

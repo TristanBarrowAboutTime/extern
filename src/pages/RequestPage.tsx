@@ -7,38 +7,10 @@ const Container = styled.div`
     width: 500px;
 `;
 
-type ListThingy = {
-    id: string
-    name: string
-}
-
-const list: ListThingy[] = [
-    {
-        id: 'A',
-        name: 'bobA'
-    },
-    {
-        id: 'B',
-        name: 'bobB'
-    },
-    {
-        id: 'C',
-        name: 'bobC'
-    },
-    {
-        id: 'D',
-        name: 'bobD'
-    },
-];
-
-
 const RequestPage = () => {
     return (
         <Container>
-            {/* <SortableList 
-                data={list}
-                template={(item: ListThingy) => <Text>{item.name}</Text>}
-            /> */}
+
         </Container>
     );
 

@@ -5,6 +5,7 @@ import MapsPage from '../pages/MapsPage';
 import styled from 'styled-components';
 import RequestPage from '../pages/RequestPage';
 import AssetListTemplate from '../components/molecular-components/templates/AssetListTemplate';
+import GridPage from '../pages/GridPage';
 
 const NavBar = styled.div`
   display: flex;
@@ -32,19 +33,21 @@ function AppRouter() {
       <NavBar>
         <NavLink to="/map-page">Map Page</NavLink>
         <NavLink to="/custom-reports">Custom Reports</NavLink>
-        <NavLink to="/req">Request</NavLink>
-   
+        <NavLink to="/grid">Grid Page</NavLink>
       </NavBar>
       
       <Switch>
         <Route path='/custom-reports'>
           <CustomReportsPage />
         </Route>
+        <Route path='/grid'>
+          <GridPage />
+        </Route>
         <Route path='/map-page'>
             <MapsPage /> 
         </Route>
         <Route path='/req'>
-            <RequestPage /> 
+            <RequestPage />
         </Route>   
         <Route path='/temp-page'>
           <AssetListTemplate
