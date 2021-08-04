@@ -58,7 +58,7 @@ The authoritative book on Continuous Delivery is named "Continuous Delivery" by 
 
 ## Robert C. Martin's Advice (April / May)
 
-Tristan,
+<!-- Tristan,
 
 I just saw this in my inbox.  (My email is a challenge at best).  
 
@@ -75,7 +75,7 @@ that has a value system closer to your own.  Once you have found it, leave your
 current employment on good terms.  Write a complimentary resignation letter
 saying what a wonderful experience and great opportunity it was to work there. 
 
-Robert C. Martin
+Robert C. Martin -->
 
 ## what about these "Conditions"?
 
