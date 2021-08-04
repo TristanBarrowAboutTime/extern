@@ -19,7 +19,7 @@ The Enigma Machine
 Punch Cards ... software didn't really get going til about 1960.
 
 #### 2001
-Snowbird Utah - [https://agilemanifesto.org/](The Agile Manifesto)
+Snowbird Utah - [The Agile Manifesto](https://agilemanifesto.org/)
 
 - The body of knowledge not really exist
 - Until 17 men with a cumulative about 510 years of experience got together
@@ -33,7 +33,7 @@ Who is Martin Fowler?
 
 What does he say is CI?
 
-[https://youtu.be/aoMfbgF2D_4?t=570](Who is doing Continuous Integration)
+[How is Continuous Integration defined by the inventors of it?](https://youtu.be/aoMfbgF2D_4?t=570)
 
 “Does everyone on your team commit to the main line trunk at least once a day?”
 
