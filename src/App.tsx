@@ -1,11 +1,11 @@
 import React from 'react';
-import AppRouter from './components/AppRouter';
+import ListExplorer from './components/FolderExplorer';
 import WorkMaxThemeProvider from './providers/WorkMaxThemeProvider';
 
 function App() {
   return (
       <WorkMaxThemeProvider>
-        <AppRouter />
+        <ListExplorer />
       </WorkMaxThemeProvider>
   );
 }
