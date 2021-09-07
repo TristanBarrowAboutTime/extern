@@ -435,5 +435,53 @@ of a GQL Type as input and output a Feature Collection by mapping over the array
 and calling a function in the `feature` folder iteratively.
 
 
-#### GQL Types and Queries
+#### GQL and Types and Queries
+
+##### GQL Types
+
+Gql types look like this: 
+
+```graphql
+type Human implements Character {
+  id: ID!
+  name: String!
+  friends: [Character]
+  appearsIn: [Episode]!
+  starships: [Starship]
+  totalCredits: Int
+}
+```
+
+##### TypeScript Types
+The same TypeScript Type looks like this:
+
+```ts
+type Human extends Character = {
+  id: string | number
+  name: string
+  friends: Character[]
+  appearsIn: Episode[]
+  starships: Starship[]
+  totalCredits: number
+}
+```
+
+##### GQL Query
+
+The query for the above object might look like:
+
+```ts
+const query = `query {
+    humans: {
+        items {
+            id
+            name
+            friends
+            appearsIn
+            starships
+            totalCredits
+        }
+    }
+}`
+```
 

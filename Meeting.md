@@ -77,6 +77,6 @@ saying what a wonderful experience and great opportunity it was to work there.
 
 Robert C. Martin
 
-## what about these "Conditions"?
+## what about these "requests"?
 
 Really I just want to be in an environment that follows the council of the current body of knowledge.

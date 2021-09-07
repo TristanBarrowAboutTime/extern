@@ -74,7 +74,7 @@ const EditFolderRow = ({
     onCancel,
 }: EditFolderRowProps) => {
 
-    const binding = useEditFolderRow({
+    const editFolderRow = useEditFolderRow({
         onAccept,
         onCancel,
         initial,
@@ -84,11 +84,11 @@ const EditFolderRow = ({
         <Container>
             {showError && <ErrorText>{errorText}</ErrorText>}
             <InputContainer>
-                <Input {...binding.bindInput}></Input>
+                <Input {...editFolderRow.bindInput}></Input>
                 <Spacer />
                 <HoverableIcon>
                     <FontAwesomeIcon 
-                        onClick={binding.accept} 
+                        onClick={editFolderRow.accept} 
                         size={'1x'} 
                         icon={faCheckCircle} 
                         color={Styles.color.green}
@@ -97,7 +97,7 @@ const EditFolderRow = ({
                 <Spacer />
                 <HoverableIcon>
                     <FontAwesomeIcon 
-                        onClick={binding.cancel} 
+                        onClick={editFolderRow.cancel} 
                         size={'1x'} 
                         icon={faTimesCircle} 
                         color={Styles.color.gray.x_dark}

@@ -36,7 +36,7 @@ const Card = (props: CardProps) => {
         <Container>
             {props.children}
         </Container>
-    )
+    );
 }
 
 export default Card; 

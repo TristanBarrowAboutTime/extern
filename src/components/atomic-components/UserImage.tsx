@@ -110,7 +110,7 @@ const UserImage = ({
                     </ImageContainer>
                 )}
             </ProfileContainer>
-           {shouldShowStatus &&  <Status color={statusColor} />}
+            {shouldShowStatus &&  <Status color={statusColor} />}
         </Container>
     );
 

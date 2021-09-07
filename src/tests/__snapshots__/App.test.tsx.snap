@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders learn react link 1`] = `
+<div>
+  <div
+    class="sc-gIvpCV jPFlzG"
+  >
+    <a
+      class="sc-euEtjk jqgCQI"
+      href="/custom-reports"
+    >
+      Custom Reports
+    </a>
+    <a
+      class="sc-euEtjk jqgCQI"
+      href="/devices"
+    >
+      Devices
+    </a>
+    <a
+      class="sc-euEtjk jqgCQI"
+      href="/grid"
+    >
+      Grid Page
+    </a>
+  </div>
+</div>
+`;

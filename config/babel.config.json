@@ -5,10 +5,7 @@
                 [
                     "babel-plugin-styled-components",
                     {   
-                        "ssr": false, 
-                        "displayName": true, 
-                        "fileName": true,
-                        "namespace": "sc"
+                        "ssr": false
                     }
                 ]
             ]
